@@ -4,7 +4,7 @@ WORKDIR /usr/src/app
 
 COPY package*.json .npmrc /usr/src/app/
 
-RUN npm ci --prefer-offline --no-audit --ignore-scripts
+RUN npm ci
 
 COPY . /usr/src/app
 
