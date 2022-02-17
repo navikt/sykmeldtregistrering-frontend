@@ -8,8 +8,7 @@ RUN npm ci --prefer-offline --no-audit --ignore-scripts
 
 COPY . /usr/src/app
 
-RUN npm run build && \
-    npm prune --production --offline
+RUN npm run build
 
 FROM node:16-alpine AS runtime
 
