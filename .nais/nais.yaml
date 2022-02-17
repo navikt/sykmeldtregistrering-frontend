@@ -1,0 +1,50 @@
+apiVersion: "nais.io/v1alpha1"
+kind: "Application"
+metadata:
+  name: "poa-arbeidssokerregistrering"
+  namespace: "paw"
+  labels:
+    "team": "paw"
+spec:
+  image: {{image}}
+  port: 3000
+  liveness:
+    path: "{{basePath}}/api/isalive"
+    initialDelay: 3
+  readiness:
+    path: "{{basePath}}/api/isready"
+    initialDelay: 3
+  replicas:
+    min: 2
+    max: 2
+    cpuThresholdPercentage: 50
+  prometheus:
+    enabled: false
+  limits:
+    cpu: "200m"
+    memory: "256Mi"
+  requests:
+    cpu: "200m"
+    memory: "256Mi"
+  env:
+    - name: SELF_URL
+      value: {{ingress}}
+    - name: DEKORATOR_URL
+      value: {{dekorator.url}}
+    - name: DEKORATOR_ENV
+      value: {{dekorator.env}}
+    - name: LOGINSERVICE_URL
+      value: {{loginservice.url}}
+    - name: LOGINSERVICE_WELL_KNOWN_URL
+      value: {{loginservice.wellKnown}}
+    - name: AMPLITUDE_API_KEY
+      value: {{amplitude.apiKey}}
+  ingresses:
+    - {{ingress}}
+  idporten:
+    enabled: true
+    sidecar:
+      enabled: true
+      level: Level4
+  tokenx:
+    enabled: true

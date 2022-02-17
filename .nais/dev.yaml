@@ -1,0 +1,10 @@
+ingress: https://arbeid.dev.nav.no/arbeid/registrering-ny
+basePath: /arbeid/registrering-ny
+dekorator:
+  url: https://dekoratoren.dev.nav.no/
+  env: dev
+loginservice:
+  url: https://loginservice.dev.nav.no/login
+  wellKnown: https://navtestb2c.b2clogin.com/navtestb2c.onmicrosoft.com/v2.0/.well-known/openid-configuration?p=B2C_1A_idporten_ver1
+amplitude:
+  apiKey: 2f190e67f31d7e4719c5ff048ad3d3e6
