@@ -9,10 +9,10 @@ spec:
   image: {{image}}
   port: 3000
   liveness:
-    path: "/api/isalive"
+    path: "{{basePath}}/api/isalive"
     initialDelay: 3
   readiness:
-    path: "/api/isready"
+    path: "{{basePath}}/api/isready"
     initialDelay: 3
   replicas:
     min: 2
