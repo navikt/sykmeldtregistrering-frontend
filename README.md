@@ -10,6 +10,7 @@ Bruk Node.js 16
 - innstaller avhengigheter `npm i`
 - kjør tester `npm t`
 - start utviklingsserver `npm run dev`
+- åpne nettleseren på `http://localhost:3000/arbeid/registrering-ny`
 
 ## Ekstern dokumentasjon
 - [Next.js](https://nextjs.org/)
