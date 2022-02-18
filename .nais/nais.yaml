@@ -39,8 +39,6 @@ spec:
       value: {{loginservice.wellKnown}}
     - name: AMPLITUDE_API_KEY
       value: {{amplitude.apiKey}}
-    - name: NEXT_PUBLIC_API_MOCKING
-      value: {{mocking.enabled}}
   ingresses:
     - {{ingress}}
   idporten:
