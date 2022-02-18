@@ -1,7 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  swcMinify: false
+  swcMinify: false,
+  basePath: '/arbeid/registrering-ny'
 }
 
 module.exports = nextConfig
