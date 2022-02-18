@@ -5,7 +5,7 @@ const nextConfig = {
   i18n: {
     locales: ['nb', 'en', 'nn', 'pl'],
     defaultLocale: 'nb',
-    localeDetection: true,
+    localeDetection: false,
   },
   trailingSlash: true,
 }
