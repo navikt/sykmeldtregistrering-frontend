@@ -1,7 +1,12 @@
 import '../styles/globals.css'
 import NextApp, { AppContext, AppProps } from "next/app";
+import { onLanguageSelect } from "@navikt/nav-dekoratoren-moduler";
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps, router }: AppProps) {
+  onLanguageSelect(({ locale }) =>
+      router.push(router.asPath, router.asPath, { locale })
+  );
+
   return <Component {...pageProps} />
 }
 

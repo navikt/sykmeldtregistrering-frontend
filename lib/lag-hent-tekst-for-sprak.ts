@@ -1,4 +1,4 @@
-import { Sprak } from '../contexts/sprak';
+export type Sprak = 'nb' | 'en' | 'nn' | 'pl';
 
 export type Tekster<T> = { nb: Record<string, T> } & Partial<{ [P in Exclude<Sprak, 'nb'>]: Record<string, T> }>;
 

@@ -22,7 +22,7 @@ describe('Hent tekst for språk', () => {
     });
 
     test('Fallbacker til norsk ved ikke-eksisterende språk', () => {
-        const tekst = lagHentTekstForSprak(TEKSTER, 'pl' as any);
+        const tekst = lagHentTekstForSprak(TEKSTER, 'pl');
         expect(tekst('test1')).toBe('Test1 norsk');
     });
 });
