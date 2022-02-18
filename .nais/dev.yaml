@@ -9,4 +9,4 @@ loginservice:
 amplitude:
   apiKey: 2f190e67f31d7e4719c5ff048ad3d3e6
 mocking:
-  enabled: true
+  enabled: "true"
