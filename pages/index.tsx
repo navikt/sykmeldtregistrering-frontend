@@ -25,9 +25,7 @@ const Home: NextPage = (props) => {
             <Head>
                 <title>{tekst('metaTittel')}</title>
                 <meta name="description" content={tekst('metaDescription')} />
-                <link rel="icon" href="/favicon.ico" />
             </Head>
-
             <Heading spacing size="xlarge" level="2">
                 {tekst('tittel')}
             </Heading>

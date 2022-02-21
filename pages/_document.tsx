@@ -60,6 +60,7 @@ export default class MyDocument extends Document<DecoratorComponents> {
             <Html lang={locale ?? 'nb'}>
                 <Head>
                     <Styles />
+                    <link rel="icon" href="/favicon.ico" />
                 </Head>
                 <body>
                     <Scripts />
