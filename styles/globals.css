@@ -16,3 +16,13 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.mbs {
+  margin-bottom: 1rem;
+}
+.mbm {
+  margin-bottom: 1.5rem;
+}
+.mbl {
+  margin-bottom: 2rem;
+}

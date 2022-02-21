@@ -1,0 +1,8 @@
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--navds-global-color-blue-50);
+    border-bottom: 4px solid var(--navds-global-color-blue-200);
+    height: 4rem;
+}
