@@ -1,4 +1,4 @@
-import lagHentTekstForSprak from '../lib/lag-hent-tekst-for-sprak';
+import lagHentTekstForSprak, {erStottetSprak} from '../lib/lag-hent-tekst-for-sprak';
 
 describe('Hent tekst for språk', () => {
     const TEKSTER = {
@@ -26,3 +26,17 @@ describe('Hent tekst for språk', () => {
         expect(tekst('test1')).toBe('Test1 norsk');
     });
 });
+
+describe('Er støttet språk', () => {
+    test('Returnerer true for støttet språk', () => {
+        expect(erStottetSprak('nb')).toBe(true);
+    });
+
+    test('Returnerer false for ikke støttet språk', () => {
+        expect(erStottetSprak('de')).toBe(false);
+    });
+
+    test('Returnerer false for undefined', () => {
+        expect(erStottetSprak()).toBe(false);
+    });
+})
