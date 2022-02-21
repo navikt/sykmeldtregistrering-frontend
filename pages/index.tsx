@@ -1,8 +1,8 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { Heading } from '@navikt/ds-react';
-import lagHentTekstForSprak, { Sprak, Tekster } from '../lib/lag-hent-tekst-for-sprak';
-import { useRouter } from 'next/router';
+import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
+import useSprak from '../hooks/useSprak';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -18,8 +18,7 @@ const TEKSTER: Tekster<string> = {
 };
 
 const Home: NextPage = (props) => {
-    const { locale } = useRouter();
-    const tekst = lagHentTekstForSprak(TEKSTER, locale as Sprak);
+    const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
 
     return (
         <div>
