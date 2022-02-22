@@ -4,26 +4,36 @@ import DinSituasjon from '../../components/din-situasjon/din-situasjon';
 import styles from '../../styles/skjema.module.css';
 
 interface SkjemaProps {
-  side: number;
+    side: number;
 }
 
+type SiderMap = { [key: number]: JSX.Element };
+
+const siderMap: SiderMap = {
+    0: <DinSituasjon />,
+};
+
+const hentKomponentForSide = (side: number) => {
+    return siderMap[side] || siderMap[0];
+};
+
 const Skjema: NextPage<SkjemaProps> = (props) => {
+    const { side } = props;
+
     return (
         <>
             <Header />
-            <main className={styles.main}>
-              <DinSituasjon />
-            </main>
+            <main className={styles.main}>{hentKomponentForSide(side)}</main>
         </>
     );
 };
 
 Skjema.getInitialProps = async (context: any) => {
-  const {side} = context.query;
+    const { side } = context.query;
 
-  return {
-    side: Number(side)
-  }
-}
+    return {
+        side: Number(side),
+    };
+};
 
 export default Skjema;
