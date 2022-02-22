@@ -3,7 +3,11 @@ import Header from '../../components/header';
 import DinSituasjon from '../../components/din-situasjon/din-situasjon';
 import styles from '../../styles/skjema.module.css';
 
-const Skjema: NextPage = () => {
+interface SkjemaProps {
+  side: number;
+}
+
+const Skjema: NextPage<SkjemaProps> = (props) => {
     return (
         <>
             <Header />
@@ -13,5 +17,13 @@ const Skjema: NextPage = () => {
         </>
     );
 };
+
+Skjema.getInitialProps = async (context: any) => {
+  const {side} = context.query;
+
+  return {
+    side: Number(side)
+  }
+}
 
 export default Skjema;
