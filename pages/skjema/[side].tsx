@@ -1,11 +1,11 @@
 import { NextPage } from 'next';
 import Header from '../../components/header';
-import DinSituasjon from '../../components/din-situasjon/din-situasjon';
+import DinSituasjon from '../../components/skjema/din-situasjon';
 import styles from '../../styles/skjema.module.css';
-import SisteJobb from '../../components/siste-jobb/siste-jobb';
-import Utdanning from '../../components/utdanning/utdanning';
-import GodkjentUtdanning from '../../components/utdanning/godkjent';
-import BestattUtdanning from '../../components/utdanning/bestatt';
+import SisteJobb from '../../components/skjema/siste-jobb/siste-jobb';
+import Utdanning from '../../components/skjema/utdanning';
+import GodkjentUtdanning from '../../components/skjema/utdanning-godkjent';
+import BestattUtdanning from '../../components/skjema/utdanning-bestatt';
 
 interface SkjemaProps {
     side: number;

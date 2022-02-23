@@ -1,6 +1,6 @@
 import { Accordion, BodyShort, Button, Heading } from '@navikt/ds-react';
-import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
-import useSprak from '../../hooks/useSprak';
+import lagHentTekstForSprak, { Tekster } from '../../../lib/lag-hent-tekst-for-sprak';
+import useSprak from '../../../hooks/useSprak';
 import { useState } from 'react';
 import StillingsSok from './stillings-sok';
 
