@@ -20,7 +20,13 @@ const TEKSTER: Tekster<string> = {
         harJobb: 'Har jobb og ønsker å fortsette i den jobben jeg er i',
     },
 };
-const DinSituasjon = () => {
+
+interface SkjemaKomponentProps {
+    onChange: (val: string) => void;
+}
+
+const DinSituasjon = (props: SkjemaKomponentProps) => {
+
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
 
     const valg = [
@@ -43,8 +49,9 @@ const DinSituasjon = () => {
             </Heading>
 
             <form className="mbl">
-                <RadioGruppe valg={valg} />
+                <RadioGruppe valg={valg} onSelect={props.onChange} />
             </form>
+
             <Neste />
             <Avbryt />
         </>

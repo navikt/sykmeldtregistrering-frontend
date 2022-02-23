@@ -5,17 +5,20 @@ interface RadioGruppeProps {
         tekst: string;
         value: string;
     }[];
+    onSelect(val: string): void;
 }
 
 const RadioGruppe = (props: RadioGruppeProps) => {
-    const { valg } = props;
+    const { valg, onSelect } = props;
     return (
-        <RadioGroup legend="">
+        <RadioGroup legend="" onChange={onSelect}>
             <Grid>
                 {valg.map((alternativ) => {
                     return (
                         <Cell key={alternativ.value} xs={12} md={6}>
-                            <Radio value={alternativ.value}>{alternativ.tekst}</Radio>
+                            <Radio value={alternativ.value}>
+                                {alternativ.tekst}
+                            </Radio>
                         </Cell>
                     );
                 })}
@@ -23,6 +26,5 @@ const RadioGruppe = (props: RadioGruppeProps) => {
         </RadioGroup>
     );
 };
-
 
 export default RadioGruppe;

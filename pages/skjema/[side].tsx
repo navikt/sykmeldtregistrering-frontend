@@ -8,6 +8,7 @@ import GodkjentUtdanning from '../../components/skjema/utdanning-godkjent';
 import BestattUtdanning from '../../components/skjema/utdanning-bestatt';
 import Helseproblemer from '../../components/skjema/helseproblemer';
 import AndreProblemer from '../../components/skjema/andre-problemer';
+import {Reducer, useReducer} from 'react';
 
 interface SkjemaProps {
     side: number;
@@ -15,22 +16,44 @@ interface SkjemaProps {
 
 type SiderMap = { [key: number]: JSX.Element };
 
-const siderMap: SiderMap = {
-    0: <DinSituasjon />,
-    1: <SisteJobb />,
-    2: <Utdanning />,
-    3: <GodkjentUtdanning />,
-    4: <BestattUtdanning />,
-    5: <Helseproblemer />,
-    6: <AndreProblemer />
-};
+interface SkjemaState{
+    dinSituasjon?: string;
+}
 
-const hentKomponentForSide = (side: number) => {
-    return siderMap[side] || siderMap[0];
-};
+type SkjemaActions = { type: 'dinSituasjon', value: string };
+type SkjemaReducer = Reducer<SkjemaState, SkjemaActions>;
 
+function skjemaReducer(state: SkjemaState, action: SkjemaActions): SkjemaState {
+    switch (action.type) {
+        case 'dinSituasjon': {
+            return {
+                ...state,
+                dinSituasjon: action.value
+            }
+        }
+    }
+
+    return state;
+}
+
+const initializer = (skjemaState: SkjemaState) => skjemaState;
 const Skjema: NextPage<SkjemaProps> = (props) => {
     const { side } = props;
+    const [skjemaState, dispatch] = useReducer<SkjemaReducer, SkjemaState>(skjemaReducer, {}, initializer);
+
+    const siderMap: SiderMap = {
+        0: <DinSituasjon onChange={value => dispatch({ type: 'dinSituasjon', value })} />,
+        1: <SisteJobb />,
+        2: <Utdanning />,
+        3: <GodkjentUtdanning />,
+        4: <BestattUtdanning />,
+        5: <Helseproblemer />,
+        6: <AndreProblemer />
+    };
+
+    const hentKomponentForSide = (side: number) => {
+        return siderMap[side] || siderMap[0];
+    };
 
     return (
         <>
