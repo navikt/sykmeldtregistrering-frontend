@@ -2,7 +2,8 @@ import lagHentTekstForSprak, {Tekster} from '../../lib/lag-hent-tekst-for-sprak'
 import useSprak from '../../hooks/useSprak';
 import {Alert, Button, Heading, Link} from '@navikt/ds-react';
 import RadioGruppe from '../radio-gruppe/radio-gruppe';
-import skjemaStyles from '../../styles/skjema.module.css';
+import Neste from './neste-knapp';
+import Avbryt from './avbryt-lenke';
 
 const TEKSTER: Tekster<string> = {
   nb: {
@@ -34,13 +35,8 @@ const Helseproblemer = () => {
 
         <Alert variant="info" inline={true}>{tekst('fortellMer')}</Alert>
 
-        <div className={skjemaStyles.taCenter}>
-          <Button>Neste</Button>
-        </div>
-
-        <div className={skjemaStyles.taCenter}>
-          <Link href="#">Avbryt registreringen</Link>
-        </div>
+        <Neste/>
+        <Avbryt/>
       </>
   );
 }

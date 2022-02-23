@@ -1,8 +1,9 @@
 import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
-import { Button, Cell, Grid, Heading, Link, Radio, RadioGroup } from '@navikt/ds-react';
+import { Heading } from '@navikt/ds-react';
 import useSprak from '../../hooks/useSprak';
-import skjemaStyles from '../../styles/skjema.module.css';
 import RadioGruppe from '../radio-gruppe/radio-gruppe';
+import Neste from './neste-knapp';
+import Avbryt from './avbryt-lenke';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -44,14 +45,8 @@ const DinSituasjon = () => {
             <form className="mbl">
                 <RadioGruppe valg={valg} />
             </form>
-
-            <div className={skjemaStyles.taCenter}>
-                <Button>Neste</Button>
-            </div>
-
-            <div className={skjemaStyles.taCenter}>
-                <Link href="#">Avbryt registreringen</Link>
-            </div>
+            <Neste />
+            <Avbryt />
         </>
     );
 };
