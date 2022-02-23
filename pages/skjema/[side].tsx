@@ -3,6 +3,7 @@ import Header from '../../components/header';
 import DinSituasjon from '../../components/din-situasjon/din-situasjon';
 import styles from '../../styles/skjema.module.css';
 import SisteJobb from '../../components/siste-jobb/siste-jobb';
+import Utdanning from '../../components/utdanning/utdanning';
 
 interface SkjemaProps {
     side: number;
@@ -12,7 +13,8 @@ type SiderMap = { [key: number]: JSX.Element };
 
 const siderMap: SiderMap = {
     0: <DinSituasjon />,
-    1: <SisteJobb />
+    1: <SisteJobb />,
+    2: <Utdanning />
 };
 
 const hentKomponentForSide = (side: number) => {
