@@ -5,7 +5,7 @@ interface RadioGruppeProps {
         tekst: string;
         value: string;
     }[];
-    onSelect(val: string): void;
+    onSelect?: (val: string) => void;
 }
 
 const RadioGruppe = (props: RadioGruppeProps) => {

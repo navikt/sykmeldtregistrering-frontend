@@ -23,10 +23,12 @@ const TEKSTER: Tekster<string> = {
 
 interface SkjemaKomponentProps {
     onChange: (val: string) => void;
+    harVerdi: boolean;
+    onNeste: () => void;
 }
 
 const DinSituasjon = (props: SkjemaKomponentProps) => {
-
+    const {onChange, harVerdi, onNeste} = props;
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
 
     const valg = [
@@ -49,10 +51,10 @@ const DinSituasjon = (props: SkjemaKomponentProps) => {
             </Heading>
 
             <form className="mbl">
-                <RadioGruppe valg={valg} onSelect={props.onChange} />
+                <RadioGruppe valg={valg} onSelect={onChange} />
             </form>
 
-            <Neste />
+            <Neste isValid={harVerdi} onClick={onNeste}/>
             <Avbryt />
         </>
     );

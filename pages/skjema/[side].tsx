@@ -1,4 +1,5 @@
 import { NextPage } from 'next';
+import { useRouter } from 'next/router';
 import Header from '../../components/header';
 import DinSituasjon from '../../components/skjema/din-situasjon';
 import styles from '../../styles/skjema.module.css';
@@ -8,7 +9,7 @@ import GodkjentUtdanning from '../../components/skjema/utdanning-godkjent';
 import BestattUtdanning from '../../components/skjema/utdanning-bestatt';
 import Helseproblemer from '../../components/skjema/helseproblemer';
 import AndreProblemer from '../../components/skjema/andre-problemer';
-import {Reducer, useReducer} from 'react';
+import { Reducer, useReducer } from 'react';
 
 interface SkjemaProps {
     side: number;
@@ -16,11 +17,11 @@ interface SkjemaProps {
 
 type SiderMap = { [key: number]: JSX.Element };
 
-interface SkjemaState{
+interface SkjemaState {
     dinSituasjon?: string;
 }
 
-type SkjemaActions = { type: 'dinSituasjon', value: string };
+type SkjemaActions = { type: 'dinSituasjon'; value: string };
 type SkjemaReducer = Reducer<SkjemaState, SkjemaActions>;
 
 function skjemaReducer(state: SkjemaState, action: SkjemaActions): SkjemaState {
@@ -28,8 +29,8 @@ function skjemaReducer(state: SkjemaState, action: SkjemaActions): SkjemaState {
         case 'dinSituasjon': {
             return {
                 ...state,
-                dinSituasjon: action.value
-            }
+                dinSituasjon: action.value,
+            };
         }
     }
 
@@ -37,18 +38,39 @@ function skjemaReducer(state: SkjemaState, action: SkjemaActions): SkjemaState {
 }
 
 const initializer = (skjemaState: SkjemaState) => skjemaState;
+
+const hentNesteSideForDinSituasjon = (valgtSituasjon?: string) => {
+    switch (valgtSituasjon) {
+        case 'aldriJobbet': {
+            return 4;
+        }
+        case 'usikker': {
+            return 3;
+        }
+        default:
+            return 1;
+    }
+};
+
 const Skjema: NextPage<SkjemaProps> = (props) => {
     const { side } = props;
+    const router = useRouter();
     const [skjemaState, dispatch] = useReducer<SkjemaReducer, SkjemaState>(skjemaReducer, {}, initializer);
 
     const siderMap: SiderMap = {
-        0: <DinSituasjon onChange={value => dispatch({ type: 'dinSituasjon', value })} />,
+        0: (
+            <DinSituasjon
+                onChange={(value) => dispatch({ type: 'dinSituasjon', value })}
+                harVerdi={Boolean(skjemaState.dinSituasjon)}
+                onNeste={() => router.push(`/skjema/${hentNesteSideForDinSituasjon(skjemaState.dinSituasjon)}`)}
+            />
+        ),
         1: <SisteJobb />,
         2: <Utdanning />,
         3: <GodkjentUtdanning />,
         4: <BestattUtdanning />,
         5: <Helseproblemer />,
-        6: <AndreProblemer />
+        6: <AndreProblemer />,
     };
 
     const hentKomponentForSide = (side: number) => {
