@@ -5,6 +5,7 @@ import styles from '../../styles/skjema.module.css';
 import SisteJobb from '../../components/siste-jobb/siste-jobb';
 import Utdanning from '../../components/utdanning/utdanning';
 import GodkjentUtdanning from '../../components/utdanning/godkjent';
+import BestattUtdanning from '../../components/utdanning/bestatt';
 
 interface SkjemaProps {
     side: number;
@@ -16,7 +17,8 @@ const siderMap: SiderMap = {
     0: <DinSituasjon />,
     1: <SisteJobb />,
     2: <Utdanning />,
-    3: <GodkjentUtdanning />
+    3: <GodkjentUtdanning />,
+    4: <BestattUtdanning />
 };
 
 const hentKomponentForSide = (side: number) => {
