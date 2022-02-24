@@ -59,7 +59,7 @@ const DinSituasjon = (props: SkjemaKomponentProps) => {
             </Heading>
 
             <form className="mbl">
-                <RadioGruppe valg={valg} onSelect={onChange} />
+                <RadioGruppe valg={valg} onSelect={onChange} valgt={valgt} />
             </form>
 
             <Neste isValid={!!valgt} onClick={onNeste} />
