@@ -4,6 +4,7 @@ import useSprak from '../../hooks/useSprak';
 import RadioGruppe from '../radio-gruppe/radio-gruppe';
 import Neste from './neste-knapp';
 import Avbryt from './avbryt-lenke';
+import {SkjemaKomponentProps} from "./skjema-felleskomponenter";
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -21,40 +22,34 @@ const TEKSTER: Tekster<string> = {
     },
 };
 
-interface SkjemaKomponentProps {
-    onChange: (val: string) => void;
-    harVerdi: boolean;
-    onNeste: () => void;
-}
-
-enum Jobbsituasjon {
-    MistetJobb = 'mistet',
-    SagtOpp = 'sagtOpp',
-    Deltid = 'deltid',
-    AldriJobbet = 'aldriJobbet',
-    VilBytteJobb = 'vilBytte',
-    IkkeJobbetSisteToAar = 'ikkeSisteToAar',
-    Permittert = 'permittert',
-    Usikker = 'usikker',
-    NettoppFullfortUtdanning = 'fullfortUtdanning',
-    HarJobb = 'harJobb',
+export enum Jobbsituasjon {
+    MISTETJOBB = 'mistet',
+    SAGTOPP = 'sagtOpp',
+    DELTID = 'deltid',
+    ALDRIJOBBET = 'aldriJobbet',
+    VILBYTTEJOBB = 'vilBytte',
+    IKKEJOBBETSISTETOAAR = 'ikkeSisteToAar',
+    PERMITTERT = 'permittert',
+    USIKKER = 'usikker',
+    NETTOPPFULLFORTUTDANNING = 'fullfortUtdanning',
+    HARJOBB = 'harJobb',
 }
 
 const DinSituasjon = (props: SkjemaKomponentProps) => {
-    const { onChange, harVerdi, onNeste } = props;
+    const { onChange, valgt, onNeste } = props;
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
 
     const valg = [
-        { tekst: tekst('mistet'), value: Jobbsituasjon.MistetJobb.valueOf() },
-        { tekst: tekst('sagtOpp'), value: Jobbsituasjon.SagtOpp.valueOf() },
-        { tekst: tekst('deltid'), value: Jobbsituasjon.Deltid.valueOf() },
-        { tekst: tekst('aldriJobbet'), value: Jobbsituasjon.AldriJobbet.valueOf() },
-        { tekst: tekst('vilBytte'), value: Jobbsituasjon.VilBytteJobb.valueOf() },
-        { tekst: tekst('ikkeSisteToAar'), value: Jobbsituasjon.IkkeJobbetSisteToAar.valueOf() },
-        { tekst: tekst('permittert'), value: Jobbsituasjon.Permittert.valueOf() },
-        { tekst: tekst('usikker'), value: Jobbsituasjon.Usikker.valueOf() },
-        { tekst: tekst('fullfortUtdanning'), value: Jobbsituasjon.NettoppFullfortUtdanning.valueOf() },
-        { tekst: tekst('harJobb'), value: Jobbsituasjon.HarJobb.valueOf() },
+        { tekst: tekst('mistet'), value: Jobbsituasjon.MISTETJOBB.valueOf() },
+        { tekst: tekst('sagtOpp'), value: Jobbsituasjon.SAGTOPP.valueOf() },
+        { tekst: tekst('deltid'), value: Jobbsituasjon.DELTID.valueOf() },
+        { tekst: tekst('aldriJobbet'), value: Jobbsituasjon.ALDRIJOBBET.valueOf() },
+        { tekst: tekst('vilBytte'), value: Jobbsituasjon.VILBYTTEJOBB.valueOf() },
+        { tekst: tekst('ikkeSisteToAar'), value: Jobbsituasjon.IKKEJOBBETSISTETOAAR.valueOf() },
+        { tekst: tekst('permittert'), value: Jobbsituasjon.PERMITTERT.valueOf() },
+        { tekst: tekst('usikker'), value: Jobbsituasjon.USIKKER.valueOf() },
+        { tekst: tekst('fullfortUtdanning'), value: Jobbsituasjon.NETTOPPFULLFORTUTDANNING.valueOf() },
+        { tekst: tekst('harJobb'), value: Jobbsituasjon.HARJOBB.valueOf() },
     ];
 
     return (
@@ -67,11 +62,10 @@ const DinSituasjon = (props: SkjemaKomponentProps) => {
                 <RadioGruppe valg={valg} onSelect={onChange} />
             </form>
 
-            <Neste isValid={harVerdi} onClick={onNeste} />
+            <Neste isValid={!!valgt} onClick={onNeste} />
             <Avbryt />
         </>
     );
 };
 
 export default DinSituasjon;
-export { Jobbsituasjon };

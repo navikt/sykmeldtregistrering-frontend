@@ -6,12 +6,13 @@ interface RadioGruppeProps {
         value: string;
     }[];
     onSelect?: (val: string) => void;
+    valgt?: string
 }
 
 const RadioGruppe = (props: RadioGruppeProps) => {
-    const { valg, onSelect } = props;
+    const { valg, onSelect, valgt} = props;
     return (
-        <RadioGroup legend="" onChange={onSelect}>
+        <RadioGroup defaultValue={valgt} legend="" onChange={onSelect}>
             <Grid>
                 {valg.map((alternativ) => {
                     return (

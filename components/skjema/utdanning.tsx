@@ -4,6 +4,7 @@ import { Heading } from '@navikt/ds-react';
 import RadioGruppe from '../radio-gruppe/radio-gruppe';
 import Neste from './neste-knapp';
 import Avbryt from './avbryt-lenke';
+import {SkjemaKomponentProps} from "./skjema-felleskomponenter";
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -17,32 +18,27 @@ const TEKSTER: Tekster<string> = {
     },
 };
 
-interface SkjemaKomponentProps {
-    onChange: (val: string) => void;
-    harVerdi: boolean;
-    onNeste: () => void;
-}
 
-enum Utdanningsnivaa {
-    Ingen = 'ingen',
-    Grunnskole = 'grunnskole',
-    Vgs = 'vgs',
-    VgsFagbrev = 'vgsFagbrev',
-    Hoyere = 'hoyere',
-    HoyereOver5Aar = 'hoyere5',
+export enum Utdanningsnivaa {
+    INGEN = 'ingen',
+    GRUNNSKOLE = 'grunnskole',
+    VGS = 'vgs',
+    VGSFAGBREV = 'vgsFagbrev',
+    HOYERE = 'hoyere',
+    HOYEREOVER5AAR = 'hoyere5',
 }
 
 const Utdanning = (props: SkjemaKomponentProps)  => {
-    const { onChange, harVerdi, onNeste } = props;
+    const { onChange, valgt, onNeste } = props;
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
 
     const valg = [
-        { tekst: tekst('ingen'), value: Utdanningsnivaa.Ingen.valueOf() },
-        { tekst: tekst('grunnskole'), value: Utdanningsnivaa.Grunnskole.valueOf() },
-        { tekst: tekst('vgs'), value: Utdanningsnivaa.Vgs.valueOf() },
-        { tekst: tekst('vgsFagbrev'), value: Utdanningsnivaa.VgsFagbrev.valueOf() },
-        { tekst: tekst('hoyere'), value: Utdanningsnivaa.Hoyere.valueOf() },
-        { tekst: tekst('hoyere5'), value: Utdanningsnivaa.HoyereOver5Aar.valueOf() },
+        { tekst: tekst('ingen'), value: Utdanningsnivaa.INGEN.valueOf() },
+        { tekst: tekst('grunnskole'), value: Utdanningsnivaa.GRUNNSKOLE.valueOf() },
+        { tekst: tekst('vgs'), value: Utdanningsnivaa.VGS.valueOf() },
+        { tekst: tekst('vgsFagbrev'), value: Utdanningsnivaa.VGSFAGBREV.valueOf() },
+        { tekst: tekst('hoyere'), value: Utdanningsnivaa.HOYERE.valueOf() },
+        { tekst: tekst('hoyere5'), value: Utdanningsnivaa.HOYEREOVER5AAR.valueOf() },
     ];
 
     return (
@@ -52,14 +48,13 @@ const Utdanning = (props: SkjemaKomponentProps)  => {
             </Heading>
 
             <form className="mbl">
-                <RadioGruppe valg={valg}  onSelect={onChange} />
+                <RadioGruppe valg={valg}  onSelect={onChange} valgt={valgt} />
             </form>
 
-            <Neste isValid={harVerdi} onClick={onNeste}/>
+            <Neste isValid={!!valgt} onClick={onNeste}/>
             <Avbryt />
         </>
     );
 };
 
 export default Utdanning;
-export {Utdanningsnivaa};

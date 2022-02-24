@@ -54,14 +54,14 @@ function skjemaReducer(state: SkjemaState, action: SkjemaAction): SkjemaState {
 const initializer = (skjemaState: SkjemaState) => skjemaState;
 
 const hentNesteSideForDinSituasjon = (valgtSituasjon?: string) => {
-    if (valgtSituasjon === Jobbsituasjon.AldriJobbet.valueOf()) {
+    if (valgtSituasjon === Jobbsituasjon.ALDRIJOBBET.valueOf()) {
         return 2;
     }
     return 1;
 };
 
 const hentNesteSideForUtdanning = (valgtSituasjon?: string) => {
-    if (valgtSituasjon === Utdanningsnivaa.Ingen.valueOf()) {
+    if (valgtSituasjon === Utdanningsnivaa.INGEN.valueOf()) {
         return 5;
     }
     return 3;
@@ -76,7 +76,7 @@ const Skjema: NextPage<SkjemaProps> = (props) => {
         0: (
             <DinSituasjon
                 onChange={(value) => dispatch({ type: ActionType.DinSituasjon, value })}
-                harVerdi={Boolean(skjemaState.dinSituasjon)}
+                valgt={skjemaState.dinSituasjon}
                 onNeste={() => router.push(`/skjema/${hentNesteSideForDinSituasjon(skjemaState.dinSituasjon)}`)}
             />
         ),
@@ -84,7 +84,7 @@ const Skjema: NextPage<SkjemaProps> = (props) => {
         2: (
             <Utdanning
                 onChange={(value) => dispatch({ type: ActionType.Utdanning, value })}
-                harVerdi={Boolean(skjemaState.dinSituasjon)}
+                valgt={skjemaState.utdanning}
                 onNeste={() => router.push(`/skjema/${hentNesteSideForUtdanning(skjemaState.utdanning)}`)}
             />
         ),        3: <GodkjentUtdanning />,
