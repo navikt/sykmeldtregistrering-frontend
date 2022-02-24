@@ -4,7 +4,7 @@ import Header from '../../components/header';
 import DinSituasjon, { Jobbsituasjon } from '../../components/skjema/din-situasjon';
 import styles from '../../styles/skjema.module.css';
 import SisteJobb from '../../components/skjema/siste-jobb/siste-jobb';
-import Utdanning from '../../components/skjema/utdanning';
+import Utdanning, {Utdanningsnivaa} from '../../components/skjema/utdanning';
 import GodkjentUtdanning from '../../components/skjema/utdanning-godkjent';
 import BestattUtdanning from '../../components/skjema/utdanning-bestatt';
 import Helseproblemer from '../../components/skjema/helseproblemer';
@@ -20,6 +20,7 @@ type SiderMap = { [key: number]: JSX.Element };
 interface SkjemaState {
     dinSituasjon?: string;
     sisteJobb?: string;
+    utdanning?: string;
 }
 
 type SkjemaReducer = Reducer<SkjemaState, SkjemaAction>;
@@ -27,7 +28,8 @@ type SkjemaAction = { type: ActionType; value: string };
 
 enum ActionType {
     DinSituasjon,
-    SisteJobb
+    SisteJobb,
+    Utdanning
 }
 
 function skjemaReducer(state: SkjemaState, action: SkjemaAction): SkjemaState {
@@ -36,6 +38,12 @@ function skjemaReducer(state: SkjemaState, action: SkjemaAction): SkjemaState {
             return {
                 ...state,
                 dinSituasjon: action.value,
+            };
+        }
+        case ActionType.Utdanning: {
+            return {
+                ...state,
+                utdanning: action.value,
             };
         }
     }
@@ -52,6 +60,13 @@ const hentNesteSideForDinSituasjon = (valgtSituasjon?: string) => {
     return 1;
 };
 
+const hentNesteSideForUtdanning = (valgtSituasjon?: string) => {
+    if (valgtSituasjon === Utdanningsnivaa.Ingen.valueOf()) {
+        return 5;
+    }
+    return 3;
+};
+
 const Skjema: NextPage<SkjemaProps> = (props) => {
     const { side } = props;
     const router = useRouter();
@@ -66,8 +81,13 @@ const Skjema: NextPage<SkjemaProps> = (props) => {
             />
         ),
         1: <SisteJobb/>,
-        2: <Utdanning />,
-        3: <GodkjentUtdanning />,
+        2: (
+            <Utdanning
+                onChange={(value) => dispatch({ type: ActionType.Utdanning, value })}
+                harVerdi={Boolean(skjemaState.dinSituasjon)}
+                onNeste={() => router.push(`/skjema/${hentNesteSideForUtdanning(skjemaState.utdanning)}`)}
+            />
+        ),        3: <GodkjentUtdanning />,
         4: <BestattUtdanning />,
         5: <Helseproblemer />,
         6: <AndreProblemer />,

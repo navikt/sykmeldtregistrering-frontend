@@ -17,16 +17,32 @@ const TEKSTER: Tekster<string> = {
     },
 };
 
-const Utdanning = () => {
+interface SkjemaKomponentProps {
+    onChange: (val: string) => void;
+    harVerdi: boolean;
+    onNeste: () => void;
+}
+
+enum Utdanningsnivaa {
+    Ingen = 'ingen',
+    Grunnskole = 'grunnskole',
+    Vgs = 'vgs',
+    VgsFagbrev = 'vgsFagbrev',
+    Hoyere = 'hoyere',
+    HoyereOver5Aar = 'hoyere5',
+}
+
+const Utdanning = (props: SkjemaKomponentProps)  => {
+    const { onChange, harVerdi, onNeste } = props;
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
 
     const valg = [
-        { tekst: tekst('ingen'), value: 'ingen' },
-        { tekst: tekst('grunnskole'), value: 'grunnskole' },
-        { tekst: tekst('vgs'), value: 'vgs' },
-        { tekst: tekst('vgsFagbrev'), value: 'vgsFagbrev' },
-        { tekst: tekst('hoyere'), value: 'hoyere' },
-        { tekst: tekst('hoyere5'), value: 'hoyere5' },
+        { tekst: tekst('ingen'), value: Utdanningsnivaa.Ingen.valueOf() },
+        { tekst: tekst('grunnskole'), value: Utdanningsnivaa.Grunnskole.valueOf() },
+        { tekst: tekst('vgs'), value: Utdanningsnivaa.Vgs.valueOf() },
+        { tekst: tekst('vgsFagbrev'), value: Utdanningsnivaa.VgsFagbrev.valueOf() },
+        { tekst: tekst('hoyere'), value: Utdanningsnivaa.Hoyere.valueOf() },
+        { tekst: tekst('hoyere5'), value: Utdanningsnivaa.HoyereOver5Aar.valueOf() },
     ];
 
     return (
@@ -36,13 +52,14 @@ const Utdanning = () => {
             </Heading>
 
             <form className="mbl">
-                <RadioGruppe valg={valg} />
+                <RadioGruppe valg={valg}  onSelect={onChange} />
             </form>
 
-            <Neste />
+            <Neste isValid={harVerdi} onClick={onNeste}/>
             <Avbryt />
         </>
     );
 };
 
 export default Utdanning;
+export {Utdanningsnivaa};
