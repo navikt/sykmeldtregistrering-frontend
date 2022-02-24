@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import Header from '../../components/header';
-import DinSituasjon from '../../components/skjema/din-situasjon';
+import DinSituasjon, { Jobbsituasjon } from '../../components/skjema/din-situasjon';
 import styles from '../../styles/skjema.module.css';
 import SisteJobb from '../../components/skjema/siste-jobb/siste-jobb';
 import Utdanning from '../../components/skjema/utdanning';
@@ -19,14 +19,20 @@ type SiderMap = { [key: number]: JSX.Element };
 
 interface SkjemaState {
     dinSituasjon?: string;
+    sisteJobb?: string;
 }
 
-type SkjemaActions = { type: 'dinSituasjon'; value: string };
-type SkjemaReducer = Reducer<SkjemaState, SkjemaActions>;
+type SkjemaReducer = Reducer<SkjemaState, SkjemaAction>;
+type SkjemaAction = { type: ActionType; value: string };
 
-function skjemaReducer(state: SkjemaState, action: SkjemaActions): SkjemaState {
+enum ActionType {
+    DinSituasjon,
+    SisteJobb
+}
+
+function skjemaReducer(state: SkjemaState, action: SkjemaAction): SkjemaState {
     switch (action.type) {
-        case 'dinSituasjon': {
+        case ActionType.DinSituasjon: {
             return {
                 ...state,
                 dinSituasjon: action.value,
@@ -40,16 +46,10 @@ function skjemaReducer(state: SkjemaState, action: SkjemaActions): SkjemaState {
 const initializer = (skjemaState: SkjemaState) => skjemaState;
 
 const hentNesteSideForDinSituasjon = (valgtSituasjon?: string) => {
-    switch (valgtSituasjon) {
-        case 'aldriJobbet': {
-            return 4;
-        }
-        case 'usikker': {
-            return 3;
-        }
-        default:
-            return 1;
+    if (valgtSituasjon === Jobbsituasjon.AldriJobbet.valueOf()) {
+        return 2;
     }
+    return 1;
 };
 
 const Skjema: NextPage<SkjemaProps> = (props) => {
@@ -60,12 +60,12 @@ const Skjema: NextPage<SkjemaProps> = (props) => {
     const siderMap: SiderMap = {
         0: (
             <DinSituasjon
-                onChange={(value) => dispatch({ type: 'dinSituasjon', value })}
+                onChange={(value) => dispatch({ type: ActionType.DinSituasjon, value })}
                 harVerdi={Boolean(skjemaState.dinSituasjon)}
                 onNeste={() => router.push(`/skjema/${hentNesteSideForDinSituasjon(skjemaState.dinSituasjon)}`)}
             />
         ),
-        1: <SisteJobb />,
+        1: <SisteJobb/>,
         2: <Utdanning />,
         3: <GodkjentUtdanning />,
         4: <BestattUtdanning />,

@@ -27,21 +27,34 @@ interface SkjemaKomponentProps {
     onNeste: () => void;
 }
 
+enum Jobbsituasjon {
+    MistetJobb = 'mistet',
+    SagtOpp = 'sagtOpp',
+    Deltid = 'deltid',
+    AldriJobbet = 'aldriJobbet',
+    VilBytteJobb = 'vilBytte',
+    IkkeJobbetSisteToAar = 'ikkeSisteToAar',
+    Permittert = 'permittert',
+    Usikker = 'usikker',
+    NettoppFullfortUtdanning = 'fullfortUtdanning',
+    HarJobb = 'harJobb',
+}
+
 const DinSituasjon = (props: SkjemaKomponentProps) => {
-    const {onChange, harVerdi, onNeste} = props;
+    const { onChange, harVerdi, onNeste } = props;
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
 
     const valg = [
-        { tekst: tekst('mistet'), value: 'mistet' },
-        { tekst: tekst('sagtOpp'), value: 'sagtOpp' },
-        { tekst: tekst('deltid'), value: 'deltid' },
-        { tekst: tekst('aldriJobbet'), value: 'aldriJobbet' },
-        { tekst: tekst('vilBytte'), value: 'vilBytte' },
-        { tekst: tekst('ikkeSisteToAar'), value: 'ikkeSisteToAar' },
-        { tekst: tekst('permittert'), value: 'permittert' },
-        { tekst: tekst('usikker'), value: 'usikker' },
-        { tekst: tekst('fullfortUtdanning'), value: 'fullfortUtdanning' },
-        { tekst: tekst('harJobb'), value: 'harJobb' },
+        { tekst: tekst('mistet'), value: Jobbsituasjon.MistetJobb.valueOf() },
+        { tekst: tekst('sagtOpp'), value: Jobbsituasjon.SagtOpp.valueOf() },
+        { tekst: tekst('deltid'), value: Jobbsituasjon.Deltid.valueOf() },
+        { tekst: tekst('aldriJobbet'), value: Jobbsituasjon.AldriJobbet.valueOf() },
+        { tekst: tekst('vilBytte'), value: Jobbsituasjon.VilBytteJobb.valueOf() },
+        { tekst: tekst('ikkeSisteToAar'), value: Jobbsituasjon.IkkeJobbetSisteToAar.valueOf() },
+        { tekst: tekst('permittert'), value: Jobbsituasjon.Permittert.valueOf() },
+        { tekst: tekst('usikker'), value: Jobbsituasjon.Usikker.valueOf() },
+        { tekst: tekst('fullfortUtdanning'), value: Jobbsituasjon.NettoppFullfortUtdanning.valueOf() },
+        { tekst: tekst('harJobb'), value: Jobbsituasjon.HarJobb.valueOf() },
     ];
 
     return (
@@ -54,10 +67,11 @@ const DinSituasjon = (props: SkjemaKomponentProps) => {
                 <RadioGruppe valg={valg} onSelect={onChange} />
             </form>
 
-            <Neste isValid={harVerdi} onClick={onNeste}/>
+            <Neste isValid={harVerdi} onClick={onNeste} />
             <Avbryt />
         </>
     );
 };
 
 export default DinSituasjon;
+export { Jobbsituasjon };
