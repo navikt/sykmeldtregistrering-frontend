@@ -37,8 +37,7 @@ const Helseproblemer = () => {
                 {tekst('fortellMer')}
             </Alert>
 
-            <Neste />
-            <Avbryt />
+
         </>
     );
 };

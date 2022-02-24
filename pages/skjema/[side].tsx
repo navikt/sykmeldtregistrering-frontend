@@ -10,6 +10,8 @@ import BestattUtdanning from '../../components/skjema/utdanning-bestatt';
 import Helseproblemer from '../../components/skjema/helseproblemer';
 import AndreProblemer from '../../components/skjema/andre-problemer';
 import { Reducer, useReducer } from 'react';
+import {Knapperad} from "../../components/skjema/knapperad";
+import Avbryt from "../../components/skjema/avbryt-lenke";
 
 interface SkjemaProps {
     side: number;
@@ -67,6 +69,8 @@ const hentNesteSideForUtdanning = (valgtSituasjon?: string) => {
     return 3;
 };
 
+
+
 const Skjema: NextPage<SkjemaProps> = (props) => {
     const { side } = props;
     const router = useRouter();
@@ -77,17 +81,17 @@ const Skjema: NextPage<SkjemaProps> = (props) => {
             <DinSituasjon
                 onChange={(value) => dispatch({ type: ActionType.DinSituasjon, value })}
                 valgt={skjemaState.dinSituasjon}
-                onNeste={() => router.push(`/skjema/${hentNesteSideForDinSituasjon(skjemaState.dinSituasjon)}`)}
             />
+
         ),
         1: <SisteJobb/>,
         2: (
             <Utdanning
                 onChange={(value) => dispatch({ type: ActionType.Utdanning, value })}
                 valgt={skjemaState.utdanning}
-                onNeste={() => router.push(`/skjema/${hentNesteSideForUtdanning(skjemaState.utdanning)}`)}
             />
-        ),        3: <GodkjentUtdanning />,
+        ),
+        3: <GodkjentUtdanning />,
         4: <BestattUtdanning />,
         5: <Helseproblemer />,
         6: <AndreProblemer />,
@@ -97,10 +101,18 @@ const Skjema: NextPage<SkjemaProps> = (props) => {
         return siderMap[side] || siderMap[0];
     };
 
+    const hentNesteSidenummer = (side: number) => {
+        if (side === 0) {return hentNesteSideForDinSituasjon(skjemaState.dinSituasjon)}
+        else if (side === 2) {return hentNesteSideForUtdanning(skjemaState.utdanning)}
+        else return side++;
+    }
+
     return (
         <>
             <Header />
             <main className={styles.main}>{hentKomponentForSide(side)}</main>
+            <Knapperad onNeste={() => router.push(`/skjema/${hentNesteSidenummer(side)}`)} skalViseForrigeKnapp={side !== 0} />
+            <Avbryt />
         </>
     );
 };

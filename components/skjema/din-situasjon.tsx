@@ -5,6 +5,7 @@ import RadioGruppe from '../radio-gruppe/radio-gruppe';
 import Neste from './neste-knapp';
 import Avbryt from './avbryt-lenke';
 import {SkjemaKomponentProps} from "./skjema-felleskomponenter";
+import {Knapperad} from "./knapperad";
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -36,7 +37,7 @@ export enum Jobbsituasjon {
 }
 
 const DinSituasjon = (props: SkjemaKomponentProps) => {
-    const { onChange, valgt, onNeste } = props;
+    const { onChange, valgt } = props;
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
 
     const valg = [
@@ -62,7 +63,6 @@ const DinSituasjon = (props: SkjemaKomponentProps) => {
                 <RadioGruppe valg={valg} onSelect={onChange} valgt={valgt} />
             </form>
 
-            <Neste isValid={!!valgt} onClick={onNeste} />
             <Avbryt />
         </>
     );

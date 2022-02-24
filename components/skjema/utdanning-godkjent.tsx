@@ -33,8 +33,6 @@ const GodkjentUtdanning = () => {
                 <RadioGruppe valg={valg} />
             </form>
 
-            <Neste />
-            <Avbryt />
         </>
     );
 };

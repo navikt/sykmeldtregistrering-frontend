@@ -31,8 +31,7 @@ const BestattUtdanning = () => {
                 <RadioGruppe valg={valg} />
             </form>
 
-            <Neste />
-            <Avbryt />
+
         </>
     );
 };

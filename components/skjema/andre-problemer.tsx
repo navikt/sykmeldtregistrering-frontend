@@ -38,8 +38,7 @@ const AndreProblemer = () => {
 
         <Alert variant="info" inline={true}>{tekst('fortellMer')}</Alert>
 
-        <Neste/>
-        <Avbryt/>
+
       </>
   );
 }

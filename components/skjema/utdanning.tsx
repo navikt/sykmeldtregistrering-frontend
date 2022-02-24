@@ -1,10 +1,12 @@
 import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../hooks/useSprak';
-import { Heading } from '@navikt/ds-react';
+import {Cell, Grid, Heading} from '@navikt/ds-react';
 import RadioGruppe from '../radio-gruppe/radio-gruppe';
 import Neste from './neste-knapp';
 import Avbryt from './avbryt-lenke';
 import {SkjemaKomponentProps} from "./skjema-felleskomponenter";
+import {TilbakeKnapp} from "./tilbake-knapp";
+import {Knapperad} from "./knapperad";
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -29,7 +31,7 @@ export enum Utdanningsnivaa {
 }
 
 const Utdanning = (props: SkjemaKomponentProps)  => {
-    const { onChange, valgt, onNeste } = props;
+    const { onChange, valgt} = props;
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
 
     const valg = [
@@ -51,8 +53,7 @@ const Utdanning = (props: SkjemaKomponentProps)  => {
                 <RadioGruppe valg={valg}  onSelect={onChange} valgt={valgt} />
             </form>
 
-            <Neste isValid={!!valgt} onClick={onNeste}/>
-            <Avbryt />
+
         </>
     );
 };
