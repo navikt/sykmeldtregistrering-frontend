@@ -192,7 +192,6 @@ const Skjema: NextPage<SkjemaProps> = props => {
     };
 
     const validerOgGaaTilNeste = () => {
-        console.log(skjemaState);
         if (!hentValgtAlternativForSide(side)) {
             settVisFeilmelding(true);
             return;
