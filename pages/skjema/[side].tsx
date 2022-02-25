@@ -33,6 +33,10 @@ interface SkjemaState {
     dinSituasjon?: string;
     sisteJobb?: string;
     utdanning?: string;
+    godkjentUtdanning?: string;
+    bestaattUtdanning?: string;
+    helseproblemer?: string;
+    andreProblemer?: string;
 }
 
 type SkjemaReducer = Reducer<SkjemaState, SkjemaAction>;
@@ -41,7 +45,11 @@ type SkjemaAction = { type: ActionType; value: string };
 enum ActionType {
     DinSituasjon,
     SisteJobb,
-    Utdanning
+    Utdanning,
+    GodkjentUtdanning,
+    BestaattUtdanning,
+    Helseproblemer,
+    AndreProblemer
 }
 
 function skjemaReducer(state: SkjemaState, action: SkjemaAction): SkjemaState {
@@ -56,6 +64,12 @@ function skjemaReducer(state: SkjemaState, action: SkjemaAction): SkjemaState {
             return {
                 ...state,
                 utdanning: action.value,
+            };
+        }
+        case ActionType.GodkjentUtdanning: {
+            return {
+                ...state,
+                godkjentUtdanning: action.value,
             };
         }
     }
@@ -82,10 +96,15 @@ const hentNesteSideForUtdanning = (valgtSituasjon?: string) => {
 
 const Skjema: NextPage<SkjemaProps> = (props) => {
     const hentValgtAlternativForSide = (side: number) => {
-        if (side === 0) {
-            return skjemaState.dinSituasjon
+        switch (side) {
+            case 0: return skjemaState.dinSituasjon
+            case 1: return skjemaState.sisteJobb
+            case 2: return skjemaState.utdanning
+            case 3: return skjemaState.godkjentUtdanning
+            case 4: return skjemaState.bestaattUtdanning
+            case 5: return skjemaState.helseproblemer
+            case 6: return skjemaState.andreProblemer
         }
-        return skjemaState.utdanning
     }
     const {side} = props;
     const router = useRouter();
@@ -116,7 +135,12 @@ const Skjema: NextPage<SkjemaProps> = (props) => {
                 valgt={skjemaState.utdanning}
             />
         ),
-        3: <GodkjentUtdanning/>,
+        3: (
+            <GodkjentUtdanning
+                onChange={(value) => dispatch({type: ActionType.GodkjentUtdanning, value})}
+                valgt={skjemaState.godkjentUtdanning}
+            />
+        ),
         4: <BestattUtdanning/>,
         5: <Helseproblemer/>,
         6: <AndreProblemer/>,
@@ -131,7 +155,7 @@ const Skjema: NextPage<SkjemaProps> = (props) => {
             return hentNesteSideForDinSituasjon(skjemaState.dinSituasjon)
         } else if (side === 2) {
             return hentNesteSideForUtdanning(skjemaState.utdanning)
-        } else return side++;
+        } else return ++side;
     }
 
     const validerOgGaaTilNeste = () => {
