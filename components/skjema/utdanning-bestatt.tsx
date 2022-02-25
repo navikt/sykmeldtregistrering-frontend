@@ -4,6 +4,7 @@ import { Heading } from '@navikt/ds-react';
 import RadioGruppe from '../radio-gruppe/radio-gruppe';
 import Neste from './neste-knapp';
 import Avbryt from './avbryt-lenke';
+import {SkjemaKomponentProps} from "./skjema-felleskomponenter";
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -13,8 +14,9 @@ const TEKSTER: Tekster<string> = {
     },
 };
 
-const BestattUtdanning = () => {
+const BestattUtdanning = (props: SkjemaKomponentProps) => {
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
+    const { onChange, valgt} = props;
 
     const valg = [
         { tekst: tekst('ja'), value: 'ja' },
@@ -28,7 +30,7 @@ const BestattUtdanning = () => {
             </Heading>
 
             <form className="mbl">
-                <RadioGruppe valg={valg} />
+                <RadioGruppe valg={valg} onSelect={onChange} valgt={valgt} />
             </form>
 
 

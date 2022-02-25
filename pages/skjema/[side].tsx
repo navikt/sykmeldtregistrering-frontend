@@ -72,6 +72,24 @@ function skjemaReducer(state: SkjemaState, action: SkjemaAction): SkjemaState {
                 godkjentUtdanning: action.value,
             };
         }
+        case ActionType.BestaattUtdanning: {
+            return {
+                ...state,
+                bestaattUtdanning: action.value,
+            };
+        }
+        case ActionType.Helseproblemer: {
+            return {
+                ...state,
+                helseproblemer: action.value,
+            };
+        }
+        case ActionType.AndreProblemer: {
+            return {
+                ...state,
+                andreProblemer: action.value,
+            };
+        }
     }
 
     return state;
@@ -141,9 +159,24 @@ const Skjema: NextPage<SkjemaProps> = (props) => {
                 valgt={skjemaState.godkjentUtdanning}
             />
         ),
-        4: <BestattUtdanning/>,
-        5: <Helseproblemer/>,
-        6: <AndreProblemer/>,
+        4: (
+            <BestattUtdanning
+                onChange={(value) => dispatch({type: ActionType.BestaattUtdanning, value})}
+                valgt={skjemaState.bestaattUtdanning}
+            />
+        ),
+        5: (
+            <Helseproblemer
+                onChange={(value) => dispatch({type: ActionType.Helseproblemer, value})}
+                valgt={skjemaState.helseproblemer}
+            />
+        ),
+        6: (
+            <AndreProblemer
+                onChange={(value) => dispatch({type: ActionType.AndreProblemer, value})}
+                valgt={skjemaState.andreProblemer}
+            />
+        ),
     };
 
     const hentKomponentForSide = (side: number) => {
