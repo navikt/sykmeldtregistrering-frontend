@@ -1,8 +1,9 @@
 import { Accordion, BodyShort, Button, Heading } from '@navikt/ds-react';
 import lagHentTekstForSprak, { Tekster } from '../../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../../hooks/useSprak';
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 import StillingsSok from './stillings-sok';
+import {SkjemaKomponentProps} from "../skjema-felleskomponenter";
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -15,9 +16,15 @@ const TEKSTER: Tekster<string> = {
         stilling: 'Stilling',
     },
 };
-const SisteJobb = () => {
+const SisteJobb = (props: SkjemaKomponentProps) => {
+    const { onChange } = props;
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
     const [visStillingsSok, settVisStillingsSok] = useState<boolean>(false);
+
+    useEffect(() => {
+        onChange("Daglig leder")
+    }, []);
+
 
     return (
         <div>
