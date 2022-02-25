@@ -2,10 +2,7 @@ import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-spra
 import { Heading } from '@navikt/ds-react';
 import useSprak from '../../hooks/useSprak';
 import RadioGruppe from '../radio-gruppe/radio-gruppe';
-import Neste from './neste-knapp';
-import Avbryt from './avbryt-lenke';
 import {SkjemaKomponentProps} from "./skjema-felleskomponenter";
-import {Knapperad} from "./knapperad";
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -62,8 +59,6 @@ const DinSituasjon = (props: SkjemaKomponentProps) => {
             <form className="mbl">
                 <RadioGruppe valg={valg} onSelect={onChange} valgt={valgt} />
             </form>
-
-            <Avbryt />
         </>
     );
 };

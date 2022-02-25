@@ -6,7 +6,7 @@ import Neste from './neste-knapp';
 import Avbryt from './avbryt-lenke';
 import {SkjemaKomponentProps} from "./skjema-felleskomponenter";
 import {TilbakeKnapp} from "./tilbake-knapp";
-import {Knapperad} from "./knapperad";
+import {Knapperad} from "./knapperad/knapperad";
 
 const TEKSTER: Tekster<string> = {
     nb: {

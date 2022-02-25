@@ -6,7 +6,7 @@ export const TilbakeKnapp = (props: {onclick: () => void}) => {
     return (
         <>
             <div className={skjemaStyles.taCenter}>
-                <Button onClick={props.onclick}> Tilbake </Button>
+                <Button variant="secondary" onClick={props.onclick}> Tilbake </Button>
             </div>
         </>
     );
