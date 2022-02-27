@@ -5,6 +5,7 @@ import OppsummeringSvg from './oppsummering-svg';
 import { SkjemaState } from '../../../pages/skjema/[side]';
 import lagHentTekstForSprak, { Tekster } from '../../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../../hooks/useSprak';
+import { hentSvartekst as hentJobbsituasjonTekst } from '../din-situasjon';
 import { Jobbsituasjon } from '../din-situasjon';
 
 const TEKSTER: Tekster<string> = {
@@ -24,8 +25,8 @@ const TEKSTER: Tekster<string> = {
 };
 
 const Oppsummering = (props: SkjemaState) => {
-    const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
-
+    const sprak = useSprak();
+    const tekst = lagHentTekstForSprak(TEKSTER, sprak);
     return (
         <>
             <Heading size={'medium'}>{tekst('header')}</Heading>
@@ -35,11 +36,10 @@ const Oppsummering = (props: SkjemaState) => {
                 <Table>
                     <Table.Body>
                         {props.dinSituasjon && (
-                            <Rad radTittel={tekst('situasjon')} svaralternativ={props.dinSituasjon} />
+                            <Rad radTittel={tekst('situasjon')}
+                                 svaralternativ={hentJobbsituasjonTekst(sprak, props.dinSituasjon)} />
                         )}
-                        {props.sisteJobb && (
-                            <Rad radTittel={tekst('sisteStilling')} svaralternativ={props.sisteJobb} />
-                        )}
+                        {props.sisteJobb && <Rad radTittel={tekst('sisteStilling')} svaralternativ={props.sisteJobb} />}
                         {props.utdanning && (
                             <Rad radTittel={tekst('hoyesteFullforteUtdanning')} svaralternativ={props.utdanning} />
                         )}
