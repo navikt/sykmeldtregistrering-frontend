@@ -43,6 +43,18 @@ const Oppsummering = (props: SkjemaState) => {
                         {props.utdanning && (
                             <Rad radTittel={tekst('hoyesteFullforteUtdanning')} svaralternativ={props.utdanning} />
                         )}
+                        {props.godkjentUtdanning && (
+                            <Rad radTittel={tekst('utdanningGodkjent')} svaralternativ={props.godkjentUtdanning} />
+                        )}
+                        {props.bestaattUtdanning && (
+                            <Rad radTittel={tekst('utdanningBestaatt')} svaralternativ={props.bestaattUtdanning} />
+                        )}
+                        {props.helseproblemer && (
+                            <Rad radTittel={tekst('helseproblemer')} svaralternativ={props.helseproblemer} />
+                        )}
+                        {props.andreProblemer && (
+                            <Rad radTittel={tekst('andreProblemer')} svaralternativ={props.andreProblemer} />
+                        )}
                     </Table.Body>
                 </Table>
             </GuidePanel>
