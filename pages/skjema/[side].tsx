@@ -32,7 +32,7 @@ interface SkjemaProps {
 type SiderMap = { [key: number]: JSX.Element };
 
 export interface SkjemaState {
-    dinSituasjon?: string; // 'mistet' | 'sagtOpp';
+    dinSituasjon?: Jobbsituasjon;
     sisteJobb?: string;
     utdanning?: string;
     godkjentUtdanning?: string;
@@ -43,7 +43,7 @@ export interface SkjemaState {
 }
 
 type SkjemaReducer = Reducer<SkjemaState, SkjemaAction>;
-type SkjemaAction = { type: SkjemaSide; value: string };
+type SkjemaAction = { type: SkjemaSide; value: any };
 
 export enum SkjemaSide {
     DinSituasjon,

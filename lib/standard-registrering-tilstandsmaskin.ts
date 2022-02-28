@@ -1,8 +1,19 @@
 import { SkjemaSide, SkjemaState } from '../pages/skjema/[side]';
+import { Jobbsituasjon } from '../components/skjema/din-situasjon';
 
 const TILSTANDER = {
     [`${SkjemaSide.DinSituasjon}`]: (valg?: SkjemaState['dinSituasjon']) => {
-        if (valg === 'mistet') {
+        if (valg === undefined) {
+            return {
+                neste: undefined,
+                forrige: undefined,
+            };
+        } else if (valg === Jobbsituasjon.ALDRIJOBBET) {
+            return {
+                neste: SkjemaSide.Utdanning,
+                forrige: undefined,
+            };
+        } else {
             return {
                 neste: SkjemaSide.SisteJobb,
                 forrige: undefined,
@@ -10,8 +21,8 @@ const TILSTANDER = {
         }
 
         return {
-            neste: undefined,
-            forrige: undefined,
+            neste: nesteSide,
+            forrige: SkjemaSide.DinSituasjon,
         };
     },
 };
