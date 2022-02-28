@@ -1,14 +1,15 @@
-import { SkjemaSide, SkjemaState } from '../pages/skjema/[side]';
+import Skjema, { SkjemaSide, SkjemaState } from '../pages/skjema/[side]';
 import { Jobbsituasjon } from '../components/skjema/din-situasjon';
+import { Utdanningsnivaa } from '../components/skjema/utdanning';
 
 const TILSTANDER = {
-    [`${SkjemaSide.DinSituasjon}`]: (valg?: SkjemaState['dinSituasjon']) => {
-        if (valg === undefined) {
+    [`${SkjemaSide.DinSituasjon}`]: (skjemaState: SkjemaState) => {
+        if (skjemaState.dinSituasjon === undefined) {
             return {
                 neste: undefined,
                 forrige: undefined,
             };
-        } else if (valg === Jobbsituasjon.ALDRIJOBBET) {
+        } else if (skjemaState.dinSituasjon === Jobbsituasjon.ALDRIJOBBET) {
             return {
                 neste: SkjemaSide.Utdanning,
                 forrige: undefined,
@@ -19,10 +20,21 @@ const TILSTANDER = {
                 forrige: undefined,
             };
         }
-
+    },
+    [`${SkjemaSide.SisteJobb}`]: (skjemaState: SkjemaState) => {
         return {
-            neste: nesteSide,
+            neste: SkjemaSide.Utdanning,
             forrige: SkjemaSide.DinSituasjon,
+        };
+    },
+    [`${SkjemaSide.Utdanning}`]: (skjemaState: SkjemaState) => {
+        return {
+            neste:
+                skjemaState.utdanning === Utdanningsnivaa.INGEN
+                    ? SkjemaSide.Helseproblemer
+                    : SkjemaSide.GodkjentUtdanning,
+            forrige:
+                skjemaState.dinSituasjon === Jobbsituasjon.ALDRIJOBBET ? SkjemaSide.DinSituasjon : SkjemaSide.SisteJobb,
         };
     },
 };
@@ -33,5 +45,5 @@ export interface Navigering {
 }
 
 export function beregnNavigering(aktivSide: SkjemaSide, state: SkjemaState): Navigering {
-    return TILSTANDER[aktivSide](state.dinSituasjon);
+    return TILSTANDER[aktivSide](state);
 }

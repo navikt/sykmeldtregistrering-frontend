@@ -34,7 +34,7 @@ type SiderMap = { [key: number]: JSX.Element };
 export interface SkjemaState {
     dinSituasjon?: Jobbsituasjon;
     sisteJobb?: string;
-    utdanning?: string;
+    utdanning?: Utdanningsnivaa;
     godkjentUtdanning?: string;
     bestaattUtdanning?: string;
     helseproblemer?: string;
