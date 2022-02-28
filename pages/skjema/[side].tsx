@@ -32,7 +32,7 @@ interface SkjemaProps {
 type SiderMap = { [key: number]: JSX.Element };
 
 export interface SkjemaState {
-    dinSituasjon?: string;
+    dinSituasjon?: string; // 'mistet' | 'sagtOpp';
     sisteJobb?: string;
     utdanning?: string;
     godkjentUtdanning?: string;
@@ -43,9 +43,9 @@ export interface SkjemaState {
 }
 
 type SkjemaReducer = Reducer<SkjemaState, SkjemaAction>;
-type SkjemaAction = { type: ActionType; value: string };
+type SkjemaAction = { type: SkjemaSide; value: string };
 
-enum ActionType {
+export enum SkjemaSide {
     DinSituasjon,
     SisteJobb,
     Utdanning,
@@ -58,51 +58,51 @@ enum ActionType {
 
 function skjemaReducer(state: SkjemaState, action: SkjemaAction): SkjemaState {
     switch (action.type) {
-        case ActionType.DinSituasjon: {
+        case SkjemaSide.DinSituasjon: {
             return {
                 ...state,
                 dinSituasjon: action.value,
             };
         }
-        case ActionType.Utdanning: {
+        case SkjemaSide.Utdanning: {
             return {
                 ...state,
                 utdanning: action.value,
             };
         }
 
-        case ActionType.SisteJobb: {
+        case SkjemaSide.SisteJobb: {
             return {
                 ...state,
                 sisteJobb: action.value,
             };
         }
 
-        case ActionType.GodkjentUtdanning: {
+        case SkjemaSide.GodkjentUtdanning: {
             return {
                 ...state,
                 godkjentUtdanning: action.value,
             };
         }
-        case ActionType.BestaattUtdanning: {
+        case SkjemaSide.BestaattUtdanning: {
             return {
                 ...state,
                 bestaattUtdanning: action.value,
             };
         }
-        case ActionType.Helseproblemer: {
+        case SkjemaSide.Helseproblemer: {
             return {
                 ...state,
                 helseproblemer: action.value,
             };
         }
-        case ActionType.AndreProblemer: {
+        case SkjemaSide.AndreProblemer: {
             return {
                 ...state,
                 andreProblemer: action.value,
             };
         }
-        case ActionType.SykmeldtFremtidigSituasjon: {
+        case SkjemaSide.SykmeldtFremtidigSituasjon: {
             return {
                 ...state,
                 sykmeldtFremtidigSituasjon: action.value,
@@ -164,50 +164,50 @@ const Skjema: NextPage<SkjemaProps> = (props) => {
     const siderMap: SiderMap = {
         0: (
             <DinSituasjon
-                onChange={(value) => dispatch({ type: ActionType.DinSituasjon, value })}
+                onChange={(value) => dispatch({ type: SkjemaSide.DinSituasjon, value })}
                 valgt={skjemaState.dinSituasjon}
             />
         ),
         1: (
             <SisteJobb
-                onChange={(value) => dispatch({ type: ActionType.SisteJobb, value })}
+                onChange={(value) => dispatch({ type: SkjemaSide.SisteJobb, value })}
                 valgt={skjemaState.sisteJobb}
             />
         ),
         2: (
             <Utdanning
-                onChange={(value) => dispatch({ type: ActionType.Utdanning, value })}
+                onChange={(value) => dispatch({ type: SkjemaSide.Utdanning, value })}
                 valgt={skjemaState.utdanning}
             />
         ),
         3: (
             <GodkjentUtdanning
-                onChange={(value) => dispatch({ type: ActionType.GodkjentUtdanning, value })}
+                onChange={(value) => dispatch({ type: SkjemaSide.GodkjentUtdanning, value })}
                 valgt={skjemaState.godkjentUtdanning}
             />
         ),
         4: (
             <BestattUtdanning
-                onChange={(value) => dispatch({ type: ActionType.BestaattUtdanning, value })}
+                onChange={(value) => dispatch({ type: SkjemaSide.BestaattUtdanning, value })}
                 valgt={skjemaState.bestaattUtdanning}
             />
         ),
         5: (
             <Helseproblemer
-                onChange={(value) => dispatch({ type: ActionType.Helseproblemer, value })}
+                onChange={(value) => dispatch({ type: SkjemaSide.Helseproblemer, value })}
                 valgt={skjemaState.helseproblemer}
             />
         ),
         6: (
             <AndreProblemer
-                onChange={(value) => dispatch({ type: ActionType.AndreProblemer, value })}
+                onChange={(value) => dispatch({ type: SkjemaSide.AndreProblemer, value })}
                 valgt={skjemaState.andreProblemer}
             />
         ),
         7: <Oppsummering {...skjemaState} />,
         8: (
             <SykmeldtFremtidigSituasjon
-                onChange={(value) => dispatch({ type: ActionType.SykmeldtFremtidigSituasjon, value })}
+                onChange={(value) => dispatch({ type: SkjemaSide.SykmeldtFremtidigSituasjon, value })}
                 valgt={skjemaState.sykmeldtFremtidigSituasjon}
             />
         ),
