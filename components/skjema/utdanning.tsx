@@ -1,12 +1,8 @@
 import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../hooks/useSprak';
-import {Cell, Grid, Heading} from '@navikt/ds-react';
+import { Heading } from '@navikt/ds-react';
 import RadioGruppe from '../radio-gruppe/radio-gruppe';
-import Neste from './neste-knapp';
-import Avbryt from './avbryt-lenke';
-import {SkjemaKomponentProps} from "./skjema-felleskomponenter";
-import {TilbakeKnapp} from "./tilbake-knapp";
-import {Knapperad} from "./knapperad/knapperad";
+import { SkjemaKomponentProps } from './skjema-felleskomponenter';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -20,7 +16,6 @@ const TEKSTER: Tekster<string> = {
     },
 };
 
-
 export enum Utdanningsnivaa {
     INGEN = 'ingen',
     GRUNNSKOLE = 'grunnskole',
@@ -30,8 +25,8 @@ export enum Utdanningsnivaa {
     HOYEREOVER5AAR = 'hoyere5',
 }
 
-const Utdanning = (props: SkjemaKomponentProps)  => {
-    const { onChange, valgt} = props;
+const Utdanning = (props: SkjemaKomponentProps) => {
+    const { onChange, valgt } = props;
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
 
     const valg = [
@@ -50,10 +45,8 @@ const Utdanning = (props: SkjemaKomponentProps)  => {
             </Heading>
 
             <form className="mbl">
-                <RadioGruppe valg={valg}  onSelect={onChange} valgt={valgt} />
+                <RadioGruppe valg={valg} onSelect={onChange} valgt={valgt} />
             </form>
-
-
         </>
     );
 };
