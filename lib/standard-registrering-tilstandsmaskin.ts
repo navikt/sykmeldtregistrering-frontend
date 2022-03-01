@@ -1,15 +1,19 @@
-import { SkjemaSide, SkjemaState } from '../pages/skjema/[side]';
+import { SkjemaState } from '../pages/skjema/[side]';
 import { Jobbsituasjon } from '../components/skjema/din-situasjon';
 import { Utdanningsnivaa } from '../components/skjema/utdanning';
+import { SkjemaSide } from '../model/skjema';
 
-const TILSTANDER = {
-    [`${SkjemaSide.DinSituasjon}`]: (skjemaState: SkjemaState) => {
+type TilstandsMaskin = Record<string, (state: SkjemaState) => Navigering>;
+
+const TILSTANDER: TilstandsMaskin = {
+    [SkjemaSide.DinSituasjon]: (skjemaState: SkjemaState) => {
         if (skjemaState.dinSituasjon === Jobbsituasjon.ALDRIJOBBET) {
             return {
                 neste: SkjemaSide.Utdanning,
                 forrige: undefined,
             };
         }
+
         return {
             neste: SkjemaSide.SisteJobb,
             forrige: undefined,
@@ -54,6 +58,12 @@ const TILSTANDER = {
         return {
             neste: SkjemaSide.Oppsummering,
             forrige: SkjemaSide.Helseproblemer,
+        };
+    },
+    [SkjemaSide.Oppsummering]: () => {
+        return {
+            neste: undefined,
+            forrige: undefined,
         };
     },
 };

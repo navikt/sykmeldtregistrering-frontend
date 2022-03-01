@@ -1,28 +1,23 @@
-import {Cell, Grid} from "@navikt/ds-react";
-import {TilbakeKnapp} from "../tilbake-knapp";
-import Neste from "../neste-knapp";
-import {useRouter} from "next/router";
+import { Cell, Grid } from '@navikt/ds-react';
+import { TilbakeKnapp } from '../tilbake-knapp';
+import Neste from '../neste-knapp';
 import styles from './knapperad.module.css';
 
 interface Knapperadprops {
-    onNeste: () => void,
-    skalViseForrigeKnapp: boolean
+    onNeste: () => void;
+    onForrige?: () => void;
 }
 
 export const Knapperad = (props: Knapperadprops) => {
-    const router = useRouter();
-
     return (
         <Grid>
             <Cell xs={6} className={styles.knapp}>
-                {props.skalViseForrigeKnapp &&
-                    <TilbakeKnapp onclick={router.back}/>
-                }
+                {props.onForrige && <TilbakeKnapp onClick={props.onForrige} />}
             </Cell>
 
             <Cell xs={6} className={styles.knapp}>
-                <Neste onClick={props.onNeste}/>
+                <Neste onClick={props.onNeste} />
             </Cell>
         </Grid>
-    )
-}
+    );
+};

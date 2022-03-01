@@ -1,7 +1,7 @@
 import { beregnNavigering } from './standard-registrering-tilstandsmaskin';
-import { SkjemaSide } from '../pages/skjema/[side]';
 import { Jobbsituasjon } from '../components/skjema/din-situasjon';
 import { Utdanningsnivaa } from '../components/skjema/utdanning';
+import { SkjemaSide } from '../model/skjema';
 
 describe('Standard registrering tilstandsmaskin', () => {
     describe('din situasjon', () => {

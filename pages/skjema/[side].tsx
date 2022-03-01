@@ -9,7 +9,7 @@ import GodkjentUtdanning from '../../components/skjema/utdanning-godkjent';
 import BestattUtdanning from '../../components/skjema/utdanning-bestatt';
 import Helseproblemer from '../../components/skjema/helseproblemer';
 import AndreProblemer from '../../components/skjema/andre-problemer';
-import { Reducer, useEffect, useReducer, useState } from 'react';
+import { Reducer, useReducer, useState } from 'react';
 import { Knapperad } from '../../components/skjema/knapperad/knapperad';
 import Avbryt from '../../components/skjema/avbryt-lenke';
 import { Alert } from '@navikt/ds-react';
@@ -17,6 +17,8 @@ import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-spra
 import useSprak from '../../hooks/useSprak';
 import Oppsummering from '../../components/skjema/oppsummering/oppsummering';
 import SykmeldtFremtidigSituasjon from '../../components/skjema/sykmeldt-fremtidig-situasjon';
+import { beregnNavigering } from '../../lib/standard-registrering-tilstandsmaskin';
+import { SkjemaSide } from '../../model/skjema';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -25,7 +27,7 @@ const TEKSTER: Tekster<string> = {
 };
 
 interface SkjemaProps {
-    side: number;
+    aktivSide: SkjemaSide;
     isValid?: boolean;
 }
 
@@ -47,18 +49,6 @@ type SkjemaAction =
     | { type: SkjemaSide.DinSituasjon; value: Jobbsituasjon }
     | { type: SkjemaSide.Utdanning; value: Utdanningsnivaa }
     | { type: Exclude<SkjemaSide, SkjemaSide.DinSituasjon | SkjemaSide.Utdanning>; value: string };
-
-export enum SkjemaSide {
-    DinSituasjon,
-    SisteJobb,
-    Utdanning,
-    GodkjentUtdanning,
-    BestaattUtdanning,
-    Helseproblemer,
-    AndreProblemer,
-    SykmeldtFremtidigSituasjon,
-    Oppsummering,
-}
 
 function skjemaReducer(state: SkjemaState, action: SkjemaAction): SkjemaState {
     switch (action.type) {
@@ -119,97 +109,81 @@ function skjemaReducer(state: SkjemaState, action: SkjemaAction): SkjemaState {
 
 const initializer = (skjemaState: SkjemaState) => skjemaState;
 
-const hentNesteSideForDinSituasjon = (valgtSituasjon?: string) => {
-    if (valgtSituasjon === Jobbsituasjon.ALDRIJOBBET.valueOf()) {
-        return 2;
-    }
-    return 1;
-};
-
-const hentNesteSideForUtdanning = (valgtSituasjon?: string) => {
-    if (valgtSituasjon === Utdanningsnivaa.INGEN.valueOf()) {
-        return 5;
-    }
-    return 3;
-};
-
 const Skjema: NextPage<SkjemaProps> = (props) => {
-    const hentValgtAlternativForSide = (side: number) => {
-        switch (side) {
-            case 0:
-                return skjemaState.dinSituasjon;
-            case 1:
-                return skjemaState.sisteJobb;
-            case 2:
-                return skjemaState.utdanning;
-            case 3:
-                return skjemaState.godkjentUtdanning;
-            case 4:
-                return skjemaState.bestaattUtdanning;
-            case 5:
-                return skjemaState.helseproblemer;
-            case 6:
-                return skjemaState.andreProblemer;
-        }
+    const validerSkjemaForSide = (side: SkjemaSide) => {
+        const hentVerdi = () => {
+            switch (side) {
+                case SkjemaSide.DinSituasjon:
+                    return skjemaState.dinSituasjon;
+                case SkjemaSide.SisteJobb:
+                    return skjemaState.sisteJobb;
+                case SkjemaSide.Utdanning:
+                    return skjemaState.utdanning;
+                case SkjemaSide.GodkjentUtdanning:
+                    return skjemaState.godkjentUtdanning;
+                case SkjemaSide.BestaattUtdanning:
+                    return skjemaState.bestaattUtdanning;
+                case SkjemaSide.Helseproblemer:
+                    return skjemaState.helseproblemer;
+                case SkjemaSide.AndreProblemer:
+                    return skjemaState.andreProblemer;
+            }
+        };
+
+        return Boolean(hentVerdi());
     };
-    const { side } = props;
+
+    const { aktivSide } = props;
     const router = useRouter();
     const [skjemaState, dispatch] = useReducer<SkjemaReducer, SkjemaState>(skjemaReducer, {}, initializer);
     const [visFeilmelding, settVisFeilmelding] = useState<boolean>(false);
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
-    const valgt = hentValgtAlternativForSide(side);
-
-    useEffect(() => {
-        if (valgt) {
-            settVisFeilmelding(!valgt);
-        }
-    }, [valgt]);
 
     const siderMap: SiderMap = {
-        0: (
+        [SkjemaSide.DinSituasjon]: (
             <DinSituasjon
                 onChange={(value) => dispatch({ type: SkjemaSide.DinSituasjon, value })}
                 valgt={skjemaState.dinSituasjon}
             />
         ),
-        1: (
+        [SkjemaSide.SisteJobb]: (
             <SisteJobb
                 onChange={(value) => dispatch({ type: SkjemaSide.SisteJobb, value })}
                 valgt={skjemaState.sisteJobb}
             />
         ),
-        2: (
+        [SkjemaSide.Utdanning]: (
             <Utdanning
                 onChange={(value) => dispatch({ type: SkjemaSide.Utdanning, value })}
                 valgt={skjemaState.utdanning}
             />
         ),
-        3: (
+        [SkjemaSide.GodkjentUtdanning]: (
             <GodkjentUtdanning
                 onChange={(value) => dispatch({ type: SkjemaSide.GodkjentUtdanning, value })}
                 valgt={skjemaState.godkjentUtdanning}
             />
         ),
-        4: (
+        [SkjemaSide.BestaattUtdanning]: (
             <BestattUtdanning
                 onChange={(value) => dispatch({ type: SkjemaSide.BestaattUtdanning, value })}
                 valgt={skjemaState.bestaattUtdanning}
             />
         ),
-        5: (
+        [SkjemaSide.Helseproblemer]: (
             <Helseproblemer
                 onChange={(value) => dispatch({ type: SkjemaSide.Helseproblemer, value })}
                 valgt={skjemaState.helseproblemer}
             />
         ),
-        6: (
+        [SkjemaSide.AndreProblemer]: (
             <AndreProblemer
                 onChange={(value) => dispatch({ type: SkjemaSide.AndreProblemer, value })}
                 valgt={skjemaState.andreProblemer}
             />
         ),
-        7: <Oppsummering {...skjemaState} />,
-        8: (
+        [SkjemaSide.Oppsummering]: <Oppsummering {...skjemaState} />,
+        '9': (
             <SykmeldtFremtidigSituasjon
                 onChange={(value) => dispatch({ type: SkjemaSide.SykmeldtFremtidigSituasjon, value })}
                 valgt={skjemaState.sykmeldtFremtidigSituasjon}
@@ -217,31 +191,36 @@ const Skjema: NextPage<SkjemaProps> = (props) => {
         ),
     };
 
-    const hentKomponentForSide = (side: number) => siderMap[side] || siderMap[0];
+    const hentKomponentForSide = (side: SkjemaSide) => siderMap[side] || siderMap[SkjemaSide.DinSituasjon];
 
-    const hentNesteSidenummer = (side: number) => {
-        if (side === 0) {
-            return hentNesteSideForDinSituasjon(skjemaState.dinSituasjon);
-        } else if (side === 2) {
-            return hentNesteSideForUtdanning(skjemaState.utdanning);
-        } else return ++side;
+    const { forrige, neste } = beregnNavigering(aktivSide, skjemaState);
+
+    const navigerTilSide = (side: SkjemaSide) => {
+        return router.push(`/skjema/${side}`);
     };
 
     const validerOgGaaTilNeste = () => {
-        if (!hentValgtAlternativForSide(side)) {
+        if (!validerSkjemaForSide(aktivSide)) {
             settVisFeilmelding(true);
             return;
         }
-        return router.push(`/skjema/${hentNesteSidenummer(side)}`);
+
+        settVisFeilmelding(false);
+
+        if (neste) {
+            return navigerTilSide(neste);
+        }
     };
+
+    const onForrige = forrige ? () => navigerTilSide(forrige) : undefined;
 
     return (
         <>
             <Header />
             <main className={styles.main}>
-                {hentKomponentForSide(side)}
+                {hentKomponentForSide(aktivSide)}
                 {visFeilmelding && <Alert variant="warning">{tekst('advarsel')}</Alert>}
-                <Knapperad onNeste={validerOgGaaTilNeste} skalViseForrigeKnapp={side !== 0} />
+                <Knapperad onNeste={validerOgGaaTilNeste} onForrige={onForrige} />
                 <Avbryt />
             </main>
         </>
@@ -252,7 +231,7 @@ Skjema.getInitialProps = async (context: any) => {
     const { side } = context.query;
 
     return {
-        side: Number(side),
+        aktivSide: side,
     };
 };
 
