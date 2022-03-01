@@ -15,7 +15,7 @@ const TEKSTER: Tekster<string> = {
     },
 };
 
-const SykmeldtFremtidigSituasjon = (props: SkjemaKomponentProps) => {
+const SykmeldtFremtidigSituasjon = (props: SkjemaKomponentProps<string>) => {
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
     const { onChange, valgt } = props;
 

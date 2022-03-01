@@ -14,7 +14,7 @@ const TEKSTER: Tekster<string> = {
     },
 };
 
-const TilbakeIJobb = (props: SkjemaKomponentProps) => {
+const TilbakeIJobb = (props: SkjemaKomponentProps<string>) => {
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
     const { onChange, valgt } = props;
 

@@ -2,9 +2,7 @@ import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-spra
 import useSprak from '../../hooks/useSprak';
 import { Alert, Heading } from '@navikt/ds-react';
 import RadioGruppe from '../radio-gruppe/radio-gruppe';
-import Neste from './neste-knapp';
-import Avbryt from './avbryt-lenke';
-import {SkjemaKomponentProps} from "./skjema-felleskomponenter";
+import { SkjemaKomponentProps } from './skjema-felleskomponenter';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -16,9 +14,9 @@ const TEKSTER: Tekster<string> = {
     },
 };
 
-const Helseproblemer = (props: SkjemaKomponentProps) => {
+const Helseproblemer = (props: SkjemaKomponentProps<string>) => {
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
-    const { onChange, valgt} = props;
+    const { onChange, valgt } = props;
 
     const valg = [
         { tekst: tekst('ja'), value: 'ja' },
@@ -38,8 +36,6 @@ const Helseproblemer = (props: SkjemaKomponentProps) => {
             <Alert variant="info" inline={true}>
                 {tekst('fortellMer')}
             </Alert>
-
-
         </>
     );
 };

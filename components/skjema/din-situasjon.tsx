@@ -38,22 +38,25 @@ export function hentSvartekst(sprak: Sprak, svar: string) {
     return tekst(svar);
 }
 
-const DinSituasjon = (props: SkjemaKomponentProps) => {
+const DinSituasjon = (props: SkjemaKomponentProps<Jobbsituasjon>) => {
     const { onChange, valgt } = props;
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
     const sprak = useSprak();
 
     const valg = [
         { tekst: hentSvartekst(sprak, Jobbsituasjon.MISTETJOBB), value: Jobbsituasjon.MISTETJOBB },
-        { tekst: hentSvartekst(sprak,Jobbsituasjon.SAGTOPP), value: Jobbsituasjon.SAGTOPP },
-        { tekst: hentSvartekst(sprak,Jobbsituasjon.DELTID), value: Jobbsituasjon.DELTID },
-        { tekst: hentSvartekst(sprak,Jobbsituasjon.ALDRIJOBBET), value: Jobbsituasjon.ALDRIJOBBET },
-        { tekst: hentSvartekst(sprak,Jobbsituasjon.VILBYTTEJOBB), value: Jobbsituasjon.VILBYTTEJOBB },
-        { tekst: hentSvartekst(sprak,Jobbsituasjon.IKKEJOBBETSISTETOAAR), value: Jobbsituasjon.IKKEJOBBETSISTETOAAR },
-        { tekst: hentSvartekst(sprak,Jobbsituasjon.PERMITTERT), value: Jobbsituasjon.PERMITTERT },
-        { tekst: hentSvartekst(sprak,Jobbsituasjon.USIKKER), value: Jobbsituasjon.USIKKER },
-        { tekst: hentSvartekst(sprak,Jobbsituasjon.NETTOPPFULLFORTUTDANNING), value: Jobbsituasjon.NETTOPPFULLFORTUTDANNING },
-        { tekst: hentSvartekst(sprak,Jobbsituasjon.HARJOBB), value: Jobbsituasjon.HARJOBB },
+        { tekst: hentSvartekst(sprak, Jobbsituasjon.SAGTOPP), value: Jobbsituasjon.SAGTOPP },
+        { tekst: hentSvartekst(sprak, Jobbsituasjon.DELTID), value: Jobbsituasjon.DELTID },
+        { tekst: hentSvartekst(sprak, Jobbsituasjon.ALDRIJOBBET), value: Jobbsituasjon.ALDRIJOBBET },
+        { tekst: hentSvartekst(sprak, Jobbsituasjon.VILBYTTEJOBB), value: Jobbsituasjon.VILBYTTEJOBB },
+        { tekst: hentSvartekst(sprak, Jobbsituasjon.IKKEJOBBETSISTETOAAR), value: Jobbsituasjon.IKKEJOBBETSISTETOAAR },
+        { tekst: hentSvartekst(sprak, Jobbsituasjon.PERMITTERT), value: Jobbsituasjon.PERMITTERT },
+        { tekst: hentSvartekst(sprak, Jobbsituasjon.USIKKER), value: Jobbsituasjon.USIKKER },
+        {
+            tekst: hentSvartekst(sprak, Jobbsituasjon.NETTOPPFULLFORTUTDANNING),
+            value: Jobbsituasjon.NETTOPPFULLFORTUTDANNING,
+        },
+        { tekst: hentSvartekst(sprak, Jobbsituasjon.HARJOBB), value: Jobbsituasjon.HARJOBB },
     ];
 
     return (

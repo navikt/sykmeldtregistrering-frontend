@@ -2,7 +2,7 @@ import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-spra
 import useSprak from '../../hooks/useSprak';
 import { Heading } from '@navikt/ds-react';
 import RadioGruppe from '../radio-gruppe/radio-gruppe';
-import {SkjemaKomponentProps} from "./skjema-felleskomponenter";
+import { SkjemaKomponentProps } from './skjema-felleskomponenter';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -13,8 +13,8 @@ const TEKSTER: Tekster<string> = {
     },
 };
 
-const GodkjentUtdanning = (props: SkjemaKomponentProps) => {
-    const { onChange, valgt} = props;
+const GodkjentUtdanning = (props: SkjemaKomponentProps<string>) => {
+    const { onChange, valgt } = props;
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
 
     const valg = [
@@ -30,9 +30,8 @@ const GodkjentUtdanning = (props: SkjemaKomponentProps) => {
             </Heading>
 
             <form className="mbl">
-                <RadioGruppe valg={valg} onSelect={onChange} valgt={valgt}/>
+                <RadioGruppe valg={valg} onSelect={onChange} valgt={valgt} />
             </form>
-
         </>
     );
 };

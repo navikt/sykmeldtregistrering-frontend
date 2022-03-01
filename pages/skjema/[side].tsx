@@ -43,7 +43,10 @@ export interface SkjemaState {
 }
 
 type SkjemaReducer = Reducer<SkjemaState, SkjemaAction>;
-type SkjemaAction = { type: SkjemaSide; value: any };
+type SkjemaAction =
+    | { type: SkjemaSide.DinSituasjon; value: Jobbsituasjon }
+    | { type: SkjemaSide.Utdanning; value: Utdanningsnivaa }
+    | { type: Exclude<SkjemaSide, SkjemaSide.DinSituasjon | SkjemaSide.Utdanning>; value: string };
 
 export enum SkjemaSide {
     DinSituasjon,

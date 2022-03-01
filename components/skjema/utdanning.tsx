@@ -25,7 +25,7 @@ export enum Utdanningsnivaa {
     HOYEREOVER5AAR = 'hoyere5',
 }
 
-const Utdanning = (props: SkjemaKomponentProps) => {
+const Utdanning = (props: SkjemaKomponentProps<Utdanningsnivaa>) => {
     const { onChange, valgt } = props;
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
 
