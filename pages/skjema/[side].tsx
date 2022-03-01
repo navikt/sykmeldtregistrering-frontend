@@ -5,7 +5,7 @@ import DinSituasjon, { Jobbsituasjon } from '../../components/skjema/din-situasj
 import styles from '../../styles/skjema.module.css';
 import SisteJobb from '../../components/skjema/siste-jobb/siste-jobb';
 import Utdanning, { Utdanningsnivaa } from '../../components/skjema/utdanning';
-import GodkjentUtdanning from '../../components/skjema/utdanning-godkjent';
+import GodkjentUtdanning, { GodkjentUtdanningValg } from '../../components/skjema/utdanning-godkjent';
 import BestattUtdanning from '../../components/skjema/utdanning-bestatt';
 import Helseproblemer from '../../components/skjema/helseproblemer';
 import AndreProblemer from '../../components/skjema/andre-problemer';
@@ -16,9 +16,8 @@ import { Alert } from '@navikt/ds-react';
 import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../hooks/useSprak';
 import Oppsummering from '../../components/skjema/oppsummering/oppsummering';
-import SykmeldtFremtidigSituasjon from '../../components/skjema/sykmeldt-fremtidig-situasjon';
 import { beregnNavigering } from '../../lib/standard-registrering-tilstandsmaskin';
-import { SkjemaSide } from '../../model/skjema';
+import { SkjemaState, StandardSkjemaSide } from '../../model/skjema';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -27,79 +26,69 @@ const TEKSTER: Tekster<string> = {
 };
 
 interface SkjemaProps {
-    aktivSide: SkjemaSide;
+    aktivSide: StandardSkjemaSide;
     isValid?: boolean;
 }
 
 type SiderMap = { [key: number]: JSX.Element };
 
-export interface SkjemaState {
-    dinSituasjon?: Jobbsituasjon;
-    sisteJobb?: string;
-    utdanning?: Utdanningsnivaa;
-    godkjentUtdanning?: string;
-    bestaattUtdanning?: string;
-    helseproblemer?: string;
-    andreProblemer?: string;
-    sykmeldtFremtidigSituasjon?: string;
-}
-
 type SkjemaReducer = Reducer<SkjemaState, SkjemaAction>;
 type SkjemaAction =
-    | { type: SkjemaSide.DinSituasjon; value: Jobbsituasjon }
-    | { type: SkjemaSide.Utdanning; value: Utdanningsnivaa }
-    | { type: Exclude<SkjemaSide, SkjemaSide.DinSituasjon | SkjemaSide.Utdanning>; value: string };
+    | { type: StandardSkjemaSide.DinSituasjon; value: Jobbsituasjon }
+    | { type: StandardSkjemaSide.Utdanning; value: Utdanningsnivaa }
+    | { type: StandardSkjemaSide.GodkjentUtdanning; value: GodkjentUtdanningValg }
+    | {
+          type: Exclude<
+              StandardSkjemaSide,
+              StandardSkjemaSide.DinSituasjon | StandardSkjemaSide.Utdanning | StandardSkjemaSide.GodkjentUtdanning
+          >;
+          value: string;
+      };
 
 function skjemaReducer(state: SkjemaState, action: SkjemaAction): SkjemaState {
     switch (action.type) {
-        case SkjemaSide.DinSituasjon: {
+        case StandardSkjemaSide.DinSituasjon: {
             return {
                 ...state,
                 dinSituasjon: action.value,
             };
         }
-        case SkjemaSide.Utdanning: {
+        case StandardSkjemaSide.Utdanning: {
             return {
                 ...state,
                 utdanning: action.value,
             };
         }
 
-        case SkjemaSide.SisteJobb: {
+        case StandardSkjemaSide.SisteJobb: {
             return {
                 ...state,
                 sisteJobb: action.value,
             };
         }
 
-        case SkjemaSide.GodkjentUtdanning: {
+        case StandardSkjemaSide.GodkjentUtdanning: {
             return {
                 ...state,
                 godkjentUtdanning: action.value,
             };
         }
-        case SkjemaSide.BestaattUtdanning: {
+        case StandardSkjemaSide.BestaattUtdanning: {
             return {
                 ...state,
                 bestaattUtdanning: action.value,
             };
         }
-        case SkjemaSide.Helseproblemer: {
+        case StandardSkjemaSide.Helseproblemer: {
             return {
                 ...state,
                 helseproblemer: action.value,
             };
         }
-        case SkjemaSide.AndreProblemer: {
+        case StandardSkjemaSide.AndreProblemer: {
             return {
                 ...state,
                 andreProblemer: action.value,
-            };
-        }
-        case SkjemaSide.SykmeldtFremtidigSituasjon: {
-            return {
-                ...state,
-                sykmeldtFremtidigSituasjon: action.value,
             };
         }
     }
@@ -110,22 +99,22 @@ function skjemaReducer(state: SkjemaState, action: SkjemaAction): SkjemaState {
 const initializer = (skjemaState: SkjemaState) => skjemaState;
 
 const Skjema: NextPage<SkjemaProps> = (props) => {
-    const validerSkjemaForSide = (side: SkjemaSide) => {
+    const validerSkjemaForSide = (side: StandardSkjemaSide) => {
         const hentVerdi = () => {
             switch (side) {
-                case SkjemaSide.DinSituasjon:
+                case StandardSkjemaSide.DinSituasjon:
                     return skjemaState.dinSituasjon;
-                case SkjemaSide.SisteJobb:
+                case StandardSkjemaSide.SisteJobb:
                     return skjemaState.sisteJobb;
-                case SkjemaSide.Utdanning:
+                case StandardSkjemaSide.Utdanning:
                     return skjemaState.utdanning;
-                case SkjemaSide.GodkjentUtdanning:
+                case StandardSkjemaSide.GodkjentUtdanning:
                     return skjemaState.godkjentUtdanning;
-                case SkjemaSide.BestaattUtdanning:
+                case StandardSkjemaSide.BestaattUtdanning:
                     return skjemaState.bestaattUtdanning;
-                case SkjemaSide.Helseproblemer:
+                case StandardSkjemaSide.Helseproblemer:
                     return skjemaState.helseproblemer;
-                case SkjemaSide.AndreProblemer:
+                case StandardSkjemaSide.AndreProblemer:
                     return skjemaState.andreProblemer;
             }
         };
@@ -140,62 +129,63 @@ const Skjema: NextPage<SkjemaProps> = (props) => {
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
 
     const siderMap: SiderMap = {
-        [SkjemaSide.DinSituasjon]: (
+        [StandardSkjemaSide.DinSituasjon]: (
             <DinSituasjon
-                onChange={(value) => dispatch({ type: SkjemaSide.DinSituasjon, value })}
+                onChange={(value) => dispatch({ type: StandardSkjemaSide.DinSituasjon, value })}
                 valgt={skjemaState.dinSituasjon}
             />
         ),
-        [SkjemaSide.SisteJobb]: (
+        [StandardSkjemaSide.SisteJobb]: (
             <SisteJobb
-                onChange={(value) => dispatch({ type: SkjemaSide.SisteJobb, value })}
+                onChange={(value) => dispatch({ type: StandardSkjemaSide.SisteJobb, value })}
                 valgt={skjemaState.sisteJobb}
             />
         ),
-        [SkjemaSide.Utdanning]: (
+        [StandardSkjemaSide.Utdanning]: (
             <Utdanning
-                onChange={(value) => dispatch({ type: SkjemaSide.Utdanning, value })}
+                onChange={(value) => dispatch({ type: StandardSkjemaSide.Utdanning, value })}
                 valgt={skjemaState.utdanning}
             />
         ),
-        [SkjemaSide.GodkjentUtdanning]: (
+        [StandardSkjemaSide.GodkjentUtdanning]: (
             <GodkjentUtdanning
-                onChange={(value) => dispatch({ type: SkjemaSide.GodkjentUtdanning, value })}
+                onChange={(value) => dispatch({ type: StandardSkjemaSide.GodkjentUtdanning, value })}
                 valgt={skjemaState.godkjentUtdanning}
             />
         ),
-        [SkjemaSide.BestaattUtdanning]: (
+        [StandardSkjemaSide.BestaattUtdanning]: (
             <BestattUtdanning
-                onChange={(value) => dispatch({ type: SkjemaSide.BestaattUtdanning, value })}
+                onChange={(value) => dispatch({ type: StandardSkjemaSide.BestaattUtdanning, value })}
                 valgt={skjemaState.bestaattUtdanning}
             />
         ),
-        [SkjemaSide.Helseproblemer]: (
+        [StandardSkjemaSide.Helseproblemer]: (
             <Helseproblemer
-                onChange={(value) => dispatch({ type: SkjemaSide.Helseproblemer, value })}
+                onChange={(value) => dispatch({ type: StandardSkjemaSide.Helseproblemer, value })}
                 valgt={skjemaState.helseproblemer}
             />
         ),
-        [SkjemaSide.AndreProblemer]: (
+        [StandardSkjemaSide.AndreProblemer]: (
             <AndreProblemer
-                onChange={(value) => dispatch({ type: SkjemaSide.AndreProblemer, value })}
+                onChange={(value) => dispatch({ type: StandardSkjemaSide.AndreProblemer, value })}
                 valgt={skjemaState.andreProblemer}
             />
         ),
-        [SkjemaSide.Oppsummering]: <Oppsummering {...skjemaState} />,
-        '9': (
-            <SykmeldtFremtidigSituasjon
-                onChange={(value) => dispatch({ type: SkjemaSide.SykmeldtFremtidigSituasjon, value })}
-                valgt={skjemaState.sykmeldtFremtidigSituasjon}
-            />
-        ),
+        [StandardSkjemaSide.Oppsummering]: <Oppsummering {...skjemaState} />,
+        // '9': (
+        //     <SykmeldtFremtidigSituasjon
+        //         onChange={(value) => dispatch({ type: StandardSkjemaSide.SykmeldtFremtidigSituasjon, value })}
+        //         valgt={skjemaState.sykmeldtFremtidigSituasjon}
+        //     />
+        // ),
     };
 
-    const hentKomponentForSide = (side: SkjemaSide) => siderMap[side] || siderMap[SkjemaSide.DinSituasjon];
+    const hentKomponentForSide = (side: StandardSkjemaSide) =>
+        siderMap[side] || siderMap[StandardSkjemaSide.DinSituasjon];
 
     const { forrige, neste } = beregnNavigering(aktivSide, skjemaState);
 
-    const navigerTilSide = (side: SkjemaSide) => {
+    const navigerTilSide = (side: StandardSkjemaSide) => {
         return router.push(`/skjema/${side}`);
     };
 

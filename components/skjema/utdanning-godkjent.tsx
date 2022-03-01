@@ -13,14 +13,21 @@ const TEKSTER: Tekster<string> = {
     },
 };
 
-const GodkjentUtdanning = (props: SkjemaKomponentProps<string>) => {
+export enum GodkjentUtdanningValg {
+    JA = 'ja',
+    NEI = 'nei',
+    VET_IKKE = 'vetIkke',
+}
+
+const GodkjentUtdanning = (props: SkjemaKomponentProps<GodkjentUtdanningValg>) => {
     const { onChange, valgt } = props;
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
 
+    const lagValg = (valg: GodkjentUtdanningValg) => ({ tekst: tekst(valg), value: valg });
     const valg = [
-        { tekst: tekst('ja'), value: 'ja' },
-        { tekst: tekst('nei'), value: 'nei' },
-        { tekst: tekst('vetIkke'), value: 'vetIkke' },
+        lagValg(GodkjentUtdanningValg.JA),
+        lagValg(GodkjentUtdanningValg.NEI),
+        lagValg(GodkjentUtdanningValg.VET_IKKE),
     ];
 
     return (

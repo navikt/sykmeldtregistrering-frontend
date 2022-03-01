@@ -2,11 +2,10 @@
 //import useSprak from '../../../hooks/useSprak';
 import { GuidePanel, Heading, Ingress, Table } from '@navikt/ds-react';
 import OppsummeringSvg from './oppsummering-svg';
-import { SkjemaState } from '../../../pages/skjema/[side]';
 import lagHentTekstForSprak, { Tekster } from '../../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../../hooks/useSprak';
 import { hentSvartekst as hentJobbsituasjonTekst } from '../din-situasjon';
-import { Jobbsituasjon } from '../din-situasjon';
+import { SkjemaState } from '../../../model/skjema';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -36,8 +35,10 @@ const Oppsummering = (props: SkjemaState) => {
                 <Table>
                     <Table.Body>
                         {props.dinSituasjon && (
-                            <Rad radTittel={tekst('situasjon')}
-                                 svaralternativ={hentJobbsituasjonTekst(sprak, props.dinSituasjon)} />
+                            <Rad
+                                radTittel={tekst('situasjon')}
+                                svaralternativ={hentJobbsituasjonTekst(sprak, props.dinSituasjon)}
+                            />
                         )}
                         {props.sisteJobb && <Rad radTittel={tekst('sisteStilling')} svaralternativ={props.sisteJobb} />}
                         {props.utdanning && (
