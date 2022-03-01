@@ -41,6 +41,8 @@ spec:
       value: {{amplitude.apiKey}}
     - name: NEXT_PUBLIC_AMPLITUDE_ENDPOINT
       value: {{amplitude.endPoint}}
+    - name: NEXT_PUBLIC_API_MOCKING
+      value: {{mocking}}
   ingresses:
     - {{ingress}}
   idporten:
