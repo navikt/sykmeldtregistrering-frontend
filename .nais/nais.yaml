@@ -37,8 +37,10 @@ spec:
       value: {{loginservice.url}}
     - name: LOGINSERVICE_WELL_KNOWN_URL
       value: {{loginservice.wellKnown}}
-    - name: AMPLITUDE_API_KEY
+    - name: NEXT_PUBLIC_AMPLITUDE_API_KEY
       value: {{amplitude.apiKey}}
+    - name: NEXT_PUBLIC_AMPLITUDE_ENDPOINT
+      value: {{amplitude.endPoint}}
   ingresses:
     - {{ingress}}
   idporten:
