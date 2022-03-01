@@ -17,7 +17,7 @@ import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-spra
 import useSprak from '../../hooks/useSprak';
 import Oppsummering from '../../components/skjema/oppsummering/oppsummering';
 import { beregnNavigering } from '../../lib/standard-registrering-tilstandsmaskin';
-import { SkjemaState, StandardSkjemaSide } from '../../model/skjema';
+import { JaEllerNei, SkjemaState, StandardSkjemaSide } from '../../model/skjema';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -37,13 +37,10 @@ type SkjemaAction =
     | { type: StandardSkjemaSide.DinSituasjon; value: Jobbsituasjon }
     | { type: StandardSkjemaSide.Utdanning; value: Utdanningsnivaa }
     | { type: StandardSkjemaSide.GodkjentUtdanning; value: GodkjentUtdanningValg }
-    | {
-          type: Exclude<
-              StandardSkjemaSide,
-              StandardSkjemaSide.DinSituasjon | StandardSkjemaSide.Utdanning | StandardSkjemaSide.GodkjentUtdanning
-          >;
-          value: string;
-      };
+    | { type: StandardSkjemaSide.BestaattUtdanning; value: JaEllerNei }
+    | { type: StandardSkjemaSide.Helseproblemer; value: JaEllerNei }
+    | { type: StandardSkjemaSide.AndreProblemer; value: JaEllerNei }
+    | { type: StandardSkjemaSide.SisteJobb; value: string };
 
 function skjemaReducer(state: SkjemaState, action: SkjemaAction): SkjemaState {
     switch (action.type) {

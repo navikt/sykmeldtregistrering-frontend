@@ -3,6 +3,7 @@ import useSprak from '../../hooks/useSprak';
 import { Heading } from '@navikt/ds-react';
 import RadioGruppe from '../radio-gruppe/radio-gruppe';
 import { SkjemaKomponentProps } from './skjema-felleskomponenter';
+import { JaEllerNei } from '../../model/skjema';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -12,14 +13,11 @@ const TEKSTER: Tekster<string> = {
     },
 };
 
-const BestattUtdanning = (props: SkjemaKomponentProps<string>) => {
+const BestattUtdanning = (props: SkjemaKomponentProps<JaEllerNei>) => {
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
     const { onChange, valgt } = props;
-
-    const valg = [
-        { tekst: tekst('ja'), value: 'ja' },
-        { tekst: tekst('nei'), value: 'nei' },
-    ];
+    const lagValg = (valg: JaEllerNei) => ({ tekst: tekst(valg), value: valg });
+    const valg = [lagValg(JaEllerNei.JA), lagValg(JaEllerNei.NEI)];
 
     return (
         <>

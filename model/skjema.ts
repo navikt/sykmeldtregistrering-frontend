@@ -31,8 +31,13 @@ export interface SkjemaState {
     sisteJobb?: string;
     utdanning?: Utdanningsnivaa;
     godkjentUtdanning?: GodkjentUtdanningValg;
-    bestaattUtdanning?: string;
-    helseproblemer?: string;
-    andreProblemer?: string;
+    bestaattUtdanning?: JaEllerNei;
+    helseproblemer?: JaEllerNei;
+    andreProblemer?: JaEllerNei;
     sykmeldtFremtidigSituasjon?: string;
+}
+
+export enum JaEllerNei {
+    JA = 'ja',
+    NEI = 'nei',
 }
