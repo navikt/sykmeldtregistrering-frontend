@@ -57,6 +57,7 @@ export enum SkjemaSide {
     Helseproblemer,
     AndreProblemer,
     SykmeldtFremtidigSituasjon,
+    Oppsummering,
 }
 
 function skjemaReducer(state: SkjemaState, action: SkjemaAction): SkjemaState {

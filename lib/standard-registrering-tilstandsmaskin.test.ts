@@ -5,10 +5,6 @@ import { Utdanningsnivaa } from '../components/skjema/utdanning';
 
 describe('Standard registrering tilstandsmaskin', () => {
     describe('din situasjon', () => {
-        it('har ingen neste når ingen state', () => {
-            const state = beregnNavigering(SkjemaSide.DinSituasjon, {});
-            expect(state.neste).toBeUndefined();
-        });
         it('returnerer SisteJobb som neste når mistet jobb', () => {
             const state = beregnNavigering(SkjemaSide.DinSituasjon, { dinSituasjon: Jobbsituasjon.MISTETJOBB });
             expect(state.neste).toBe(SkjemaSide.SisteJobb);
@@ -66,6 +62,62 @@ describe('Standard registrering tilstandsmaskin', () => {
                 utdanning: Utdanningsnivaa.HOYERE,
             });
             expect(state.forrige).toBe(SkjemaSide.SisteJobb);
+        });
+    });
+    describe('GodkjentUtdanning', () => {
+        it('returnerer BestattUtdanning som neste', () => {
+            const { neste } = beregnNavigering(SkjemaSide.GodkjentUtdanning, {});
+            expect(neste).toBe(SkjemaSide.BestaattUtdanning);
+        });
+
+        it('returnerer Utdanning som forrige', () => {
+            const { forrige } = beregnNavigering(SkjemaSide.GodkjentUtdanning, {});
+            expect(forrige).toBe(SkjemaSide.Utdanning);
+        });
+    });
+
+    describe('BestattUtdanning', () => {
+        it('returnerer Helseproblemer som neste', () => {
+            const { neste } = beregnNavigering(SkjemaSide.BestaattUtdanning, {});
+            expect(neste).toBe(SkjemaSide.Helseproblemer);
+        });
+
+        it('returnerer GodkjentUtdanning som forrige', () => {
+            const { forrige } = beregnNavigering(SkjemaSide.BestaattUtdanning, {});
+            expect(forrige).toBe(SkjemaSide.GodkjentUtdanning);
+        });
+    });
+
+    describe('Helseproblemer', () => {
+        it('returnerer AndreProblemer som neste', () => {
+            const { neste } = beregnNavigering(SkjemaSide.Helseproblemer, {});
+            expect(neste).toBe(SkjemaSide.AndreProblemer);
+        });
+
+        it('returnerer Utdanning som forrige når ingen utdanning', () => {
+            const { forrige } = beregnNavigering(SkjemaSide.Helseproblemer, {
+                utdanning: Utdanningsnivaa.INGEN,
+            });
+            expect(forrige).toBe(SkjemaSide.Utdanning);
+        });
+
+        it('returnerer BestattUtdanning som forrige når man har utdanning', () => {
+            const { forrige } = beregnNavigering(SkjemaSide.Helseproblemer, {
+                utdanning: Utdanningsnivaa.GRUNNSKOLE,
+            });
+            expect(forrige).toBe(SkjemaSide.BestaattUtdanning);
+        });
+    });
+
+    describe('AndreProblemer', () => {
+        it('returnerer Helseproblemer som forrige', () => {
+            const { forrige } = beregnNavigering(SkjemaSide.AndreProblemer, {});
+            expect(forrige).toBe(SkjemaSide.Helseproblemer);
+        });
+
+        it('returnerer Oppsummering som neste', () => {
+            const { neste } = beregnNavigering(SkjemaSide.AndreProblemer, {});
+            expect(neste).toBe(SkjemaSide.Oppsummering);
         });
     });
 });

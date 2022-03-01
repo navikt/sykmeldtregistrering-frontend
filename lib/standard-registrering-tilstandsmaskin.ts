@@ -1,33 +1,27 @@
-import Skjema, { SkjemaSide, SkjemaState } from '../pages/skjema/[side]';
+import { SkjemaSide, SkjemaState } from '../pages/skjema/[side]';
 import { Jobbsituasjon } from '../components/skjema/din-situasjon';
 import { Utdanningsnivaa } from '../components/skjema/utdanning';
 
 const TILSTANDER = {
     [`${SkjemaSide.DinSituasjon}`]: (skjemaState: SkjemaState) => {
-        if (skjemaState.dinSituasjon === undefined) {
-            return {
-                neste: undefined,
-                forrige: undefined,
-            };
-        } else if (skjemaState.dinSituasjon === Jobbsituasjon.ALDRIJOBBET) {
+        if (skjemaState.dinSituasjon === Jobbsituasjon.ALDRIJOBBET) {
             return {
                 neste: SkjemaSide.Utdanning,
                 forrige: undefined,
             };
-        } else {
-            return {
-                neste: SkjemaSide.SisteJobb,
-                forrige: undefined,
-            };
         }
+        return {
+            neste: SkjemaSide.SisteJobb,
+            forrige: undefined,
+        };
     },
-    [`${SkjemaSide.SisteJobb}`]: (skjemaState: SkjemaState) => {
+    [SkjemaSide.SisteJobb]: () => {
         return {
             neste: SkjemaSide.Utdanning,
             forrige: SkjemaSide.DinSituasjon,
         };
     },
-    [`${SkjemaSide.Utdanning}`]: (skjemaState: SkjemaState) => {
+    [SkjemaSide.Utdanning]: (skjemaState: SkjemaState) => {
         return {
             neste:
                 skjemaState.utdanning === Utdanningsnivaa.INGEN
@@ -35,6 +29,31 @@ const TILSTANDER = {
                     : SkjemaSide.GodkjentUtdanning,
             forrige:
                 skjemaState.dinSituasjon === Jobbsituasjon.ALDRIJOBBET ? SkjemaSide.DinSituasjon : SkjemaSide.SisteJobb,
+        };
+    },
+    [SkjemaSide.GodkjentUtdanning]: () => {
+        return {
+            neste: SkjemaSide.BestaattUtdanning,
+            forrige: SkjemaSide.Utdanning,
+        };
+    },
+    [SkjemaSide.BestaattUtdanning]: () => {
+        return {
+            neste: SkjemaSide.Helseproblemer,
+            forrige: SkjemaSide.GodkjentUtdanning,
+        };
+    },
+    [SkjemaSide.Helseproblemer]: (skjemaState: SkjemaState) => {
+        return {
+            neste: SkjemaSide.AndreProblemer,
+            forrige:
+                skjemaState.utdanning === Utdanningsnivaa.INGEN ? SkjemaSide.Utdanning : SkjemaSide.BestaattUtdanning,
+        };
+    },
+    [SkjemaSide.AndreProblemer]: () => {
+        return {
+            neste: SkjemaSide.Oppsummering,
+            forrige: SkjemaSide.Helseproblemer,
         };
     },
 };
