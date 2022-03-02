@@ -45,6 +45,12 @@ spec:
       value: {{mocking}}
     - name: NEXT_PUBLIC_SENTRY_DSN
       value: {{sentry.dsn}}
+    - name: START_REGISTRERING_URL
+      value: {{startRegistreringUrl}}
+    - name: SISTE_ARBEIDSFORHOLD_URL
+      value: {{sisteArbeidsforholdUrl}}
+    - name: KRYSSKLASSIFISER_URL
+      value: {{kryssklassifiserUrl}}
   ingresses:
     - {{ingress}}
   idporten:

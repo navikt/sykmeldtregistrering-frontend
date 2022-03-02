@@ -12,4 +12,7 @@ amplitude:
   endPoint: amplitude.nav.no/collect
 sentry:
   dsn: https://b2f662d8ed7a42b29f465f365e25832f@sentry.gc.nav.no/118
+startRegistreringUrl: https://veilarbregistrering.party/startregistrering
+sisteArbeidsforholdUrl: https://veilarbregistrering.party/sistearbeidsforhold
+kryssklassifiserUrl: https://www.nav.no/arbeid/registrering/pam-janzz/rest/kryssklassifiserMedKonsept
 
