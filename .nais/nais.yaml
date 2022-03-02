@@ -43,6 +43,8 @@ spec:
       value: {{amplitude.endPoint}}
     - name: NEXT_PUBLIC_API_MOCKING
       value: {{mocking}}
+    - name: NEXT_PUBLIC_SENTRY_DSN
+      value: {{sentry.dsn}}
   ingresses:
     - {{ingress}}
   idporten:

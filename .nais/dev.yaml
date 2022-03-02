@@ -10,4 +10,6 @@ loginservice:
 amplitude:
   apiKey: 2f190e67f31d7e4719c5ff048ad3d3e6
   endPoint: amplitude.nav.no/collect
+sentry:
+  dsn: https://b2f662d8ed7a42b29f465f365e25832f@sentry.gc.nav.no/118
 

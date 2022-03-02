@@ -29,4 +29,18 @@ export const handlers = [
             ctx.json({ konseptMedStyrk08List: [{ konseptId: 22490, label: 'IT-konsulent', styrk08: ['2511'] }] })
         );
     }),
+    rest.post('https://sentry.gc.nav.no/*', (req, res, ctx) => {
+        return res(
+            ctx.json({
+                success: true,
+            })
+        );
+    }),
+    rest.post('https://telemetry.nextjs.org/*', (req, res, ctx) => {
+        return res(
+            ctx.json({
+                success: true,
+            })
+        );
+    }),
 ];
