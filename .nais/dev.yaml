@@ -10,4 +10,7 @@ loginservice:
 amplitude:
   apiKey: 2f190e67f31d7e4719c5ff048ad3d3e6
   endPoint: amplitude.nav.no/collect
+startRegistreringUrl: https://veilarbregistrering.party/startregistrering
+sisteArbeidsforholdUrl: https://veilarbregistrering.party/sistearbeidsforhold
+kryssklassifiserUrl: https://www.nav.no/arbeid/registrering/pam-janzz/rest/kryssklassifiserMedKonsept
 
