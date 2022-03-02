@@ -1,6 +1,5 @@
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import Header from '../../components/header';
 import DinSituasjon, { Jobbsituasjon } from '../../components/skjema/din-situasjon';
 import styles from '../../styles/skjema.module.css';
 import SisteJobb from '../../components/skjema/siste-jobb/siste-jobb';
@@ -203,7 +202,6 @@ const Skjema: NextPage<SkjemaProps> = (props) => {
 
     return (
         <>
-            <Header />
             <main className={styles.main}>
                 {hentKomponentForSide(aktivSide)}
                 {visFeilmelding && <Alert variant="warning">{tekst('advarsel')}</Alert>}
