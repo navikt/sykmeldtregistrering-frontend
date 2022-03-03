@@ -13,6 +13,30 @@ const TILSTANDER: NavigeringsTilstandsMaskin<SykmeldtSkjemaSide> = {
         return {};
     },
     [SykmeldtSkjemaSide.Utdanning]: () => {
+        return {
+            neste: SykmeldtSkjemaSide.GodkjentUtdanning,
+            forrige: SykmeldtSkjemaSide.SykmeldtFremtidigSituasjon,
+        };
+    },
+    [SykmeldtSkjemaSide.GodkjentUtdanning]: () => {
+        return {
+            neste: SykmeldtSkjemaSide.BestaattUtdanning,
+            forrige: SykmeldtSkjemaSide.Utdanning,
+        };
+    },
+    [SykmeldtSkjemaSide.BestaattUtdanning]: () => {
+        return {
+            neste: SykmeldtSkjemaSide.AndreHensyn,
+            forrige: SykmeldtSkjemaSide.GodkjentUtdanning,
+        };
+    },
+    [SykmeldtSkjemaSide.AndreHensyn]: () => {
+        return {
+            neste: SykmeldtSkjemaSide.Oppsummering,
+            forrige: SykmeldtSkjemaSide.BestaattUtdanning,
+        };
+    },
+    [SykmeldtSkjemaSide.Oppsummering]: () => {
         return {};
     },
 };
