@@ -1,5 +1,6 @@
 import { Navigering, NavigeringsTilstandsMaskin, SkjemaState, SykmeldtSkjemaSide } from '../model/skjema';
 import { SykmeldtValg } from '../components/skjema/sykmeldt-fremtidig-situasjon';
+import { TilbakeTilJobbValg } from '../components/skjema/tilbake-til-jobb';
 
 const TILSTANDER: NavigeringsTilstandsMaskin<SykmeldtSkjemaSide> = {
     [SykmeldtSkjemaSide.SykmeldtFremtidigSituasjon]: (state: SkjemaState) => {
@@ -46,10 +47,22 @@ const TILSTANDER: NavigeringsTilstandsMaskin<SykmeldtSkjemaSide> = {
             forrige: SykmeldtSkjemaSide.BestaattUtdanning,
         };
     },
+    [SykmeldtSkjemaSide.TilbakeTilJobb]: (state) => {
+        if (state.tilbakeTilJobb === TilbakeTilJobbValg.FULL_STILLING) {
+            return {
+                neste: SykmeldtSkjemaSide.SkalTilbakeTilJobb,
+                forrige: SykmeldtSkjemaSide.SykmeldtFremtidigSituasjon,
+            };
+        }
+        return {
+            neste: SykmeldtSkjemaSide.Oppsummering,
+            forrige: SykmeldtSkjemaSide.SykmeldtFremtidigSituasjon,
+        };
+    },
     [SykmeldtSkjemaSide.Oppsummering]: () => {
         return {};
     },
-    [SykmeldtSkjemaSide.TilbakeTilJobb]: () => {
+    [SykmeldtSkjemaSide.SkalTilbakeTilJobb]: () => {
         return {};
     },
 };

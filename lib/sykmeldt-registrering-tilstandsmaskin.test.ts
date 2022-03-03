@@ -1,6 +1,7 @@
 import { SykmeldtSkjemaSide } from '../model/skjema';
 import { beregnNavigering } from './sykmeldt-registrering-tilstandsmaskin';
 import { SykmeldtValg } from '../components/skjema/sykmeldt-fremtidig-situasjon';
+import { TilbakeTilJobbValg } from '../components/skjema/tilbake-til-jobb';
 
 describe('Standard registrering tilstandsmaskin', () => {
     describe('Fremtidig situasjon', () => {
@@ -78,6 +79,37 @@ describe('Standard registrering tilstandsmaskin', () => {
         it('returnerer Oppsummering som neste', () => {
             const state = beregnNavigering(SykmeldtSkjemaSide.AndreHensyn, {});
             expect(state.neste).toBe(SykmeldtSkjemaSide.Oppsummering);
+        });
+    });
+
+    describe('TilbakeTilJobb', () => {
+        it('returnerer Oppsummering som neste for REDUSERT_STILLING', () => {
+            const state = beregnNavigering(SykmeldtSkjemaSide.TilbakeTilJobb, {
+                tilbakeTilJobb: TilbakeTilJobbValg.REDUSERT_STILLING,
+            });
+            expect(state.neste).toBe(SykmeldtSkjemaSide.Oppsummering);
+        });
+        it('returnerer Oppsummering som neste for USIKKER', () => {
+            const state = beregnNavigering(SykmeldtSkjemaSide.TilbakeTilJobb, {
+                tilbakeTilJobb: TilbakeTilJobbValg.USIKKER,
+            });
+            expect(state.neste).toBe(SykmeldtSkjemaSide.Oppsummering);
+        });
+        it('returnerer Oppsummering som neste for NEI', () => {
+            const state = beregnNavigering(SykmeldtSkjemaSide.TilbakeTilJobb, {
+                tilbakeTilJobb: TilbakeTilJobbValg.NEI,
+            });
+            expect(state.neste).toBe(SykmeldtSkjemaSide.Oppsummering);
+        });
+        it('returnerer SkalTilbakeTilJobb som neste for FULL_STILLING', () => {
+            const state = beregnNavigering(SykmeldtSkjemaSide.TilbakeTilJobb, {
+                tilbakeTilJobb: TilbakeTilJobbValg.FULL_STILLING,
+            });
+            expect(state.neste).toBe(SykmeldtSkjemaSide.SkalTilbakeTilJobb);
+        });
+        it('returnerer FremtidigSituasjon som forrige', () => {
+            const state = beregnNavigering(SykmeldtSkjemaSide.TilbakeTilJobb, {});
+            expect(state.forrige).toBe(SykmeldtSkjemaSide.SykmeldtFremtidigSituasjon);
         });
     });
 });
