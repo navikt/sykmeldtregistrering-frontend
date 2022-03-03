@@ -2,6 +2,7 @@ import { Jobbsituasjon } from '../components/skjema/din-situasjon';
 import { Utdanningsnivaa } from '../components/skjema/utdanning';
 import { GodkjentUtdanningValg } from '../components/skjema/utdanning-godkjent';
 import { SykmeldtValg } from '../components/skjema/sykmeldt-fremtidig-situasjon';
+import { TilbakeTilJobbValg } from '../components/skjema/tilbake-til-jobb';
 
 export enum StandardSkjemaSide {
     DinSituasjon = '0',
@@ -17,6 +18,12 @@ export enum StandardSkjemaSide {
 export enum SykmeldtSkjemaSide {
     SykmeldtFremtidigSituasjon = '0',
     Utdanning = '1',
+    GodkjentUtdanning = '2',
+    BestaattUtdanning = '3',
+    AndreHensyn = '4',
+    Oppsummering = '5',
+    TilbakeTilJobb = '6',
+    SkalTilbakeTilJobb = '7',
 }
 
 export type SkjemaSide = StandardSkjemaSide | SykmeldtSkjemaSide;
@@ -37,6 +44,7 @@ export interface SkjemaState {
     helseproblemer?: JaEllerNei;
     andreProblemer?: JaEllerNei;
     sykmeldtFremtidigSituasjon?: SykmeldtValg;
+    tilbakeTilJobb?: TilbakeTilJobbValg;
 }
 
 export enum JaEllerNei {

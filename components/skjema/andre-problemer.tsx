@@ -1,4 +1,4 @@
-import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
+import lagHentTekstForSprak, { Tekster, TeksterMedDefinerteNokler } from '../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../hooks/useSprak';
 import { Alert, BodyShort, Heading } from '@navikt/ds-react';
 import RadioGruppe from '../radio-gruppe/radio-gruppe';
@@ -16,30 +16,38 @@ const TEKSTER: Tekster<string> = {
     },
 };
 
-const AndreProblemer = (props: SkjemaKomponentProps<JaEllerNei>) => {
-    const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
-    const { onChange, valgt } = props;
+export type AndreProblemerTekster = TeksterMedDefinerteNokler<
+    'tittel' | 'ingress' | 'ja' | 'nei' | 'fortellMer',
+    string
+>;
 
-    const lagValg = (valg: JaEllerNei) => ({ tekst: tekst(valg), value: valg });
-    const valg = [lagValg(JaEllerNei.JA), lagValg(JaEllerNei.NEI)];
+export const lagAndreProblemerKomponent = (teksterMap: AndreProblemerTekster) => {
+    return function AndreProblemerKomponent(props: SkjemaKomponentProps<JaEllerNei>) {
+        const tekst = lagHentTekstForSprak(teksterMap, useSprak());
+        const { onChange, valgt } = props;
 
-    return (
-        <>
-            <Heading spacing size={'large'} level="1">
-                {tekst('tittel')}
-            </Heading>
+        const lagValg = (valg: JaEllerNei) => ({ tekst: tekst(valg), value: valg });
+        const valg = [lagValg(JaEllerNei.JA), lagValg(JaEllerNei.NEI)];
 
-            <BodyShort>{tekst('ingress')}</BodyShort>
+        return (
+            <>
+                <Heading spacing size={'large'} level="1">
+                    {tekst('tittel')}
+                </Heading>
 
-            <form className="mbl">
-                <RadioGruppe valg={valg} onSelect={onChange} valgt={valgt} />
-            </form>
+                <BodyShort>{tekst('ingress')}</BodyShort>
 
-            <Alert variant="info" inline={true}>
-                {tekst('fortellMer')}
-            </Alert>
-        </>
-    );
+                <form className="mbl">
+                    <RadioGruppe valg={valg} onSelect={onChange} valgt={valgt} />
+                </form>
+
+                <Alert variant="info" inline={true}>
+                    {tekst('fortellMer')}
+                </Alert>
+            </>
+        );
+    };
 };
 
+const AndreProblemer = lagAndreProblemerKomponent(TEKSTER);
 export default AndreProblemer;
