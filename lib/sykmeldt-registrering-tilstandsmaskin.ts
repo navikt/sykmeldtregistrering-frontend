@@ -10,7 +10,17 @@ const TILSTANDER: NavigeringsTilstandsMaskin<SykmeldtSkjemaSide> = {
             };
         }
 
-        return {};
+        if (state.sykmeldtFremtidigSituasjon === SykmeldtValg.INGEN_ALTERNATIVER_PASSER) {
+            return {
+                neste: SykmeldtSkjemaSide.Oppsummering,
+                forrige: undefined,
+            };
+        }
+
+        return {
+            neste: SykmeldtSkjemaSide.TilbakeTilJobb,
+            forrige: undefined,
+        };
     },
     [SykmeldtSkjemaSide.Utdanning]: () => {
         return {
@@ -37,6 +47,9 @@ const TILSTANDER: NavigeringsTilstandsMaskin<SykmeldtSkjemaSide> = {
         };
     },
     [SykmeldtSkjemaSide.Oppsummering]: () => {
+        return {};
+    },
+    [SykmeldtSkjemaSide.TilbakeTilJobb]: () => {
         return {};
     },
 };

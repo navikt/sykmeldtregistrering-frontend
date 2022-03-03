@@ -21,6 +21,7 @@ export enum SykmeldtSkjemaSide {
     BestaattUtdanning = '3',
     AndreHensyn = '4',
     Oppsummering = '5',
+    TilbakeTilJobb = '6',
 }
 
 export type SkjemaSide = StandardSkjemaSide | SykmeldtSkjemaSide;

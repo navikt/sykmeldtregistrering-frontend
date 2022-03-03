@@ -11,13 +11,29 @@ describe('Standard registrering tilstandsmaskin', () => {
             expect(state.neste).toBe(SykmeldtSkjemaSide.Utdanning);
             expect(state.forrige).toBeUndefined();
         });
-
         it('returnerer Utdanning som neste for USIKKER', () => {
             const state = beregnNavigering(SykmeldtSkjemaSide.SykmeldtFremtidigSituasjon, {
                 sykmeldtFremtidigSituasjon: SykmeldtValg.USIKKER,
             });
-
             expect(state.neste).toBe(SykmeldtSkjemaSide.Utdanning);
+        });
+        it('returnerer Oppsummering som neste for INGEN_ALTERNATIVER_PASSER', () => {
+            const state = beregnNavigering(SykmeldtSkjemaSide.SykmeldtFremtidigSituasjon, {
+                sykmeldtFremtidigSituasjon: SykmeldtValg.INGEN_ALTERNATIVER_PASSER,
+            });
+            expect(state.neste).toBe(SykmeldtSkjemaSide.Oppsummering);
+        });
+        it('returnerer TilbakeTilJobb som neste for TILBAKE_TIL_JOBB', () => {
+            const state = beregnNavigering(SykmeldtSkjemaSide.SykmeldtFremtidigSituasjon, {
+                sykmeldtFremtidigSituasjon: SykmeldtValg.TILBAKE_TIL_JOBB,
+            });
+            expect(state.neste).toBe(SykmeldtSkjemaSide.TilbakeTilJobb);
+        });
+        it('returnerer TilbakeTilJobb som neste for TILBAKE_TIL_NY_STILLING', () => {
+            const state = beregnNavigering(SykmeldtSkjemaSide.SykmeldtFremtidigSituasjon, {
+                sykmeldtFremtidigSituasjon: SykmeldtValg.TILBAKE_TIL_NY_STILLING,
+            });
+            expect(state.neste).toBe(SykmeldtSkjemaSide.TilbakeTilJobb);
         });
     });
 
