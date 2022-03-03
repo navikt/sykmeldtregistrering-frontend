@@ -15,16 +15,25 @@ const TEKSTER: Tekster<string> = {
     },
 };
 
-const SykmeldtFremtidigSituasjon = (props: SkjemaKomponentProps<string>) => {
+export enum SykmeldtValg {
+    TILBAKE_TIL_JOBB = 'tilbakeTilJobb',
+    TILBAKE_TIL_NY_STILLING = 'tilbakeTilNyStilling',
+    TRENGER_NY_JOBB = 'trengerNyJobb',
+    USIKKER = 'usikker',
+    INGEN_ALTERNATIVER_PASSER = 'ingenAlternativerPasser',
+}
+
+const SykmeldtFremtidigSituasjon = (props: SkjemaKomponentProps<SykmeldtValg>) => {
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
     const { onChange, valgt } = props;
 
+    const lagValg = (valg: SykmeldtValg) => ({ tekst: tekst(valg), value: valg });
     const valg = [
-        { tekst: tekst('tilbakeTilJobb'), value: 'tilbakeTilJobb' },
-        { tekst: tekst('tilbakeTilNyStilling'), value: 'tilbakeTilNyStilling' },
-        { tekst: tekst('trengerNyJobb'), value: 'trengerNyJobb' },
-        { tekst: tekst('usikker'), value: 'usikker' },
-        { tekst: tekst('ingenAlternativerPasser'), value: 'ingenAlternativerPasser' },
+        lagValg(SykmeldtValg.TILBAKE_TIL_JOBB),
+        lagValg(SykmeldtValg.TILBAKE_TIL_NY_STILLING),
+        lagValg(SykmeldtValg.TRENGER_NY_JOBB),
+        lagValg(SykmeldtValg.USIKKER),
+        lagValg(SykmeldtValg.INGEN_ALTERNATIVER_PASSER),
     ];
 
     return (
