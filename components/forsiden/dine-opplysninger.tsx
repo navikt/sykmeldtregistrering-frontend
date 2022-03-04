@@ -24,8 +24,7 @@ const TEKSTER: Tekster<string> = {
 };
 
 const dineOpplysninger = () => {
-    const sprak = useSprak();
-    const tekst = lagHentTekstForSprak(TEKSTER, sprak);
+    const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
 
     return (
         <>
