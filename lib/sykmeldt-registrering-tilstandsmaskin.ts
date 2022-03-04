@@ -1,9 +1,9 @@
-import { Navigering, NavigeringsTilstandsMaskin, SkjemaState, SykmeldtSkjemaSide } from '../model/skjema';
+import { Navigering, NavigeringsTilstandsMaskin, SykmeldtSkjemaSide, SykmeldtSkjemaState } from '../model/skjema';
 import { SykmeldtValg } from '../components/skjema/sykmeldt-fremtidig-situasjon';
 import { TilbakeTilJobbValg } from '../components/skjema/tilbake-til-jobb';
 
 const TILSTANDER: NavigeringsTilstandsMaskin<SykmeldtSkjemaSide> = {
-    [SykmeldtSkjemaSide.SykmeldtFremtidigSituasjon]: (state: SkjemaState) => {
+    [SykmeldtSkjemaSide.SykmeldtFremtidigSituasjon]: (state: SykmeldtSkjemaState) => {
         if ([SykmeldtValg.TRENGER_NY_JOBB, SykmeldtValg.USIKKER].includes(state.sykmeldtFremtidigSituasjon!)) {
             return {
                 neste: SykmeldtSkjemaSide.Utdanning,
@@ -47,7 +47,7 @@ const TILSTANDER: NavigeringsTilstandsMaskin<SykmeldtSkjemaSide> = {
             forrige: SykmeldtSkjemaSide.BestaattUtdanning,
         };
     },
-    [SykmeldtSkjemaSide.TilbakeTilJobb]: (state) => {
+    [SykmeldtSkjemaSide.TilbakeTilJobb]: (state: SykmeldtSkjemaState) => {
         if (state.tilbakeTilJobb === TilbakeTilJobbValg.FULL_STILLING) {
             return {
                 neste: SykmeldtSkjemaSide.SkalTilbakeTilJobb,
@@ -59,7 +59,7 @@ const TILSTANDER: NavigeringsTilstandsMaskin<SykmeldtSkjemaSide> = {
             forrige: SykmeldtSkjemaSide.SykmeldtFremtidigSituasjon,
         };
     },
-    [SykmeldtSkjemaSide.Oppsummering]: (state) => {
+    [SykmeldtSkjemaSide.Oppsummering]: (state: SykmeldtSkjemaState) => {
         if (state.sykmeldtFremtidigSituasjon === SykmeldtValg.INGEN_ALTERNATIVER_PASSER) {
             return {
                 forrige: SykmeldtSkjemaSide.SykmeldtFremtidigSituasjon,
@@ -79,6 +79,9 @@ const TILSTANDER: NavigeringsTilstandsMaskin<SykmeldtSkjemaSide> = {
     },
 };
 
-export function beregnNavigering(aktivSide: SykmeldtSkjemaSide, state: SkjemaState): Navigering<SykmeldtSkjemaSide> {
+export function beregnNavigering(
+    aktivSide: SykmeldtSkjemaSide,
+    state: SykmeldtSkjemaState
+): Navigering<SykmeldtSkjemaSide> {
     return TILSTANDER[aktivSide](state);
 }

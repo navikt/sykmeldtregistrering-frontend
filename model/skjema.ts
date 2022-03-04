@@ -33,16 +33,23 @@ export type Navigering<T extends SkjemaSide> = {
     forrige?: T;
 };
 
-export type NavigeringsTilstandsMaskin<T extends SkjemaSide> = Record<T, (state: SkjemaState) => Navigering<T>>;
+export type NavigeringsTilstandsMaskin<T extends SkjemaSide> = Record<
+    T,
+    (state: StandardSkjemaState | SykmeldtSkjemaState) => Navigering<T>
+>;
 
-export interface SkjemaState {
-    dinSituasjon?: Jobbsituasjon;
-    sisteJobb?: string;
+interface SkjemaState {
     utdanning?: Utdanningsnivaa;
     godkjentUtdanning?: GodkjentUtdanningValg;
     bestaattUtdanning?: JaEllerNei;
-    helseproblemer?: JaEllerNei;
     andreProblemer?: JaEllerNei;
+}
+export interface StandardSkjemaState extends SkjemaState {
+    dinSituasjon?: Jobbsituasjon;
+    sisteJobb?: string;
+    helseproblemer?: JaEllerNei;
+}
+export interface SykmeldtSkjemaState extends SkjemaState {
     sykmeldtFremtidigSituasjon?: SykmeldtValg;
     tilbakeTilJobb?: TilbakeTilJobbValg;
 }

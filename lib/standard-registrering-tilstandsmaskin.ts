@@ -1,9 +1,9 @@
 import { Jobbsituasjon } from '../components/skjema/din-situasjon';
 import { Utdanningsnivaa } from '../components/skjema/utdanning';
-import { Navigering, NavigeringsTilstandsMaskin, SkjemaState, StandardSkjemaSide } from '../model/skjema';
+import { Navigering, NavigeringsTilstandsMaskin, StandardSkjemaState, StandardSkjemaSide } from '../model/skjema';
 
 const TILSTANDER: NavigeringsTilstandsMaskin<StandardSkjemaSide> = {
-    [StandardSkjemaSide.DinSituasjon]: (skjemaState: SkjemaState) => {
+    [StandardSkjemaSide.DinSituasjon]: (skjemaState: StandardSkjemaState) => {
         if (skjemaState.dinSituasjon === Jobbsituasjon.ALDRIJOBBET) {
             return {
                 neste: StandardSkjemaSide.Utdanning,
@@ -22,7 +22,7 @@ const TILSTANDER: NavigeringsTilstandsMaskin<StandardSkjemaSide> = {
             forrige: StandardSkjemaSide.DinSituasjon,
         };
     },
-    [StandardSkjemaSide.Utdanning]: (skjemaState: SkjemaState) => {
+    [StandardSkjemaSide.Utdanning]: (skjemaState: StandardSkjemaState) => {
         return {
             neste:
                 skjemaState.utdanning === Utdanningsnivaa.INGEN
@@ -46,7 +46,7 @@ const TILSTANDER: NavigeringsTilstandsMaskin<StandardSkjemaSide> = {
             forrige: StandardSkjemaSide.GodkjentUtdanning,
         };
     },
-    [StandardSkjemaSide.Helseproblemer]: (skjemaState: SkjemaState) => {
+    [StandardSkjemaSide.Helseproblemer]: (skjemaState: StandardSkjemaState) => {
         return {
             neste: StandardSkjemaSide.AndreProblemer,
             forrige:
@@ -69,6 +69,9 @@ const TILSTANDER: NavigeringsTilstandsMaskin<StandardSkjemaSide> = {
     },
 };
 
-export function beregnNavigering(aktivSide: StandardSkjemaSide, state: SkjemaState): Navigering<StandardSkjemaSide> {
+export function beregnNavigering(
+    aktivSide: StandardSkjemaSide,
+    state: StandardSkjemaState
+): Navigering<StandardSkjemaSide> {
     return TILSTANDER[aktivSide](state);
 }

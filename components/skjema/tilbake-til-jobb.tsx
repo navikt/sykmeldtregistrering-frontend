@@ -3,7 +3,6 @@ import { SkjemaKomponentProps } from './skjema-felleskomponenter';
 import useSprak from '../../hooks/useSprak';
 import { Heading } from '@navikt/ds-react';
 import RadioGruppe from '../radio-gruppe/radio-gruppe';
-import { SykmeldtValg } from './sykmeldt-fremtidig-situasjon';
 
 export enum TilbakeTilJobbValg {
     FULL_STILLING = 'fullStilling',

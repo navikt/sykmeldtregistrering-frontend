@@ -5,7 +5,7 @@ import OppsummeringSvg from './oppsummering-svg';
 import lagHentTekstForSprak, { Tekster } from '../../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../../hooks/useSprak';
 import { hentSvartekst as hentJobbsituasjonTekst } from '../din-situasjon';
-import { SkjemaState } from '../../../model/skjema';
+import { StandardSkjemaState } from '../../../model/skjema';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -23,7 +23,7 @@ const TEKSTER: Tekster<string> = {
     },
 };
 
-const Oppsummering = (props: SkjemaState) => {
+const Oppsummering = (props: StandardSkjemaState) => {
     const sprak = useSprak();
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
     return (
