@@ -31,8 +31,6 @@ jobs:
   build:
     name: Build and Publish Docker image
     runs-on: ubuntu-latest
-    env:
-      SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
 
     steps:
       - name: Checkout code
