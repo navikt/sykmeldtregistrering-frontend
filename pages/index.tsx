@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { Heading } from '@navikt/ds-react';
 import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../hooks/useSprak';
+import DineOpplysninger from '../components/forsiden/dine-opplysninger';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -29,6 +30,7 @@ const Home: NextPage = (props) => {
             <Heading spacing size="xlarge" level="2">
                 {tekst('tittel')}
             </Heading>
+            <DineOpplysninger />
         </div>
     );
 };
