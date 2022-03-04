@@ -24,6 +24,7 @@ const TEKSTER: Tekster<string> = {
 };
 
 const dineOpplysninger = () => {
+    // eslint-disable-next-line
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
 
     return (
