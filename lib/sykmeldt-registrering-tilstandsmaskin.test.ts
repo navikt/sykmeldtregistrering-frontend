@@ -112,4 +112,24 @@ describe('Standard registrering tilstandsmaskin', () => {
             expect(state.forrige).toBe(SykmeldtSkjemaSide.SykmeldtFremtidigSituasjon);
         });
     });
+    describe('Oppsummering', () => {
+        it('returnerer SykmeldtFremtidigSituasjon når sykmeldtFremtidigSituasjon=SykmeldtValg.INGEN_ALTERNATIVER_PASSER', () => {
+            const state = beregnNavigering(SykmeldtSkjemaSide.Oppsummering, {
+                sykmeldtFremtidigSituasjon: SykmeldtValg.INGEN_ALTERNATIVER_PASSER,
+            });
+            expect(state.forrige).toBe(SykmeldtSkjemaSide.SykmeldtFremtidigSituasjon);
+        });
+
+        it('returnerer TilbakeTilJobb når tilbakeTilJobb er satt i state', () => {
+            const state = beregnNavigering(SykmeldtSkjemaSide.Oppsummering, {
+                tilbakeTilJobb: TilbakeTilJobbValg.REDUSERT_STILLING,
+            });
+            expect(state.forrige).toBe(SykmeldtSkjemaSide.TilbakeTilJobb);
+        });
+
+        it('returnerer AndreHensyn som default', () => {
+            const state = beregnNavigering(SykmeldtSkjemaSide.Oppsummering, {});
+            expect(state.forrige).toBe(SykmeldtSkjemaSide.AndreHensyn);
+        });
+    });
 });

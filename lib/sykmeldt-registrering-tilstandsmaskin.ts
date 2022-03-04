@@ -59,8 +59,20 @@ const TILSTANDER: NavigeringsTilstandsMaskin<SykmeldtSkjemaSide> = {
             forrige: SykmeldtSkjemaSide.SykmeldtFremtidigSituasjon,
         };
     },
-    [SykmeldtSkjemaSide.Oppsummering]: () => {
-        return {};
+    [SykmeldtSkjemaSide.Oppsummering]: (state) => {
+        if (state.sykmeldtFremtidigSituasjon === SykmeldtValg.INGEN_ALTERNATIVER_PASSER) {
+            return {
+                forrige: SykmeldtSkjemaSide.SykmeldtFremtidigSituasjon,
+            };
+        }
+        if (state.tilbakeTilJobb) {
+            return {
+                forrige: SykmeldtSkjemaSide.TilbakeTilJobb,
+            };
+        }
+        return {
+            forrige: SykmeldtSkjemaSide.AndreHensyn,
+        };
     },
     [SykmeldtSkjemaSide.SkalTilbakeTilJobb]: () => {
         return {};

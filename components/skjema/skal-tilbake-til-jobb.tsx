@@ -2,8 +2,6 @@ import { Button, Cell, Grid, GuidePanel, Heading, Panel } from '@navikt/ds-react
 import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../hooks/useSprak';
 import styles from './knapperad/knapperad.module.css';
-import { TilbakeKnapp } from './tilbake-knapp';
-import Neste from './neste-knapp';
 
 const TEKSTER: Tekster<string> = {
     nb: {
