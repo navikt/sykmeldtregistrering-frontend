@@ -16,7 +16,7 @@ RUN --mount=type=secret,id=SENTRY_AUTH_TOKEN \
 
 FROM node:16-alpine AS runtime
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
 ENV PORT=3000 \
     NODE_ENV=production
@@ -29,8 +29,8 @@ COPY --from=builder /usr/src/app/next.config.js ./
 COPY --from=builder /usr/src/app/public ./public
 COPY --from=builder /usr/src/app/package.json ./package.json
 
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+COPY --from=builder --chown=nextjs:nodejs /usr/src/app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /usr/src/app/.next/static ./.next/static
 
 USER nextjs
 EXPOSE 3000
