@@ -10,6 +10,9 @@ const nextConfig = {
         localeDetection: false,
     },
     trailingSlash: true,
+    experimental: {
+        outputStandalone: true,
+    },
 };
 
 const sentryWebpackPluginOptions = {

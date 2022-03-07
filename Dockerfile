@@ -21,9 +21,18 @@ WORKDIR /usr/src/app
 ENV PORT=3000 \
     NODE_ENV=production
 
-COPY --from=builder /usr/src/app/ /usr/src/app/
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
 
+# You only need to copy next.config.js if you are NOT using the default configuration
+COPY --from=builder /usr/src/app/next.config.js ./
+COPY --from=builder /usr/src/app/public ./public
+COPY --from=builder /usr/src/app/package.json ./package.json
+
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+USER nextjs
 EXPOSE 3000
-USER node
 
-CMD ["./node_modules/.bin/next", "start"]
+CMD ["node", "server.js"]
