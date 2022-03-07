@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY package*.json .npmrc ./ 
 RUN npm ci && \
-    node /usr/src/app/node_modules/@sentry/cli/scripts/install.js
+    node /app/node_modules/@sentry/cli/scripts/install.js
 
 FROM node:16-alpine AS builder
 WORKDIR /app
