@@ -6,16 +6,16 @@ Arbeidssøkerregistrering
 
 Bruk Node.js 16
 
-- klon repo
-- innstaller avhengigheter `npm i`
-- kjør tester `npm t`
-- start utviklingsserver `npm run dev`
-- åpne nettleseren på `http://localhost:3000/arbeid/registrering-ny`
+-   klon repo
+-   innstaller avhengigheter `npm i`
+-   kjør tester `npm t`
+-   start utviklingsserver `npm run dev`
+-   åpne nettleseren på `http://localhost:3000/arbeid/registrering-ny`
 
 ## Ekstern dokumentasjon
-- [Next.js](https://nextjs.org/)
-- [msw](https://mswjs.io/)
-- [testing-library](https://testing-library.com/)
+
+-   [Next.js](https://nextjs.org/)
+-   [testing-library](https://testing-library.com/)
 
 # Henvendelser
 
