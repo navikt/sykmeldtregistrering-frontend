@@ -25,7 +25,7 @@ const TILSTANDER: NavigeringsTilstandsMaskin<StandardSkjemaSide> = {
     [SkjemaSide.Utdanning]: (skjemaState: SkjemaState) => {
         return {
             neste:
-                skjemaState.utdanning === Utdanningsnivaa.INGEN
+                skjemaState.utdanning?.verdi === Utdanningsnivaa.INGEN
                     ? SkjemaSide.Helseproblemer
                     : SkjemaSide.GodkjentUtdanning,
             forrige:
@@ -50,7 +50,9 @@ const TILSTANDER: NavigeringsTilstandsMaskin<StandardSkjemaSide> = {
         return {
             neste: SkjemaSide.AndreProblemer,
             forrige:
-                skjemaState.utdanning === Utdanningsnivaa.INGEN ? SkjemaSide.Utdanning : SkjemaSide.BestaattUtdanning,
+                skjemaState.utdanning?.verdi === Utdanningsnivaa.INGEN
+                    ? SkjemaSide.Utdanning
+                    : SkjemaSide.BestaattUtdanning,
         };
     },
     [SkjemaSide.AndreProblemer]: () => {

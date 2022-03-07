@@ -40,7 +40,11 @@ const TilbakeTilJobb = (props: SkjemaKomponentProps<TilbakeTilJobbValg>) => {
             </Heading>
 
             <form className="mbl">
-                <RadioGruppe valg={valg} onSelect={onChange} valgt={valgt} />
+                <RadioGruppe
+                    valg={valg}
+                    onSelect={(val) => onChange({ verdi: val, tekst: tekst(val) })}
+                    valgt={valgt}
+                />
             </form>
         </>
     );

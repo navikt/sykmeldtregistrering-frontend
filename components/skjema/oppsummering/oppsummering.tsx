@@ -44,42 +44,42 @@ const Oppsummering = (props: SkjemaState) => {
                         {props.sisteJobb && (
                             <Rad
                                 radTittel={tekst('sisteStilling')}
-                                svaralternativ={props.sisteJobb}
+                                svaralternativ={props.sisteJobb.tekst}
                                 side={SkjemaSide.SisteJobb}
                             />
                         )}
                         {props.utdanning && (
                             <Rad
                                 radTittel={tekst('hoyesteFullforteUtdanning')}
-                                svaralternativ={props.utdanning}
+                                svaralternativ={props.utdanning.tekst}
                                 side={SkjemaSide.Utdanning}
                             />
                         )}
                         {props.godkjentUtdanning && (
                             <Rad
                                 radTittel={tekst('utdanningGodkjent')}
-                                svaralternativ={props.godkjentUtdanning}
+                                svaralternativ={props.godkjentUtdanning.tekst}
                                 side={SkjemaSide.GodkjentUtdanning}
                             />
                         )}
                         {props.bestaattUtdanning && (
                             <Rad
                                 radTittel={tekst('utdanningBestaatt')}
-                                svaralternativ={props.bestaattUtdanning}
+                                svaralternativ={props.bestaattUtdanning.tekst}
                                 side={SkjemaSide.BestaattUtdanning}
                             />
                         )}
                         {props.helseproblemer && (
                             <Rad
                                 radTittel={tekst('helseproblemer')}
-                                svaralternativ={props.helseproblemer}
+                                svaralternativ={props.helseproblemer.tekst}
                                 side={SkjemaSide.Helseproblemer}
                             />
                         )}
                         {props.andreProblemer && (
                             <Rad
                                 radTittel={tekst('andreProblemer')}
-                                svaralternativ={props.andreProblemer}
+                                svaralternativ={props.andreProblemer.tekst}
                                 side={SkjemaSide.AndreProblemer}
                             />
                         )}

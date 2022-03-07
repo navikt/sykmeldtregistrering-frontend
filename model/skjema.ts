@@ -50,14 +50,14 @@ export type SkjemaVerdi<T> = { verdi: T; tekst: string };
 
 export interface SkjemaState {
     dinSituasjon?: SkjemaVerdi<Jobbsituasjon>;
-    utdanning?: Utdanningsnivaa;
-    godkjentUtdanning?: GodkjentUtdanningValg;
-    bestaattUtdanning?: JaEllerNei;
-    andreProblemer?: JaEllerNei;
-    sisteJobb?: string;
-    helseproblemer?: JaEllerNei;
-    sykmeldtFremtidigSituasjon?: SykmeldtValg;
-    tilbakeTilJobb?: TilbakeTilJobbValg;
+    utdanning?: SkjemaVerdi<Utdanningsnivaa>;
+    godkjentUtdanning?: SkjemaVerdi<GodkjentUtdanningValg>;
+    bestaattUtdanning?: SkjemaVerdi<JaEllerNei>;
+    andreProblemer?: SkjemaVerdi<JaEllerNei>;
+    sisteJobb?: SkjemaVerdi<string>;
+    helseproblemer?: SkjemaVerdi<JaEllerNei>;
+    sykmeldtFremtidigSituasjon?: SkjemaVerdi<SykmeldtValg>;
+    tilbakeTilJobb?: SkjemaVerdi<TilbakeTilJobbValg>;
 }
 
 export enum JaEllerNei {

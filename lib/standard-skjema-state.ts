@@ -9,14 +9,14 @@ import { TilbakeTilJobbValg } from '../components/skjema/tilbake-til-jobb';
 export type SkjemaReducer = Reducer<SkjemaState, SkjemaAction>;
 export type SkjemaAction =
     | { type: SkjemaSide.DinSituasjon; value: SkjemaVerdi<Jobbsituasjon> }
-    | { type: SkjemaSide.Utdanning; value: Utdanningsnivaa }
-    | { type: SkjemaSide.GodkjentUtdanning; value: GodkjentUtdanningValg }
-    | { type: SkjemaSide.BestaattUtdanning; value: JaEllerNei }
-    | { type: SkjemaSide.Helseproblemer; value: JaEllerNei }
-    | { type: SkjemaSide.AndreProblemer; value: JaEllerNei }
-    | { type: SkjemaSide.SisteJobb; value: string }
-    | { type: SkjemaSide.SykmeldtFremtidigSituasjon; value: SykmeldtValg }
-    | { type: SkjemaSide.TilbakeTilJobb; value: TilbakeTilJobbValg };
+    | { type: SkjemaSide.Utdanning; value: SkjemaVerdi<Utdanningsnivaa> }
+    | { type: SkjemaSide.GodkjentUtdanning; value: SkjemaVerdi<GodkjentUtdanningValg> }
+    | { type: SkjemaSide.BestaattUtdanning; value: SkjemaVerdi<JaEllerNei> }
+    | { type: SkjemaSide.Helseproblemer; value: SkjemaVerdi<JaEllerNei> }
+    | { type: SkjemaSide.AndreProblemer; value: SkjemaVerdi<JaEllerNei> }
+    | { type: SkjemaSide.SisteJobb; value: SkjemaVerdi<string> }
+    | { type: SkjemaSide.SykmeldtFremtidigSituasjon; value: SkjemaVerdi<SykmeldtValg> }
+    | { type: SkjemaSide.TilbakeTilJobb; value: SkjemaVerdi<TilbakeTilJobbValg> };
 
 export function skjemaReducer(state: SkjemaState, action: SkjemaAction): SkjemaState {
     switch (action.type) {

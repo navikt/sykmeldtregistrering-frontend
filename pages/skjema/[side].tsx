@@ -46,40 +46,48 @@ const lagSiderMap = (skjemaState: SkjemaState, dispatch: Dispatch<SkjemaAction>)
         ),
         [SkjemaSide.SisteJobb]: (
             <SisteJobb
-                onChange={(value) => dispatch({ type: SkjemaSide.SisteJobb, value: value as string })}
-                valgt={skjemaState.sisteJobb}
+                onChange={(value) => dispatch({ type: SkjemaSide.SisteJobb, value: value as SkjemaVerdi<string> })}
+                valgt={skjemaState.sisteJobb?.verdi}
             />
         ),
         [SkjemaSide.Utdanning]: (
             <Utdanning
-                onChange={(value) => dispatch({ type: SkjemaSide.Utdanning, value: value as Utdanningsnivaa })}
-                valgt={skjemaState.utdanning}
+                onChange={(value) =>
+                    dispatch({ type: SkjemaSide.Utdanning, value: value as SkjemaVerdi<Utdanningsnivaa> })
+                }
+                valgt={skjemaState.utdanning?.verdi}
             />
         ),
         [SkjemaSide.GodkjentUtdanning]: (
             <GodkjentUtdanning
                 onChange={(value) =>
-                    dispatch({ type: SkjemaSide.GodkjentUtdanning, value: value as GodkjentUtdanningValg })
+                    dispatch({ type: SkjemaSide.GodkjentUtdanning, value: value as SkjemaVerdi<GodkjentUtdanningValg> })
                 }
-                valgt={skjemaState.godkjentUtdanning}
+                valgt={skjemaState.godkjentUtdanning?.verdi}
             />
         ),
         [SkjemaSide.BestaattUtdanning]: (
             <BestattUtdanning
-                onChange={(value) => dispatch({ type: SkjemaSide.BestaattUtdanning, value: value as JaEllerNei })}
-                valgt={skjemaState.bestaattUtdanning}
+                onChange={(value) =>
+                    dispatch({ type: SkjemaSide.BestaattUtdanning, value: value as SkjemaVerdi<JaEllerNei> })
+                }
+                valgt={skjemaState.bestaattUtdanning?.verdi}
             />
         ),
         [SkjemaSide.Helseproblemer]: (
             <Helseproblemer
-                onChange={(value) => dispatch({ type: SkjemaSide.Helseproblemer, value: value as JaEllerNei })}
-                valgt={skjemaState.helseproblemer}
+                onChange={(value) =>
+                    dispatch({ type: SkjemaSide.Helseproblemer, value: value as SkjemaVerdi<JaEllerNei> })
+                }
+                valgt={skjemaState.helseproblemer?.verdi}
             />
         ),
         [SkjemaSide.AndreProblemer]: (
             <AndreProblemer
-                onChange={(value) => dispatch({ type: SkjemaSide.AndreProblemer, value: value as JaEllerNei })}
-                valgt={skjemaState.andreProblemer}
+                onChange={(value) =>
+                    dispatch({ type: SkjemaSide.AndreProblemer, value: value as SkjemaVerdi<JaEllerNei> })
+                }
+                valgt={skjemaState.andreProblemer?.verdi}
             />
         ),
         [SkjemaSide.Oppsummering]: <Oppsummering {...skjemaState} />,

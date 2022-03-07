@@ -4,14 +4,14 @@ import { TilbakeTilJobbValg } from '../components/skjema/tilbake-til-jobb';
 
 const TILSTANDER: NavigeringsTilstandsMaskin<SykmeldtSkjemaSide> = {
     [SkjemaSide.SykmeldtFremtidigSituasjon]: (state: SkjemaState) => {
-        if ([SykmeldtValg.TRENGER_NY_JOBB, SykmeldtValg.USIKKER].includes(state.sykmeldtFremtidigSituasjon!)) {
+        if ([SykmeldtValg.TRENGER_NY_JOBB, SykmeldtValg.USIKKER].includes(state.sykmeldtFremtidigSituasjon!.verdi)) {
             return {
                 neste: SkjemaSide.Utdanning,
                 forrige: undefined,
             };
         }
 
-        if (state.sykmeldtFremtidigSituasjon === SykmeldtValg.INGEN_ALTERNATIVER_PASSER) {
+        if (state.sykmeldtFremtidigSituasjon?.verdi === SykmeldtValg.INGEN_ALTERNATIVER_PASSER) {
             return {
                 neste: SkjemaSide.Oppsummering,
                 forrige: undefined,
@@ -48,7 +48,7 @@ const TILSTANDER: NavigeringsTilstandsMaskin<SykmeldtSkjemaSide> = {
         };
     },
     [SkjemaSide.TilbakeTilJobb]: (state: SkjemaState) => {
-        if (state.tilbakeTilJobb === TilbakeTilJobbValg.FULL_STILLING) {
+        if (state.tilbakeTilJobb?.verdi === TilbakeTilJobbValg.FULL_STILLING) {
             return {
                 neste: SkjemaSide.SkalTilbakeTilJobb,
                 forrige: SkjemaSide.SykmeldtFremtidigSituasjon,
@@ -60,7 +60,7 @@ const TILSTANDER: NavigeringsTilstandsMaskin<SykmeldtSkjemaSide> = {
         };
     },
     [SkjemaSide.Oppsummering]: (state: SkjemaState) => {
-        if (state.sykmeldtFremtidigSituasjon === SykmeldtValg.INGEN_ALTERNATIVER_PASSER) {
+        if (state.sykmeldtFremtidigSituasjon?.verdi === SykmeldtValg.INGEN_ALTERNATIVER_PASSER) {
             return {
                 forrige: SkjemaSide.SykmeldtFremtidigSituasjon,
             };
