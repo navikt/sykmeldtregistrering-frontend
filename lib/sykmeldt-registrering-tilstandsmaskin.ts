@@ -1,87 +1,84 @@
-import { Navigering, NavigeringsTilstandsMaskin, SykmeldtSkjemaSide, SykmeldtSkjemaState } from '../model/skjema';
+import { Navigering, NavigeringsTilstandsMaskin, SkjemaSide, SykmeldtSkjemaSide, SkjemaState } from '../model/skjema';
 import { SykmeldtValg } from '../components/skjema/sykmeldt-fremtidig-situasjon';
 import { TilbakeTilJobbValg } from '../components/skjema/tilbake-til-jobb';
 
 const TILSTANDER: NavigeringsTilstandsMaskin<SykmeldtSkjemaSide> = {
-    [SykmeldtSkjemaSide.SykmeldtFremtidigSituasjon]: (state: SykmeldtSkjemaState) => {
+    [SkjemaSide.SykmeldtFremtidigSituasjon]: (state: SkjemaState) => {
         if ([SykmeldtValg.TRENGER_NY_JOBB, SykmeldtValg.USIKKER].includes(state.sykmeldtFremtidigSituasjon!)) {
             return {
-                neste: SykmeldtSkjemaSide.Utdanning,
+                neste: SkjemaSide.Utdanning,
                 forrige: undefined,
             };
         }
 
         if (state.sykmeldtFremtidigSituasjon === SykmeldtValg.INGEN_ALTERNATIVER_PASSER) {
             return {
-                neste: SykmeldtSkjemaSide.Oppsummering,
+                neste: SkjemaSide.Oppsummering,
                 forrige: undefined,
             };
         }
 
         return {
-            neste: SykmeldtSkjemaSide.TilbakeTilJobb,
+            neste: SkjemaSide.TilbakeTilJobb,
             forrige: undefined,
         };
     },
-    [SykmeldtSkjemaSide.Utdanning]: () => {
+    [SkjemaSide.Utdanning]: () => {
         return {
-            neste: SykmeldtSkjemaSide.GodkjentUtdanning,
-            forrige: SykmeldtSkjemaSide.SykmeldtFremtidigSituasjon,
+            neste: SkjemaSide.GodkjentUtdanning,
+            forrige: SkjemaSide.SykmeldtFremtidigSituasjon,
         };
     },
-    [SykmeldtSkjemaSide.GodkjentUtdanning]: () => {
+    [SkjemaSide.GodkjentUtdanning]: () => {
         return {
-            neste: SykmeldtSkjemaSide.BestaattUtdanning,
-            forrige: SykmeldtSkjemaSide.Utdanning,
+            neste: SkjemaSide.BestaattUtdanning,
+            forrige: SkjemaSide.Utdanning,
         };
     },
-    [SykmeldtSkjemaSide.BestaattUtdanning]: () => {
+    [SkjemaSide.BestaattUtdanning]: () => {
         return {
-            neste: SykmeldtSkjemaSide.AndreHensyn,
-            forrige: SykmeldtSkjemaSide.GodkjentUtdanning,
+            neste: SkjemaSide.AndreHensyn,
+            forrige: SkjemaSide.GodkjentUtdanning,
         };
     },
-    [SykmeldtSkjemaSide.AndreHensyn]: () => {
+    [SkjemaSide.AndreHensyn]: () => {
         return {
-            neste: SykmeldtSkjemaSide.Oppsummering,
-            forrige: SykmeldtSkjemaSide.BestaattUtdanning,
+            neste: SkjemaSide.Oppsummering,
+            forrige: SkjemaSide.BestaattUtdanning,
         };
     },
-    [SykmeldtSkjemaSide.TilbakeTilJobb]: (state: SykmeldtSkjemaState) => {
+    [SkjemaSide.TilbakeTilJobb]: (state: SkjemaState) => {
         if (state.tilbakeTilJobb === TilbakeTilJobbValg.FULL_STILLING) {
             return {
-                neste: SykmeldtSkjemaSide.SkalTilbakeTilJobb,
-                forrige: SykmeldtSkjemaSide.SykmeldtFremtidigSituasjon,
+                neste: SkjemaSide.SkalTilbakeTilJobb,
+                forrige: SkjemaSide.SykmeldtFremtidigSituasjon,
             };
         }
         return {
-            neste: SykmeldtSkjemaSide.Oppsummering,
-            forrige: SykmeldtSkjemaSide.SykmeldtFremtidigSituasjon,
+            neste: SkjemaSide.Oppsummering,
+            forrige: SkjemaSide.SykmeldtFremtidigSituasjon,
         };
     },
-    [SykmeldtSkjemaSide.Oppsummering]: (state: SykmeldtSkjemaState) => {
+    [SkjemaSide.Oppsummering]: (state: SkjemaState) => {
         if (state.sykmeldtFremtidigSituasjon === SykmeldtValg.INGEN_ALTERNATIVER_PASSER) {
             return {
-                forrige: SykmeldtSkjemaSide.SykmeldtFremtidigSituasjon,
+                forrige: SkjemaSide.SykmeldtFremtidigSituasjon,
             };
         }
         if (state.tilbakeTilJobb) {
             return {
-                forrige: SykmeldtSkjemaSide.TilbakeTilJobb,
+                forrige: SkjemaSide.TilbakeTilJobb,
             };
         }
         return {
-            forrige: SykmeldtSkjemaSide.AndreHensyn,
+            forrige: SkjemaSide.AndreHensyn,
         };
     },
-    [SykmeldtSkjemaSide.SkalTilbakeTilJobb]: () => {
+    [SkjemaSide.SkalTilbakeTilJobb]: () => {
         return {};
     },
 };
 
-export function beregnNavigering(
-    aktivSide: SykmeldtSkjemaSide,
-    state: SykmeldtSkjemaState
-): Navigering<SykmeldtSkjemaSide> {
+export function beregnNavigering(aktivSide: SykmeldtSkjemaSide, state: SkjemaState): Navigering<SykmeldtSkjemaSide> {
     return TILSTANDER[aktivSide](state);
 }

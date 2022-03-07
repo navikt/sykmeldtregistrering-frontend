@@ -1,63 +1,79 @@
-import { JaEllerNei, StandardSkjemaState, StandardSkjemaSide, SykmeldtSkjemaSide } from '../model/skjema';
+import { JaEllerNei, SkjemaVerdi, SkjemaSide, SkjemaState } from '../model/skjema';
 import { Jobbsituasjon } from '../components/skjema/din-situasjon';
 import { Utdanningsnivaa } from '../components/skjema/utdanning';
 import { GodkjentUtdanningValg } from '../components/skjema/utdanning-godkjent';
 import { Reducer } from 'react';
+import { SykmeldtValg } from '../components/skjema/sykmeldt-fremtidig-situasjon';
+import { TilbakeTilJobbValg } from '../components/skjema/tilbake-til-jobb';
 
-export type SkjemaReducer = Reducer<StandardSkjemaState, SkjemaAction>;
+export type SkjemaReducer = Reducer<SkjemaState, SkjemaAction>;
 export type SkjemaAction =
-    | { type: StandardSkjemaSide.DinSituasjon; value: Jobbsituasjon }
-    | { type: StandardSkjemaSide.Utdanning; value: Utdanningsnivaa }
-    | { type: StandardSkjemaSide.GodkjentUtdanning; value: GodkjentUtdanningValg }
-    | { type: StandardSkjemaSide.BestaattUtdanning; value: JaEllerNei }
-    | { type: StandardSkjemaSide.Helseproblemer; value: JaEllerNei }
-    | { type: StandardSkjemaSide.AndreProblemer; value: JaEllerNei }
-    | { type: StandardSkjemaSide.SisteJobb; value: string };
+    | { type: SkjemaSide.DinSituasjon; value: SkjemaVerdi<Jobbsituasjon> }
+    | { type: SkjemaSide.Utdanning; value: Utdanningsnivaa }
+    | { type: SkjemaSide.GodkjentUtdanning; value: GodkjentUtdanningValg }
+    | { type: SkjemaSide.BestaattUtdanning; value: JaEllerNei }
+    | { type: SkjemaSide.Helseproblemer; value: JaEllerNei }
+    | { type: SkjemaSide.AndreProblemer; value: JaEllerNei }
+    | { type: SkjemaSide.SisteJobb; value: string }
+    | { type: SkjemaSide.SykmeldtFremtidigSituasjon; value: SykmeldtValg }
+    | { type: SkjemaSide.TilbakeTilJobb; value: TilbakeTilJobbValg };
 
-export function skjemaReducer(state: StandardSkjemaState, action: SkjemaAction): StandardSkjemaState {
+export function skjemaReducer(state: SkjemaState, action: SkjemaAction): SkjemaState {
     switch (action.type) {
-        case StandardSkjemaSide.DinSituasjon: {
+        case SkjemaSide.DinSituasjon: {
             return {
                 ...state,
-                dinSituasjon: action.value,
+                dinSituasjon: {
+                    ...action.value,
+                },
             };
         }
-        case StandardSkjemaSide.Utdanning: {
+        case SkjemaSide.Utdanning: {
             return {
                 ...state,
                 utdanning: action.value,
             };
         }
-
-        case StandardSkjemaSide.SisteJobb: {
+        case SkjemaSide.SisteJobb: {
             return {
                 ...state,
                 sisteJobb: action.value,
             };
         }
-
-        case StandardSkjemaSide.GodkjentUtdanning: {
+        case SkjemaSide.GodkjentUtdanning: {
             return {
                 ...state,
                 godkjentUtdanning: action.value,
             };
         }
-        case StandardSkjemaSide.BestaattUtdanning: {
+        case SkjemaSide.BestaattUtdanning: {
             return {
                 ...state,
                 bestaattUtdanning: action.value,
             };
         }
-        case StandardSkjemaSide.Helseproblemer: {
+        case SkjemaSide.Helseproblemer: {
             return {
                 ...state,
                 helseproblemer: action.value,
             };
         }
-        case StandardSkjemaSide.AndreProblemer: {
+        case SkjemaSide.AndreProblemer: {
             return {
                 ...state,
                 andreProblemer: action.value,
+            };
+        }
+        case SkjemaSide.SykmeldtFremtidigSituasjon: {
+            return {
+                ...state,
+                sykmeldtFremtidigSituasjon: action.value,
+            };
+        }
+        case SkjemaSide.TilbakeTilJobb: {
+            return {
+                ...state,
+                tilbakeTilJobb: action.value,
             };
         }
     }

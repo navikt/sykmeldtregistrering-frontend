@@ -5,6 +5,7 @@ import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../hooks/useSprak';
 import DineOpplysninger from '../components/forsiden/dine-opplysninger';
 import NextLink from 'next/link';
+import { SkjemaSide } from '../model/skjema';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -32,12 +33,12 @@ const Home: NextPage = (props) => {
                 {tekst('tittel')}
             </Heading>
             <p>
-                <NextLink href="/skjema/0">
+                <NextLink href={`/skjema/${SkjemaSide.DinSituasjon}`}>
                     <Button>Standard registrering</Button>
                 </NextLink>
             </p>
             <p>
-                <NextLink href="/sykmeldt/0">
+                <NextLink href={`/sykmeldt/${SkjemaSide.SykmeldtFremtidigSituasjon}`}>
                     <Button variant="secondary">Sykmeldt registrering</Button>
                 </NextLink>
             </p>

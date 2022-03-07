@@ -4,8 +4,7 @@ import { GuidePanel, Heading, Ingress, Link, Table } from '@navikt/ds-react';
 import OppsummeringSvg from './oppsummering-svg';
 import lagHentTekstForSprak, { Tekster } from '../../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../../hooks/useSprak';
-import { hentSvartekst as hentJobbsituasjonTekst } from '../din-situasjon';
-import { StandardSkjemaState, StandardSkjemaSide } from '../../../model/skjema';
+import { StandardSkjemaSide, SkjemaSide, SkjemaState } from '../../../model/skjema';
 import NextLink from 'next/link';
 
 const TEKSTER: Tekster<string> = {
@@ -24,7 +23,7 @@ const TEKSTER: Tekster<string> = {
     },
 };
 
-const Oppsummering = (props: StandardSkjemaState) => {
+const Oppsummering = (props: SkjemaState) => {
     const sprak = useSprak();
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
     return (
@@ -38,50 +37,50 @@ const Oppsummering = (props: StandardSkjemaState) => {
                         {props.dinSituasjon && (
                             <Rad
                                 radTittel={tekst('situasjon')}
-                                svaralternativ={hentJobbsituasjonTekst(sprak, props.dinSituasjon)}
-                                side={StandardSkjemaSide.DinSituasjon}
+                                svaralternativ={props.dinSituasjon.tekst}
+                                side={SkjemaSide.DinSituasjon}
                             />
                         )}
                         {props.sisteJobb && (
                             <Rad
                                 radTittel={tekst('sisteStilling')}
                                 svaralternativ={props.sisteJobb}
-                                side={StandardSkjemaSide.SisteJobb}
+                                side={SkjemaSide.SisteJobb}
                             />
                         )}
                         {props.utdanning && (
                             <Rad
                                 radTittel={tekst('hoyesteFullforteUtdanning')}
                                 svaralternativ={props.utdanning}
-                                side={StandardSkjemaSide.Utdanning}
+                                side={SkjemaSide.Utdanning}
                             />
                         )}
                         {props.godkjentUtdanning && (
                             <Rad
                                 radTittel={tekst('utdanningGodkjent')}
                                 svaralternativ={props.godkjentUtdanning}
-                                side={StandardSkjemaSide.GodkjentUtdanning}
+                                side={SkjemaSide.GodkjentUtdanning}
                             />
                         )}
                         {props.bestaattUtdanning && (
                             <Rad
                                 radTittel={tekst('utdanningBestaatt')}
                                 svaralternativ={props.bestaattUtdanning}
-                                side={StandardSkjemaSide.BestaattUtdanning}
+                                side={SkjemaSide.BestaattUtdanning}
                             />
                         )}
                         {props.helseproblemer && (
                             <Rad
                                 radTittel={tekst('helseproblemer')}
                                 svaralternativ={props.helseproblemer}
-                                side={StandardSkjemaSide.Helseproblemer}
+                                side={SkjemaSide.Helseproblemer}
                             />
                         )}
                         {props.andreProblemer && (
                             <Rad
                                 radTittel={tekst('andreProblemer')}
                                 svaralternativ={props.andreProblemer}
-                                side={StandardSkjemaSide.AndreProblemer}
+                                side={SkjemaSide.AndreProblemer}
                             />
                         )}
                     </Table.Body>

@@ -4,7 +4,7 @@ import { GodkjentUtdanningValg } from '../components/skjema/utdanning-godkjent';
 import { SykmeldtValg } from '../components/skjema/sykmeldt-fremtidig-situasjon';
 import { TilbakeTilJobbValg } from '../components/skjema/tilbake-til-jobb';
 
-export enum StandardSkjemaSide {
+export enum SkjemaSide {
     DinSituasjon = '0',
     SisteJobb = '1',
     Utdanning = '2',
@@ -13,43 +13,49 @@ export enum StandardSkjemaSide {
     Helseproblemer = '5',
     AndreProblemer = '6',
     Oppsummering = '8',
+    SykmeldtFremtidigSituasjon = '9',
+    AndreHensyn = '10',
+    TilbakeTilJobb = '11',
+    SkalTilbakeTilJobb = '12',
 }
 
-export enum SykmeldtSkjemaSide {
-    SykmeldtFremtidigSituasjon = '0',
-    Utdanning = '1',
-    GodkjentUtdanning = '2',
-    BestaattUtdanning = '3',
-    AndreHensyn = '4',
-    Oppsummering = '5',
-    TilbakeTilJobb = '6',
-    SkalTilbakeTilJobb = '7',
-}
+export type StandardSkjemaSide =
+    | SkjemaSide.DinSituasjon
+    | SkjemaSide.SisteJobb
+    | SkjemaSide.Utdanning
+    | SkjemaSide.GodkjentUtdanning
+    | SkjemaSide.BestaattUtdanning
+    | SkjemaSide.Helseproblemer
+    | SkjemaSide.AndreProblemer
+    | SkjemaSide.Oppsummering;
 
-export type SkjemaSide = StandardSkjemaSide | SykmeldtSkjemaSide;
+export type SykmeldtSkjemaSide =
+    | SkjemaSide.SykmeldtFremtidigSituasjon
+    | SkjemaSide.Utdanning
+    | SkjemaSide.GodkjentUtdanning
+    | SkjemaSide.BestaattUtdanning
+    | SkjemaSide.AndreHensyn
+    | SkjemaSide.Oppsummering
+    | SkjemaSide.TilbakeTilJobb
+    | SkjemaSide.SkalTilbakeTilJobb;
 
 export type Navigering<T extends SkjemaSide> = {
     neste?: T;
     forrige?: T;
 };
 
-export type NavigeringsTilstandsMaskin<T extends SkjemaSide> = Record<
-    T,
-    (state: StandardSkjemaState | SykmeldtSkjemaState) => Navigering<T>
->;
+export type NavigeringsTilstandsMaskin<T extends SkjemaSide> = Record<T, (state: SkjemaState) => Navigering<T>>;
 
-interface SkjemaState {
+export type SkjemaVerdi<T> = { verdi: T; tekst: string };
+
+export interface SkjemaState {
+    dinSituasjon?: SkjemaVerdi<Jobbsituasjon>;
     utdanning?: Utdanningsnivaa;
     godkjentUtdanning?: GodkjentUtdanningValg;
     bestaattUtdanning?: JaEllerNei;
     andreProblemer?: JaEllerNei;
-}
-export interface StandardSkjemaState extends SkjemaState {
-    dinSituasjon?: Jobbsituasjon;
     sisteJobb?: string;
     helseproblemer?: JaEllerNei;
-}
-export interface SykmeldtSkjemaState extends SkjemaState {
     sykmeldtFremtidigSituasjon?: SykmeldtValg;
     tilbakeTilJobb?: TilbakeTilJobbValg;
 }

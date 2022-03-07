@@ -1,67 +1,65 @@
 import { Jobbsituasjon } from '../components/skjema/din-situasjon';
 import { Utdanningsnivaa } from '../components/skjema/utdanning';
-import { Navigering, NavigeringsTilstandsMaskin, StandardSkjemaState, StandardSkjemaSide } from '../model/skjema';
+import { Navigering, NavigeringsTilstandsMaskin, SkjemaSide, SkjemaState, StandardSkjemaSide } from '../model/skjema';
 
 const TILSTANDER: NavigeringsTilstandsMaskin<StandardSkjemaSide> = {
-    [StandardSkjemaSide.DinSituasjon]: (skjemaState: StandardSkjemaState) => {
-        if (skjemaState.dinSituasjon === Jobbsituasjon.ALDRIJOBBET) {
+    [SkjemaSide.DinSituasjon]: (skjemaState: SkjemaState) => {
+        if (skjemaState.dinSituasjon?.verdi === Jobbsituasjon.ALDRIJOBBET) {
             return {
-                neste: StandardSkjemaSide.Utdanning,
+                neste: SkjemaSide.Utdanning,
                 forrige: undefined,
             };
         }
 
         return {
-            neste: StandardSkjemaSide.SisteJobb,
+            neste: SkjemaSide.SisteJobb,
             forrige: undefined,
         };
     },
-    [StandardSkjemaSide.SisteJobb]: () => {
+    [SkjemaSide.SisteJobb]: () => {
         return {
-            neste: StandardSkjemaSide.Utdanning,
-            forrige: StandardSkjemaSide.DinSituasjon,
+            neste: SkjemaSide.Utdanning,
+            forrige: SkjemaSide.DinSituasjon,
         };
     },
-    [StandardSkjemaSide.Utdanning]: (skjemaState: StandardSkjemaState) => {
+    [SkjemaSide.Utdanning]: (skjemaState: SkjemaState) => {
         return {
             neste:
                 skjemaState.utdanning === Utdanningsnivaa.INGEN
-                    ? StandardSkjemaSide.Helseproblemer
-                    : StandardSkjemaSide.GodkjentUtdanning,
+                    ? SkjemaSide.Helseproblemer
+                    : SkjemaSide.GodkjentUtdanning,
             forrige:
-                skjemaState.dinSituasjon === Jobbsituasjon.ALDRIJOBBET
-                    ? StandardSkjemaSide.DinSituasjon
-                    : StandardSkjemaSide.SisteJobb,
+                skjemaState.dinSituasjon?.verdi === Jobbsituasjon.ALDRIJOBBET
+                    ? SkjemaSide.DinSituasjon
+                    : SkjemaSide.SisteJobb,
         };
     },
-    [StandardSkjemaSide.GodkjentUtdanning]: () => {
+    [SkjemaSide.GodkjentUtdanning]: () => {
         return {
-            neste: StandardSkjemaSide.BestaattUtdanning,
-            forrige: StandardSkjemaSide.Utdanning,
+            neste: SkjemaSide.BestaattUtdanning,
+            forrige: SkjemaSide.Utdanning,
         };
     },
-    [StandardSkjemaSide.BestaattUtdanning]: () => {
+    [SkjemaSide.BestaattUtdanning]: () => {
         return {
-            neste: StandardSkjemaSide.Helseproblemer,
-            forrige: StandardSkjemaSide.GodkjentUtdanning,
+            neste: SkjemaSide.Helseproblemer,
+            forrige: SkjemaSide.GodkjentUtdanning,
         };
     },
-    [StandardSkjemaSide.Helseproblemer]: (skjemaState: StandardSkjemaState) => {
+    [SkjemaSide.Helseproblemer]: (skjemaState: SkjemaState) => {
         return {
-            neste: StandardSkjemaSide.AndreProblemer,
+            neste: SkjemaSide.AndreProblemer,
             forrige:
-                skjemaState.utdanning === Utdanningsnivaa.INGEN
-                    ? StandardSkjemaSide.Utdanning
-                    : StandardSkjemaSide.BestaattUtdanning,
+                skjemaState.utdanning === Utdanningsnivaa.INGEN ? SkjemaSide.Utdanning : SkjemaSide.BestaattUtdanning,
         };
     },
-    [StandardSkjemaSide.AndreProblemer]: () => {
+    [SkjemaSide.AndreProblemer]: () => {
         return {
-            neste: StandardSkjemaSide.Oppsummering,
-            forrige: StandardSkjemaSide.Helseproblemer,
+            neste: SkjemaSide.Oppsummering,
+            forrige: SkjemaSide.Helseproblemer,
         };
     },
-    [StandardSkjemaSide.Oppsummering]: () => {
+    [SkjemaSide.Oppsummering]: () => {
         return {
             neste: undefined,
             forrige: undefined,
@@ -69,9 +67,6 @@ const TILSTANDER: NavigeringsTilstandsMaskin<StandardSkjemaSide> = {
     },
 };
 
-export function beregnNavigering(
-    aktivSide: StandardSkjemaSide,
-    state: StandardSkjemaState
-): Navigering<StandardSkjemaSide> {
+export function beregnNavigering(aktivSide: StandardSkjemaSide, state: SkjemaState): Navigering<StandardSkjemaSide> {
     return TILSTANDER[aktivSide](state);
 }
