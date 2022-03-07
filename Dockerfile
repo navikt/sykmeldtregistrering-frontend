@@ -4,7 +4,8 @@ WORKDIR /usr/src/app
 
 COPY package*.json .npmrc /usr/src/app/
 
-RUN npm ci
+RUN npm ci && \
+    node /usr/src/app/node_modules/@sentry/cli/scripts/install.js
 
 COPY . /usr/src/app
 
