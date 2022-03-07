@@ -61,7 +61,6 @@ jobs:
           tags: ${{ env.IMAGE }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          cache-from: type=gha
           secrets: |
             "SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}"
           build-args: |
