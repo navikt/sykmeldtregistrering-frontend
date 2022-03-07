@@ -61,6 +61,11 @@ jobs:
           tags: ${{ env.IMAGE }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          cache-from: type=gha
+          secrets: |
+            "SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}"
+          build-args: |
+            SENTRY_RELEASE=${{ github.sha }}
 
       - name: Archive NAIS yaml
         uses: actions/upload-artifact@v1
