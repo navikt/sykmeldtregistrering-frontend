@@ -16,7 +16,7 @@ RUN --mount=type=secret,id=SENTRY_AUTH_TOKEN \
 
 FROM node:16-alpine AS runtime
 
-WORKDIR /app
+WORKDIR /usr/src/app
 
 ENV PORT=3000 \
     NODE_ENV=production
