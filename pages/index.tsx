@@ -1,9 +1,10 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { Heading } from '@navikt/ds-react';
+import { Button, Heading } from '@navikt/ds-react';
 import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../hooks/useSprak';
 import DineOpplysninger from '../components/forsiden/dine-opplysninger';
+import NextLink from 'next/link';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -30,6 +31,16 @@ const Home: NextPage = (props) => {
             <Heading spacing size="xlarge" level="2">
                 {tekst('tittel')}
             </Heading>
+            <p>
+                <NextLink href="/skjema/0">
+                    <Button>Standard registrering</Button>
+                </NextLink>
+            </p>
+            <p>
+                <NextLink href="/sykmeldt/0">
+                    <Button variant="secondary">Sykmeldt registrering</Button>
+                </NextLink>
+            </p>
             <DineOpplysninger />
         </div>
     );
