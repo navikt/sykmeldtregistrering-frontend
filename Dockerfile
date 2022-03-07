@@ -6,7 +6,7 @@ COPY package*.json .npmrc ./
 RUN npm ci && \
     node /app/node_modules/@sentry/cli/scripts/install.js
 
-FROM node:16-alpine AS builder
+FROM node:16 AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
