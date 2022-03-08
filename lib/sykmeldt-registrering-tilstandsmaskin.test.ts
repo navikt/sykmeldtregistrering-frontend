@@ -4,7 +4,7 @@ import { SykmeldtValg } from '../components/skjema/sykmeldt-fremtidig-situasjon'
 import { TilbakeTilJobbValg } from '../components/skjema/tilbake-til-jobb';
 import { Utdanningsnivaa } from '../components/skjema/utdanning';
 
-describe('Standard registrering tilstandsmaskin', () => {
+describe('Sykmeldt registrering tilstandsmaskin', () => {
     describe('Fremtidig situasjon', () => {
         it('returnerer Utdanning som neste for TRENGER_NY_JOBBb', () => {
             const state = beregnNavigering(SkjemaSide.SykmeldtFremtidigSituasjon, {
