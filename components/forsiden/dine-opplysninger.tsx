@@ -33,16 +33,14 @@ const dineOpplysninger = () => {
                 {tekst('tittel')}
             </Heading>
             <BodyShort>{tekst('innledning')}</BodyShort>
-            <BodyShort>
-                <>
-                    <ul>
-                        <li>{tekst('alder')}</li>
-                        <li>{tekst('jobb')}</li>
-                        <li>{tekst('utdanning')}</li>
-                        <li>{tekst('utfordringer')}</li>
-                    </ul>
-                </>
-            </BodyShort>
+            <div>
+                <ul>
+                    <li>{tekst('alder')}</li>
+                    <li>{tekst('jobb')}</li>
+                    <li>{tekst('utdanning')}</li>
+                    <li>{tekst('utfordringer')}</li>
+                </ul>
+            </div>
             <BodyShort>{tekst('beskrivelse')}</BodyShort>
             <Heading spacing size={'medium'} level="2">
                 {tekst('overskriftPersonopplysninger')}
