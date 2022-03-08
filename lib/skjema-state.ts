@@ -21,6 +21,13 @@ export type SkjemaAction =
 export function skjemaReducer(state: SkjemaState, action: SkjemaAction): SkjemaState {
     switch (action.type) {
         case SkjemaSide.DinSituasjon: {
+            if (action.value.verdi === Jobbsituasjon.ALDRIJOBBET) {
+                return {
+                    ...state,
+                    dinSituasjon: action.value,
+                    sisteJobb: undefined,
+                };
+            }
             return {
                 ...state,
                 dinSituasjon: {
@@ -29,6 +36,14 @@ export function skjemaReducer(state: SkjemaState, action: SkjemaAction): SkjemaS
             };
         }
         case SkjemaSide.Utdanning: {
+            if (action.value.verdi === Utdanningsnivaa.INGEN) {
+                return {
+                    ...state,
+                    utdanning: action.value,
+                    godkjentUtdanning: undefined,
+                    bestaattUtdanning: undefined,
+                };
+            }
             return {
                 ...state,
                 utdanning: action.value,
