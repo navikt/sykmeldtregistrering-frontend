@@ -33,12 +33,12 @@ const Home: NextPage = (props) => {
                 {tekst('tittel')}
             </Heading>
             <p>
-                <NextLink href={`/skjema/${SkjemaSide.DinSituasjon}`}>
+                <NextLink href={`/skjema/${SkjemaSide.DinSituasjon}`} passHref>
                     <Button>Standard registrering</Button>
                 </NextLink>
             </p>
             <p>
-                <NextLink href={`/sykmeldt/${SkjemaSide.SykmeldtFremtidigSituasjon}`}>
+                <NextLink href={`/sykmeldt/${SkjemaSide.SykmeldtFremtidigSituasjon}`} passHref>
                     <Button variant="secondary">Sykmeldt registrering</Button>
                 </NextLink>
             </p>
