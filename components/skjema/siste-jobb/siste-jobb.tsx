@@ -23,7 +23,7 @@ const SisteJobb = (props: SkjemaKomponentProps<string>) => {
 
     useEffect(() => {
         onChange('Daglig leder');
-    }, [onChange]);
+    }, []);
 
     return (
         <div>
