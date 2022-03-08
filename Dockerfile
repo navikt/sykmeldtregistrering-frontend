@@ -13,8 +13,9 @@ COPY . .
 
 ARG SENTRY_RELEASE
 RUN --mount=type=secret,id=SENTRY_AUTH_TOKEN \
-    echo token=$(cat /run/secrets/SENTRY_AUTH_TOKEN) >> .sentryclirc \
-    npm run build
+    echo token=$(cat /run/secrets/SENTRY_AUTH_TOKEN) >> .sentryclirc
+
+RUN npm run build
 
 FROM node:16-alpine AS runner
 
