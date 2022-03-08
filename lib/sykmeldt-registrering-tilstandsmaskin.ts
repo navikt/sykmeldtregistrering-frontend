@@ -4,7 +4,10 @@ import { TilbakeTilJobbValg } from '../components/skjema/tilbake-til-jobb';
 
 const TILSTANDER: NavigeringsTilstandsMaskin<SykmeldtSkjemaSide> = {
     [SkjemaSide.SykmeldtFremtidigSituasjon]: (state: SkjemaState) => {
-        if ([SykmeldtValg.TRENGER_NY_JOBB, SykmeldtValg.USIKKER].includes(state.sykmeldtFremtidigSituasjon!.verdi)) {
+        if (
+            state.sykmeldtFremtidigSituasjon?.verdi &&
+            [SykmeldtValg.TRENGER_NY_JOBB, SykmeldtValg.USIKKER].includes(state.sykmeldtFremtidigSituasjon!.verdi)
+        ) {
             return {
                 neste: SkjemaSide.Utdanning,
                 forrige: undefined,

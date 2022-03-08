@@ -90,7 +90,7 @@ const lagSiderMap = (skjemaState: SkjemaState, dispatch: Dispatch<SkjemaAction>)
                 valgt={skjemaState.andreProblemer?.verdi}
             />
         ),
-        [SkjemaSide.Oppsummering]: <Oppsummering {...skjemaState} />,
+        [SkjemaSide.Oppsummering]: <Oppsummering {...skjemaState} skjemaPrefix={'/skjema/'} />,
     };
 };
 
