@@ -65,6 +65,7 @@ jobs:
             "SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}"
           build-args: |
             SENTRY_RELEASE=${{ github.sha }}
+            SENTRY_LOG_LEVEL=info
 
       - name: Archive NAIS yaml
         uses: actions/upload-artifact@v1

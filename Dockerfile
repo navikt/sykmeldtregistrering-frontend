@@ -12,6 +12,7 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 ARG SENTRY_RELEASE
+ARG SENTRY_LOG_LEVEL
 RUN --mount=type=secret,id=SENTRY_AUTH_TOKEN \
     echo token=$(cat /run/secrets/SENTRY_AUTH_TOKEN) >> .sentryclirc
 
