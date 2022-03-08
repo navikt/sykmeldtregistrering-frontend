@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const { withSentryConfig } = require('@sentry/nextjs');
+const securityHeaders = require('./security-headers');
 
 const nextConfig = {
     reactStrictMode: true,
@@ -12,6 +13,15 @@ const nextConfig = {
     trailingSlash: true,
     experimental: {
         outputStandalone: true,
+    },
+    async headers() {
+        return [
+            {
+                // Apply these headers to all routes in your application.
+                source: '/:path*',
+                headers: securityHeaders,
+            },
+        ];
     },
 };
 
