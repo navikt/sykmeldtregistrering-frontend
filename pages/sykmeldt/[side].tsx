@@ -17,7 +17,7 @@ import { beregnNavigering } from '../../lib/sykmeldt-registrering-tilstandsmaski
 import SykmeldtFremtidigSituasjon from '../../components/skjema/sykmeldt-fremtidig-situasjon';
 import TilbakeTilJobb from '../../components/skjema/tilbake-til-jobb';
 import SkalTilbakeTilJobb from '../../components/skjema/skal-tilbake-til-jobb';
-import { SkjemaAction, skjemaReducer, SkjemaReducer } from '../../lib/standard-skjema-state';
+import { SkjemaAction, skjemaReducer, SkjemaReducer } from '../../lib/skjema-state';
 
 const TEKSTER: Tekster<string> = {
     nb: {

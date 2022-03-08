@@ -17,7 +17,7 @@ import useSprak from '../../hooks/useSprak';
 import Oppsummering from '../../components/skjema/oppsummering/oppsummering';
 import { beregnNavigering } from '../../lib/standard-registrering-tilstandsmaskin';
 import { JaEllerNei, SkjemaSide, SkjemaState, SkjemaVerdi, StandardSkjemaSide } from '../../model/skjema';
-import { SkjemaAction, skjemaReducer, SkjemaReducer } from '../../lib/standard-skjema-state';
+import { SkjemaAction, skjemaReducer, SkjemaReducer } from '../../lib/skjema-state';
 
 const TEKSTER: Tekster<string> = {
     nb: {
