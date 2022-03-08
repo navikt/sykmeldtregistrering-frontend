@@ -1,6 +1,6 @@
-import { TextField } from '@navikt/ds-react';
 import { useCallback, useState } from 'react';
 import styles from './sisteJobb.module.css';
+const Autosuggest = require('react-autosuggest');
 
 interface StillingsSokProps {
     onClose: () => void;
@@ -24,21 +24,37 @@ const SokeResultat = (props: SokeResultatProps) => {
 const StillingsSok = (props: StillingsSokProps) => {
     const { onClose } = props;
     const [resultat, setResultat] = useState([] as any[]);
-    const onChange = useCallback((q: string) => {
-        // api kall
-        setResultat([{ title: 'Test 1' }, { title: 'Test 2' }]);
-    }, []);
+    const [value, setValue] = useState<string>('');
+
+    const onSuggestionsFetchRequested = useCallback(
+        ({ value: string }) => {
+            // api kall
+            setTimeout(() => {
+                setResultat([{ title: 'Test 1' }, { title: 'Test 2' }]);
+            }, 1000);
+        },
+        [setResultat]
+    );
+
+    const inputProps = {
+        value,
+        className: 'navds-text-field__input navds-body-short navds-body-medium',
+        onChange: (e: any) => setValue(e.target.value),
+    };
 
     return (
         <div className={styles.stillingsSokWrapper}>
-            <TextField
-                autoFocus={true}
-                /*onBlur={onClose}*/ onChange={(e) => {
-                    onChange(e.target.value);
+            <Autosuggest
+                suggestions={resultat}
+                onSuggestionsFetchRequested={onSuggestionsFetchRequested}
+                onSuggestionsClearRequested={() => console.log('onSuggestionsClearRequested')}
+                getSuggestionValue={(val: any) => console.log('getSuggestionValue', val)}
+                renderSuggestion={(val: any) => {
+                    console.log('renderSuggestion', val);
+                    return <div>val</div>;
                 }}
-                label="Søk etter stilling"
+                inputProps={inputProps}
             />
-            {resultat.length > 0 && <SokeResultat resultat={resultat} />}
         </div>
     );
 };
