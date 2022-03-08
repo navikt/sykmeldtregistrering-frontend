@@ -1,6 +1,7 @@
-import { Navigering, NavigeringsTilstandsMaskin, SkjemaSide, SykmeldtSkjemaSide, SkjemaState } from '../model/skjema';
+import { Navigering, NavigeringsTilstandsMaskin, SkjemaSide, SkjemaState, SykmeldtSkjemaSide } from '../model/skjema';
 import { SykmeldtValg } from '../components/skjema/sykmeldt-fremtidig-situasjon';
 import { TilbakeTilJobbValg } from '../components/skjema/tilbake-til-jobb';
+import { Utdanningsnivaa } from '../components/skjema/utdanning';
 
 const TILSTANDER: NavigeringsTilstandsMaskin<SykmeldtSkjemaSide> = {
     [SkjemaSide.SykmeldtFremtidigSituasjon]: (state: SkjemaState) => {
@@ -26,9 +27,12 @@ const TILSTANDER: NavigeringsTilstandsMaskin<SykmeldtSkjemaSide> = {
             forrige: undefined,
         };
     },
-    [SkjemaSide.Utdanning]: () => {
+    [SkjemaSide.Utdanning]: (skjemaState: SkjemaState) => {
         return {
-            neste: SkjemaSide.GodkjentUtdanning,
+            neste:
+                skjemaState.utdanning?.verdi === Utdanningsnivaa.INGEN
+                    ? SkjemaSide.AndreHensyn
+                    : SkjemaSide.GodkjentUtdanning,
             forrige: SkjemaSide.SykmeldtFremtidigSituasjon,
         };
     },
@@ -44,10 +48,13 @@ const TILSTANDER: NavigeringsTilstandsMaskin<SykmeldtSkjemaSide> = {
             forrige: SkjemaSide.GodkjentUtdanning,
         };
     },
-    [SkjemaSide.AndreHensyn]: () => {
+    [SkjemaSide.AndreHensyn]: (skjemaState: SkjemaState) => {
         return {
             neste: SkjemaSide.Oppsummering,
-            forrige: SkjemaSide.BestaattUtdanning,
+            forrige:
+                skjemaState.utdanning?.verdi === Utdanningsnivaa.INGEN
+                    ? SkjemaSide.Utdanning
+                    : SkjemaSide.BestaattUtdanning,
         };
     },
     [SkjemaSide.TilbakeTilJobb]: (state: SkjemaState) => {

@@ -2,6 +2,7 @@ import { SkjemaSide } from '../model/skjema';
 import { beregnNavigering } from './sykmeldt-registrering-tilstandsmaskin';
 import { SykmeldtValg } from '../components/skjema/sykmeldt-fremtidig-situasjon';
 import { TilbakeTilJobbValg } from '../components/skjema/tilbake-til-jobb';
+import { Utdanningsnivaa } from '../components/skjema/utdanning';
 
 describe('Standard registrering tilstandsmaskin', () => {
     describe('Fremtidig situasjon', () => {
@@ -43,9 +44,17 @@ describe('Standard registrering tilstandsmaskin', () => {
             const state = beregnNavigering(SkjemaSide.Utdanning, {});
             expect(state.forrige).toBe(SkjemaSide.SykmeldtFremtidigSituasjon);
         });
-        it('returnerer GodkjentUtdanning som neste', () => {
-            const state = beregnNavigering(SkjemaSide.Utdanning, {});
+        it('returnerer GodkjentUtdanning som neste for Utdanningsnivaa.HOYERE', () => {
+            const state = beregnNavigering(SkjemaSide.Utdanning, {
+                utdanning: { verdi: Utdanningsnivaa.HOYERE, tekst: '' },
+            });
             expect(state.neste).toBe(SkjemaSide.GodkjentUtdanning);
+        });
+        it('returnerer AndreHensyn som neste for Utdanningsnivaa.INGEN', () => {
+            const state = beregnNavigering(SkjemaSide.Utdanning, {
+                utdanning: { verdi: Utdanningsnivaa.INGEN, tekst: '' },
+            });
+            expect(state.neste).toBe(SkjemaSide.AndreHensyn);
         });
     });
 
@@ -72,9 +81,17 @@ describe('Standard registrering tilstandsmaskin', () => {
     });
 
     describe('AndreHensyn', () => {
-        it('returnerer BestaattUtdanning som forrige', () => {
-            const state = beregnNavigering(SkjemaSide.AndreHensyn, {});
+        it('returnerer BestaattUtdanning som forrige hvis utdanning==Utdanningsnivaa.HOYERE', () => {
+            const state = beregnNavigering(SkjemaSide.AndreHensyn, {
+                utdanning: { verdi: Utdanningsnivaa.HOYERE, tekst: '' },
+            });
             expect(state.forrige).toBe(SkjemaSide.BestaattUtdanning);
+        });
+        it('returnerer Utdanning som forrige hvis valgt utdanning er Utdanningsnivaa.INGEN', () => {
+            const state = beregnNavigering(SkjemaSide.AndreHensyn, {
+                utdanning: { verdi: Utdanningsnivaa.INGEN, tekst: '' },
+            });
+            expect(state.forrige).toBe(SkjemaSide.Utdanning);
         });
         it('returnerer Oppsummering som neste', () => {
             const state = beregnNavigering(SkjemaSide.AndreHensyn, {});
