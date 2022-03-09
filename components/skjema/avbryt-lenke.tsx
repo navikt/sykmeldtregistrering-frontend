@@ -1,5 +1,6 @@
-import { BodyLong, Button, Heading, Link, Modal } from '@navikt/ds-react';
 import { useState } from 'react';
+import { BodyLong, Button, Heading, Link, Modal } from '@navikt/ds-react';
+import { useRouter } from 'next/router';
 
 import skjemaStyles from '../../styles/skjema.module.css';
 import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
@@ -25,6 +26,12 @@ const TEKSTER: Tekster<string> = {
 const Avbryt = () => {
     const [open, setOpen] = useState(false);
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
+    const Router = useRouter();
+
+    const avbrytRegistrering = () => {
+        setOpen(false);
+        Router.push('/');
+    };
 
     return (
         <>
@@ -42,7 +49,7 @@ const Avbryt = () => {
                         {tekst('erDuSikker')}
                     </Heading>
                     <BodyLong spacing className={skjemaStyles.spaceEvenly}>
-                        <Button variant="secondary" onClick={() => setOpen(false)} className={skjemaStyles.w10}>
+                        <Button variant="secondary" onClick={avbrytRegistrering} className={skjemaStyles.w10}>
                             {tekst('knappJa')}
                         </Button>
                         <Button variant="secondary" onClick={() => setOpen(false)} className={skjemaStyles.w10}>
