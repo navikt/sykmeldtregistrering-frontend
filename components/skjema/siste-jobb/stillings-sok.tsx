@@ -12,11 +12,11 @@ const StillingsSok = (props: StillingsSokProps) => {
     const [value, setValue] = useState<string>('');
 
     const onSuggestionsFetchRequested = useCallback(
-        ({ value: string }) => {
-            // api kall
-            setTimeout(() => {
-                setResultat([{ title: 'Test 1' }, { title: 'Test 2' }]);
-            }, 1000);
+        async ({ value: string }) => {
+            const url = `/arbeid/registrering-ny/api/yrke-med-styrk?yrke=${value}`;
+            const response = await fetch(url);
+            const json = await response.json();
+            setResultat(json.typeaheadYrkeList || []);
         },
         [setResultat]
     );
@@ -36,7 +36,7 @@ const StillingsSok = (props: StillingsSokProps) => {
                 onSuggestionsClearRequested={() => console.log('onSuggestionsClearRequested')}
                 getSuggestionValue={(val: any) => console.log('getSuggestionValue', val)}
                 renderSuggestion={(val: any) => {
-                    return <span>{val.title}</span>;
+                    return <span>{val.label}</span>;
                 }}
                 inputProps={inputProps}
             />
