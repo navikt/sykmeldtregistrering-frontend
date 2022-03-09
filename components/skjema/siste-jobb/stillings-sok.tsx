@@ -1,25 +1,10 @@
 import { useCallback, useState } from 'react';
-import styles from './sisteJobb.module.css';
+import styles from './autosuggest.module.css';
 const Autosuggest = require('react-autosuggest');
 
 interface StillingsSokProps {
     onClose: () => void;
 }
-
-interface SokeResultatProps {
-    resultat: any;
-}
-
-const SokeResultat = (props: SokeResultatProps) => {
-    const { resultat } = props;
-    return (
-        <ul className={styles.sokeResultat}>
-            {resultat.map((r: any) => (
-                <li key={r.title}>{r.title}</li>
-            ))}
-        </ul>
-    );
-};
 
 const StillingsSok = (props: StillingsSokProps) => {
     const { onClose } = props;
@@ -45,13 +30,13 @@ const StillingsSok = (props: StillingsSokProps) => {
     return (
         <div className={styles.stillingsSokWrapper}>
             <Autosuggest
+                theme={styles}
                 suggestions={resultat}
                 onSuggestionsFetchRequested={onSuggestionsFetchRequested}
                 onSuggestionsClearRequested={() => console.log('onSuggestionsClearRequested')}
                 getSuggestionValue={(val: any) => console.log('getSuggestionValue', val)}
                 renderSuggestion={(val: any) => {
-                    console.log('renderSuggestion', val);
-                    return <div>val</div>;
+                    return <span>{val.title}</span>;
                 }}
                 inputProps={inputProps}
             />
