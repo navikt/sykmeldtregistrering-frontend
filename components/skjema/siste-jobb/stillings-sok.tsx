@@ -4,7 +4,7 @@ const Autosuggest = require('react-autosuggest');
 import getConfig from 'next/config';
 
 interface StillingsSokProps {
-    onClose: (value: any) => void;
+    onClose: (value?: any) => void;
 }
 
 const StillingsSok = (props: StillingsSokProps) => {
@@ -26,6 +26,8 @@ const StillingsSok = (props: StillingsSokProps) => {
     const inputProps = {
         value,
         className: 'navds-text-field__input navds-body-short navds-body-medium',
+        autoFocus: true,
+        onBlur: () => onClose(),
         onChange: (e: any) => {
             if (e.type === 'change') {
                 setValue(e.target.value);

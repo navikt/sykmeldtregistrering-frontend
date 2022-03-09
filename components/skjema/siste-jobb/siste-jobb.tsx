@@ -21,8 +21,10 @@ const SisteJobb = (props: SkjemaKomponentProps<string>) => {
     const { onChange } = props;
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
     const [visStillingsSok, settVisStillingsSok] = useState<boolean>(false);
-    const onCloseStillingssok = (value: any) => {
-        onChange({ tekst: value.label, verdi: value.styrk08[0] });
+    const onCloseStillingssok = (value?: any) => {
+        if (value) {
+            onChange({ tekst: value.label, verdi: value.styrk08[0] });
+        }
         settVisStillingsSok(false);
     };
 
