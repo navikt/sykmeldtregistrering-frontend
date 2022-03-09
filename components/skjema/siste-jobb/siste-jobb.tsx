@@ -16,14 +16,21 @@ const TEKSTER: Tekster<string> = {
         stilling: 'Stilling',
     },
 };
+
 const SisteJobb = (props: SkjemaKomponentProps<string>) => {
     const { onChange } = props;
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
     const [visStillingsSok, settVisStillingsSok] = useState<boolean>(false);
+    const onCloseStillingssok = (value: any) => {
+        onChange({ tekst: value.label, verdi: value.styrk08[0] });
+        settVisStillingsSok(false);
+    };
 
     useEffect(() => {
-        onChange('Daglig leder');
-    }, []);
+        if (!props.valgt) {
+            onChange({ verdi: '-1', tekst: 'Daglig leder' });
+        }
+    }, [onChange]);
 
     return (
         <div>
@@ -38,22 +45,23 @@ const SisteJobb = (props: SkjemaKomponentProps<string>) => {
             </Heading>
 
             {visStillingsSok ? (
-                <StillingsSok onClose={() => settVisStillingsSok(false)} />
+                <StillingsSok onClose={onCloseStillingssok} />
             ) : (
                 <div>
-                    Daglig leder
+                    {props.valgt}
                     <Button variant="tertiary" onClick={() => settVisStillingsSok(true)}>
                         Endre
                     </Button>
                 </div>
             )}
-
-            <Accordion>
-                <Accordion.Item>
-                    <Accordion.Header>{tekst('brukesTilTittel')}</Accordion.Header>
-                    <Accordion.Content>{tekst('brukesTilInnhold')}</Accordion.Content>
-                </Accordion.Item>
-            </Accordion>
+            <div style={{ maxWidth: '34rem', margin: '2em 0' }}>
+                <Accordion>
+                    <Accordion.Item>
+                        <Accordion.Header>{tekst('brukesTilTittel')}</Accordion.Header>
+                        <Accordion.Content>{tekst('brukesTilInnhold')}</Accordion.Content>
+                    </Accordion.Item>
+                </Accordion>
+            </div>
         </div>
     );
 };

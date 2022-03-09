@@ -47,7 +47,7 @@ const lagSiderMap = (skjemaState: SkjemaState, dispatch: Dispatch<SkjemaAction>)
         [SkjemaSide.SisteJobb]: (
             <SisteJobb
                 onChange={(value) => dispatch({ type: SkjemaSide.SisteJobb, value: value as SkjemaVerdi<string> })}
-                valgt={skjemaState.sisteJobb?.verdi}
+                valgt={skjemaState.sisteJobb?.tekst}
             />
         ),
         [SkjemaSide.Utdanning]: (

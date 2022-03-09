@@ -4,7 +4,7 @@ const Autosuggest = require('react-autosuggest');
 import getConfig from 'next/config';
 
 interface StillingsSokProps {
-    onClose: () => void;
+    onClose: (value: any) => void;
 }
 
 const StillingsSok = (props: StillingsSokProps) => {
@@ -20,13 +20,17 @@ const StillingsSok = (props: StillingsSokProps) => {
             const json = await response.json();
             setResultat(json.typeaheadYrkeList || []);
         },
-        [basePath]
+        [basePath, setResultat]
     );
 
     const inputProps = {
         value,
         className: 'navds-text-field__input navds-body-short navds-body-medium',
-        onChange: (e: any) => setValue(e.target.value),
+        onChange: (e: any) => {
+            if (e.type === 'change') {
+                setValue(e.target.value);
+            }
+        },
     };
 
     return (
@@ -35,8 +39,13 @@ const StillingsSok = (props: StillingsSokProps) => {
                 theme={styles}
                 suggestions={resultat}
                 onSuggestionsFetchRequested={onSuggestionsFetchRequested}
-                onSuggestionsClearRequested={() => console.log('onSuggestionsClearRequested')}
-                getSuggestionValue={(val: any) => console.log('getSuggestionValue', val)}
+                onSuggestionsClearRequested={() => setResultat([])}
+                getSuggestionValue={(val: any) => {
+                    return val;
+                }}
+                onSuggestionSelected={(event: any, { suggestionValue }: { suggestionValue: any }) => {
+                    onClose(suggestionValue);
+                }}
                 renderSuggestion={(val: any) => {
                     return <span>{val.label}</span>;
                 }}
