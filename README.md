@@ -4,7 +4,8 @@ Arbeidssøkerregistrering
 
 # Utvikling
 
-Bruk Node.js 16
+Bruk Node.js 16.
+Dersom du ikke kjører i mock-modus må du ha koblet til [naisdevice](https://doc.nais.io/device/) for å nå noen av endepunktene.
 
 -   klon repo
 -   innstaller avhengigheter `npm i`
