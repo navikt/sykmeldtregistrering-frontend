@@ -57,10 +57,7 @@ export function skjemaReducer(state: SkjemaState, action: SkjemaAction): SkjemaS
             };
         }
         case SkjemaSide.SykmeldtFremtidigSituasjon: {
-            return {
-                ...state,
-                sykmeldtFremtidigSituasjon: action.value,
-            };
+            return oppdaterSykmeldtFremtidigSituasjon(state, action.value);
         }
         case SkjemaSide.TilbakeTilJobb: {
             return {
@@ -99,5 +96,30 @@ export const oppdaterUtdanning = (skjemaState: SkjemaState, utdanning: SkjemaVer
     return {
         ...skjemaState,
         utdanning: utdanning,
+    };
+};
+
+const oppdaterSykmeldtFremtidigSituasjon = (state: SkjemaState, valg: SkjemaVerdi<SykmeldtValg>) => {
+    if (valg.verdi === SykmeldtValg.INGEN_ALTERNATIVER_PASSER) {
+        return {
+            sykmeldtFremtidigSituasjon: valg,
+        };
+    }
+
+    if ([SykmeldtValg.TILBAKE_TIL_NY_STILLING, SykmeldtValg.TILBAKE_TIL_JOBB].includes(valg.verdi)) {
+        return {
+            ...state,
+            sykmeldtFremtidigSituasjon: valg,
+            utdanning: undefined,
+            godkjentUtdanning: undefined,
+            bestaattUtdanning: undefined,
+            andreProblemer: undefined,
+        };
+    }
+
+    return {
+        ...state,
+        sykmeldtFremtidigSituasjon: valg,
+        tilbakeTilJobb: undefined,
     };
 };
