@@ -1,4 +1,4 @@
-import { JaEllerNei, SkjemaVerdi, SkjemaSide, SkjemaState } from '../model/skjema';
+import { JaEllerNei, SkjemaSide, SkjemaState, SkjemaVerdi } from '../model/skjema';
 import { Jobbsituasjon } from '../components/skjema/din-situasjon';
 import { Utdanningsnivaa } from '../components/skjema/utdanning';
 import { GodkjentUtdanningValg } from '../components/skjema/utdanning-godkjent';
@@ -21,18 +21,10 @@ export type SkjemaAction =
 export function skjemaReducer(state: SkjemaState, action: SkjemaAction): SkjemaState {
     switch (action.type) {
         case SkjemaSide.DinSituasjon: {
-            return {
-                ...state,
-                dinSituasjon: {
-                    ...action.value,
-                },
-            };
+            return oppdaterDinSituasjon(state, action.value);
         }
         case SkjemaSide.Utdanning: {
-            return {
-                ...state,
-                utdanning: action.value,
-            };
+            return oppdaterUtdanning(state, action.value);
         }
         case SkjemaSide.SisteJobb: {
             return {
@@ -80,3 +72,32 @@ export function skjemaReducer(state: SkjemaState, action: SkjemaAction): SkjemaS
 
     return state;
 }
+
+export const oppdaterDinSituasjon = (skjemaState: SkjemaState, dinSituasjon: SkjemaVerdi<Jobbsituasjon>) => {
+    if (dinSituasjon.verdi === Jobbsituasjon.ALDRIJOBBET) {
+        return {
+            ...skjemaState,
+            dinSituasjon: dinSituasjon,
+            sisteJobb: undefined,
+        };
+    }
+    return {
+        ...skjemaState,
+        dinSituasjon: dinSituasjon,
+    };
+};
+
+export const oppdaterUtdanning = (skjemaState: SkjemaState, utdanning: SkjemaVerdi<Utdanningsnivaa>) => {
+    if (utdanning.verdi === Utdanningsnivaa.INGEN) {
+        return {
+            ...skjemaState,
+            utdanning: utdanning,
+            godkjentUtdanning: undefined,
+            bestaattUtdanning: undefined,
+        };
+    }
+    return {
+        ...skjemaState,
+        utdanning: utdanning,
+    };
+};
