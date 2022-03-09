@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react';
 import styles from './autosuggest.module.css';
 const Autosuggest = require('react-autosuggest');
+import getConfig from 'next/config';
 
 interface StillingsSokProps {
     onClose: () => void;
@@ -10,15 +11,16 @@ const StillingsSok = (props: StillingsSokProps) => {
     const { onClose } = props;
     const [resultat, setResultat] = useState([] as any[]);
     const [value, setValue] = useState<string>('');
+    const { basePath } = getConfig().publicRuntimeConfig;
 
     const onSuggestionsFetchRequested = useCallback(
-        async ({ value: string }) => {
-            const url = `/arbeid/registrering-ny/api/yrke-med-styrk?yrke=${value}`;
+        async ({ value }: { value: string }) => {
+            const url = `${basePath}/api/yrke-med-styrk?yrke=${value}`;
             const response = await fetch(url);
             const json = await response.json();
             setResultat(json.typeaheadYrkeList || []);
         },
-        [setResultat]
+        [basePath]
     );
 
     const inputProps = {

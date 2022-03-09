@@ -2,9 +2,11 @@
 const { withSentryConfig } = require('@sentry/nextjs');
 const securityHeaders = require('./security-headers');
 
+const basePath = '/arbeid/registrering-ny';
+
 const nextConfig = {
     reactStrictMode: true,
-    basePath: '/arbeid/registrering-ny',
+    basePath,
     i18n: {
         locales: ['nb', 'en', 'nn', 'pl'],
         defaultLocale: 'nb',
@@ -13,6 +15,9 @@ const nextConfig = {
     trailingSlash: true,
     experimental: {
         outputStandalone: true,
+    },
+    publicRuntimeConfig: {
+        basePath,
     },
     async headers() {
         return [
