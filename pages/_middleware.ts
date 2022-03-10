@@ -12,7 +12,7 @@ export default function redirectToLogin(req: NextRequest) {
     }
 
     if (!erInnlogget) {
-        const url = `${process.env.LOGINSERVICE_URL}?redirectUrl=${process.env.NEXT_PUBLIC_SELF_URL}&level=Level4`;
+        const url = `${process.env.LOGINSERVICE_URL}?redirectToUrl=${process.env.NEXT_PUBLIC_SELF_URL}&level=Level4`;
         return NextResponse.redirect(url);
     }
 }
