@@ -1,11 +1,11 @@
 const ContentSecurityPolicy = `
   default-src 'self';
-  script-src 'self' 'unsafe-eval' 'unsafe-inline' dekoratoren.ekstern.dev.nav.no account.psplugin.com www.googletagmanager.com www.google-analytics.com static.hotjar.com script.hotjar.com in2.taskanalytics.com;
+  script-src 'self' 'unsafe-eval' 'unsafe-inline' *.nav.no account.psplugin.com www.googletagmanager.com www.google-analytics.com static.hotjar.com script.hotjar.com in2.taskanalytics.com;
   child-src 'self';
-  style-src 'self' 'unsafe-inline' dekoratoren.ekstern.dev.nav.no;
-  img-src 'self' dekoratoren.ekstern.dev.nav.no www.google-analytics.com;
+  style-src 'self' 'unsafe-inline' *.nav.no;
+  img-src 'self' *.nav.no www.google-analytics.com;
   font-src 'self' data: se-content-a.psplugin.com content.psplugin.com;
-  connect-src 'self' dekoratoren.ekstern.dev.nav.no sentry.gc.nav.no amplitude.nav.no person.dev.nav.no innloggingsstatus.dev.nav.no nav.psplugin.com www.google-analytics.com;
+  connect-src 'self' *.nav.no nav.psplugin.com www.google-analytics.com ta-survey-v2.herokuapp.com;
   worker-src 'self' blob:;
   frame-src 'self' vars.hotjar.com
 `;
