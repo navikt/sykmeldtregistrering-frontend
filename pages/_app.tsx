@@ -7,7 +7,7 @@ import { NextRouter } from 'next/router';
 function useAuth(router: NextRouter) {
     const path = router.pathname;
 
-    if (path === '/') {
+    if (path === '/' || !document) {
         return;
     }
 
