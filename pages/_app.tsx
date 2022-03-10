@@ -11,7 +11,7 @@ function useAuth(router: NextRouter) {
         return;
     }
 
-    if (!/selvbetjening-idtoken/.test(document.cookie) && !process.env.NEXT_PUBLIC_ENABLE_MOCK) {
+    if (document && !/selvbetjening-idtoken/.test(document.cookie) && !process.env.NEXT_PUBLIC_ENABLE_MOCK) {
         location.reload();
     }
 }
