@@ -51,8 +51,6 @@ spec:
       value: {{startRegistreringUrl}}
     - name: SISTE_ARBEIDSFORHOLD_URL
       value: {{sisteArbeidsforholdUrl}}
-    - name: KRYSSKLASSIFISER_URL
-      value: {{kryssklassifiserUrl}}
   ingresses:
     - {{ingress}}
   idporten:

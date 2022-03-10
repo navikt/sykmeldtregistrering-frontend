@@ -15,5 +15,3 @@ sentry:
 pamJanzzUrl: https://arbeidsplassen.dev.nav.no/pam-janzz/rest
 startRegistreringUrl: https://veilarbregistrering.party/startregistrering
 sisteArbeidsforholdUrl: https://veilarbregistrering.party/sistearbeidsforhold
-kryssklassifiserUrl: https://www.nav.no/arbeid/registrering/pam-janzz/rest/kryssklassifiserMedKonsept
-
