@@ -37,6 +37,8 @@ spec:
       value: {{loginservice.url}}
     - name: LOGINSERVICE_WELL_KNOWN_URL
       value: {{loginservice.wellKnown}}
+    - name: NEXT_PUBLIC_SELF_URL
+      value: {{ingress}}
     - name: NEXT_PUBLIC_AMPLITUDE_API_KEY
       value: {{amplitude.apiKey}}
     - name: NEXT_PUBLIC_AMPLITUDE_ENDPOINT
