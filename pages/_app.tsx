@@ -5,14 +5,18 @@ import { AmplitudeProvider } from '../contexts/amplitude-context';
 import { NextRouter } from 'next/router';
 
 function useAuth(router: NextRouter) {
-    const path = router.pathname;
-
-    if (path === '/' || !document) {
+    if (typeof window === 'undefined') {
         return;
     }
 
-    if (document && !/selvbetjening-idtoken/.test(document.cookie) && !process.env.NEXT_PUBLIC_ENABLE_MOCK) {
-        location.reload();
+    const path = router.pathname;
+
+    if (path === '/') {
+        return;
+    }
+
+    if (!/selvbetjening-idtoken/.test(window.document.cookie) && !process.env.NEXT_PUBLIC_ENABLE_MOCK) {
+        window.location.reload();
     }
 }
 
