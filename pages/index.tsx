@@ -1,11 +1,13 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { Button, Heading } from '@navikt/ds-react';
+import { Button, Cell, Grid, Heading } from '@navikt/ds-react';
 import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../hooks/useSprak';
 import DineOpplysninger from '../components/forsiden/dine-opplysninger';
 import NextLink from 'next/link';
 import { SkjemaSide } from '../model/skjema';
+import RettigheterPanel from '../components/forsiden/rettigheter';
+import PlikterPanel from '../components/forsiden/plikter';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -42,7 +44,17 @@ const Home: NextPage = (props) => {
                     <Button variant="secondary">Sykmeldt registrering</Button>
                 </NextLink>
             </p>
-            <DineOpplysninger />
+            <Grid>
+                <Cell xs={12} md={6}>
+                    <RettigheterPanel />
+                </Cell>
+                <Cell xs={12} md={6}>
+                    <PlikterPanel />
+                </Cell>
+                <Cell xs={12}>
+                    <DineOpplysninger />
+                </Cell>
+            </Grid>
         </div>
     );
 };

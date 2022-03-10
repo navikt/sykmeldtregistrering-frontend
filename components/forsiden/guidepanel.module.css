@@ -1,0 +1,13 @@
+.rettigheter {
+    --navds-guide-panel-color-border: var(--navds-global-color-green-200);
+    --navds-guide-panel-color-illustration-background: var(
+            --navds-global-color-green-200
+    );
+}
+
+.plikter {
+    --navds-guide-panel-color-border: var(--navds-global-color-orange-200);
+    --navds-guide-panel-color-illustration-background: var(
+            --navds-global-color-orange-200
+    );
+}
