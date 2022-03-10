@@ -18,6 +18,7 @@
         "@navikt/nav-dekoratoren-moduler": "1.6.9",
         "@sentry/nextjs": "6.18.1",
         "amplitude-js": "8.17.0",
+        "nanoid": "3.3.1",
         "next": "12.1.0",
         "react": "17.0.2",
         "react-autosuggest": "10.1.0",
