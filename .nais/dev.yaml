@@ -15,3 +15,4 @@ sentry:
 pamJanzzUrl: https://arbeidsplassen.dev.nav.no/pam-janzz/rest
 startRegistreringUrl: https://veilarbregistrering.party/startregistrering
 sisteArbeidsforholdUrl: https://veilarbregistrering.party/sistearbeidsforhold
+ptoProxyUrl: http://pto-proxy.pto.svc.cluster.local/proxy
