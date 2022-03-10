@@ -13,6 +13,6 @@ amplitude:
 sentry:
   dsn: https://b2f662d8ed7a42b29f465f365e25832f@sentry.gc.nav.no/118
 pamJanzzUrl: https://arbeidsplassen.dev.nav.no/pam-janzz/rest
-startRegistreringUrl: https://veilarbregistrering.party/startregistrering
+startRegistreringUrl: http://pto-proxy.pto.svc.cluster.local/proxy/veilarbregistrering/startregistrering
 sisteArbeidsforholdUrl: https://veilarbregistrering.party/sistearbeidsforhold
 ptoProxyUrl: http://pto-proxy.pto.svc.cluster.local/proxy
