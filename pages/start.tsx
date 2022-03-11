@@ -10,7 +10,9 @@ const { basePath } = getConfig().publicRuntimeConfig;
 
 const getUrl = (path: string) => `${basePath}/${path}`;
 const fetcher = async (path: string) => {
-    const response = await fetch(getUrl(path));
+    const response = await fetch(getUrl(path), {
+        credentials: 'include',
+    });
     return await response.json();
 };
 
