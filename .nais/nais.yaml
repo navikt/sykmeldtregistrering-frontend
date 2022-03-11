@@ -53,6 +53,8 @@ spec:
       value: {{startRegistreringUrl}}
     - name: SISTE_ARBEIDSFORHOLD_URL
       value: {{sisteArbeidsforholdUrl}}
+    - name: OPPRETT_OPPGAVE_URL
+      value: {{sisteArbeidsforholdUrl}}
     - name: PTO_PROXY_URL
       value: {{ptoProxyUrl}}
   ingresses:
