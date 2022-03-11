@@ -17,6 +17,7 @@ export enum SkjemaSide {
     AndreHensyn = '10',
     TilbakeTilJobb = '11',
     SkalTilbakeTilJobb = '12',
+    FullforRegistrering = '13',
 }
 
 export type StandardSkjemaSide =
@@ -27,7 +28,8 @@ export type StandardSkjemaSide =
     | SkjemaSide.BestaattUtdanning
     | SkjemaSide.Helseproblemer
     | SkjemaSide.AndreProblemer
-    | SkjemaSide.Oppsummering;
+    | SkjemaSide.Oppsummering
+    | SkjemaSide.FullforRegistrering;
 
 export type SykmeldtSkjemaSide =
     | SkjemaSide.SykmeldtFremtidigSituasjon
@@ -37,7 +39,8 @@ export type SykmeldtSkjemaSide =
     | SkjemaSide.AndreHensyn
     | SkjemaSide.Oppsummering
     | SkjemaSide.TilbakeTilJobb
-    | SkjemaSide.SkalTilbakeTilJobb;
+    | SkjemaSide.SkalTilbakeTilJobb
+    | SkjemaSide.FullforRegistrering;
 
 export type Navigering<T extends SkjemaSide> = {
     neste?: T;

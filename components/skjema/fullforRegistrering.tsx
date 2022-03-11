@@ -1,6 +1,7 @@
-import { Accordion, ContentContainer, GuidePanel, Heading, Ingress, Link, Table } from '@navikt/ds-react';
+import { Accordion, Cell, ContentContainer, Grid, GuidePanel, Heading, Panel } from '@navikt/ds-react';
 import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../hooks/useSprak';
+import { Calender, Email, File, Money } from '@navikt/ds-icons';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -38,41 +39,55 @@ const FullforRegistrering = () => {
     return (
         <>
             <ContentContainer>
-                <Heading size={'large'}>{tekst('tittel')}</Heading>
+                <Heading spacing size={'large'}>
+                    {tekst('tittel')}
+                </Heading>
                 <GuidePanel poster>
-                    <Heading size={'xsmall'}>{tekst('naarDuFullforer')}</Heading>
+                    <Heading level={'2'} size={'xsmall'}>
+                        {tekst('naarDuFullforer')}
+                    </Heading>
                     <ul>
-                        <li>{tekst('sendeMeldekort')}</li>
+                        <li> {tekst('sendeMeldekort')} </li>
                         <li>{tekst('registrereCV')}</li>
                         <li>{tekst('aktivJobbsoker')}</li>
                         <li>{tekst('brukeAktivitetsplan')}</li>
                     </ul>
                 </GuidePanel>
-                <Accordion>
-                    <Accordion.Item>
-                        <Accordion.Header>{tekst('lesMer')}</Accordion.Header>
-                        <Accordion.Content>
-                            <ul>
-                                <li>
-                                    <Heading size={'xsmall'}>{tekst('okonomi')}</Heading>
-                                    {tekst('okonomiInfo')}
-                                </li>
-                                <li>
-                                    <Heading size={'xsmall'}>{tekst('meldekort')}</Heading>
-                                    {tekst('meldekortInfo')}
-                                </li>
-                                <li>
-                                    <Heading size={'xsmall'}>{tekst('aktivitetsplan')}</Heading>
-                                    {tekst('aktivitetsplanInfo')}
-                                </li>
-                                <li>
-                                    <Heading size={'xsmall'}>{tekst('CV')}</Heading>
-                                    {tekst('CVInfo')}
-                                </li>
-                            </ul>
-                        </Accordion.Content>
-                    </Accordion.Item>
-                </Accordion>
+                <div style={{ maxWidth: '34rem', margin: '2em 0' }}>
+                    <Accordion>
+                        <Accordion.Item>
+                            <Accordion.Header>{tekst('lesMer')}</Accordion.Header>
+                            <Accordion.Content>
+                                <ul>
+                                    <li>
+                                        <Heading level={'3'} size={'xsmall'}>
+                                            {tekst('okonomi')}
+                                        </Heading>
+                                        {tekst('okonomiInfo')}
+                                    </li>
+                                    <li>
+                                        <Heading level={'3'} size={'xsmall'}>
+                                            {tekst('meldekort')}
+                                        </Heading>
+                                        {tekst('meldekortInfo')}
+                                    </li>
+                                    <li>
+                                        <Heading level={'3'} size={'xsmall'}>
+                                            {tekst('aktivitetsplan')}
+                                        </Heading>
+                                        {tekst('aktivitetsplanInfo')}
+                                    </li>
+                                    <li>
+                                        <Heading level={'3'} size={'xsmall'}>
+                                            {tekst('CV')}
+                                        </Heading>
+                                        {tekst('CVInfo')}
+                                    </li>
+                                </ul>
+                            </Accordion.Content>
+                        </Accordion.Item>
+                    </Accordion>
+                </div>
             </ContentContainer>
         </>
     );

@@ -18,6 +18,7 @@ import SykmeldtFremtidigSituasjon from '../../components/skjema/sykmeldt-fremtid
 import TilbakeTilJobb from '../../components/skjema/tilbake-til-jobb';
 import SkalTilbakeTilJobb from '../../components/skjema/skal-tilbake-til-jobb';
 import { SkjemaAction, skjemaReducer, SkjemaReducer } from '../../lib/skjema-state';
+import FullforRegistrering from '../../components/skjema/fullforRegistrering';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -68,6 +69,7 @@ const lagSiderMap = (skjemaState: SkjemaState, dispatch: Dispatch<SkjemaAction>)
             />
         ),
         [SkjemaSide.Oppsummering]: <Oppsummering {...skjemaState} skjemaPrefix={'/sykmeldt/'} />,
+        [SkjemaSide.FullforRegistrering]: <FullforRegistrering />,
     };
 };
 
@@ -86,6 +88,10 @@ const validerSkjemaForSide = (side: SkjemaSide, skjemaState: SkjemaState) => {
                 return skjemaState.bestaattUtdanning;
             case SkjemaSide.AndreHensyn:
                 return skjemaState.andreProblemer;
+            case SkjemaSide.Oppsummering:
+                return true;
+            case SkjemaSide.FullforRegistrering:
+                return true;
         }
     };
 

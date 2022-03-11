@@ -18,6 +18,7 @@ import Oppsummering from '../../components/skjema/oppsummering/oppsummering';
 import { beregnNavigering } from '../../lib/standard-registrering-tilstandsmaskin';
 import { JaEllerNei, SkjemaSide, SkjemaState, SkjemaVerdi, StandardSkjemaSide } from '../../model/skjema';
 import { SkjemaAction, skjemaReducer, SkjemaReducer } from '../../lib/skjema-state';
+import FullforRegistrering from '../../components/skjema/fullforRegistrering';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -91,6 +92,7 @@ const lagSiderMap = (skjemaState: SkjemaState, dispatch: Dispatch<SkjemaAction>)
             />
         ),
         [SkjemaSide.Oppsummering]: <Oppsummering {...skjemaState} skjemaPrefix={'/skjema/'} />,
+        [SkjemaSide.FullforRegistrering]: <FullforRegistrering />,
     };
 };
 
@@ -111,6 +113,10 @@ const validerSkjemaForSide = (side: StandardSkjemaSide, skjemaState: SkjemaState
                 return skjemaState.helseproblemer;
             case SkjemaSide.AndreProblemer:
                 return skjemaState.andreProblemer;
+            case SkjemaSide.Oppsummering:
+                return true;
+            case SkjemaSide.FullforRegistrering:
+                return true;
         }
     };
 

@@ -63,8 +63,14 @@ const TILSTANDER: NavigeringsTilstandsMaskin<StandardSkjemaSide> = {
     },
     [SkjemaSide.Oppsummering]: () => {
         return {
+            neste: SkjemaSide.FullforRegistrering,
+            forrige: SkjemaSide.AndreProblemer,
+        };
+    },
+    [SkjemaSide.FullforRegistrering]: () => {
+        return {
             neste: undefined,
-            forrige: undefined,
+            forrige: SkjemaSide.Oppsummering,
         };
     },
 };
