@@ -1,7 +1,7 @@
-import skjemaStyles from '../../styles/skjema.module.css';
+import skjemaStyles from '../../../styles/skjema.module.css';
 import { Button } from '@navikt/ds-react';
-import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
-import useSprak from '../../hooks/useSprak';
+import lagHentTekstForSprak, { Tekster } from '../../../lib/lag-hent-tekst-for-sprak';
+import useSprak from '../../../hooks/useSprak';
 import { useCallback } from 'react';
 
 const TEKSTER: Tekster<string> = {

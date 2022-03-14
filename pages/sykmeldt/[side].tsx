@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { Dispatch, useReducer, useState } from 'react';
 import { SkjemaSide, SkjemaState, SykmeldtSkjemaSide } from '../../model/skjema';
 import styles from '../../styles/skjema.module.css';
-import { Alert, Button } from '@navikt/ds-react';
+import { Alert } from '@navikt/ds-react';
 import { Knapperad } from '../../components/skjema/knapperad/knapperad';
 import Avbryt from '../../components/skjema/avbryt-lenke';
 import Utdanning from '../../components/skjema/utdanning';
@@ -19,7 +19,7 @@ import TilbakeTilJobb from '../../components/skjema/tilbake-til-jobb';
 import SkalTilbakeTilJobb from '../../components/skjema/skal-tilbake-til-jobb';
 import { SkjemaAction, skjemaReducer, SkjemaReducer } from '../../lib/skjema-state';
 import FullforRegistrering from '../../components/skjema/fullforRegistrering';
-import { fetcher as api } from '../../lib/api-utils';
+import TilbakeKnapp from '../../components/skjema/tilbake-knapp';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -132,14 +132,15 @@ const SykmeldtSkjema: NextPage<SkjemaProps> = (props) => {
         }
     };
 
-    const onForrige = forrige ? () => navigerTilSide(forrige) : undefined;
+    const forrigeLenke = forrige ? `/sykmeldt/${forrige}` : undefined;
 
     return (
         <>
             <main className={styles.main}>
+                {forrigeLenke && <TilbakeKnapp href={forrigeLenke} />}
                 {hentKomponentForSide(aktivSide, lagSiderMap(skjemaState, dispatch))}
                 {visFeilmelding && <Alert variant="warning">{tekst('advarsel')}</Alert>}
-                <Knapperad onNeste={validerOgGaaTilNeste} onForrige={onForrige} />
+                <Knapperad onNeste={validerOgGaaTilNeste} />
                 <Avbryt />
             </main>
         </>

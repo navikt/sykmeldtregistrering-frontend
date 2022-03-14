@@ -19,6 +19,7 @@ import { beregnNavigering } from '../../lib/standard-registrering-tilstandsmaski
 import { JaEllerNei, SkjemaSide, SkjemaState, SkjemaVerdi, StandardSkjemaSide } from '../../model/skjema';
 import { SkjemaAction, skjemaReducer, SkjemaReducer } from '../../lib/skjema-state';
 import FullforRegistrering from '../../components/skjema/fullforRegistrering';
+import TilbakeKnapp from '../../components/skjema/tilbake-knapp';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -153,14 +154,15 @@ const Skjema: NextPage<SkjemaProps> = (props) => {
         }
     };
 
-    const onForrige = forrige ? () => navigerTilSide(forrige) : undefined;
+    const forrigeLenke = forrige ? `/skjema/${forrige}` : undefined;
 
     return (
         <>
             <main className={styles.main}>
+                {forrigeLenke && <TilbakeKnapp href={forrigeLenke} />}
                 {hentKomponentForSide(aktivSide, lagSiderMap(skjemaState, dispatch))}
                 {visFeilmelding && <Alert variant="warning">{tekst('advarsel')}</Alert>}
-                <Knapperad onNeste={validerOgGaaTilNeste} onForrige={onForrige} />
+                <Knapperad onNeste={validerOgGaaTilNeste} />
                 <Avbryt />
             </main>
         </>

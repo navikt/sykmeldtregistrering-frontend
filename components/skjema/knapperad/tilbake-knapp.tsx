@@ -1,5 +1,5 @@
 import { Button } from '@navikt/ds-react';
-import skjemaStyles from '../../styles/skjema.module.css';
+import skjemaStyles from '../../../styles/skjema.module.css';
 
 export const TilbakeKnapp = (props: { onClick: () => void }) => {
     return (
