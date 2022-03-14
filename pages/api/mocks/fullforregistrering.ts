@@ -6,7 +6,7 @@ const fullforHandler = (req: NextApiRequest, res: NextApiResponse) => {
         console.log('body', body);
         return res.status(200).json({});
     } else {
-        return res.status(400).end();
+        return res.status(405).end();
     }
 };
 

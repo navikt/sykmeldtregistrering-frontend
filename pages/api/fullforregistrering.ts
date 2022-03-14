@@ -7,7 +7,7 @@ const fullforHandler = (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method === 'POST') {
         return lagApiHandlerMedAuthHeaders(fullforRegistreringUrl)(req, res);
     } else {
-        return res.status(400).end();
+        return res.status(405).end();
     }
 };
 
