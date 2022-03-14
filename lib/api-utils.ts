@@ -14,7 +14,8 @@ export const fetcher = async (path: string, opts?: RequestInit) => {
         throw new Error(response.statusText);
     }
 
-    if (response.headers.get('Content-type') === 'application/json') {
+    const contentType = response.headers.get('Content-Type');
+    if (contentType && /application\/json/.test(contentType)) {
         return await response.json();
     }
 };
