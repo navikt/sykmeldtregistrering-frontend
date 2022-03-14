@@ -15,25 +15,25 @@ const TEKSTER: Tekster<string> = {
     },
 };
 
-export enum SykmeldtValg {
-    TILBAKE_TIL_JOBB = 'tilbakeTilJobb',
-    TILBAKE_TIL_NY_STILLING = 'tilbakeTilNyStilling',
-    TRENGER_NY_JOBB = 'trengerNyJobb',
+export enum FremtidigSituasjon {
+    SAMME_ARBEIDSGIVER = 'tilbakeTilJobb',
+    SAMME_ARBEIDSGIVER_NY_STILLING = 'tilbakeTilNyStilling',
+    NY_ARBEIDSGIVER = 'trengerNyJobb',
     USIKKER = 'usikker',
-    INGEN_ALTERNATIVER_PASSER = 'ingenAlternativerPasser',
+    INGEN_PASSER = 'ingenAlternativerPasser',
 }
 
-const SykmeldtFremtidigSituasjon = (props: SkjemaKomponentProps<SykmeldtValg>) => {
+const SykmeldtFremtidigSituasjon = (props: SkjemaKomponentProps<FremtidigSituasjon>) => {
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
     const { onChange, valgt } = props;
 
-    const lagValg = (valg: SykmeldtValg) => ({ tekst: tekst(valg), value: valg });
+    const lagValg = (valg: FremtidigSituasjon) => ({ tekst: tekst(valg), value: valg });
     const valg = [
-        lagValg(SykmeldtValg.TILBAKE_TIL_JOBB),
-        lagValg(SykmeldtValg.TILBAKE_TIL_NY_STILLING),
-        lagValg(SykmeldtValg.TRENGER_NY_JOBB),
-        lagValg(SykmeldtValg.USIKKER),
-        lagValg(SykmeldtValg.INGEN_ALTERNATIVER_PASSER),
+        lagValg(FremtidigSituasjon.SAMME_ARBEIDSGIVER),
+        lagValg(FremtidigSituasjon.SAMME_ARBEIDSGIVER_NY_STILLING),
+        lagValg(FremtidigSituasjon.NY_ARBEIDSGIVER),
+        lagValg(FremtidigSituasjon.USIKKER),
+        lagValg(FremtidigSituasjon.INGEN_PASSER),
     ];
 
     return (

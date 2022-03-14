@@ -3,7 +3,7 @@ import { Jobbsituasjon } from '../components/skjema/din-situasjon';
 import { Utdanningsnivaa } from '../components/skjema/utdanning';
 import { GodkjentUtdanningValg } from '../components/skjema/utdanning-godkjent';
 import { Reducer } from 'react';
-import { SykmeldtValg } from '../components/skjema/sykmeldt-fremtidig-situasjon';
+import { FremtidigSituasjon } from '../components/skjema/sykmeldt-fremtidig-situasjon';
 import { TilbakeTilJobbValg } from '../components/skjema/tilbake-til-jobb';
 
 export type SkjemaReducer = Reducer<SkjemaState, SkjemaAction>;
@@ -15,7 +15,7 @@ export type SkjemaAction =
     | { type: SkjemaSide.Helseproblemer; value: SkjemaVerdi<JaEllerNei> }
     | { type: SkjemaSide.AndreProblemer; value: SkjemaVerdi<JaEllerNei> }
     | { type: SkjemaSide.SisteJobb; value: SkjemaVerdi<string> }
-    | { type: SkjemaSide.SykmeldtFremtidigSituasjon; value: SkjemaVerdi<SykmeldtValg> }
+    | { type: SkjemaSide.SykmeldtFremtidigSituasjon; value: SkjemaVerdi<FremtidigSituasjon> }
     | { type: SkjemaSide.TilbakeTilJobb; value: SkjemaVerdi<TilbakeTilJobbValg> };
 
 export function skjemaReducer(state: SkjemaState, action: SkjemaAction): SkjemaState {
@@ -99,14 +99,16 @@ export const oppdaterUtdanning = (skjemaState: SkjemaState, utdanning: SkjemaVer
     };
 };
 
-const oppdaterFremtidigSituasjon = (state: SkjemaState, valg: SkjemaVerdi<SykmeldtValg>) => {
-    if (valg.verdi === SykmeldtValg.INGEN_ALTERNATIVER_PASSER) {
+const oppdaterFremtidigSituasjon = (state: SkjemaState, valg: SkjemaVerdi<FremtidigSituasjon>) => {
+    if (valg.verdi === FremtidigSituasjon.INGEN_PASSER) {
         return {
             fremtidigSituasjon: valg,
         };
     }
 
-    if ([SykmeldtValg.TILBAKE_TIL_NY_STILLING, SykmeldtValg.TILBAKE_TIL_JOBB].includes(valg.verdi)) {
+    if (
+        [FremtidigSituasjon.SAMME_ARBEIDSGIVER_NY_STILLING, FremtidigSituasjon.SAMME_ARBEIDSGIVER].includes(valg.verdi)
+    ) {
         return {
             ...state,
             fremtidigSituasjon: valg,

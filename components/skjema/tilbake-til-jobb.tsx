@@ -5,8 +5,8 @@ import { Heading } from '@navikt/ds-react';
 import RadioGruppe from '../radio-gruppe/radio-gruppe';
 
 export enum TilbakeTilJobbValg {
-    FULL_STILLING = 'fullStilling',
-    REDUSERT_STILLING = 'redusertStilling',
+    JA_FULL_STILLING = 'fullStilling',
+    JA_REDUSERT_STILLING = 'redusertStilling',
     USIKKER = 'usikker',
     NEI = 'nei',
 }
@@ -14,8 +14,8 @@ export enum TilbakeTilJobbValg {
 const TEKSTER: Tekster<string> = {
     nb: {
         tittel: 'Tror du at du kommer tilbake i jobb før du har vært sykmeldt i 52 uker?',
-        [TilbakeTilJobbValg.FULL_STILLING]: 'Ja, i full stilling',
-        [TilbakeTilJobbValg.REDUSERT_STILLING]: 'Ja, i redusert stilling',
+        [TilbakeTilJobbValg.JA_FULL_STILLING]: 'Ja, i full stilling',
+        [TilbakeTilJobbValg.JA_REDUSERT_STILLING]: 'Ja, i redusert stilling',
         [TilbakeTilJobbValg.USIKKER]: 'Usikker',
         [TilbakeTilJobbValg.NEI]: 'Nei',
     },
@@ -27,8 +27,8 @@ const TilbakeTilJobb = (props: SkjemaKomponentProps<TilbakeTilJobbValg>) => {
 
     const lagValg = (valg: TilbakeTilJobbValg) => ({ tekst: tekst(valg), value: valg });
     const valg = [
-        lagValg(TilbakeTilJobbValg.FULL_STILLING),
-        lagValg(TilbakeTilJobbValg.REDUSERT_STILLING),
+        lagValg(TilbakeTilJobbValg.JA_FULL_STILLING),
+        lagValg(TilbakeTilJobbValg.JA_REDUSERT_STILLING),
         lagValg(TilbakeTilJobbValg.USIKKER),
         lagValg(TilbakeTilJobbValg.NEI),
     ];

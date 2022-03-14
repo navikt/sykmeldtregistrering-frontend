@@ -1,5 +1,5 @@
 import { Navigering, NavigeringsTilstandsMaskin, SkjemaSide, SkjemaState, SykmeldtSkjemaSide } from '../model/skjema';
-import { SykmeldtValg } from '../components/skjema/sykmeldt-fremtidig-situasjon';
+import { FremtidigSituasjon } from '../components/skjema/sykmeldt-fremtidig-situasjon';
 import { TilbakeTilJobbValg } from '../components/skjema/tilbake-til-jobb';
 import { Utdanningsnivaa } from '../components/skjema/utdanning';
 
@@ -7,7 +7,7 @@ const TILSTANDER: NavigeringsTilstandsMaskin<SykmeldtSkjemaSide> = {
     [SkjemaSide.SykmeldtFremtidigSituasjon]: (state: SkjemaState) => {
         if (
             state.fremtidigSituasjon?.verdi &&
-            [SykmeldtValg.TRENGER_NY_JOBB, SykmeldtValg.USIKKER].includes(state.fremtidigSituasjon!.verdi)
+            [FremtidigSituasjon.NY_ARBEIDSGIVER, FremtidigSituasjon.USIKKER].includes(state.fremtidigSituasjon!.verdi)
         ) {
             return {
                 neste: SkjemaSide.Utdanning,
@@ -15,7 +15,7 @@ const TILSTANDER: NavigeringsTilstandsMaskin<SykmeldtSkjemaSide> = {
             };
         }
 
-        if (state.fremtidigSituasjon?.verdi === SykmeldtValg.INGEN_ALTERNATIVER_PASSER) {
+        if (state.fremtidigSituasjon?.verdi === FremtidigSituasjon.INGEN_PASSER) {
             return {
                 neste: SkjemaSide.Oppsummering,
                 forrige: undefined,
@@ -58,7 +58,7 @@ const TILSTANDER: NavigeringsTilstandsMaskin<SykmeldtSkjemaSide> = {
         };
     },
     [SkjemaSide.TilbakeTilJobb]: (state: SkjemaState) => {
-        if (state.tilbakeIArbeid?.verdi === TilbakeTilJobbValg.FULL_STILLING) {
+        if (state.tilbakeIArbeid?.verdi === TilbakeTilJobbValg.JA_FULL_STILLING) {
             return {
                 neste: SkjemaSide.SkalTilbakeTilJobb,
                 forrige: SkjemaSide.SykmeldtFremtidigSituasjon,
@@ -70,7 +70,7 @@ const TILSTANDER: NavigeringsTilstandsMaskin<SykmeldtSkjemaSide> = {
         };
     },
     [SkjemaSide.Oppsummering]: (state: SkjemaState) => {
-        if (state.fremtidigSituasjon?.verdi === SykmeldtValg.INGEN_ALTERNATIVER_PASSER) {
+        if (state.fremtidigSituasjon?.verdi === FremtidigSituasjon.INGEN_PASSER) {
             return {
                 forrige: SkjemaSide.SykmeldtFremtidigSituasjon,
                 neste: SkjemaSide.FullforRegistrering,
