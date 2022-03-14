@@ -46,13 +46,13 @@ describe('Sykmeldt registrering tilstandsmaskin', () => {
         });
         it('returnerer GodkjentUtdanning som neste for Utdanningsnivaa.HOYERE', () => {
             const state = beregnNavigering(SkjemaSide.Utdanning, {
-                utdanning: { verdi: Utdanningsnivaa.HOYERE, tekst: '' },
+                utdanning: { verdi: Utdanningsnivaa.HOYERE_UTDANNING_5_ELLER_MER, tekst: '' },
             });
             expect(state.neste).toBe(SkjemaSide.GodkjentUtdanning);
         });
         it('returnerer AndreHensyn som neste for Utdanningsnivaa.INGEN', () => {
             const state = beregnNavigering(SkjemaSide.Utdanning, {
-                utdanning: { verdi: Utdanningsnivaa.INGEN, tekst: '' },
+                utdanning: { verdi: Utdanningsnivaa.INGEN_UTDANNING, tekst: '' },
             });
             expect(state.neste).toBe(SkjemaSide.AndreHensyn);
         });
@@ -83,13 +83,13 @@ describe('Sykmeldt registrering tilstandsmaskin', () => {
     describe('AndreHensyn', () => {
         it('returnerer BestaattUtdanning som forrige hvis utdanning==Utdanningsnivaa.HOYERE', () => {
             const state = beregnNavigering(SkjemaSide.AndreHensyn, {
-                utdanning: { verdi: Utdanningsnivaa.HOYERE, tekst: '' },
+                utdanning: { verdi: Utdanningsnivaa.HOYERE_UTDANNING_5_ELLER_MER, tekst: '' },
             });
             expect(state.forrige).toBe(SkjemaSide.BestaattUtdanning);
         });
         it('returnerer Utdanning som forrige hvis valgt utdanning er Utdanningsnivaa.INGEN', () => {
             const state = beregnNavigering(SkjemaSide.AndreHensyn, {
-                utdanning: { verdi: Utdanningsnivaa.INGEN, tekst: '' },
+                utdanning: { verdi: Utdanningsnivaa.INGEN_UTDANNING, tekst: '' },
             });
             expect(state.forrige).toBe(SkjemaSide.Utdanning);
         });

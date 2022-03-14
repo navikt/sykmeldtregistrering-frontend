@@ -7,13 +7,13 @@ describe('Standard registrering tilstandsmaskin', () => {
     describe('din situasjon', () => {
         it('returnerer SisteJobb som neste når mistet jobb', () => {
             const state = beregnNavigering(SkjemaSide.DinSituasjon, {
-                dinSituasjon: { verdi: Jobbsituasjon.MISTETJOBB, tekst: '' },
+                dinSituasjon: { verdi: Jobbsituasjon.MISTET_JOBBEN, tekst: '' },
             });
             expect(state.neste).toBe(SkjemaSide.SisteJobb);
         });
         it('returnerer Utdanning som neste når aldri jobbet', () => {
             const state = beregnNavigering(SkjemaSide.DinSituasjon, {
-                dinSituasjon: { verdi: Jobbsituasjon.ALDRIJOBBET, tekst: '' },
+                dinSituasjon: { verdi: Jobbsituasjon.ALDRI_HATT_JOBB, tekst: '' },
             });
             expect(state.neste).toBe(SkjemaSide.Utdanning);
         });
@@ -21,14 +21,14 @@ describe('Standard registrering tilstandsmaskin', () => {
     describe('siste jobb', () => {
         it('returnerer Utdanning som neste side', () => {
             const state = beregnNavigering(SkjemaSide.SisteJobb, {
-                dinSituasjon: { verdi: Jobbsituasjon.MISTETJOBB, tekst: '' },
+                dinSituasjon: { verdi: Jobbsituasjon.MISTET_JOBBEN, tekst: '' },
                 sisteStilling: { verdi: 'Kokk', tekst: 'Kokk' },
             });
             expect(state.neste).toBe(SkjemaSide.Utdanning);
         });
         it('returnerer Din situasjon som forrige side', () => {
             const state = beregnNavigering(SkjemaSide.SisteJobb, {
-                dinSituasjon: { verdi: Jobbsituasjon.MISTETJOBB, tekst: '' },
+                dinSituasjon: { verdi: Jobbsituasjon.MISTET_JOBBEN, tekst: '' },
                 sisteStilling: { verdi: 'Kokk', tekst: 'Kokk' },
             });
             expect(state.forrige).toBe(SkjemaSide.DinSituasjon);
@@ -37,33 +37,33 @@ describe('Standard registrering tilstandsmaskin', () => {
     describe('utdanning', () => {
         it('returnerer GodkjentUtdanning som neste side når har høyere utdanning', () => {
             const state = beregnNavigering(SkjemaSide.Utdanning, {
-                dinSituasjon: { verdi: Jobbsituasjon.MISTETJOBB, tekst: '' },
+                dinSituasjon: { verdi: Jobbsituasjon.MISTET_JOBBEN, tekst: '' },
                 sisteStilling: { verdi: 'Kokk', tekst: 'Kokk' },
-                utdanning: { verdi: Utdanningsnivaa.HOYERE, tekst: '' },
+                utdanning: { verdi: Utdanningsnivaa.HOYERE_UTDANNING_5_ELLER_MER, tekst: '' },
             });
             expect(state.neste).toBe(SkjemaSide.GodkjentUtdanning);
         });
         it('returnerer Helseproblemer som neste side når ingen utdanning', () => {
             const state = beregnNavigering(SkjemaSide.Utdanning, {
-                dinSituasjon: { verdi: Jobbsituasjon.MISTETJOBB, tekst: '' },
+                dinSituasjon: { verdi: Jobbsituasjon.MISTET_JOBBEN, tekst: '' },
                 sisteStilling: { verdi: 'Kokk', tekst: 'Kokk' },
-                utdanning: { verdi: Utdanningsnivaa.INGEN, tekst: '' },
+                utdanning: { verdi: Utdanningsnivaa.INGEN_UTDANNING, tekst: '' },
             });
             expect(state.neste).toBe(SkjemaSide.Helseproblemer);
         });
         it('returnerer DinSituasjon som forrige side når aldri jobbet', () => {
             const state = beregnNavigering(SkjemaSide.Utdanning, {
-                dinSituasjon: { verdi: Jobbsituasjon.ALDRIJOBBET, tekst: '' },
+                dinSituasjon: { verdi: Jobbsituasjon.ALDRI_HATT_JOBB, tekst: '' },
                 sisteStilling: { verdi: 'Kokk', tekst: 'Kokk' },
-                utdanning: { verdi: Utdanningsnivaa.HOYERE, tekst: '' },
+                utdanning: { verdi: Utdanningsnivaa.HOYERE_UTDANNING_5_ELLER_MER, tekst: '' },
             });
             expect(state.forrige).toBe(SkjemaSide.DinSituasjon);
         });
         it('returnerer SisteJobb som forrige side når mistet jobb', () => {
             const state = beregnNavigering(SkjemaSide.Utdanning, {
-                dinSituasjon: { verdi: Jobbsituasjon.MISTETJOBB, tekst: '' },
+                dinSituasjon: { verdi: Jobbsituasjon.MISTET_JOBBEN, tekst: '' },
                 sisteStilling: { verdi: 'Kokk', tekst: 'Kokk' },
-                utdanning: { verdi: Utdanningsnivaa.HOYERE, tekst: '' },
+                utdanning: { verdi: Utdanningsnivaa.HOYERE_UTDANNING_5_ELLER_MER, tekst: '' },
             });
             expect(state.forrige).toBe(SkjemaSide.SisteJobb);
         });
@@ -100,7 +100,7 @@ describe('Standard registrering tilstandsmaskin', () => {
 
         it('returnerer Utdanning som forrige når ingen utdanning', () => {
             const { forrige } = beregnNavigering(SkjemaSide.Helseproblemer, {
-                utdanning: { verdi: Utdanningsnivaa.INGEN, tekst: '' },
+                utdanning: { verdi: Utdanningsnivaa.INGEN_UTDANNING, tekst: '' },
             });
             expect(forrige).toBe(SkjemaSide.Utdanning);
         });

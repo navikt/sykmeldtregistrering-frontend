@@ -17,12 +17,12 @@ const TEKSTER: Tekster<string> = {
 };
 
 export enum Utdanningsnivaa {
-    INGEN = 'ingen',
+    INGEN_UTDANNING = 'ingen',
     GRUNNSKOLE = 'grunnskole',
-    VGS = 'vgs',
-    VGSFAGBREV = 'vgsFagbrev',
-    HOYERE = 'hoyere',
-    HOYEREOVER5AAR = 'hoyere5',
+    VIDEREGAENDE_GRUNNUTDANNING = 'vgs',
+    VIDEREGAENDE_FAGBREV_SVENNEBREV = 'vgsFagbrev',
+    HOYERE_UTDANNING_1_TIL_4 = 'hoyere',
+    HOYERE_UTDANNING_5_ELLER_MER = 'hoyere5',
 }
 
 const Utdanning = (props: SkjemaKomponentProps<Utdanningsnivaa>) => {
@@ -30,12 +30,12 @@ const Utdanning = (props: SkjemaKomponentProps<Utdanningsnivaa>) => {
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
 
     const valg = [
-        { tekst: tekst('ingen'), value: Utdanningsnivaa.INGEN.valueOf() },
+        { tekst: tekst('ingen'), value: Utdanningsnivaa.INGEN_UTDANNING.valueOf() },
         { tekst: tekst('grunnskole'), value: Utdanningsnivaa.GRUNNSKOLE.valueOf() },
-        { tekst: tekst('vgs'), value: Utdanningsnivaa.VGS.valueOf() },
-        { tekst: tekst('vgsFagbrev'), value: Utdanningsnivaa.VGSFAGBREV.valueOf() },
-        { tekst: tekst('hoyere'), value: Utdanningsnivaa.HOYERE.valueOf() },
-        { tekst: tekst('hoyere5'), value: Utdanningsnivaa.HOYEREOVER5AAR.valueOf() },
+        { tekst: tekst('vgs'), value: Utdanningsnivaa.VIDEREGAENDE_GRUNNUTDANNING.valueOf() },
+        { tekst: tekst('vgsFagbrev'), value: Utdanningsnivaa.VIDEREGAENDE_FAGBREV_SVENNEBREV.valueOf() },
+        { tekst: tekst('hoyere'), value: Utdanningsnivaa.HOYERE_UTDANNING_1_TIL_4.valueOf() },
+        { tekst: tekst('hoyere5'), value: Utdanningsnivaa.HOYERE_UTDANNING_5_ELLER_MER.valueOf() },
     ];
 
     return (

@@ -30,7 +30,7 @@ const TILSTANDER: NavigeringsTilstandsMaskin<SykmeldtSkjemaSide> = {
     [SkjemaSide.Utdanning]: (skjemaState: SkjemaState) => {
         return {
             neste:
-                skjemaState.utdanning?.verdi === Utdanningsnivaa.INGEN
+                skjemaState.utdanning?.verdi === Utdanningsnivaa.INGEN_UTDANNING
                     ? SkjemaSide.AndreHensyn
                     : SkjemaSide.GodkjentUtdanning,
             forrige: SkjemaSide.SykmeldtFremtidigSituasjon,
@@ -52,7 +52,7 @@ const TILSTANDER: NavigeringsTilstandsMaskin<SykmeldtSkjemaSide> = {
         return {
             neste: SkjemaSide.Oppsummering,
             forrige:
-                skjemaState.utdanning?.verdi === Utdanningsnivaa.INGEN
+                skjemaState.utdanning?.verdi === Utdanningsnivaa.INGEN_UTDANNING
                     ? SkjemaSide.Utdanning
                     : SkjemaSide.BestaattUtdanning,
         };

@@ -4,7 +4,7 @@ import { Navigering, NavigeringsTilstandsMaskin, SkjemaSide, SkjemaState, Standa
 
 const TILSTANDER: NavigeringsTilstandsMaskin<StandardSkjemaSide> = {
     [SkjemaSide.DinSituasjon]: (skjemaState: SkjemaState) => {
-        if (skjemaState.dinSituasjon?.verdi === Jobbsituasjon.ALDRIJOBBET) {
+        if (skjemaState.dinSituasjon?.verdi === Jobbsituasjon.ALDRI_HATT_JOBB) {
             return {
                 neste: SkjemaSide.Utdanning,
                 forrige: undefined,
@@ -25,11 +25,11 @@ const TILSTANDER: NavigeringsTilstandsMaskin<StandardSkjemaSide> = {
     [SkjemaSide.Utdanning]: (skjemaState: SkjemaState) => {
         return {
             neste:
-                skjemaState.utdanning?.verdi === Utdanningsnivaa.INGEN
+                skjemaState.utdanning?.verdi === Utdanningsnivaa.INGEN_UTDANNING
                     ? SkjemaSide.Helseproblemer
                     : SkjemaSide.GodkjentUtdanning,
             forrige:
-                skjemaState.dinSituasjon?.verdi === Jobbsituasjon.ALDRIJOBBET
+                skjemaState.dinSituasjon?.verdi === Jobbsituasjon.ALDRI_HATT_JOBB
                     ? SkjemaSide.DinSituasjon
                     : SkjemaSide.SisteJobb,
         };
@@ -50,7 +50,7 @@ const TILSTANDER: NavigeringsTilstandsMaskin<StandardSkjemaSide> = {
         return {
             neste: SkjemaSide.AndreProblemer,
             forrige:
-                skjemaState.utdanning?.verdi === Utdanningsnivaa.INGEN
+                skjemaState.utdanning?.verdi === Utdanningsnivaa.INGEN_UTDANNING
                     ? SkjemaSide.Utdanning
                     : SkjemaSide.BestaattUtdanning,
         };

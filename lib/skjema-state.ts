@@ -71,7 +71,7 @@ export function skjemaReducer(state: SkjemaState, action: SkjemaAction): SkjemaS
 }
 
 export const oppdaterDinSituasjon = (skjemaState: SkjemaState, dinSituasjon: SkjemaVerdi<Jobbsituasjon>) => {
-    if (dinSituasjon.verdi === Jobbsituasjon.ALDRIJOBBET) {
+    if (dinSituasjon.verdi === Jobbsituasjon.ALDRI_HATT_JOBB) {
         return {
             ...skjemaState,
             dinSituasjon: dinSituasjon,
@@ -85,7 +85,7 @@ export const oppdaterDinSituasjon = (skjemaState: SkjemaState, dinSituasjon: Skj
 };
 
 export const oppdaterUtdanning = (skjemaState: SkjemaState, utdanning: SkjemaVerdi<Utdanningsnivaa>) => {
-    if (utdanning.verdi === Utdanningsnivaa.INGEN) {
+    if (utdanning.verdi === Utdanningsnivaa.INGEN_UTDANNING) {
         return {
             ...skjemaState,
             utdanning: utdanning,

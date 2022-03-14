@@ -21,16 +21,16 @@ const TEKSTER: Tekster<string> = {
 };
 
 export enum Jobbsituasjon {
-    MISTETJOBB = 'mistet',
-    SAGTOPP = 'sagtOpp',
-    DELTID = 'deltid',
-    ALDRIJOBBET = 'aldriJobbet',
-    VILBYTTEJOBB = 'vilBytte',
-    IKKEJOBBETSISTETOAAR = 'ikkeSisteToAar',
-    PERMITTERT = 'permittert',
-    USIKKER = 'usikker',
-    NETTOPPFULLFORTUTDANNING = 'fullfortUtdanning',
-    HARJOBB = 'harJobb',
+    MISTET_JOBBEN = 'mistet',
+    HAR_SAGT_OPP = 'sagtOpp',
+    DELTIDSJOBB_VIL_MER = 'deltid',
+    ALDRI_HATT_JOBB = 'aldriJobbet',
+    VIL_BYTTE_JOBB = 'vilBytte',
+    JOBB_OVER_2_AAR = 'ikkeSisteToAar',
+    ER_PERMITTERT = 'permittert',
+    USIKKER_JOBBSITUASJON = 'usikker',
+    AKKURAT_FULLFORT_UTDANNING = 'fullfortUtdanning',
+    VIL_FORTSETTE_I_JOBB = 'harJobb',
 }
 
 export function hentSvartekst(sprak: Sprak, svar: string) {
@@ -44,19 +44,22 @@ const DinSituasjon = (props: SkjemaKomponentProps<Jobbsituasjon>) => {
     const sprak = useSprak();
 
     const valg = [
-        { tekst: hentSvartekst(sprak, Jobbsituasjon.MISTETJOBB), value: Jobbsituasjon.MISTETJOBB },
-        { tekst: hentSvartekst(sprak, Jobbsituasjon.SAGTOPP), value: Jobbsituasjon.SAGTOPP },
-        { tekst: hentSvartekst(sprak, Jobbsituasjon.DELTID), value: Jobbsituasjon.DELTID },
-        { tekst: hentSvartekst(sprak, Jobbsituasjon.ALDRIJOBBET), value: Jobbsituasjon.ALDRIJOBBET },
-        { tekst: hentSvartekst(sprak, Jobbsituasjon.VILBYTTEJOBB), value: Jobbsituasjon.VILBYTTEJOBB },
-        { tekst: hentSvartekst(sprak, Jobbsituasjon.IKKEJOBBETSISTETOAAR), value: Jobbsituasjon.IKKEJOBBETSISTETOAAR },
-        { tekst: hentSvartekst(sprak, Jobbsituasjon.PERMITTERT), value: Jobbsituasjon.PERMITTERT },
-        { tekst: hentSvartekst(sprak, Jobbsituasjon.USIKKER), value: Jobbsituasjon.USIKKER },
+        { tekst: hentSvartekst(sprak, Jobbsituasjon.MISTET_JOBBEN), value: Jobbsituasjon.MISTET_JOBBEN },
+        { tekst: hentSvartekst(sprak, Jobbsituasjon.HAR_SAGT_OPP), value: Jobbsituasjon.HAR_SAGT_OPP },
+        { tekst: hentSvartekst(sprak, Jobbsituasjon.DELTIDSJOBB_VIL_MER), value: Jobbsituasjon.DELTIDSJOBB_VIL_MER },
+        { tekst: hentSvartekst(sprak, Jobbsituasjon.ALDRI_HATT_JOBB), value: Jobbsituasjon.ALDRI_HATT_JOBB },
+        { tekst: hentSvartekst(sprak, Jobbsituasjon.VIL_BYTTE_JOBB), value: Jobbsituasjon.VIL_BYTTE_JOBB },
+        { tekst: hentSvartekst(sprak, Jobbsituasjon.JOBB_OVER_2_AAR), value: Jobbsituasjon.JOBB_OVER_2_AAR },
+        { tekst: hentSvartekst(sprak, Jobbsituasjon.ER_PERMITTERT), value: Jobbsituasjon.ER_PERMITTERT },
         {
-            tekst: hentSvartekst(sprak, Jobbsituasjon.NETTOPPFULLFORTUTDANNING),
-            value: Jobbsituasjon.NETTOPPFULLFORTUTDANNING,
+            tekst: hentSvartekst(sprak, Jobbsituasjon.USIKKER_JOBBSITUASJON),
+            value: Jobbsituasjon.USIKKER_JOBBSITUASJON,
         },
-        { tekst: hentSvartekst(sprak, Jobbsituasjon.HARJOBB), value: Jobbsituasjon.HARJOBB },
+        {
+            tekst: hentSvartekst(sprak, Jobbsituasjon.AKKURAT_FULLFORT_UTDANNING),
+            value: Jobbsituasjon.AKKURAT_FULLFORT_UTDANNING,
+        },
+        { tekst: hentSvartekst(sprak, Jobbsituasjon.VIL_FORTSETTE_I_JOBB), value: Jobbsituasjon.VIL_FORTSETTE_I_JOBB },
     ];
 
     return (
