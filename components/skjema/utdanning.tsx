@@ -7,22 +7,22 @@ import { SkjemaKomponentProps } from './skjema-felleskomponenter';
 const TEKSTER: Tekster<string> = {
     nb: {
         tittel: 'Hva er din høyeste fullførte utdanning?',
-        ingen: 'Ingen utdanning',
-        grunnskole: 'Grunnskole',
-        vgs: 'Videregående grunnutdanning (1 til 2 år)',
-        vgsFagbrev: 'Videregående, fagbrev eller svennebrev (3 år eller mer)',
-        hoyere: 'Høyere utdanning (1 til 4 år)',
-        hoyere5: 'Høyere utdanning (5 år eller mer)',
+        INGEN_UTDANNING: 'Ingen utdanning',
+        GRUNNSKOLE: 'Grunnskole',
+        VIDEREGAENDE_GRUNNUTDANNING: 'Videregående grunnutdanning (1 til 2 år)',
+        VIDEREGAENDE_FAGBREV_SVENNEBREV: 'Videregående, fagbrev eller svennebrev (3 år eller mer)',
+        HOYERE_UTDANNING_1_TIL_4: 'Høyere utdanning (1 til 4 år)',
+        HOYERE_UTDANNING_5_ELLER_MER: 'Høyere utdanning (5 år eller mer)',
     },
 };
 
 export enum Utdanningsnivaa {
-    INGEN_UTDANNING = 'ingen',
-    GRUNNSKOLE = 'grunnskole',
-    VIDEREGAENDE_GRUNNUTDANNING = 'vgs',
-    VIDEREGAENDE_FAGBREV_SVENNEBREV = 'vgsFagbrev',
-    HOYERE_UTDANNING_1_TIL_4 = 'hoyere',
-    HOYERE_UTDANNING_5_ELLER_MER = 'hoyere5',
+    INGEN_UTDANNING = 'INGEN_UTDANNING',
+    GRUNNSKOLE = 'GRUNNSKOLE',
+    VIDEREGAENDE_GRUNNUTDANNING = 'VIDEREGAENDE_GRUNNUTDANNING',
+    VIDEREGAENDE_FAGBREV_SVENNEBREV = 'VIDEREGAENDE_FAGBREV_SVENNEBREV',
+    HOYERE_UTDANNING_1_TIL_4 = 'HOYERE_UTDANNING_1_TIL_4',
+    HOYERE_UTDANNING_5_ELLER_MER = 'HOYERE_UTDANNING_5_ELLER_MER',
 }
 
 const Utdanning = (props: SkjemaKomponentProps<Utdanningsnivaa>) => {
@@ -30,12 +30,21 @@ const Utdanning = (props: SkjemaKomponentProps<Utdanningsnivaa>) => {
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
 
     const valg = [
-        { tekst: tekst('ingen'), value: Utdanningsnivaa.INGEN_UTDANNING.valueOf() },
-        { tekst: tekst('grunnskole'), value: Utdanningsnivaa.GRUNNSKOLE.valueOf() },
-        { tekst: tekst('vgs'), value: Utdanningsnivaa.VIDEREGAENDE_GRUNNUTDANNING.valueOf() },
-        { tekst: tekst('vgsFagbrev'), value: Utdanningsnivaa.VIDEREGAENDE_FAGBREV_SVENNEBREV.valueOf() },
-        { tekst: tekst('hoyere'), value: Utdanningsnivaa.HOYERE_UTDANNING_1_TIL_4.valueOf() },
-        { tekst: tekst('hoyere5'), value: Utdanningsnivaa.HOYERE_UTDANNING_5_ELLER_MER.valueOf() },
+        { tekst: tekst(Utdanningsnivaa.INGEN_UTDANNING), value: Utdanningsnivaa.INGEN_UTDANNING },
+        { tekst: tekst(Utdanningsnivaa.GRUNNSKOLE), value: Utdanningsnivaa.GRUNNSKOLE },
+        {
+            tekst: tekst(Utdanningsnivaa.VIDEREGAENDE_GRUNNUTDANNING),
+            value: Utdanningsnivaa.VIDEREGAENDE_GRUNNUTDANNING,
+        },
+        {
+            tekst: tekst(Utdanningsnivaa.VIDEREGAENDE_FAGBREV_SVENNEBREV),
+            value: Utdanningsnivaa.VIDEREGAENDE_FAGBREV_SVENNEBREV,
+        },
+        { tekst: tekst(Utdanningsnivaa.HOYERE_UTDANNING_1_TIL_4), value: Utdanningsnivaa.HOYERE_UTDANNING_1_TIL_4 },
+        {
+            tekst: tekst(Utdanningsnivaa.HOYERE_UTDANNING_5_ELLER_MER),
+            value: Utdanningsnivaa.HOYERE_UTDANNING_5_ELLER_MER,
+        },
     ];
 
     return (
