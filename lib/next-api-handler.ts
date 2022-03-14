@@ -15,7 +15,7 @@ const lagApiHandlerMedAuthHeaders: (url: string, options?: Options) => NextApiHa
         try {
             const response = await fetch(url, {
                 method: options?.method || 'GET',
-                body: options ? JSON.stringify(options.body) : '',
+                body: options ? JSON.stringify(options.body) : null,
                 headers: {
                     cookie: `selvbetjening-idtoken=${idtoken}`,
                     'Nav-Consumer-Id': 'poa-arbeidssokerregistrering',

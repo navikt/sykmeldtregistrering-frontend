@@ -1,20 +1,10 @@
 import { Loader } from '@navikt/ds-react';
 import useSWR from 'swr';
 import { useEffect } from 'react';
-import getConfig from 'next/config';
 import { useRouter } from 'next/router';
 import { SkjemaSide } from '../model/skjema';
 import { RegistreringType } from '../model/registrering';
-
-const { basePath } = getConfig().publicRuntimeConfig;
-
-const getUrl = (path: string) => `${basePath}/${path}`;
-const fetcher = async (path: string) => {
-    const response = await fetch(getUrl(path), {
-        credentials: 'include',
-    });
-    return await response.json();
-};
+import { fetcher } from '../lib/api-utils';
 
 function hentNesteSideUrl(data: any) {
     const { registreringType } = data;

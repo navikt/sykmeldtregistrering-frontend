@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { Dispatch, useReducer, useState } from 'react';
 import { SkjemaSide, SkjemaState, SykmeldtSkjemaSide } from '../../model/skjema';
 import styles from '../../styles/skjema.module.css';
-import { Alert } from '@navikt/ds-react';
+import { Alert, Button } from '@navikt/ds-react';
 import { Knapperad } from '../../components/skjema/knapperad/knapperad';
 import Avbryt from '../../components/skjema/avbryt-lenke';
 import Utdanning from '../../components/skjema/utdanning';
@@ -19,10 +19,12 @@ import TilbakeTilJobb from '../../components/skjema/tilbake-til-jobb';
 import SkalTilbakeTilJobb from '../../components/skjema/skal-tilbake-til-jobb';
 import { SkjemaAction, skjemaReducer, SkjemaReducer } from '../../lib/skjema-state';
 import FullforRegistrering from '../../components/skjema/fullforRegistrering';
+import { fetcher as api } from '../../lib/api-utils';
 
 const TEKSTER: Tekster<string> = {
     nb: {
         advarsel: 'Du må svare på spørsmålet før du kan gå videre.',
+        fullfor: 'Fullfør registrering',
     },
 };
 
@@ -131,12 +133,27 @@ const SykmeldtSkjema: NextPage<SkjemaProps> = (props) => {
     };
 
     const onForrige = forrige ? () => navigerTilSide(forrige) : undefined;
+    const visFullforKnapp = aktivSide === SkjemaSide.FullforRegistrering;
 
+    const fullforRegistrering = async () => {
+        try {
+            const skjema = Object.keys(skjemaState).reduce((state, key) => {
+                state[key] = (skjemaState as any)[key]?.verdi;
+                return state;
+            }, {} as Record<string, string>);
+
+            await api('/api/fullforregistrering', { method: 'post', body: JSON.stringify(skjema) });
+            return router.push('/kvittering');
+        } catch (e) {
+            console.error(e);
+        }
+    };
     return (
         <>
             <main className={styles.main}>
                 {hentKomponentForSide(aktivSide, lagSiderMap(skjemaState, dispatch))}
                 {visFeilmelding && <Alert variant="warning">{tekst('advarsel')}</Alert>}
+                {visFullforKnapp && <Button onClick={fullforRegistrering}>{tekst('fullfor')}</Button>}
                 <Knapperad onNeste={validerOgGaaTilNeste} onForrige={onForrige} />
                 <Avbryt />
             </main>
