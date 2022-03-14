@@ -51,6 +51,8 @@ spec:
       value: {{ pamJanzzUrl }}
     - name: START_REGISTRERING_URL
       value: {{startRegistreringUrl}}
+    - name: FULLFOR_REGISTRERING_URL
+      value: {{fullforRegistreringUrl}}
     - name: SISTE_ARBEIDSFORHOLD_URL
       value: {{sisteArbeidsforholdUrl}}
     - name: OPPRETT_OPPGAVE_URL

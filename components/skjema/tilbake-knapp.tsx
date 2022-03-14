@@ -1,15 +1,18 @@
-import { Button } from '@navikt/ds-react';
-import skjemaStyles from '../../styles/skjema.module.css';
+import { Back } from '@navikt/ds-icons';
+import { Link } from '@navikt/ds-react';
+import NextLink from 'next/link';
 
-export const TilbakeKnapp = (props: { onClick: () => void }) => {
+interface TilbakeKnappProps {
+    href: string;
+}
+const TilbakeKnapp = (props: TilbakeKnappProps) => {
     return (
-        <>
-            <div className={skjemaStyles.taCenter}>
-                <Button variant="secondary" onClick={props.onClick}>
-                    {' '}
-                    Tilbake{' '}
-                </Button>
-            </div>
-        </>
+        <NextLink href={props.href} passHref={true}>
+            <Link>
+                <Back /> Tilbake
+            </Link>
+        </NextLink>
     );
 };
+
+export default TilbakeKnapp;
