@@ -18,6 +18,7 @@ const lagApiHandlerMedAuthHeaders: (url: string) => NextApiHandler = (url: strin
                 cookie: `selvbetjening-idtoken=${idtoken}`,
                 'Nav-Consumer-Id': 'poa-arbeidssokerregistrering',
                 'Nav-Call-Id': callId,
+                'Content-Type': 'application/json',
             },
         }).then(async (apiResponse) => {
             const contentType = apiResponse.headers.get('content-type');
