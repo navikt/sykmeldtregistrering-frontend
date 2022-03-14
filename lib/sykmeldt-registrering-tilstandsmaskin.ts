@@ -6,8 +6,8 @@ import { Utdanningsnivaa } from '../components/skjema/utdanning';
 const TILSTANDER: NavigeringsTilstandsMaskin<SykmeldtSkjemaSide> = {
     [SkjemaSide.SykmeldtFremtidigSituasjon]: (state: SkjemaState) => {
         if (
-            state.sykmeldtFremtidigSituasjon?.verdi &&
-            [SykmeldtValg.TRENGER_NY_JOBB, SykmeldtValg.USIKKER].includes(state.sykmeldtFremtidigSituasjon!.verdi)
+            state.fremtidigSituasjon?.verdi &&
+            [SykmeldtValg.TRENGER_NY_JOBB, SykmeldtValg.USIKKER].includes(state.fremtidigSituasjon!.verdi)
         ) {
             return {
                 neste: SkjemaSide.Utdanning,
@@ -15,7 +15,7 @@ const TILSTANDER: NavigeringsTilstandsMaskin<SykmeldtSkjemaSide> = {
             };
         }
 
-        if (state.sykmeldtFremtidigSituasjon?.verdi === SykmeldtValg.INGEN_ALTERNATIVER_PASSER) {
+        if (state.fremtidigSituasjon?.verdi === SykmeldtValg.INGEN_ALTERNATIVER_PASSER) {
             return {
                 neste: SkjemaSide.Oppsummering,
                 forrige: undefined,
@@ -58,7 +58,7 @@ const TILSTANDER: NavigeringsTilstandsMaskin<SykmeldtSkjemaSide> = {
         };
     },
     [SkjemaSide.TilbakeTilJobb]: (state: SkjemaState) => {
-        if (state.tilbakeTilJobb?.verdi === TilbakeTilJobbValg.FULL_STILLING) {
+        if (state.tilbakeIArbeid?.verdi === TilbakeTilJobbValg.FULL_STILLING) {
             return {
                 neste: SkjemaSide.SkalTilbakeTilJobb,
                 forrige: SkjemaSide.SykmeldtFremtidigSituasjon,
@@ -70,13 +70,13 @@ const TILSTANDER: NavigeringsTilstandsMaskin<SykmeldtSkjemaSide> = {
         };
     },
     [SkjemaSide.Oppsummering]: (state: SkjemaState) => {
-        if (state.sykmeldtFremtidigSituasjon?.verdi === SykmeldtValg.INGEN_ALTERNATIVER_PASSER) {
+        if (state.fremtidigSituasjon?.verdi === SykmeldtValg.INGEN_ALTERNATIVER_PASSER) {
             return {
                 forrige: SkjemaSide.SykmeldtFremtidigSituasjon,
                 neste: SkjemaSide.FullforRegistrering,
             };
         }
-        if (state.tilbakeTilJobb) {
+        if (state.tilbakeIArbeid) {
             return {
                 forrige: SkjemaSide.TilbakeTilJobb,
                 neste: SkjemaSide.FullforRegistrering,

@@ -55,19 +55,19 @@ const lagSiderMap = (skjemaState: SkjemaState, dispatch: Dispatch<SkjemaAction>)
         [SkjemaSide.GodkjentUtdanning]: (
             <GodkjentUtdanning
                 onChange={(value: any) => dispatch({ type: SkjemaSide.GodkjentUtdanning, value })}
-                valgt={skjemaState.godkjentUtdanning?.verdi}
+                valgt={skjemaState.utdanningGodkjent?.verdi}
             />
         ),
         [SkjemaSide.BestaattUtdanning]: (
             <BestattUtdanning
                 onChange={(value: any) => dispatch({ type: SkjemaSide.BestaattUtdanning, value })}
-                valgt={skjemaState.bestaattUtdanning?.verdi}
+                valgt={skjemaState.utdanningBestatt?.verdi}
             />
         ),
         [SkjemaSide.AndreHensyn]: (
             <AndreHensyn
                 onChange={(value: any) => dispatch({ type: SkjemaSide.AndreProblemer, value })}
-                valgt={skjemaState.andreProblemer?.verdi}
+                valgt={skjemaState.andreForhold?.verdi}
             />
         ),
         [SkjemaSide.Oppsummering]: <Oppsummering {...skjemaState} skjemaPrefix={'/sykmeldt/'} />,
@@ -79,17 +79,17 @@ const validerSkjemaForSide = (side: SkjemaSide, skjemaState: SkjemaState) => {
     const hentVerdi = () => {
         switch (side) {
             case SkjemaSide.SykmeldtFremtidigSituasjon:
-                return skjemaState.sykmeldtFremtidigSituasjon;
+                return skjemaState.fremtidigSituasjon;
             case SkjemaSide.TilbakeTilJobb:
-                return skjemaState.tilbakeTilJobb;
+                return skjemaState.tilbakeIArbeid;
             case SkjemaSide.Utdanning:
                 return skjemaState.utdanning;
             case SkjemaSide.GodkjentUtdanning:
-                return skjemaState.godkjentUtdanning;
+                return skjemaState.utdanningGodkjent;
             case SkjemaSide.BestaattUtdanning:
-                return skjemaState.bestaattUtdanning;
+                return skjemaState.utdanningBestatt;
             case SkjemaSide.AndreHensyn:
-                return skjemaState.andreProblemer;
+                return skjemaState.andreForhold;
             case SkjemaSide.Oppsummering:
                 return true;
             case SkjemaSide.FullforRegistrering:

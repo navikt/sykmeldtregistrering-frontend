@@ -29,40 +29,40 @@ export function skjemaReducer(state: SkjemaState, action: SkjemaAction): SkjemaS
         case SkjemaSide.SisteJobb: {
             return {
                 ...state,
-                sisteJobb: action.value,
+                sisteStilling: action.value,
             };
         }
         case SkjemaSide.GodkjentUtdanning: {
             return {
                 ...state,
-                godkjentUtdanning: action.value,
+                utdanningGodkjent: action.value,
             };
         }
         case SkjemaSide.BestaattUtdanning: {
             return {
                 ...state,
-                bestaattUtdanning: action.value,
+                utdanningBestatt: action.value,
             };
         }
         case SkjemaSide.Helseproblemer: {
             return {
                 ...state,
-                helseproblemer: action.value,
+                helseHinder: action.value,
             };
         }
         case SkjemaSide.AndreProblemer: {
             return {
                 ...state,
-                andreProblemer: action.value,
+                andreForhold: action.value,
             };
         }
         case SkjemaSide.SykmeldtFremtidigSituasjon: {
-            return oppdaterSykmeldtFremtidigSituasjon(state, action.value);
+            return oppdaterFremtidigSituasjon(state, action.value);
         }
         case SkjemaSide.TilbakeTilJobb: {
             return {
                 ...state,
-                tilbakeTilJobb: action.value,
+                tilbakeIArbeid: action.value,
             };
         }
     }
@@ -75,7 +75,7 @@ export const oppdaterDinSituasjon = (skjemaState: SkjemaState, dinSituasjon: Skj
         return {
             ...skjemaState,
             dinSituasjon: dinSituasjon,
-            sisteJobb: undefined,
+            sisteStilling: undefined,
         };
     }
     return {
@@ -89,8 +89,8 @@ export const oppdaterUtdanning = (skjemaState: SkjemaState, utdanning: SkjemaVer
         return {
             ...skjemaState,
             utdanning: utdanning,
-            godkjentUtdanning: undefined,
-            bestaattUtdanning: undefined,
+            utdanningGodkjent: undefined,
+            utdanningBestatt: undefined,
         };
     }
     return {
@@ -99,27 +99,27 @@ export const oppdaterUtdanning = (skjemaState: SkjemaState, utdanning: SkjemaVer
     };
 };
 
-const oppdaterSykmeldtFremtidigSituasjon = (state: SkjemaState, valg: SkjemaVerdi<SykmeldtValg>) => {
+const oppdaterFremtidigSituasjon = (state: SkjemaState, valg: SkjemaVerdi<SykmeldtValg>) => {
     if (valg.verdi === SykmeldtValg.INGEN_ALTERNATIVER_PASSER) {
         return {
-            sykmeldtFremtidigSituasjon: valg,
+            fremtidigSituasjon: valg,
         };
     }
 
     if ([SykmeldtValg.TILBAKE_TIL_NY_STILLING, SykmeldtValg.TILBAKE_TIL_JOBB].includes(valg.verdi)) {
         return {
             ...state,
-            sykmeldtFremtidigSituasjon: valg,
+            fremtidigSituasjon: valg,
             utdanning: undefined,
-            godkjentUtdanning: undefined,
-            bestaattUtdanning: undefined,
+            utdanningGodkjent: undefined,
+            utdanningBestatt: undefined,
             andreProblemer: undefined,
         };
     }
 
     return {
         ...state,
-        sykmeldtFremtidigSituasjon: valg,
-        tilbakeTilJobb: undefined,
+        fremtidigSituasjon: valg,
+        tilbakeIArbeid: undefined,
     };
 };

@@ -49,24 +49,24 @@ const Oppsummering = (props: OppsummeringProps) => {
                                 url={sideUrl(SkjemaSide.DinSituasjon)}
                             />
                         )}
-                        {props.sisteJobb && (
+                        {props.sisteStilling && (
                             <Rad
                                 radTittel={tekst('sisteStilling')}
-                                svaralternativ={props.sisteJobb.tekst}
+                                svaralternativ={props.sisteStilling.tekst}
                                 url={sideUrl(SkjemaSide.SisteJobb)}
                             />
                         )}
-                        {props.sykmeldtFremtidigSituasjon && (
+                        {props.fremtidigSituasjon && (
                             <Rad
                                 radTittel={tekst('sykmeldtFremtidigSituasjon')}
-                                svaralternativ={props.sykmeldtFremtidigSituasjon.tekst}
+                                svaralternativ={props.fremtidigSituasjon.tekst}
                                 url={sideUrl(SkjemaSide.SykmeldtFremtidigSituasjon)}
                             />
                         )}
-                        {props.tilbakeTilJobb && (
+                        {props.tilbakeIArbeid && (
                             <Rad
                                 radTittel={tekst('tilbakeTilJobb')}
-                                svaralternativ={props.tilbakeTilJobb.tekst}
+                                svaralternativ={props.tilbakeIArbeid.tekst}
                                 url={sideUrl(SkjemaSide.TilbakeTilJobb)}
                             />
                         )}
@@ -77,38 +77,38 @@ const Oppsummering = (props: OppsummeringProps) => {
                                 url={sideUrl(SkjemaSide.Utdanning)}
                             />
                         )}
-                        {props.godkjentUtdanning && (
+                        {props.utdanningGodkjent && (
                             <Rad
                                 radTittel={tekst('utdanningGodkjent')}
-                                svaralternativ={props.godkjentUtdanning.tekst}
+                                svaralternativ={props.utdanningGodkjent.tekst}
                                 url={sideUrl(SkjemaSide.GodkjentUtdanning)}
                             />
                         )}
-                        {props.bestaattUtdanning && (
+                        {props.utdanningBestatt && (
                             <Rad
                                 radTittel={tekst('utdanningBestaatt')}
-                                svaralternativ={props.bestaattUtdanning.tekst}
+                                svaralternativ={props.utdanningBestatt.tekst}
                                 url={sideUrl(SkjemaSide.BestaattUtdanning)}
                             />
                         )}
-                        {props.helseproblemer && (
+                        {props.helseHinder && (
                             <Rad
                                 radTittel={tekst('helseproblemer')}
-                                svaralternativ={props.helseproblemer.tekst}
+                                svaralternativ={props.helseHinder.tekst}
                                 url={sideUrl(SkjemaSide.Helseproblemer)}
                             />
                         )}
-                        {props.andreProblemer && props.skjemaPrefix === '/sykmeldt/' && (
+                        {props.andreForhold && props.skjemaPrefix === '/sykmeldt/' && (
                             <Rad
                                 radTittel={tekst('andreHensyn')}
-                                svaralternativ={props.andreProblemer.tekst}
+                                svaralternativ={props.andreForhold.tekst}
                                 url={sideUrl(SkjemaSide.AndreHensyn)}
                             />
                         )}
-                        {props.andreProblemer && props.skjemaPrefix !== '/sykmeldt/' && (
+                        {props.andreForhold && props.skjemaPrefix !== '/sykmeldt/' && (
                             <Rad
                                 radTittel={tekst('andreProblemer')}
-                                svaralternativ={props.andreProblemer.tekst}
+                                svaralternativ={props.andreForhold.tekst}
                                 url={sideUrl(SkjemaSide.AndreProblemer)}
                             />
                         )}

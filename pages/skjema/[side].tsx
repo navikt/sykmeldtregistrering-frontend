@@ -49,7 +49,7 @@ const lagSiderMap = (skjemaState: SkjemaState, dispatch: Dispatch<SkjemaAction>)
         [SkjemaSide.SisteJobb]: (
             <SisteJobb
                 onChange={(value) => dispatch({ type: SkjemaSide.SisteJobb, value: value as SkjemaVerdi<string> })}
-                valgt={skjemaState.sisteJobb?.tekst}
+                valgt={skjemaState.sisteStilling?.tekst}
             />
         ),
         [SkjemaSide.Utdanning]: (
@@ -65,7 +65,7 @@ const lagSiderMap = (skjemaState: SkjemaState, dispatch: Dispatch<SkjemaAction>)
                 onChange={(value) =>
                     dispatch({ type: SkjemaSide.GodkjentUtdanning, value: value as SkjemaVerdi<GodkjentUtdanningValg> })
                 }
-                valgt={skjemaState.godkjentUtdanning?.verdi}
+                valgt={skjemaState.utdanningGodkjent?.verdi}
             />
         ),
         [SkjemaSide.BestaattUtdanning]: (
@@ -73,7 +73,7 @@ const lagSiderMap = (skjemaState: SkjemaState, dispatch: Dispatch<SkjemaAction>)
                 onChange={(value) =>
                     dispatch({ type: SkjemaSide.BestaattUtdanning, value: value as SkjemaVerdi<JaEllerNei> })
                 }
-                valgt={skjemaState.bestaattUtdanning?.verdi}
+                valgt={skjemaState.utdanningBestatt?.verdi}
             />
         ),
         [SkjemaSide.Helseproblemer]: (
@@ -81,7 +81,7 @@ const lagSiderMap = (skjemaState: SkjemaState, dispatch: Dispatch<SkjemaAction>)
                 onChange={(value) =>
                     dispatch({ type: SkjemaSide.Helseproblemer, value: value as SkjemaVerdi<JaEllerNei> })
                 }
-                valgt={skjemaState.helseproblemer?.verdi}
+                valgt={skjemaState.helseHinder?.verdi}
             />
         ),
         [SkjemaSide.AndreProblemer]: (
@@ -89,7 +89,7 @@ const lagSiderMap = (skjemaState: SkjemaState, dispatch: Dispatch<SkjemaAction>)
                 onChange={(value) =>
                     dispatch({ type: SkjemaSide.AndreProblemer, value: value as SkjemaVerdi<JaEllerNei> })
                 }
-                valgt={skjemaState.andreProblemer?.verdi}
+                valgt={skjemaState.andreForhold?.verdi}
             />
         ),
         [SkjemaSide.Oppsummering]: <Oppsummering {...skjemaState} skjemaPrefix={'/skjema/'} />,
@@ -103,17 +103,17 @@ const validerSkjemaForSide = (side: StandardSkjemaSide, skjemaState: SkjemaState
             case SkjemaSide.DinSituasjon:
                 return skjemaState.dinSituasjon;
             case SkjemaSide.SisteJobb:
-                return skjemaState.sisteJobb;
+                return skjemaState.sisteStilling;
             case SkjemaSide.Utdanning:
                 return skjemaState.utdanning;
             case SkjemaSide.GodkjentUtdanning:
-                return skjemaState.godkjentUtdanning;
+                return skjemaState.utdanningGodkjent;
             case SkjemaSide.BestaattUtdanning:
-                return skjemaState.bestaattUtdanning;
+                return skjemaState.utdanningBestatt;
             case SkjemaSide.Helseproblemer:
-                return skjemaState.helseproblemer;
+                return skjemaState.helseHinder;
             case SkjemaSide.AndreProblemer:
-                return skjemaState.andreProblemer;
+                return skjemaState.andreForhold;
             case SkjemaSide.Oppsummering:
                 return true;
             case SkjemaSide.FullforRegistrering:
