@@ -1,7 +1,10 @@
-import { Accordion, Cell, ContentContainer, Grid, GuidePanel, Heading, Panel } from '@navikt/ds-react';
+import { Accordion, Button, ConfirmationPanel, ContentContainer, GuidePanel, Heading } from '@navikt/ds-react';
 import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../hooks/useSprak';
-import { Calender, Email, File, Money } from '@navikt/ds-icons';
+import { useState } from 'react';
+import { SkjemaState } from '../../model/skjema';
+import { fetcher as api } from '../../lib/api-utils';
+import { useRouter } from 'next/router';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -33,9 +36,30 @@ const TEKSTER: Tekster<string> = {
     },
 };
 
-const FullforRegistrering = () => {
+interface FullforProps {
+    skjemaState: SkjemaState;
+}
+const FullforRegistrering = (props: FullforProps) => {
+    const { skjemaState } = props;
     const sprak = useSprak();
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
+    const [checked, setChecked] = useState<boolean>(false);
+    const router = useRouter();
+
+    const fullforRegistrering = async () => {
+        try {
+            const skjema = Object.keys(skjemaState).reduce((state, key) => {
+                state[key] = (skjemaState as any)[key]?.verdi;
+                return state;
+            }, {} as Record<string, string>);
+
+            await api('/api/fullforregistrering', { method: 'post', body: JSON.stringify(skjema) });
+            return router.push('/kvittering');
+        } catch (e) {
+            console.error(e);
+        }
+    };
+
     return (
         <>
             <ContentContainer>
@@ -88,6 +112,16 @@ const FullforRegistrering = () => {
                         </Accordion.Item>
                     </Accordion>
                 </div>
+
+                <ConfirmationPanel
+                    checked={checked}
+                    onChange={() => setChecked(!checked)}
+                    label={tekst('lestOgForstaatt')}
+                ></ConfirmationPanel>
+
+                <Button onClick={fullforRegistrering} disabled={!checked}>
+                    {tekst('fullfor')}
+                </Button>
             </ContentContainer>
         </>
     );

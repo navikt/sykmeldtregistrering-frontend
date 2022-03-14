@@ -71,7 +71,7 @@ const lagSiderMap = (skjemaState: SkjemaState, dispatch: Dispatch<SkjemaAction>)
             />
         ),
         [SkjemaSide.Oppsummering]: <Oppsummering {...skjemaState} skjemaPrefix={'/sykmeldt/'} />,
-        [SkjemaSide.FullforRegistrering]: <FullforRegistrering />,
+        [SkjemaSide.FullforRegistrering]: <FullforRegistrering skjemaState={skjemaState} />,
     };
 };
 
@@ -133,27 +133,12 @@ const SykmeldtSkjema: NextPage<SkjemaProps> = (props) => {
     };
 
     const onForrige = forrige ? () => navigerTilSide(forrige) : undefined;
-    const visFullforKnapp = aktivSide === SkjemaSide.FullforRegistrering;
 
-    const fullforRegistrering = async () => {
-        try {
-            const skjema = Object.keys(skjemaState).reduce((state, key) => {
-                state[key] = (skjemaState as any)[key]?.verdi;
-                return state;
-            }, {} as Record<string, string>);
-
-            await api('/api/fullforregistrering', { method: 'post', body: JSON.stringify(skjema) });
-            return router.push('/kvittering');
-        } catch (e) {
-            console.error(e);
-        }
-    };
     return (
         <>
             <main className={styles.main}>
                 {hentKomponentForSide(aktivSide, lagSiderMap(skjemaState, dispatch))}
                 {visFeilmelding && <Alert variant="warning">{tekst('advarsel')}</Alert>}
-                {visFullforKnapp && <Button onClick={fullforRegistrering}>{tekst('fullfor')}</Button>}
                 <Knapperad onNeste={validerOgGaaTilNeste} onForrige={onForrige} />
                 <Avbryt />
             </main>
