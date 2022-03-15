@@ -8,8 +8,8 @@ import { JaEllerNei } from '../../model/skjema';
 const TEKSTER: Tekster<string> = {
     nb: {
         tittel: 'Er utdanningen din bestått?',
-        ja: 'Ja',
-        nei: 'Nei',
+        JA: 'Ja',
+        NEI: 'Nei',
     },
 };
 

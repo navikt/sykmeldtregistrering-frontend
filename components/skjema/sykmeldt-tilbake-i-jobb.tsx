@@ -14,15 +14,22 @@ const TEKSTER: Tekster<string> = {
     },
 };
 
+export enum TilbakeIArbeid {
+    JA_FULL_STILLING = 'JA_FULL_STILLING',
+    JA_REDUSERT_STILLING = 'JA_REDUSERT_STILLING',
+    USIKKER = 'USIKKER',
+    NEI = 'NEI',
+}
+
 const TilbakeIJobb = (props: SkjemaKomponentProps<string>) => {
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
     const { onChange, valgt } = props;
 
     const valg = [
-        { tekst: tekst('jaFullStilling'), value: 'jaFullStilling' },
-        { tekst: tekst('jaRedusertStilling'), value: 'jaRedusertStilling' },
-        { tekst: tekst('usikker'), value: 'usikker' },
-        { tekst: tekst('nei'), value: 'nei' },
+        { tekst: tekst('jaFullStilling'), value: TilbakeIArbeid.JA_FULL_STILLING },
+        { tekst: tekst('jaRedusertStilling'), value: TilbakeIArbeid.JA_REDUSERT_STILLING },
+        { tekst: tekst('usikker'), value: TilbakeIArbeid.USIKKER },
+        { tekst: tekst('nei'), value: TilbakeIArbeid.NEI },
     ];
 
     return (

@@ -7,20 +7,20 @@ import RadioGruppe from '../radio-gruppe/radio-gruppe';
 const TEKSTER: Tekster<string> = {
     nb: {
         tittel: 'Hva tenker du om din fremtidige situasjon?',
-        tilbakeTilJobb: 'Jeg skal tilbake til jobben jeg har',
-        tilbakeTilNyStilling: 'Jeg skal tilbake til arbeidsgiveren min, men i ny stilling',
-        trengerNyJobb: 'Jeg trenger ny jobb',
-        usikker: 'Jeg er usikker',
-        ingenAlternativerPasser: 'Ingen av disse alternativene passer',
+        SAMME_ARBEIDSGIVER: 'Jeg skal tilbake til jobben jeg har',
+        SAMME_ARBEIDSGIVER_NY_STILLING: 'Jeg skal tilbake til arbeidsgiveren min, men i ny stilling',
+        NY_ARBEIDSGIVER: 'Jeg trenger ny jobb',
+        USIKKER: 'Jeg er usikker',
+        INGEN_PASSER: 'Ingen av disse alternativene passer',
     },
 };
 
 export enum FremtidigSituasjon {
-    SAMME_ARBEIDSGIVER = 'tilbakeTilJobb',
-    SAMME_ARBEIDSGIVER_NY_STILLING = 'tilbakeTilNyStilling',
-    NY_ARBEIDSGIVER = 'trengerNyJobb',
-    USIKKER = 'usikker',
-    INGEN_PASSER = 'ingenAlternativerPasser',
+    SAMME_ARBEIDSGIVER = 'SAMME_ARBEIDSGIVER',
+    SAMME_ARBEIDSGIVER_NY_STILLING = 'SAMME_ARBEIDSGIVER_NY_STILLING',
+    NY_ARBEIDSGIVER = 'NY_ARBEIDSGIVER',
+    USIKKER = 'USIKKER',
+    INGEN_PASSER = 'INGEN_PASSER',
 }
 
 const SykmeldtFremtidigSituasjon = (props: SkjemaKomponentProps<FremtidigSituasjon>) => {

@@ -7,16 +7,16 @@ import { SkjemaKomponentProps } from './skjema-felleskomponenter';
 const TEKSTER: Tekster<string> = {
     nb: {
         tittel: 'Er utdanningen din godkjent i Norge?',
-        ja: 'Ja',
-        nei: 'Nei',
-        vetIkke: 'Vet ikke',
+        JA: 'Ja',
+        NEI: 'Nei',
+        VET_IKKE: 'Vet ikke',
     },
 };
 
 export enum GodkjentUtdanningValg {
-    JA = 'ja',
-    NEI = 'nei',
-    VET_IKKE = 'vetIkke',
+    JA = 'JA',
+    NEI = 'NEI',
+    VET_IKKE = 'VET_IKKE',
 }
 
 const GodkjentUtdanning = (props: SkjemaKomponentProps<GodkjentUtdanningValg>) => {

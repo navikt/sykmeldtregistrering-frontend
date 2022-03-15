@@ -64,6 +64,6 @@ export interface SkjemaState {
 }
 
 export enum JaEllerNei {
-    JA = 'ja',
-    NEI = 'nei',
+    JA = 'JA',
+    NEI = 'NEI',
 }

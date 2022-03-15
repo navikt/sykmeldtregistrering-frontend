@@ -8,8 +8,8 @@ import { JaEllerNei } from '../../model/skjema';
 const TEKSTER: Tekster<string> = {
     nb: {
         tittel: 'Har du helseproblemer som hindrer deg i å søke eller være i jobb?',
-        ja: 'Ja',
-        nei: 'Nei',
+        JA: 'Ja',
+        NEI: 'Nei',
         fortellMer:
             'Svarer du ja, kan du fortelle mer til en veileder i en oppfølgingssamtale. Vi kontakter deg når du har registrert deg.',
     },

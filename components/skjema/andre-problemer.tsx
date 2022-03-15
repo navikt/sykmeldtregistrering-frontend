@@ -9,15 +9,15 @@ const TEKSTER: Tekster<string> = {
     nb: {
         tittel: 'Har du andre problemer med å søke eller være i jobb?',
         ingress: 'For eksempel språk, lesing og skriving eller familiesituasjon.',
-        ja: 'Ja',
-        nei: 'Nei',
+        JA: 'Ja',
+        NEI: 'Nei',
         fortellMer:
             'Svarer du ja, kan du fortelle mer til en veileder i en oppfølgingssamtale. Vi kontakter deg når du har registrert deg.',
     },
 };
 
 export type AndreProblemerTekster = TeksterMedDefinerteNokler<
-    'tittel' | 'ingress' | 'ja' | 'nei' | 'fortellMer',
+    'tittel' | 'ingress' | 'JA' | 'NEI' | 'fortellMer',
     string
 >;
 

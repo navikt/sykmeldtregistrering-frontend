@@ -34,6 +34,7 @@ const Oppsummering = (props: OppsummeringProps) => {
     const sprak = useSprak();
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
     const sideUrl = (side: SkjemaSide) => `${props.skjemaPrefix}${side}`;
+    console.log('props?', props);
     return (
         <>
             <Heading size={'medium'}>{tekst('header')}</Heading>
