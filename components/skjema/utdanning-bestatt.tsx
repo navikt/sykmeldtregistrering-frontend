@@ -1,20 +1,12 @@
-import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../hooks/useSprak';
 import { Heading } from '@navikt/ds-react';
 import RadioGruppe from '../radio-gruppe/radio-gruppe';
 import { SkjemaKomponentProps } from './skjema-felleskomponenter';
-import { JaEllerNei } from '../../model/skjema';
-
-const TEKSTER: Tekster<string> = {
-    nb: {
-        tittel: 'Er utdanningen din bestått?',
-        JA: 'Ja',
-        NEI: 'Nei',
-    },
-};
+import { hentTekst, JaEllerNei } from '../../model/sporsmal';
 
 const BestattUtdanning = (props: SkjemaKomponentProps<JaEllerNei>) => {
-    const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
+    const sprak = useSprak();
+    const tekst = (key: string) => hentTekst(sprak, key);
     const { onChange, valgt } = props;
     const lagValg = (valg: JaEllerNei) => ({ tekst: tekst(valg), value: valg });
     const valg = [lagValg(JaEllerNei.JA), lagValg(JaEllerNei.NEI)];

@@ -3,7 +3,7 @@ import useSprak from '../../hooks/useSprak';
 import { Alert, Heading } from '@navikt/ds-react';
 import RadioGruppe from '../radio-gruppe/radio-gruppe';
 import { SkjemaKomponentProps } from './skjema-felleskomponenter';
-import { JaEllerNei } from '../../model/skjema';
+import { JaEllerNei } from '../../model/sporsmal';
 
 const TEKSTER: Tekster<string> = {
     nb: {

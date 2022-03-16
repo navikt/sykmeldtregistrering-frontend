@@ -33,6 +33,11 @@ export enum Utdanningsnivaa {
     HOYERE_UTDANNING_5_ELLER_MER = 'HOYERE_UTDANNING_5_ELLER_MER',
 }
 
+export enum JaEllerNei {
+    JA = 'JA',
+    NEI = 'NEI',
+}
+
 const TEKSTER: Tekster<string> = {
     nb: {
         [SporsmalId.dinSituasjon]: 'Velg den situasjonen som passer deg best',
@@ -53,6 +58,9 @@ const TEKSTER: Tekster<string> = {
         [Utdanningsnivaa.VIDEREGAENDE_FAGBREV_SVENNEBREV]: 'Videregående, fagbrev eller svennebrev (3 år eller mer)',
         [Utdanningsnivaa.HOYERE_UTDANNING_1_TIL_4]: 'Høyere utdanning (1 til 4 år)',
         [Utdanningsnivaa.HOYERE_UTDANNING_5_ELLER_MER]: 'Høyere utdanning (5 år eller mer)',
+        [SporsmalId.utdanningBestatt]: 'Er utdanningen din bestått?',
+        [JaEllerNei.JA]: 'Ja',
+        [JaEllerNei.NEI]: 'Nei',
     },
 };
 

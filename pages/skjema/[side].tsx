@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import DinSituasjon from '../../components/skjema/din-situasjon';
-import { DinSituasjon as Jobbsituasjon, Utdanningsnivaa } from '../../model/sporsmal';
+import { DinSituasjon as Jobbsituasjon, JaEllerNei, Utdanningsnivaa } from '../../model/sporsmal';
 import styles from '../../styles/skjema.module.css';
 import SisteJobb from '../../components/skjema/siste-jobb/siste-jobb';
 import Utdanning from '../../components/skjema/utdanning';
@@ -17,7 +17,7 @@ import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-spra
 import useSprak from '../../hooks/useSprak';
 import Oppsummering from '../../components/skjema/oppsummering/oppsummering';
 import { beregnNavigering } from '../../lib/standard-registrering-tilstandsmaskin';
-import { JaEllerNei, SkjemaSide, SkjemaState, SkjemaVerdi, StandardSkjemaSide } from '../../model/skjema';
+import { SkjemaSide, SkjemaState, SkjemaVerdi, StandardSkjemaSide } from '../../model/skjema';
 import { SkjemaAction, skjemaReducer, SkjemaReducer } from '../../lib/skjema-state';
 import FullforRegistrering from '../../components/skjema/fullforRegistrering';
 import TilbakeKnapp from '../../components/skjema/tilbake-knapp';

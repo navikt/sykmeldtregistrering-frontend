@@ -1,9 +1,9 @@
-import { JaEllerNei, SkjemaSide, SkjemaState, SkjemaVerdi } from '../model/skjema';
+import { SkjemaSide, SkjemaState, SkjemaVerdi } from '../model/skjema';
 import { GodkjentUtdanningValg } from '../components/skjema/utdanning-godkjent';
 import { Reducer } from 'react';
 import { FremtidigSituasjon } from '../components/skjema/sykmeldt-fremtidig-situasjon';
 import { TilbakeTilJobbValg } from '../components/skjema/tilbake-til-jobb';
-import { DinSituasjon, Utdanningsnivaa } from '../model/sporsmal';
+import { DinSituasjon, JaEllerNei, Utdanningsnivaa } from '../model/sporsmal';
 
 export type SkjemaReducer = Reducer<SkjemaState, SkjemaAction>;
 export type SkjemaAction =

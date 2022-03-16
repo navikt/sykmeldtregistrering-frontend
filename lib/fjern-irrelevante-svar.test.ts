@@ -1,7 +1,7 @@
-import { JaEllerNei, SkjemaState } from '../model/skjema';
+import { SkjemaState } from '../model/skjema';
 import { oppdaterDinSituasjon, oppdaterUtdanning } from './skjema-state';
 import { GodkjentUtdanningValg } from '../components/skjema/utdanning-godkjent';
-import { DinSituasjon, Utdanningsnivaa } from '../model/sporsmal';
+import { DinSituasjon, JaEllerNei, Utdanningsnivaa } from '../model/sporsmal';
 
 describe('Oppdatering av skjemastate', () => {
     test('setter sisteJobb til undefined hvis man endrer dinSituasjon til ALDRIJOBBET', () => {
