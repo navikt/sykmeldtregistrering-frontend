@@ -38,6 +38,12 @@ export enum JaEllerNei {
     NEI = 'NEI',
 }
 
+export enum UtdanningGodkjentValg {
+    JA = 'JA',
+    NEI = 'NEI',
+    VET_IKKE = 'VET_IKKE',
+}
+
 const TEKSTER: Tekster<string> = {
     nb: {
         [SporsmalId.dinSituasjon]: 'Velg den situasjonen som passer deg best',
@@ -61,6 +67,10 @@ const TEKSTER: Tekster<string> = {
         [SporsmalId.utdanningBestatt]: 'Er utdanningen din bestått?',
         [JaEllerNei.JA]: 'Ja',
         [JaEllerNei.NEI]: 'Nei',
+        [SporsmalId.utdanningGodkjent]: 'Er utdanningen din godkjent i Norge?',
+        [UtdanningGodkjentValg.JA]: 'Ja',
+        [UtdanningGodkjentValg.NEI]: 'Nei',
+        [UtdanningGodkjentValg.VET_IKKE]: 'Vet ikke',
     },
 };
 

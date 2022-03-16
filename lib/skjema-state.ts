@@ -1,15 +1,14 @@
 import { SkjemaSide, SkjemaState, SkjemaVerdi } from '../model/skjema';
-import { GodkjentUtdanningValg } from '../components/skjema/utdanning-godkjent';
 import { Reducer } from 'react';
 import { FremtidigSituasjon } from '../components/skjema/sykmeldt-fremtidig-situasjon';
 import { TilbakeTilJobbValg } from '../components/skjema/tilbake-til-jobb';
-import { DinSituasjon, JaEllerNei, Utdanningsnivaa } from '../model/sporsmal';
+import { DinSituasjon, UtdanningGodkjentValg, JaEllerNei, Utdanningsnivaa } from '../model/sporsmal';
 
 export type SkjemaReducer = Reducer<SkjemaState, SkjemaAction>;
 export type SkjemaAction =
     | { type: SkjemaSide.DinSituasjon; value: SkjemaVerdi<DinSituasjon> }
     | { type: SkjemaSide.Utdanning; value: SkjemaVerdi<Utdanningsnivaa> }
-    | { type: SkjemaSide.GodkjentUtdanning; value: SkjemaVerdi<GodkjentUtdanningValg> }
+    | { type: SkjemaSide.GodkjentUtdanning; value: SkjemaVerdi<UtdanningGodkjentValg> }
     | { type: SkjemaSide.BestaattUtdanning; value: SkjemaVerdi<JaEllerNei> }
     | { type: SkjemaSide.Helseproblemer; value: SkjemaVerdi<JaEllerNei> }
     | { type: SkjemaSide.AndreProblemer; value: SkjemaVerdi<JaEllerNei> }

@@ -9,7 +9,7 @@ import { Alert } from '@navikt/ds-react';
 import { Knapperad } from '../../components/skjema/knapperad/knapperad';
 import Avbryt from '../../components/skjema/avbryt-lenke';
 import Utdanning from '../../components/skjema/utdanning';
-import GodkjentUtdanning from '../../components/skjema/utdanning-godkjent';
+import UtdanningGodkjent from '../../components/skjema/utdanning-godkjent';
 import BestattUtdanning from '../../components/skjema/utdanning-bestatt';
 import Oppsummering from '../../components/skjema/oppsummering/oppsummering';
 import AndreHensyn from '../../components/skjema/andre-hensyn';
@@ -53,7 +53,7 @@ const lagSiderMap = (skjemaState: SkjemaState, dispatch: Dispatch<SkjemaAction>)
             />
         ),
         [SkjemaSide.GodkjentUtdanning]: (
-            <GodkjentUtdanning
+            <UtdanningGodkjent
                 onChange={(value: any) => dispatch({ type: SkjemaSide.GodkjentUtdanning, value })}
                 valgt={skjemaState.utdanningGodkjent?.verdi}
             />

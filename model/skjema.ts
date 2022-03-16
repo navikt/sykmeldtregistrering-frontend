@@ -1,7 +1,6 @@
-import { GodkjentUtdanningValg } from '../components/skjema/utdanning-godkjent';
 import { FremtidigSituasjon } from '../components/skjema/sykmeldt-fremtidig-situasjon';
 import { TilbakeTilJobbValg } from '../components/skjema/tilbake-til-jobb';
-import { DinSituasjon, JaEllerNei, Utdanningsnivaa } from './sporsmal';
+import { DinSituasjon, UtdanningGodkjentValg, JaEllerNei, Utdanningsnivaa } from './sporsmal';
 
 export enum SkjemaSide {
     DinSituasjon = '0',
@@ -53,7 +52,7 @@ export type SkjemaVerdi<T> = { verdi: T; tekst: string };
 export interface SkjemaState {
     dinSituasjon?: SkjemaVerdi<DinSituasjon>;
     utdanning?: SkjemaVerdi<Utdanningsnivaa>;
-    utdanningGodkjent?: SkjemaVerdi<GodkjentUtdanningValg>;
+    utdanningGodkjent?: SkjemaVerdi<UtdanningGodkjentValg>;
     utdanningBestatt?: SkjemaVerdi<JaEllerNei>;
     andreForhold?: SkjemaVerdi<JaEllerNei>;
     sisteStilling?: SkjemaVerdi<string>;

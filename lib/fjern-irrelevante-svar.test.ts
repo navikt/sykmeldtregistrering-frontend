@@ -1,7 +1,6 @@
 import { SkjemaState } from '../model/skjema';
 import { oppdaterDinSituasjon, oppdaterUtdanning } from './skjema-state';
-import { GodkjentUtdanningValg } from '../components/skjema/utdanning-godkjent';
-import { DinSituasjon, JaEllerNei, Utdanningsnivaa } from '../model/sporsmal';
+import { DinSituasjon, UtdanningGodkjentValg, JaEllerNei, Utdanningsnivaa } from '../model/sporsmal';
 
 describe('Oppdatering av skjemastate', () => {
     test('setter sisteJobb til undefined hvis man endrer dinSituasjon til ALDRIJOBBET', () => {
@@ -25,7 +24,7 @@ describe('Oppdatering av skjemastate', () => {
     test('setter godkjentUtdanning og bestaattUtdanning til undefined hvis man endrer utdanning til INGEN', () => {
         const state: SkjemaState = {
             utdanning: { verdi: Utdanningsnivaa.HOYERE_UTDANNING_5_ELLER_MER, tekst: '' },
-            utdanningGodkjent: { verdi: GodkjentUtdanningValg.JA, tekst: '' },
+            utdanningGodkjent: { verdi: UtdanningGodkjentValg.JA, tekst: '' },
             utdanningBestatt: { verdi: JaEllerNei.JA, tekst: '' },
         };
         const oppdatertState = oppdaterUtdanning(state, { verdi: Utdanningsnivaa.INGEN_UTDANNING, tekst: '' });
@@ -36,12 +35,12 @@ describe('Oppdatering av skjemastate', () => {
     test('lar godkjentUtdanning og bestaattUtdanning bli stående hvis utdanning endres til annet enn INGEN', () => {
         const state: SkjemaState = {
             utdanning: { verdi: Utdanningsnivaa.HOYERE_UTDANNING_5_ELLER_MER, tekst: '' },
-            utdanningGodkjent: { verdi: GodkjentUtdanningValg.JA, tekst: '' },
+            utdanningGodkjent: { verdi: UtdanningGodkjentValg.JA, tekst: '' },
             utdanningBestatt: { verdi: JaEllerNei.JA, tekst: '' },
         };
         const oppdatertState = oppdaterUtdanning(state, { verdi: Utdanningsnivaa.GRUNNSKOLE, tekst: '' });
 
-        expect(oppdatertState.utdanningGodkjent).toEqual({ verdi: GodkjentUtdanningValg.JA, tekst: '' });
+        expect(oppdatertState.utdanningGodkjent).toEqual({ verdi: UtdanningGodkjentValg.JA, tekst: '' });
         expect(oppdatertState.utdanningBestatt).toEqual({ verdi: JaEllerNei.JA, tekst: '' });
     });
 });

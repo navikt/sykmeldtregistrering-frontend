@@ -1,11 +1,16 @@
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import DinSituasjon from '../../components/skjema/din-situasjon';
-import { DinSituasjon as Jobbsituasjon, JaEllerNei, Utdanningsnivaa } from '../../model/sporsmal';
+import {
+    DinSituasjon as Jobbsituasjon,
+    UtdanningGodkjentValg,
+    JaEllerNei,
+    Utdanningsnivaa,
+} from '../../model/sporsmal';
 import styles from '../../styles/skjema.module.css';
 import SisteJobb from '../../components/skjema/siste-jobb/siste-jobb';
 import Utdanning from '../../components/skjema/utdanning';
-import GodkjentUtdanning, { GodkjentUtdanningValg } from '../../components/skjema/utdanning-godkjent';
+import UtdanningGodkjent from '../../components/skjema/utdanning-godkjent';
 import BestattUtdanning from '../../components/skjema/utdanning-bestatt';
 import Helseproblemer from '../../components/skjema/helseproblemer';
 import AndreProblemer from '../../components/skjema/andre-problemer';
@@ -62,9 +67,9 @@ const lagSiderMap = (skjemaState: SkjemaState, dispatch: Dispatch<SkjemaAction>)
             />
         ),
         [SkjemaSide.GodkjentUtdanning]: (
-            <GodkjentUtdanning
+            <UtdanningGodkjent
                 onChange={(value) =>
-                    dispatch({ type: SkjemaSide.GodkjentUtdanning, value: value as SkjemaVerdi<GodkjentUtdanningValg> })
+                    dispatch({ type: SkjemaSide.GodkjentUtdanning, value: value as SkjemaVerdi<UtdanningGodkjentValg> })
                 }
                 valgt={skjemaState.utdanningGodkjent?.verdi}
             />

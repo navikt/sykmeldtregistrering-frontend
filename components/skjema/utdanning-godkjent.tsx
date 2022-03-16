@@ -1,33 +1,19 @@
-import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../hooks/useSprak';
 import { Heading } from '@navikt/ds-react';
 import RadioGruppe from '../radio-gruppe/radio-gruppe';
 import { SkjemaKomponentProps } from './skjema-felleskomponenter';
+import { hentTekst, UtdanningGodkjentValg } from '../../model/sporsmal';
 
-const TEKSTER: Tekster<string> = {
-    nb: {
-        tittel: 'Er utdanningen din godkjent i Norge?',
-        JA: 'Ja',
-        NEI: 'Nei',
-        VET_IKKE: 'Vet ikke',
-    },
-};
-
-export enum GodkjentUtdanningValg {
-    JA = 'JA',
-    NEI = 'NEI',
-    VET_IKKE = 'VET_IKKE',
-}
-
-const GodkjentUtdanning = (props: SkjemaKomponentProps<GodkjentUtdanningValg>) => {
+const UtdanningGodkjent = (props: SkjemaKomponentProps<UtdanningGodkjentValg>) => {
     const { onChange, valgt } = props;
-    const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
+    const sprak = useSprak();
+    const tekst = (key: string) => hentTekst(sprak, key);
 
-    const lagValg = (valg: GodkjentUtdanningValg) => ({ tekst: tekst(valg), value: valg });
+    const lagValg = (valg: UtdanningGodkjentValg) => ({ tekst: tekst(valg), value: valg });
     const valg = [
-        lagValg(GodkjentUtdanningValg.JA),
-        lagValg(GodkjentUtdanningValg.NEI),
-        lagValg(GodkjentUtdanningValg.VET_IKKE),
+        lagValg(UtdanningGodkjentValg.JA),
+        lagValg(UtdanningGodkjentValg.NEI),
+        lagValg(UtdanningGodkjentValg.VET_IKKE),
     ];
 
     return (
@@ -47,4 +33,4 @@ const GodkjentUtdanning = (props: SkjemaKomponentProps<GodkjentUtdanningValg>) =
     );
 };
 
-export default GodkjentUtdanning;
+export default UtdanningGodkjent;
