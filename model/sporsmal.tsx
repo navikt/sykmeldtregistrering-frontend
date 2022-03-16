@@ -44,6 +44,13 @@ export enum UtdanningGodkjentValg {
     VET_IKKE = 'VET_IKKE',
 }
 
+export enum TilbakeIArbeid {
+    JA_FULL_STILLING = 'JA_FULL_STILLING',
+    JA_REDUSERT_STILLING = 'JA_REDUSERT_STILLING',
+    USIKKER = 'USIKKER',
+    NEI = 'NEI',
+}
+
 const TEKSTER: Tekster<string> = {
     nb: {
         [SporsmalId.dinSituasjon]: 'Velg den situasjonen som passer deg best',
@@ -76,6 +83,10 @@ const TEKSTER: Tekster<string> = {
         [SporsmalId.helseHinder]: 'Har du helseproblemer som hindrer deg i å søke eller være i jobb?',
         [SporsmalId.fremtidigSituasjon]: 'Hva tenker du om din fremtidige situasjon?',
         [SporsmalId.tilbakeIArbeid]: 'Tror du at du kommer tilbake i jobb før du har vært sykmeldt i 52 uker?',
+        [TilbakeIArbeid.JA_FULL_STILLING]: 'Ja, i full stilling',
+        [TilbakeIArbeid.JA_REDUSERT_STILLING]: 'Ja, i redusert stilling',
+        [TilbakeIArbeid.USIKKER]: 'Usikker',
+        [TilbakeIArbeid.NEI]: 'Nei',
     },
 };
 

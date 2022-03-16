@@ -1,28 +1,12 @@
-import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../hooks/useSprak';
 import { Heading } from '@navikt/ds-react';
 import RadioGruppe from '../radio-gruppe/radio-gruppe';
 import { SkjemaKomponentProps } from './skjema-felleskomponenter';
-
-const TEKSTER: Tekster<string> = {
-    nb: {
-        tittel: 'Tror du at du kommer tilbake i jobb før du har vært sykmeldt i 52 uker?',
-        jaFullStilling: 'Ja, i full stilling',
-        jaRedusertStilling: 'Ja, i redusert stilling',
-        usikker: 'Usikker',
-        nei: 'Nei',
-    },
-};
-
-export enum TilbakeIArbeid {
-    JA_FULL_STILLING = 'JA_FULL_STILLING',
-    JA_REDUSERT_STILLING = 'JA_REDUSERT_STILLING',
-    USIKKER = 'USIKKER',
-    NEI = 'NEI',
-}
+import { hentTekst, SporsmalId, TilbakeIArbeid } from '../../model/sporsmal';
 
 const TilbakeIJobb = (props: SkjemaKomponentProps<string>) => {
-    const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
+    const sprak = useSprak();
+    const tekst = (key: string) => hentTekst(sprak, key);
     const { onChange, valgt } = props;
 
     const valg = [
@@ -35,7 +19,7 @@ const TilbakeIJobb = (props: SkjemaKomponentProps<string>) => {
     return (
         <>
             <Heading spacing size={'large'} level="1">
-                {tekst('tittel')}
+                {tekst(SporsmalId.tilbakeIArbeid)}
             </Heading>
 
             <form className="mbl">
