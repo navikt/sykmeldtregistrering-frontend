@@ -24,6 +24,15 @@ export enum DinSituasjon {
     VIL_FORTSETTE_I_JOBB = 'VIL_FORTSETTE_I_JOBB',
 }
 
+export enum Utdanningsnivaa {
+    INGEN_UTDANNING = 'INGEN_UTDANNING',
+    GRUNNSKOLE = 'GRUNNSKOLE',
+    VIDEREGAENDE_GRUNNUTDANNING = 'VIDEREGAENDE_GRUNNUTDANNING',
+    VIDEREGAENDE_FAGBREV_SVENNEBREV = 'VIDEREGAENDE_FAGBREV_SVENNEBREV',
+    HOYERE_UTDANNING_1_TIL_4 = 'HOYERE_UTDANNING_1_TIL_4',
+    HOYERE_UTDANNING_5_ELLER_MER = 'HOYERE_UTDANNING_5_ELLER_MER',
+}
+
 const TEKSTER: Tekster<string> = {
     nb: {
         [SporsmalId.dinSituasjon]: 'Velg den situasjonen som passer deg best',
@@ -37,6 +46,13 @@ const TEKSTER: Tekster<string> = {
         [DinSituasjon.USIKKER_JOBBSITUASJON]: 'Er usikker på jobbsituasjonen min',
         [DinSituasjon.AKKURAT_FULLFORT_UTDANNING]: 'Har akkurat fullført utdanning, militærtjeneste eller annet',
         [DinSituasjon.VIL_FORTSETTE_I_JOBB]: 'Har jobb og ønsker å fortsette i den jobben jeg er i',
+        [SporsmalId.utdanning]: 'Hva er din høyeste fullførte utdanning?',
+        [Utdanningsnivaa.INGEN_UTDANNING]: 'Ingen utdanning',
+        [Utdanningsnivaa.GRUNNSKOLE]: 'Grunnskole',
+        [Utdanningsnivaa.VIDEREGAENDE_GRUNNUTDANNING]: 'Videregående grunnutdanning (1 til 2 år)',
+        [Utdanningsnivaa.VIDEREGAENDE_FAGBREV_SVENNEBREV]: 'Videregående, fagbrev eller svennebrev (3 år eller mer)',
+        [Utdanningsnivaa.HOYERE_UTDANNING_1_TIL_4]: 'Høyere utdanning (1 til 4 år)',
+        [Utdanningsnivaa.HOYERE_UTDANNING_5_ELLER_MER]: 'Høyere utdanning (5 år eller mer)',
     },
 };
 

@@ -1,8 +1,7 @@
-import { Utdanningsnivaa } from '../components/skjema/utdanning';
 import { GodkjentUtdanningValg } from '../components/skjema/utdanning-godkjent';
 import { FremtidigSituasjon } from '../components/skjema/sykmeldt-fremtidig-situasjon';
 import { TilbakeTilJobbValg } from '../components/skjema/tilbake-til-jobb';
-import { DinSituasjon } from './sporsmal';
+import { DinSituasjon, Utdanningsnivaa } from './sporsmal';
 
 export enum SkjemaSide {
     DinSituasjon = '0',

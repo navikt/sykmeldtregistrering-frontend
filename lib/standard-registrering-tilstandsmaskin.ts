@@ -1,6 +1,5 @@
-import { Utdanningsnivaa } from '../components/skjema/utdanning';
 import { Navigering, NavigeringsTilstandsMaskin, SkjemaSide, SkjemaState, StandardSkjemaSide } from '../model/skjema';
-import { DinSituasjon } from '../model/sporsmal';
+import { DinSituasjon, Utdanningsnivaa } from '../model/sporsmal';
 
 const TILSTANDER: NavigeringsTilstandsMaskin<StandardSkjemaSide> = {
     [SkjemaSide.DinSituasjon]: (skjemaState: SkjemaState) => {

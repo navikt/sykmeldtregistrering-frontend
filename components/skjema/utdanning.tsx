@@ -3,6 +3,7 @@ import useSprak from '../../hooks/useSprak';
 import { Heading } from '@navikt/ds-react';
 import RadioGruppe from '../radio-gruppe/radio-gruppe';
 import { SkjemaKomponentProps } from './skjema-felleskomponenter';
+import { hentTekst, Utdanningsnivaa } from '../../model/sporsmal';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -16,18 +17,10 @@ const TEKSTER: Tekster<string> = {
     },
 };
 
-export enum Utdanningsnivaa {
-    INGEN_UTDANNING = 'INGEN_UTDANNING',
-    GRUNNSKOLE = 'GRUNNSKOLE',
-    VIDEREGAENDE_GRUNNUTDANNING = 'VIDEREGAENDE_GRUNNUTDANNING',
-    VIDEREGAENDE_FAGBREV_SVENNEBREV = 'VIDEREGAENDE_FAGBREV_SVENNEBREV',
-    HOYERE_UTDANNING_1_TIL_4 = 'HOYERE_UTDANNING_1_TIL_4',
-    HOYERE_UTDANNING_5_ELLER_MER = 'HOYERE_UTDANNING_5_ELLER_MER',
-}
-
 const Utdanning = (props: SkjemaKomponentProps<Utdanningsnivaa>) => {
     const { onChange, valgt } = props;
-    const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
+    const sprak = useSprak();
+    const tekst = (key: string) => hentTekst(sprak, key);
 
     const valg = [
         { tekst: tekst(Utdanningsnivaa.INGEN_UTDANNING), value: Utdanningsnivaa.INGEN_UTDANNING },

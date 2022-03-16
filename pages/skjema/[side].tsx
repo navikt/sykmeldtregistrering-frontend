@@ -1,10 +1,10 @@
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import DinSituasjon from '../../components/skjema/din-situasjon';
-import { DinSituasjon as Jobbsituasjon } from '../../model/sporsmal';
+import { DinSituasjon as Jobbsituasjon, Utdanningsnivaa } from '../../model/sporsmal';
 import styles from '../../styles/skjema.module.css';
 import SisteJobb from '../../components/skjema/siste-jobb/siste-jobb';
-import Utdanning, { Utdanningsnivaa } from '../../components/skjema/utdanning';
+import Utdanning from '../../components/skjema/utdanning';
 import GodkjentUtdanning, { GodkjentUtdanningValg } from '../../components/skjema/utdanning-godkjent';
 import BestattUtdanning from '../../components/skjema/utdanning-bestatt';
 import Helseproblemer from '../../components/skjema/helseproblemer';
