@@ -1,8 +1,13 @@
 import { SkjemaSide, SkjemaState } from '../model/skjema';
 import { Reducer } from 'react';
-import { FremtidigSituasjon } from '../components/skjema/sykmeldt-fremtidig-situasjon';
 import { TilbakeTilJobbValg } from '../components/skjema/tilbake-til-jobb';
-import { DinSituasjon, UtdanningGodkjentValg, JaEllerNei, Utdanningsnivaa } from '../model/sporsmal';
+import {
+    DinSituasjon,
+    UtdanningGodkjentValg,
+    JaEllerNei,
+    Utdanningsnivaa,
+    FremtidigSituasjon,
+} from '../model/sporsmal';
 
 export type SkjemaReducer = Reducer<SkjemaState, SkjemaAction>;
 export type SkjemaAction =

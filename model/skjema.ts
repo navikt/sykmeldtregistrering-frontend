@@ -1,6 +1,5 @@
-import { FremtidigSituasjon } from '../components/skjema/sykmeldt-fremtidig-situasjon';
 import { TilbakeTilJobbValg } from '../components/skjema/tilbake-til-jobb';
-import { DinSituasjon, UtdanningGodkjentValg, JaEllerNei, Utdanningsnivaa } from './sporsmal';
+import { DinSituasjon, UtdanningGodkjentValg, JaEllerNei, Utdanningsnivaa, FremtidigSituasjon } from './sporsmal';
 
 export enum SkjemaSide {
     DinSituasjon = '0',

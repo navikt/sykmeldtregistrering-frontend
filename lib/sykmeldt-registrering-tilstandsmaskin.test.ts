@@ -1,8 +1,7 @@
 import { SkjemaSide } from '../model/skjema';
 import { beregnNavigering } from './sykmeldt-registrering-tilstandsmaskin';
-import { FremtidigSituasjon } from '../components/skjema/sykmeldt-fremtidig-situasjon';
 import { TilbakeTilJobbValg } from '../components/skjema/tilbake-til-jobb';
-import { Utdanningsnivaa } from '../model/sporsmal';
+import { FremtidigSituasjon, Utdanningsnivaa } from '../model/sporsmal';
 
 describe('Sykmeldt registrering tilstandsmaskin', () => {
     describe('Fremtidig situasjon', () => {

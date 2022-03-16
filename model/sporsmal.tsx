@@ -51,6 +51,14 @@ export enum TilbakeIArbeid {
     NEI = 'NEI',
 }
 
+export enum FremtidigSituasjon {
+    SAMME_ARBEIDSGIVER = 'SAMME_ARBEIDSGIVER',
+    SAMME_ARBEIDSGIVER_NY_STILLING = 'SAMME_ARBEIDSGIVER_NY_STILLING',
+    NY_ARBEIDSGIVER = 'NY_ARBEIDSGIVER',
+    USIKKER = 'USIKKER',
+    INGEN_PASSER = 'INGEN_PASSER',
+}
+
 const TEKSTER: Tekster<string> = {
     nb: {
         [SporsmalId.dinSituasjon]: 'Velg den situasjonen som passer deg best',
@@ -81,12 +89,18 @@ const TEKSTER: Tekster<string> = {
         [UtdanningGodkjentValg.VET_IKKE]: 'Vet ikke',
         [SporsmalId.andreForhold]: 'Har du andre problemer med å søke eller være i jobb?',
         [SporsmalId.helseHinder]: 'Har du helseproblemer som hindrer deg i å søke eller være i jobb?',
-        [SporsmalId.fremtidigSituasjon]: 'Hva tenker du om din fremtidige situasjon?',
         [SporsmalId.tilbakeIArbeid]: 'Tror du at du kommer tilbake i jobb før du har vært sykmeldt i 52 uker?',
         [TilbakeIArbeid.JA_FULL_STILLING]: 'Ja, i full stilling',
         [TilbakeIArbeid.JA_REDUSERT_STILLING]: 'Ja, i redusert stilling',
         [TilbakeIArbeid.USIKKER]: 'Usikker',
         [TilbakeIArbeid.NEI]: 'Nei',
+        [SporsmalId.fremtidigSituasjon]: 'Hva tenker du om din fremtidige situasjon?',
+        [FremtidigSituasjon.SAMME_ARBEIDSGIVER]: 'Jeg skal tilbake til jobben jeg har',
+        [FremtidigSituasjon.SAMME_ARBEIDSGIVER_NY_STILLING]:
+            'Jeg skal tilbake til arbeidsgiveren min, men i ny stilling',
+        [FremtidigSituasjon.NY_ARBEIDSGIVER]: 'Jeg trenger ny jobb',
+        [FremtidigSituasjon.USIKKER]: 'Jeg er usikker',
+        [FremtidigSituasjon.INGEN_PASSER]: 'Ingen av disse alternativene passer',
     },
 };
 
