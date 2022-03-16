@@ -1,5 +1,12 @@
 import { TilbakeTilJobbValg } from '../components/skjema/tilbake-til-jobb';
-import { DinSituasjon, UtdanningGodkjentValg, JaEllerNei, Utdanningsnivaa, FremtidigSituasjon } from './sporsmal';
+import {
+    DinSituasjon,
+    UtdanningGodkjentValg,
+    JaEllerNei,
+    Utdanningsnivaa,
+    FremtidigSituasjon,
+    SporsmalId,
+} from './sporsmal';
 
 export enum SkjemaSide {
     DinSituasjon = '0',
@@ -57,3 +64,17 @@ export interface SkjemaState {
     fremtidigSituasjon?: FremtidigSituasjon;
     tilbakeIArbeid?: TilbakeTilJobbValg;
 }
+
+const skjemasider = {
+    [SporsmalId.dinSituasjon]: SkjemaSide.DinSituasjon,
+    [SporsmalId.sisteStilling]: SkjemaSide.SisteJobb,
+    [SporsmalId.utdanning]: SkjemaSide.Utdanning,
+    [SporsmalId.utdanningBestatt]: SkjemaSide.BestaattUtdanning,
+    [SporsmalId.utdanningGodkjent]: SkjemaSide.GodkjentUtdanning,
+    [SporsmalId.andreForhold]: SkjemaSide.AndreProblemer,
+    [SporsmalId.helseHinder]: SkjemaSide.Helseproblemer,
+    [SporsmalId.tilbakeIArbeid]: SkjemaSide.TilbakeTilJobb,
+    [SporsmalId.fremtidigSituasjon]: SkjemaSide.SykmeldtFremtidigSituasjon,
+};
+
+export const hentSkjemaside = (sporsmalId: SporsmalId) => skjemasider[sporsmalId];

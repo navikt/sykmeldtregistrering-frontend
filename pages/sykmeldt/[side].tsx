@@ -70,7 +70,7 @@ const lagSiderMap = (skjemaState: SkjemaState, dispatch: Dispatch<SkjemaAction>)
                 valgt={skjemaState.andreForhold}
             />
         ),
-        [SkjemaSide.Oppsummering]: <Oppsummering {...skjemaState} skjemaPrefix={'/sykmeldt/'} />,
+        [SkjemaSide.Oppsummering]: <Oppsummering skjemaState={skjemaState} skjemaPrefix={'/sykmeldt/'} />,
         [SkjemaSide.FullforRegistrering]: <FullforRegistrering skjemaState={skjemaState} />,
     };
 };
