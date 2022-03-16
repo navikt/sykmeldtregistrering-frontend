@@ -8,32 +8,32 @@ describe('Sykmeldt registrering tilstandsmaskin', () => {
     describe('Fremtidig situasjon', () => {
         it('returnerer Utdanning som neste for TRENGER_NY_JOBBb', () => {
             const state = beregnNavigering(SkjemaSide.SykmeldtFremtidigSituasjon, {
-                fremtidigSituasjon: { verdi: FremtidigSituasjon.NY_ARBEIDSGIVER, tekst: '' },
+                fremtidigSituasjon: FremtidigSituasjon.NY_ARBEIDSGIVER,
             });
             expect(state.neste).toBe(SkjemaSide.Utdanning);
             expect(state.forrige).toBeUndefined();
         });
         it('returnerer Utdanning som neste for USIKKER', () => {
             const state = beregnNavigering(SkjemaSide.SykmeldtFremtidigSituasjon, {
-                fremtidigSituasjon: { verdi: FremtidigSituasjon.USIKKER, tekst: '' },
+                fremtidigSituasjon: FremtidigSituasjon.USIKKER,
             });
             expect(state.neste).toBe(SkjemaSide.Utdanning);
         });
         it('returnerer Oppsummering som neste for INGEN_ALTERNATIVER_PASSER', () => {
             const state = beregnNavigering(SkjemaSide.SykmeldtFremtidigSituasjon, {
-                fremtidigSituasjon: { verdi: FremtidigSituasjon.INGEN_PASSER, tekst: '' },
+                fremtidigSituasjon: FremtidigSituasjon.INGEN_PASSER,
             });
             expect(state.neste).toBe(SkjemaSide.Oppsummering);
         });
         it('returnerer TilbakeTilJobb som neste for TILBAKE_TIL_JOBB', () => {
             const state = beregnNavigering(SkjemaSide.SykmeldtFremtidigSituasjon, {
-                fremtidigSituasjon: { verdi: FremtidigSituasjon.SAMME_ARBEIDSGIVER, tekst: '' },
+                fremtidigSituasjon: FremtidigSituasjon.SAMME_ARBEIDSGIVER,
             });
             expect(state.neste).toBe(SkjemaSide.TilbakeTilJobb);
         });
         it('returnerer TilbakeTilJobb som neste for TILBAKE_TIL_NY_STILLING', () => {
             const state = beregnNavigering(SkjemaSide.SykmeldtFremtidigSituasjon, {
-                fremtidigSituasjon: { verdi: FremtidigSituasjon.SAMME_ARBEIDSGIVER_NY_STILLING, tekst: '' },
+                fremtidigSituasjon: FremtidigSituasjon.SAMME_ARBEIDSGIVER_NY_STILLING,
             });
             expect(state.neste).toBe(SkjemaSide.TilbakeTilJobb);
         });
@@ -46,13 +46,13 @@ describe('Sykmeldt registrering tilstandsmaskin', () => {
         });
         it('returnerer GodkjentUtdanning som neste for Utdanningsnivaa.HOYERE', () => {
             const state = beregnNavigering(SkjemaSide.Utdanning, {
-                utdanning: { verdi: Utdanningsnivaa.HOYERE_UTDANNING_5_ELLER_MER, tekst: '' },
+                utdanning: Utdanningsnivaa.HOYERE_UTDANNING_5_ELLER_MER,
             });
             expect(state.neste).toBe(SkjemaSide.GodkjentUtdanning);
         });
         it('returnerer AndreHensyn som neste for Utdanningsnivaa.INGEN', () => {
             const state = beregnNavigering(SkjemaSide.Utdanning, {
-                utdanning: { verdi: Utdanningsnivaa.INGEN_UTDANNING, tekst: '' },
+                utdanning: Utdanningsnivaa.INGEN_UTDANNING,
             });
             expect(state.neste).toBe(SkjemaSide.AndreHensyn);
         });
@@ -83,13 +83,13 @@ describe('Sykmeldt registrering tilstandsmaskin', () => {
     describe('AndreHensyn', () => {
         it('returnerer BestaattUtdanning som forrige hvis utdanning==Utdanningsnivaa.HOYERE', () => {
             const state = beregnNavigering(SkjemaSide.AndreHensyn, {
-                utdanning: { verdi: Utdanningsnivaa.HOYERE_UTDANNING_5_ELLER_MER, tekst: '' },
+                utdanning: Utdanningsnivaa.HOYERE_UTDANNING_5_ELLER_MER,
             });
             expect(state.forrige).toBe(SkjemaSide.BestaattUtdanning);
         });
         it('returnerer Utdanning som forrige hvis valgt utdanning er Utdanningsnivaa.INGEN', () => {
             const state = beregnNavigering(SkjemaSide.AndreHensyn, {
-                utdanning: { verdi: Utdanningsnivaa.INGEN_UTDANNING, tekst: '' },
+                utdanning: Utdanningsnivaa.INGEN_UTDANNING,
             });
             expect(state.forrige).toBe(SkjemaSide.Utdanning);
         });
@@ -102,25 +102,25 @@ describe('Sykmeldt registrering tilstandsmaskin', () => {
     describe('TilbakeTilJobb', () => {
         it('returnerer Oppsummering som neste for REDUSERT_STILLING', () => {
             const state = beregnNavigering(SkjemaSide.TilbakeTilJobb, {
-                tilbakeIArbeid: { verdi: TilbakeTilJobbValg.JA_REDUSERT_STILLING, tekst: '' },
+                tilbakeIArbeid: TilbakeTilJobbValg.JA_REDUSERT_STILLING,
             });
             expect(state.neste).toBe(SkjemaSide.Oppsummering);
         });
         it('returnerer Oppsummering som neste for USIKKER', () => {
             const state = beregnNavigering(SkjemaSide.TilbakeTilJobb, {
-                tilbakeIArbeid: { verdi: TilbakeTilJobbValg.USIKKER, tekst: '' },
+                tilbakeIArbeid: TilbakeTilJobbValg.USIKKER,
             });
             expect(state.neste).toBe(SkjemaSide.Oppsummering);
         });
         it('returnerer Oppsummering som neste for NEI', () => {
             const state = beregnNavigering(SkjemaSide.TilbakeTilJobb, {
-                tilbakeIArbeid: { verdi: TilbakeTilJobbValg.NEI, tekst: '' },
+                tilbakeIArbeid: TilbakeTilJobbValg.NEI,
             });
             expect(state.neste).toBe(SkjemaSide.Oppsummering);
         });
         it('returnerer SkalTilbakeTilJobb som neste for FULL_STILLING', () => {
             const state = beregnNavigering(SkjemaSide.TilbakeTilJobb, {
-                tilbakeIArbeid: { verdi: TilbakeTilJobbValg.JA_FULL_STILLING, tekst: '' },
+                tilbakeIArbeid: TilbakeTilJobbValg.JA_FULL_STILLING,
             });
             expect(state.neste).toBe(SkjemaSide.SkalTilbakeTilJobb);
         });
@@ -132,14 +132,14 @@ describe('Sykmeldt registrering tilstandsmaskin', () => {
     describe('Oppsummering', () => {
         it('returnerer SykmeldtFremtidigSituasjon når sykmeldtFremtidigSituasjon=SykmeldtValg.INGEN_ALTERNATIVER_PASSER', () => {
             const state = beregnNavigering(SkjemaSide.Oppsummering, {
-                fremtidigSituasjon: { verdi: FremtidigSituasjon.INGEN_PASSER, tekst: '' },
+                fremtidigSituasjon: FremtidigSituasjon.INGEN_PASSER,
             });
             expect(state.forrige).toBe(SkjemaSide.SykmeldtFremtidigSituasjon);
         });
 
         it('returnerer TilbakeTilJobb når tilbakeTilJobb er satt i state', () => {
             const state = beregnNavigering(SkjemaSide.Oppsummering, {
-                tilbakeIArbeid: { verdi: TilbakeTilJobbValg.JA_REDUSERT_STILLING, tekst: '' },
+                tilbakeIArbeid: TilbakeTilJobbValg.JA_REDUSERT_STILLING,
             });
             expect(state.forrige).toBe(SkjemaSide.TilbakeTilJobb);
         });

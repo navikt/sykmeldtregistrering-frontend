@@ -23,14 +23,14 @@ const SisteJobb = (props: SkjemaKomponentProps<string>) => {
     const [visStillingsSok, settVisStillingsSok] = useState<boolean>(false);
     const onCloseStillingssok = (value?: any) => {
         if (value) {
-            onChange({ tekst: value.label, verdi: value.styrk08[0] });
+            onChange(value.styrk08[0]);
         }
         settVisStillingsSok(false);
     };
 
     useEffect(() => {
         if (!props.valgt) {
-            onChange({ verdi: '-1', tekst: 'Daglig leder' });
+            onChange('-1');
         }
     }, [onChange]);
 

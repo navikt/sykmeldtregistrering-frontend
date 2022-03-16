@@ -57,6 +57,7 @@ const TEKSTER: Tekster<string> = {
         [DinSituasjon.USIKKER_JOBBSITUASJON]: 'Er usikker på jobbsituasjonen min',
         [DinSituasjon.AKKURAT_FULLFORT_UTDANNING]: 'Har akkurat fullført utdanning, militærtjeneste eller annet',
         [DinSituasjon.VIL_FORTSETTE_I_JOBB]: 'Har jobb og ønsker å fortsette i den jobben jeg er i',
+        [SporsmalId.sisteStilling]: '',
         [SporsmalId.utdanning]: 'Hva er din høyeste fullførte utdanning?',
         [Utdanningsnivaa.INGEN_UTDANNING]: 'Ingen utdanning',
         [Utdanningsnivaa.GRUNNSKOLE]: 'Grunnskole',
@@ -71,6 +72,10 @@ const TEKSTER: Tekster<string> = {
         [UtdanningGodkjentValg.JA]: 'Ja',
         [UtdanningGodkjentValg.NEI]: 'Nei',
         [UtdanningGodkjentValg.VET_IKKE]: 'Vet ikke',
+        [SporsmalId.andreForhold]: 'Har du andre problemer med å søke eller være i jobb?',
+        [SporsmalId.helseHinder]: 'Har du helseproblemer som hindrer deg i å søke eller være i jobb?',
+        [SporsmalId.fremtidigSituasjon]: 'Hva tenker du om din fremtidige situasjon?',
+        [SporsmalId.tilbakeIArbeid]: 'Tror du at du kommer tilbake i jobb før du har vært sykmeldt i 52 uker?',
     },
 };
 

@@ -5,42 +5,42 @@ import { DinSituasjon, UtdanningGodkjentValg, JaEllerNei, Utdanningsnivaa } from
 describe('Oppdatering av skjemastate', () => {
     test('setter sisteJobb til undefined hvis man endrer dinSituasjon til ALDRIJOBBET', () => {
         const state: SkjemaState = {
-            dinSituasjon: { verdi: DinSituasjon.MISTET_JOBBEN, tekst: '' },
-            sisteStilling: { verdi: 'Kokk', tekst: 'Kokk' },
+            dinSituasjon: DinSituasjon.MISTET_JOBBEN,
+            sisteStilling: 'Kokk',
         };
-        const oppdatertState = oppdaterDinSituasjon(state, { verdi: DinSituasjon.ALDRI_HATT_JOBB, tekst: '' });
+        const oppdatertState = oppdaterDinSituasjon(state, DinSituasjon.ALDRI_HATT_JOBB);
 
         expect(oppdatertState.sisteStilling).toBe(undefined);
     });
     test('lar sisteJobb-verdien bli stående hvis man endrer dinSituasjon til noe annet enn ALDRIJOBBET', () => {
         const state: SkjemaState = {
-            dinSituasjon: { verdi: DinSituasjon.MISTET_JOBBEN, tekst: '' },
-            sisteStilling: { verdi: 'Kokk', tekst: 'Kokk' },
+            dinSituasjon: DinSituasjon.MISTET_JOBBEN,
+            sisteStilling: 'Kokk',
         };
-        const oppdatertState = oppdaterDinSituasjon(state, { verdi: DinSituasjon.DELTIDSJOBB_VIL_MER, tekst: '' });
+        const oppdatertState = oppdaterDinSituasjon(state, DinSituasjon.DELTIDSJOBB_VIL_MER);
 
-        expect(oppdatertState.sisteStilling).toEqual({ verdi: 'Kokk', tekst: 'Kokk' });
+        expect(oppdatertState.sisteStilling).toEqual('Kokk');
     });
     test('setter godkjentUtdanning og bestaattUtdanning til undefined hvis man endrer utdanning til INGEN', () => {
         const state: SkjemaState = {
-            utdanning: { verdi: Utdanningsnivaa.HOYERE_UTDANNING_5_ELLER_MER, tekst: '' },
-            utdanningGodkjent: { verdi: UtdanningGodkjentValg.JA, tekst: '' },
-            utdanningBestatt: { verdi: JaEllerNei.JA, tekst: '' },
+            utdanning: Utdanningsnivaa.HOYERE_UTDANNING_5_ELLER_MER,
+            utdanningGodkjent: UtdanningGodkjentValg.JA,
+            utdanningBestatt: JaEllerNei.JA,
         };
-        const oppdatertState = oppdaterUtdanning(state, { verdi: Utdanningsnivaa.INGEN_UTDANNING, tekst: '' });
+        const oppdatertState = oppdaterUtdanning(state, Utdanningsnivaa.INGEN_UTDANNING);
 
         expect(oppdatertState.utdanningBestatt).toBe(undefined);
         expect(oppdatertState.utdanningGodkjent).toBe(undefined);
     });
     test('lar godkjentUtdanning og bestaattUtdanning bli stående hvis utdanning endres til annet enn INGEN', () => {
         const state: SkjemaState = {
-            utdanning: { verdi: Utdanningsnivaa.HOYERE_UTDANNING_5_ELLER_MER, tekst: '' },
-            utdanningGodkjent: { verdi: UtdanningGodkjentValg.JA, tekst: '' },
-            utdanningBestatt: { verdi: JaEllerNei.JA, tekst: '' },
+            utdanning: Utdanningsnivaa.HOYERE_UTDANNING_5_ELLER_MER,
+            utdanningGodkjent: UtdanningGodkjentValg.JA,
+            utdanningBestatt: JaEllerNei.JA,
         };
-        const oppdatertState = oppdaterUtdanning(state, { verdi: Utdanningsnivaa.GRUNNSKOLE, tekst: '' });
+        const oppdatertState = oppdaterUtdanning(state, Utdanningsnivaa.GRUNNSKOLE);
 
-        expect(oppdatertState.utdanningGodkjent).toEqual({ verdi: UtdanningGodkjentValg.JA, tekst: '' });
-        expect(oppdatertState.utdanningBestatt).toEqual({ verdi: JaEllerNei.JA, tekst: '' });
+        expect(oppdatertState.utdanningGodkjent).toEqual(UtdanningGodkjentValg.JA);
+        expect(oppdatertState.utdanningBestatt).toEqual(JaEllerNei.JA);
     });
 });

@@ -1,4 +1,4 @@
-import { SkjemaSide, SkjemaState, SkjemaVerdi } from '../model/skjema';
+import { SkjemaSide, SkjemaState } from '../model/skjema';
 import { Reducer } from 'react';
 import { FremtidigSituasjon } from '../components/skjema/sykmeldt-fremtidig-situasjon';
 import { TilbakeTilJobbValg } from '../components/skjema/tilbake-til-jobb';
@@ -6,15 +6,15 @@ import { DinSituasjon, UtdanningGodkjentValg, JaEllerNei, Utdanningsnivaa } from
 
 export type SkjemaReducer = Reducer<SkjemaState, SkjemaAction>;
 export type SkjemaAction =
-    | { type: SkjemaSide.DinSituasjon; value: SkjemaVerdi<DinSituasjon> }
-    | { type: SkjemaSide.Utdanning; value: SkjemaVerdi<Utdanningsnivaa> }
-    | { type: SkjemaSide.GodkjentUtdanning; value: SkjemaVerdi<UtdanningGodkjentValg> }
-    | { type: SkjemaSide.BestaattUtdanning; value: SkjemaVerdi<JaEllerNei> }
-    | { type: SkjemaSide.Helseproblemer; value: SkjemaVerdi<JaEllerNei> }
-    | { type: SkjemaSide.AndreProblemer; value: SkjemaVerdi<JaEllerNei> }
-    | { type: SkjemaSide.SisteJobb; value: SkjemaVerdi<string> }
-    | { type: SkjemaSide.SykmeldtFremtidigSituasjon; value: SkjemaVerdi<FremtidigSituasjon> }
-    | { type: SkjemaSide.TilbakeTilJobb; value: SkjemaVerdi<TilbakeTilJobbValg> };
+    | { type: SkjemaSide.DinSituasjon; value: DinSituasjon }
+    | { type: SkjemaSide.Utdanning; value: Utdanningsnivaa }
+    | { type: SkjemaSide.GodkjentUtdanning; value: UtdanningGodkjentValg }
+    | { type: SkjemaSide.BestaattUtdanning; value: JaEllerNei }
+    | { type: SkjemaSide.Helseproblemer; value: JaEllerNei }
+    | { type: SkjemaSide.AndreProblemer; value: JaEllerNei }
+    | { type: SkjemaSide.SisteJobb; value: string }
+    | { type: SkjemaSide.SykmeldtFremtidigSituasjon; value: FremtidigSituasjon }
+    | { type: SkjemaSide.TilbakeTilJobb; value: TilbakeTilJobbValg };
 
 export function skjemaReducer(state: SkjemaState, action: SkjemaAction): SkjemaState {
     switch (action.type) {
@@ -68,8 +68,8 @@ export function skjemaReducer(state: SkjemaState, action: SkjemaAction): SkjemaS
     return state;
 }
 
-export const oppdaterDinSituasjon = (skjemaState: SkjemaState, dinSituasjon: SkjemaVerdi<DinSituasjon>) => {
-    if (dinSituasjon.verdi === DinSituasjon.ALDRI_HATT_JOBB) {
+export const oppdaterDinSituasjon = (skjemaState: SkjemaState, dinSituasjon: DinSituasjon) => {
+    if (dinSituasjon === DinSituasjon.ALDRI_HATT_JOBB) {
         return {
             ...skjemaState,
             dinSituasjon: dinSituasjon,
@@ -82,8 +82,8 @@ export const oppdaterDinSituasjon = (skjemaState: SkjemaState, dinSituasjon: Skj
     };
 };
 
-export const oppdaterUtdanning = (skjemaState: SkjemaState, utdanning: SkjemaVerdi<Utdanningsnivaa>) => {
-    if (utdanning.verdi === Utdanningsnivaa.INGEN_UTDANNING) {
+export const oppdaterUtdanning = (skjemaState: SkjemaState, utdanning: Utdanningsnivaa) => {
+    if (utdanning === Utdanningsnivaa.INGEN_UTDANNING) {
         return {
             ...skjemaState,
             utdanning: utdanning,
@@ -97,16 +97,14 @@ export const oppdaterUtdanning = (skjemaState: SkjemaState, utdanning: SkjemaVer
     };
 };
 
-const oppdaterFremtidigSituasjon = (state: SkjemaState, valg: SkjemaVerdi<FremtidigSituasjon>) => {
-    if (valg.verdi === FremtidigSituasjon.INGEN_PASSER) {
+const oppdaterFremtidigSituasjon = (state: SkjemaState, valg: FremtidigSituasjon) => {
+    if (valg === FremtidigSituasjon.INGEN_PASSER) {
         return {
             fremtidigSituasjon: valg,
         };
     }
 
-    if (
-        [FremtidigSituasjon.SAMME_ARBEIDSGIVER_NY_STILLING, FremtidigSituasjon.SAMME_ARBEIDSGIVER].includes(valg.verdi)
-    ) {
+    if ([FremtidigSituasjon.SAMME_ARBEIDSGIVER_NY_STILLING, FremtidigSituasjon.SAMME_ARBEIDSGIVER].includes(valg)) {
         return {
             ...state,
             fremtidigSituasjon: valg,

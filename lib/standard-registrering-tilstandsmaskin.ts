@@ -3,7 +3,7 @@ import { DinSituasjon, Utdanningsnivaa } from '../model/sporsmal';
 
 const TILSTANDER: NavigeringsTilstandsMaskin<StandardSkjemaSide> = {
     [SkjemaSide.DinSituasjon]: (skjemaState: SkjemaState) => {
-        if (skjemaState.dinSituasjon?.verdi === DinSituasjon.ALDRI_HATT_JOBB) {
+        if (skjemaState.dinSituasjon === DinSituasjon.ALDRI_HATT_JOBB) {
             return {
                 neste: SkjemaSide.Utdanning,
                 forrige: undefined,
@@ -24,11 +24,11 @@ const TILSTANDER: NavigeringsTilstandsMaskin<StandardSkjemaSide> = {
     [SkjemaSide.Utdanning]: (skjemaState: SkjemaState) => {
         return {
             neste:
-                skjemaState.utdanning?.verdi === Utdanningsnivaa.INGEN_UTDANNING
+                skjemaState.utdanning === Utdanningsnivaa.INGEN_UTDANNING
                     ? SkjemaSide.Helseproblemer
                     : SkjemaSide.GodkjentUtdanning,
             forrige:
-                skjemaState.dinSituasjon?.verdi === DinSituasjon.ALDRI_HATT_JOBB
+                skjemaState.dinSituasjon === DinSituasjon.ALDRI_HATT_JOBB
                     ? SkjemaSide.DinSituasjon
                     : SkjemaSide.SisteJobb,
         };
@@ -49,7 +49,7 @@ const TILSTANDER: NavigeringsTilstandsMaskin<StandardSkjemaSide> = {
         return {
             neste: SkjemaSide.AndreProblemer,
             forrige:
-                skjemaState.utdanning?.verdi === Utdanningsnivaa.INGEN_UTDANNING
+                skjemaState.utdanning === Utdanningsnivaa.INGEN_UTDANNING
                     ? SkjemaSide.Utdanning
                     : SkjemaSide.BestaattUtdanning,
         };

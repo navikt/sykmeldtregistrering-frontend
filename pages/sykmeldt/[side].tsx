@@ -49,25 +49,25 @@ const lagSiderMap = (skjemaState: SkjemaState, dispatch: Dispatch<SkjemaAction>)
         [SkjemaSide.Utdanning]: (
             <Utdanning
                 onChange={(value: any) => dispatch({ type: SkjemaSide.Utdanning, value })}
-                valgt={skjemaState.utdanning?.verdi}
+                valgt={skjemaState.utdanning}
             />
         ),
         [SkjemaSide.GodkjentUtdanning]: (
             <UtdanningGodkjent
                 onChange={(value: any) => dispatch({ type: SkjemaSide.GodkjentUtdanning, value })}
-                valgt={skjemaState.utdanningGodkjent?.verdi}
+                valgt={skjemaState.utdanningGodkjent}
             />
         ),
         [SkjemaSide.BestaattUtdanning]: (
             <BestattUtdanning
                 onChange={(value: any) => dispatch({ type: SkjemaSide.BestaattUtdanning, value })}
-                valgt={skjemaState.utdanningBestatt?.verdi}
+                valgt={skjemaState.utdanningBestatt}
             />
         ),
         [SkjemaSide.AndreHensyn]: (
             <AndreHensyn
                 onChange={(value: any) => dispatch({ type: SkjemaSide.AndreProblemer, value })}
-                valgt={skjemaState.andreForhold?.verdi}
+                valgt={skjemaState.andreForhold}
             />
         ),
         [SkjemaSide.Oppsummering]: <Oppsummering {...skjemaState} skjemaPrefix={'/sykmeldt/'} />,

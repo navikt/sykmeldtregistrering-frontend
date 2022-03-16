@@ -18,11 +18,7 @@ const BestattUtdanning = (props: SkjemaKomponentProps<JaEllerNei>) => {
             </Heading>
 
             <form className="mbl">
-                <RadioGruppe
-                    valg={valg}
-                    onSelect={(val) => onChange({ verdi: val, tekst: tekst(val) })}
-                    valgt={valgt}
-                />
+                <RadioGruppe valg={valg} onSelect={(val) => onChange(val)} valgt={valgt} />
             </form>
         </>
     );

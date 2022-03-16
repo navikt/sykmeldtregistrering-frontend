@@ -6,8 +6,8 @@ import { Utdanningsnivaa } from '../model/sporsmal';
 const TILSTANDER: NavigeringsTilstandsMaskin<SykmeldtSkjemaSide> = {
     [SkjemaSide.SykmeldtFremtidigSituasjon]: (state: SkjemaState) => {
         if (
-            state.fremtidigSituasjon?.verdi &&
-            [FremtidigSituasjon.NY_ARBEIDSGIVER, FremtidigSituasjon.USIKKER].includes(state.fremtidigSituasjon!.verdi)
+            state.fremtidigSituasjon &&
+            [FremtidigSituasjon.NY_ARBEIDSGIVER, FremtidigSituasjon.USIKKER].includes(state.fremtidigSituasjon)
         ) {
             return {
                 neste: SkjemaSide.Utdanning,
@@ -15,7 +15,7 @@ const TILSTANDER: NavigeringsTilstandsMaskin<SykmeldtSkjemaSide> = {
             };
         }
 
-        if (state.fremtidigSituasjon?.verdi === FremtidigSituasjon.INGEN_PASSER) {
+        if (state.fremtidigSituasjon === FremtidigSituasjon.INGEN_PASSER) {
             return {
                 neste: SkjemaSide.Oppsummering,
                 forrige: undefined,
@@ -30,7 +30,7 @@ const TILSTANDER: NavigeringsTilstandsMaskin<SykmeldtSkjemaSide> = {
     [SkjemaSide.Utdanning]: (skjemaState: SkjemaState) => {
         return {
             neste:
-                skjemaState.utdanning?.verdi === Utdanningsnivaa.INGEN_UTDANNING
+                skjemaState.utdanning === Utdanningsnivaa.INGEN_UTDANNING
                     ? SkjemaSide.AndreHensyn
                     : SkjemaSide.GodkjentUtdanning,
             forrige: SkjemaSide.SykmeldtFremtidigSituasjon,
@@ -52,13 +52,13 @@ const TILSTANDER: NavigeringsTilstandsMaskin<SykmeldtSkjemaSide> = {
         return {
             neste: SkjemaSide.Oppsummering,
             forrige:
-                skjemaState.utdanning?.verdi === Utdanningsnivaa.INGEN_UTDANNING
+                skjemaState.utdanning === Utdanningsnivaa.INGEN_UTDANNING
                     ? SkjemaSide.Utdanning
                     : SkjemaSide.BestaattUtdanning,
         };
     },
     [SkjemaSide.TilbakeTilJobb]: (state: SkjemaState) => {
-        if (state.tilbakeIArbeid?.verdi === TilbakeTilJobbValg.JA_FULL_STILLING) {
+        if (state.tilbakeIArbeid === TilbakeTilJobbValg.JA_FULL_STILLING) {
             return {
                 neste: SkjemaSide.SkalTilbakeTilJobb,
                 forrige: SkjemaSide.SykmeldtFremtidigSituasjon,
@@ -70,7 +70,7 @@ const TILSTANDER: NavigeringsTilstandsMaskin<SykmeldtSkjemaSide> = {
         };
     },
     [SkjemaSide.Oppsummering]: (state: SkjemaState) => {
-        if (state.fremtidigSituasjon?.verdi === FremtidigSituasjon.INGEN_PASSER) {
+        if (state.fremtidigSituasjon === FremtidigSituasjon.INGEN_PASSER) {
             return {
                 forrige: SkjemaSide.SykmeldtFremtidigSituasjon,
                 neste: SkjemaSide.FullforRegistrering,

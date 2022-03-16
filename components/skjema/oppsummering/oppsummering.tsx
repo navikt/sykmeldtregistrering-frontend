@@ -1,11 +1,10 @@
-//import lagHentTekstForSprak, { Tekster } from '../../../lib/lag-hent-tekst-for-sprak';
-//import useSprak from '../../../hooks/useSprak';
 import { GuidePanel, Heading, Ingress, Link, Table } from '@navikt/ds-react';
 import OppsummeringSvg from './oppsummering-svg';
 import lagHentTekstForSprak, { Tekster } from '../../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../../hooks/useSprak';
 import { SkjemaSide, SkjemaState } from '../../../model/skjema';
 import NextLink from 'next/link';
+import { hentTekst } from '../../../model/sporsmal';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -46,70 +45,70 @@ const Oppsummering = (props: OppsummeringProps) => {
                         {props.dinSituasjon && (
                             <Rad
                                 radTittel={tekst('situasjon')}
-                                svaralternativ={props.dinSituasjon.tekst}
+                                svaralternativ={hentTekst(sprak, props.dinSituasjon)}
                                 url={sideUrl(SkjemaSide.DinSituasjon)}
                             />
                         )}
                         {props.sisteStilling && (
                             <Rad
                                 radTittel={tekst('sisteStilling')}
-                                svaralternativ={props.sisteStilling.tekst}
+                                svaralternativ={hentTekst(sprak, props.sisteStilling)}
                                 url={sideUrl(SkjemaSide.SisteJobb)}
                             />
                         )}
                         {props.fremtidigSituasjon && (
                             <Rad
                                 radTittel={tekst('sykmeldtFremtidigSituasjon')}
-                                svaralternativ={props.fremtidigSituasjon.tekst}
+                                svaralternativ={hentTekst(sprak, props.fremtidigSituasjon)}
                                 url={sideUrl(SkjemaSide.SykmeldtFremtidigSituasjon)}
                             />
                         )}
                         {props.tilbakeIArbeid && (
                             <Rad
                                 radTittel={tekst('tilbakeTilJobb')}
-                                svaralternativ={props.tilbakeIArbeid.tekst}
+                                svaralternativ={hentTekst(sprak, props.tilbakeIArbeid)}
                                 url={sideUrl(SkjemaSide.TilbakeTilJobb)}
                             />
                         )}
                         {props.utdanning && (
                             <Rad
                                 radTittel={tekst('hoyesteFullforteUtdanning')}
-                                svaralternativ={props.utdanning.tekst}
+                                svaralternativ={hentTekst(sprak, props.utdanning)}
                                 url={sideUrl(SkjemaSide.Utdanning)}
                             />
                         )}
                         {props.utdanningGodkjent && (
                             <Rad
                                 radTittel={tekst('utdanningGodkjent')}
-                                svaralternativ={props.utdanningGodkjent.tekst}
+                                svaralternativ={hentTekst(sprak, props.utdanningGodkjent)}
                                 url={sideUrl(SkjemaSide.GodkjentUtdanning)}
                             />
                         )}
                         {props.utdanningBestatt && (
                             <Rad
                                 radTittel={tekst('utdanningBestaatt')}
-                                svaralternativ={props.utdanningBestatt.tekst}
+                                svaralternativ={hentTekst(sprak, props.utdanningBestatt)}
                                 url={sideUrl(SkjemaSide.BestaattUtdanning)}
                             />
                         )}
                         {props.helseHinder && (
                             <Rad
                                 radTittel={tekst('helseproblemer')}
-                                svaralternativ={props.helseHinder.tekst}
+                                svaralternativ={hentTekst(sprak, props.helseHinder)}
                                 url={sideUrl(SkjemaSide.Helseproblemer)}
                             />
                         )}
                         {props.andreForhold && props.skjemaPrefix === '/sykmeldt/' && (
                             <Rad
                                 radTittel={tekst('andreHensyn')}
-                                svaralternativ={props.andreForhold.tekst}
+                                svaralternativ={hentTekst(sprak, props.andreForhold)}
                                 url={sideUrl(SkjemaSide.AndreHensyn)}
                             />
                         )}
                         {props.andreForhold && props.skjemaPrefix !== '/sykmeldt/' && (
                             <Rad
                                 radTittel={tekst('andreProblemer')}
-                                svaralternativ={props.andreForhold.tekst}
+                                svaralternativ={hentTekst(sprak, props.andreForhold)}
                                 url={sideUrl(SkjemaSide.AndreProblemer)}
                             />
                         )}

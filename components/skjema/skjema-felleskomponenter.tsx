@@ -1,6 +1,4 @@
-import { SkjemaVerdi } from '../../model/skjema';
-
 export interface SkjemaKomponentProps<T> {
-    onChange: (value: T | SkjemaVerdi<T>) => void;
+    onChange: (value: T) => void;
     valgt?: T;
 }

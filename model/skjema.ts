@@ -47,16 +47,14 @@ export type Navigering<T extends SkjemaSide> = {
 
 export type NavigeringsTilstandsMaskin<T extends SkjemaSide> = Record<T, (state: SkjemaState) => Navigering<T>>;
 
-export type SkjemaVerdi<T> = { verdi: T; tekst: string };
-
 export interface SkjemaState {
-    dinSituasjon?: SkjemaVerdi<DinSituasjon>;
-    utdanning?: SkjemaVerdi<Utdanningsnivaa>;
-    utdanningGodkjent?: SkjemaVerdi<UtdanningGodkjentValg>;
-    utdanningBestatt?: SkjemaVerdi<JaEllerNei>;
-    andreForhold?: SkjemaVerdi<JaEllerNei>;
-    sisteStilling?: SkjemaVerdi<string>;
-    helseHinder?: SkjemaVerdi<JaEllerNei>;
-    fremtidigSituasjon?: SkjemaVerdi<FremtidigSituasjon>;
-    tilbakeIArbeid?: SkjemaVerdi<TilbakeTilJobbValg>;
+    dinSituasjon?: DinSituasjon;
+    utdanning?: Utdanningsnivaa;
+    utdanningGodkjent?: UtdanningGodkjentValg;
+    utdanningBestatt?: JaEllerNei;
+    andreForhold?: JaEllerNei;
+    sisteStilling?: string;
+    helseHinder?: JaEllerNei;
+    fremtidigSituasjon?: FremtidigSituasjon;
+    tilbakeIArbeid?: TilbakeTilJobbValg;
 }

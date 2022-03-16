@@ -1,21 +1,8 @@
-import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../hooks/useSprak';
 import { Heading } from '@navikt/ds-react';
 import RadioGruppe from '../radio-gruppe/radio-gruppe';
 import { SkjemaKomponentProps } from './skjema-felleskomponenter';
 import { hentTekst, Utdanningsnivaa } from '../../model/sporsmal';
-
-const TEKSTER: Tekster<string> = {
-    nb: {
-        tittel: 'Hva er din høyeste fullførte utdanning?',
-        INGEN_UTDANNING: 'Ingen utdanning',
-        GRUNNSKOLE: 'Grunnskole',
-        VIDEREGAENDE_GRUNNUTDANNING: 'Videregående grunnutdanning (1 til 2 år)',
-        VIDEREGAENDE_FAGBREV_SVENNEBREV: 'Videregående, fagbrev eller svennebrev (3 år eller mer)',
-        HOYERE_UTDANNING_1_TIL_4: 'Høyere utdanning (1 til 4 år)',
-        HOYERE_UTDANNING_5_ELLER_MER: 'Høyere utdanning (5 år eller mer)',
-    },
-};
 
 const Utdanning = (props: SkjemaKomponentProps<Utdanningsnivaa>) => {
     const { onChange, valgt } = props;
@@ -47,11 +34,7 @@ const Utdanning = (props: SkjemaKomponentProps<Utdanningsnivaa>) => {
             </Heading>
 
             <form className="mbl">
-                <RadioGruppe
-                    valg={valg}
-                    onSelect={(val) => onChange({ verdi: val, tekst: tekst(val) })}
-                    valgt={valgt}
-                />
+                <RadioGruppe valg={valg} onSelect={(val) => onChange(val)} valgt={valgt} />
             </form>
         </>
     );

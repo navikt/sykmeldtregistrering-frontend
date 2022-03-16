@@ -51,7 +51,7 @@ const FullforRegistrering = (props: FullforProps) => {
         try {
             const skjema = Object.keys(skjemaState).reduce(
                 (resultat, key) => {
-                    const svarKey = (skjemaState as any)[key]?.verdi;
+                    const svarKey = (skjemaState as any)[key];
 
                     resultat.besvarelse[key] = svarKey;
                     resultat.teksterForBesvarelse.push({
