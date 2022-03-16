@@ -2,7 +2,7 @@ import useSprak from '../../hooks/useSprak';
 import { Heading } from '@navikt/ds-react';
 import RadioGruppe from '../radio-gruppe/radio-gruppe';
 import { SkjemaKomponentProps } from './skjema-felleskomponenter';
-import { hentTekst, UtdanningGodkjentValg } from '../../model/sporsmal';
+import { hentTekst, SporsmalId, UtdanningGodkjentValg } from '../../model/sporsmal';
 
 const UtdanningGodkjent = (props: SkjemaKomponentProps<UtdanningGodkjentValg>) => {
     const { onChange, valgt } = props;
@@ -19,7 +19,7 @@ const UtdanningGodkjent = (props: SkjemaKomponentProps<UtdanningGodkjentValg>) =
     return (
         <>
             <Heading spacing size={'large'} level="1">
-                {tekst('tittel')}
+                {tekst(SporsmalId.utdanningGodkjent)}
             </Heading>
 
             <form className="mbl">

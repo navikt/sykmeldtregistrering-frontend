@@ -3,6 +3,7 @@ import { SkjemaKomponentProps } from './skjema-felleskomponenter';
 import useSprak from '../../hooks/useSprak';
 import { Heading } from '@navikt/ds-react';
 import RadioGruppe from '../radio-gruppe/radio-gruppe';
+import { SporsmalId } from '../../model/sporsmal';
 
 export enum TilbakeTilJobbValg {
     JA_FULL_STILLING = 'fullStilling',
@@ -36,7 +37,7 @@ const TilbakeTilJobb = (props: SkjemaKomponentProps<TilbakeTilJobbValg>) => {
     return (
         <>
             <Heading spacing size={'large'} level="1">
-                {tekst('tittel')}
+                {tekst(SporsmalId.tilbakeIArbeid)}
             </Heading>
 
             <form className="mbl">

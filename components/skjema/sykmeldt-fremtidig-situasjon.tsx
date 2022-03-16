@@ -2,7 +2,7 @@ import { SkjemaKomponentProps } from './skjema-felleskomponenter';
 import useSprak from '../../hooks/useSprak';
 import { Heading } from '@navikt/ds-react';
 import RadioGruppe from '../radio-gruppe/radio-gruppe';
-import { FremtidigSituasjon, hentTekst } from '../../model/sporsmal';
+import { FremtidigSituasjon, hentTekst, SporsmalId } from '../../model/sporsmal';
 
 const SykmeldtFremtidigSituasjon = (props: SkjemaKomponentProps<FremtidigSituasjon>) => {
     const sprak = useSprak();
@@ -21,7 +21,7 @@ const SykmeldtFremtidigSituasjon = (props: SkjemaKomponentProps<FremtidigSituasj
     return (
         <>
             <Heading spacing size={'large'} level="1">
-                {tekst('tittel')}
+                {tekst(SporsmalId.fremtidigSituasjon)}
             </Heading>
 
             <form className="mbl">
