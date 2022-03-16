@@ -1,10 +1,10 @@
-import { Jobbsituasjon } from '../components/skjema/din-situasjon';
 import { Utdanningsnivaa } from '../components/skjema/utdanning';
 import { Navigering, NavigeringsTilstandsMaskin, SkjemaSide, SkjemaState, StandardSkjemaSide } from '../model/skjema';
+import { DinSituasjon } from '../model/sporsmal';
 
 const TILSTANDER: NavigeringsTilstandsMaskin<StandardSkjemaSide> = {
     [SkjemaSide.DinSituasjon]: (skjemaState: SkjemaState) => {
-        if (skjemaState.dinSituasjon?.verdi === Jobbsituasjon.ALDRI_HATT_JOBB) {
+        if (skjemaState.dinSituasjon?.verdi === DinSituasjon.ALDRI_HATT_JOBB) {
             return {
                 neste: SkjemaSide.Utdanning,
                 forrige: undefined,
@@ -29,7 +29,7 @@ const TILSTANDER: NavigeringsTilstandsMaskin<StandardSkjemaSide> = {
                     ? SkjemaSide.Helseproblemer
                     : SkjemaSide.GodkjentUtdanning,
             forrige:
-                skjemaState.dinSituasjon?.verdi === Jobbsituasjon.ALDRI_HATT_JOBB
+                skjemaState.dinSituasjon?.verdi === DinSituasjon.ALDRI_HATT_JOBB
                     ? SkjemaSide.DinSituasjon
                     : SkjemaSide.SisteJobb,
         };

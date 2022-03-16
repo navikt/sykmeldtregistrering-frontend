@@ -1,6 +1,7 @@
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import DinSituasjon, { Jobbsituasjon } from '../../components/skjema/din-situasjon';
+import DinSituasjon from '../../components/skjema/din-situasjon';
+import { DinSituasjon as Jobbsituasjon } from '../../model/sporsmal';
 import styles from '../../styles/skjema.module.css';
 import SisteJobb from '../../components/skjema/siste-jobb/siste-jobb';
 import Utdanning, { Utdanningsnivaa } from '../../components/skjema/utdanning';

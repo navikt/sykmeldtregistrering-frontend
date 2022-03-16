@@ -1,8 +1,8 @@
-import { Jobbsituasjon } from '../components/skjema/din-situasjon';
 import { Utdanningsnivaa } from '../components/skjema/utdanning';
 import { GodkjentUtdanningValg } from '../components/skjema/utdanning-godkjent';
 import { FremtidigSituasjon } from '../components/skjema/sykmeldt-fremtidig-situasjon';
 import { TilbakeTilJobbValg } from '../components/skjema/tilbake-til-jobb';
+import { DinSituasjon } from './sporsmal';
 
 export enum SkjemaSide {
     DinSituasjon = '0',
@@ -52,7 +52,7 @@ export type NavigeringsTilstandsMaskin<T extends SkjemaSide> = Record<T, (state:
 export type SkjemaVerdi<T> = { verdi: T; tekst: string };
 
 export interface SkjemaState {
-    dinSituasjon?: SkjemaVerdi<Jobbsituasjon>;
+    dinSituasjon?: SkjemaVerdi<DinSituasjon>;
     utdanning?: SkjemaVerdi<Utdanningsnivaa>;
     utdanningGodkjent?: SkjemaVerdi<GodkjentUtdanningValg>;
     utdanningBestatt?: SkjemaVerdi<JaEllerNei>;

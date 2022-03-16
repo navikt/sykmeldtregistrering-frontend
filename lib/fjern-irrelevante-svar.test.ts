@@ -1,25 +1,25 @@
 import { JaEllerNei, SkjemaState } from '../model/skjema';
-import { Jobbsituasjon } from '../components/skjema/din-situasjon';
 import { oppdaterDinSituasjon, oppdaterUtdanning } from './skjema-state';
 import { Utdanningsnivaa } from '../components/skjema/utdanning';
 import { GodkjentUtdanningValg } from '../components/skjema/utdanning-godkjent';
+import { DinSituasjon } from '../model/sporsmal';
 
 describe('Oppdatering av skjemastate', () => {
     test('setter sisteJobb til undefined hvis man endrer dinSituasjon til ALDRIJOBBET', () => {
         const state: SkjemaState = {
-            dinSituasjon: { verdi: Jobbsituasjon.MISTET_JOBBEN, tekst: '' },
+            dinSituasjon: { verdi: DinSituasjon.MISTET_JOBBEN, tekst: '' },
             sisteStilling: { verdi: 'Kokk', tekst: 'Kokk' },
         };
-        const oppdatertState = oppdaterDinSituasjon(state, { verdi: Jobbsituasjon.ALDRI_HATT_JOBB, tekst: '' });
+        const oppdatertState = oppdaterDinSituasjon(state, { verdi: DinSituasjon.ALDRI_HATT_JOBB, tekst: '' });
 
         expect(oppdatertState.sisteStilling).toBe(undefined);
     });
     test('lar sisteJobb-verdien bli stående hvis man endrer dinSituasjon til noe annet enn ALDRIJOBBET', () => {
         const state: SkjemaState = {
-            dinSituasjon: { verdi: Jobbsituasjon.MISTET_JOBBEN, tekst: '' },
+            dinSituasjon: { verdi: DinSituasjon.MISTET_JOBBEN, tekst: '' },
             sisteStilling: { verdi: 'Kokk', tekst: 'Kokk' },
         };
-        const oppdatertState = oppdaterDinSituasjon(state, { verdi: Jobbsituasjon.DELTIDSJOBB_VIL_MER, tekst: '' });
+        const oppdatertState = oppdaterDinSituasjon(state, { verdi: DinSituasjon.DELTIDSJOBB_VIL_MER, tekst: '' });
 
         expect(oppdatertState.sisteStilling).toEqual({ verdi: 'Kokk', tekst: 'Kokk' });
     });

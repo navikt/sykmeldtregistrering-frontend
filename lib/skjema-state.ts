@@ -1,14 +1,14 @@
 import { JaEllerNei, SkjemaSide, SkjemaState, SkjemaVerdi } from '../model/skjema';
-import { Jobbsituasjon } from '../components/skjema/din-situasjon';
 import { Utdanningsnivaa } from '../components/skjema/utdanning';
 import { GodkjentUtdanningValg } from '../components/skjema/utdanning-godkjent';
 import { Reducer } from 'react';
 import { FremtidigSituasjon } from '../components/skjema/sykmeldt-fremtidig-situasjon';
 import { TilbakeTilJobbValg } from '../components/skjema/tilbake-til-jobb';
+import { DinSituasjon } from '../model/sporsmal';
 
 export type SkjemaReducer = Reducer<SkjemaState, SkjemaAction>;
 export type SkjemaAction =
-    | { type: SkjemaSide.DinSituasjon; value: SkjemaVerdi<Jobbsituasjon> }
+    | { type: SkjemaSide.DinSituasjon; value: SkjemaVerdi<DinSituasjon> }
     | { type: SkjemaSide.Utdanning; value: SkjemaVerdi<Utdanningsnivaa> }
     | { type: SkjemaSide.GodkjentUtdanning; value: SkjemaVerdi<GodkjentUtdanningValg> }
     | { type: SkjemaSide.BestaattUtdanning; value: SkjemaVerdi<JaEllerNei> }
@@ -70,8 +70,8 @@ export function skjemaReducer(state: SkjemaState, action: SkjemaAction): SkjemaS
     return state;
 }
 
-export const oppdaterDinSituasjon = (skjemaState: SkjemaState, dinSituasjon: SkjemaVerdi<Jobbsituasjon>) => {
-    if (dinSituasjon.verdi === Jobbsituasjon.ALDRI_HATT_JOBB) {
+export const oppdaterDinSituasjon = (skjemaState: SkjemaState, dinSituasjon: SkjemaVerdi<DinSituasjon>) => {
+    if (dinSituasjon.verdi === DinSituasjon.ALDRI_HATT_JOBB) {
         return {
             ...skjemaState,
             dinSituasjon: dinSituasjon,
