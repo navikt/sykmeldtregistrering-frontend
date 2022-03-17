@@ -4,6 +4,7 @@ import useSprak from '../../../hooks/useSprak';
 import { useEffect, useState } from 'react';
 import StillingsSok from './stillings-sok';
 import { SkjemaKomponentProps } from '../skjema-felleskomponenter';
+import { SisteStilling } from '../../../model/skjema'
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -17,20 +18,26 @@ const TEKSTER: Tekster<string> = {
     },
 };
 
-const SisteJobb = (props: SkjemaKomponentProps<string>) => {
+const tomStilling: SisteStilling = {
+    label: '',
+    konseptId: -1,
+    styrk08: ['-1']
+}
+
+const SisteJobb = (props: SkjemaKomponentProps<SisteStilling>) => {
     const { onChange } = props;
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
     const [visStillingsSok, settVisStillingsSok] = useState<boolean>(false);
     const onCloseStillingssok = (value?: any) => {
         if (value) {
-            onChange(value.styrk08[0]);
+            onChange(value);
         }
         settVisStillingsSok(false);
     };
 
     useEffect(() => {
         if (!props.valgt) {
-            onChange('-1');
+            onChange(tomStilling);
         }
     }, [onChange]);
 
@@ -50,7 +57,7 @@ const SisteJobb = (props: SkjemaKomponentProps<string>) => {
                 <StillingsSok onClose={onCloseStillingssok} />
             ) : (
                 <div>
-                    {props.valgt}
+                    {props.valgt?.label}
                     <Button variant="tertiary" onClick={() => settVisStillingsSok(true)}>
                         Endre
                     </Button>

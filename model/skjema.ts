@@ -46,6 +46,12 @@ export type SykmeldtSkjemaSide =
     | SkjemaSide.SkalTilbakeTilJobb
     | SkjemaSide.FullforRegistrering;
 
+export type SisteStilling = {
+    label: string;
+    konseptId: Number;
+    styrk08: string[];
+}
+
 export type Navigering<T extends SkjemaSide> = {
     neste?: T;
     forrige?: T;
@@ -59,7 +65,7 @@ export interface SkjemaState {
     utdanningGodkjent?: UtdanningGodkjentValg;
     utdanningBestatt?: JaEllerNei;
     andreForhold?: JaEllerNei;
-    sisteStilling?: string;
+    sisteStilling?: SisteStilling;
     helseHinder?: JaEllerNei;
     fremtidigSituasjon?: FremtidigSituasjon;
     tilbakeIArbeid?: TilbakeTilJobbValg;
