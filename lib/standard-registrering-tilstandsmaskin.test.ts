@@ -2,6 +2,12 @@ import { beregnNavigering } from './standard-registrering-tilstandsmaskin';
 import { SkjemaSide } from '../model/skjema';
 import { DinSituasjon, Utdanningsnivaa } from '../model/sporsmal';
 
+const sisteStilling = {
+    label: 'Klovn kommunal sektor',
+    styrk08: ['5411'],
+    konseptId: 45779,
+};
+
 describe('Standard registrering tilstandsmaskin', () => {
     describe('din situasjon', () => {
         it('returnerer SisteJobb som neste når mistet jobb', () => {
@@ -21,14 +27,14 @@ describe('Standard registrering tilstandsmaskin', () => {
         it('returnerer Utdanning som neste side', () => {
             const state = beregnNavigering(SkjemaSide.SisteJobb, {
                 dinSituasjon: DinSituasjon.MISTET_JOBBEN,
-                sisteStilling: 'Kokk',
+                sisteStilling: sisteStilling,
             });
             expect(state.neste).toBe(SkjemaSide.Utdanning);
         });
         it('returnerer Din situasjon som forrige side', () => {
             const state = beregnNavigering(SkjemaSide.SisteJobb, {
                 dinSituasjon: DinSituasjon.MISTET_JOBBEN,
-                sisteStilling: 'Kokk',
+                sisteStilling: sisteStilling,
             });
             expect(state.forrige).toBe(SkjemaSide.DinSituasjon);
         });
@@ -37,7 +43,7 @@ describe('Standard registrering tilstandsmaskin', () => {
         it('returnerer GodkjentUtdanning som neste side når har høyere utdanning', () => {
             const state = beregnNavigering(SkjemaSide.Utdanning, {
                 dinSituasjon: DinSituasjon.MISTET_JOBBEN,
-                sisteStilling: 'Kokk',
+                sisteStilling: sisteStilling,
                 utdanning: Utdanningsnivaa.HOYERE_UTDANNING_5_ELLER_MER,
             });
             expect(state.neste).toBe(SkjemaSide.GodkjentUtdanning);
@@ -45,7 +51,7 @@ describe('Standard registrering tilstandsmaskin', () => {
         it('returnerer Helseproblemer som neste side når ingen utdanning', () => {
             const state = beregnNavigering(SkjemaSide.Utdanning, {
                 dinSituasjon: DinSituasjon.MISTET_JOBBEN,
-                sisteStilling: 'Kokk',
+                sisteStilling: sisteStilling,
                 utdanning: Utdanningsnivaa.INGEN_UTDANNING,
             });
             expect(state.neste).toBe(SkjemaSide.Helseproblemer);
@@ -53,7 +59,7 @@ describe('Standard registrering tilstandsmaskin', () => {
         it('returnerer DinSituasjon som forrige side når aldri jobbet', () => {
             const state = beregnNavigering(SkjemaSide.Utdanning, {
                 dinSituasjon: DinSituasjon.ALDRI_HATT_JOBB,
-                sisteStilling: 'Kokk',
+                sisteStilling: sisteStilling,
                 utdanning: Utdanningsnivaa.HOYERE_UTDANNING_5_ELLER_MER,
             });
             expect(state.forrige).toBe(SkjemaSide.DinSituasjon);
@@ -61,7 +67,7 @@ describe('Standard registrering tilstandsmaskin', () => {
         it('returnerer SisteJobb som forrige side når mistet jobb', () => {
             const state = beregnNavigering(SkjemaSide.Utdanning, {
                 dinSituasjon: DinSituasjon.MISTET_JOBBEN,
-                sisteStilling: 'Kokk',
+                sisteStilling: sisteStilling,
                 utdanning: Utdanningsnivaa.HOYERE_UTDANNING_5_ELLER_MER,
             });
             expect(state.forrige).toBe(SkjemaSide.SisteJobb);

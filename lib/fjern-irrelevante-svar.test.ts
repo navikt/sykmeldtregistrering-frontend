@@ -2,11 +2,17 @@ import { SkjemaState } from '../model/skjema';
 import { oppdaterDinSituasjon, oppdaterUtdanning } from './skjema-state';
 import { DinSituasjon, UtdanningGodkjentValg, JaEllerNei, Utdanningsnivaa } from '../model/sporsmal';
 
+const sisteStilling = {
+    label: 'Klovn kommunal sektor',
+    styrk08: ['5411'],
+    konseptId: 45779,
+};
+
 describe('Oppdatering av skjemastate', () => {
     test('setter sisteJobb til undefined hvis man endrer dinSituasjon til ALDRIJOBBET', () => {
         const state: SkjemaState = {
             dinSituasjon: DinSituasjon.MISTET_JOBBEN,
-            sisteStilling: 'Kokk',
+            sisteStilling: sisteStilling,
         };
         const oppdatertState = oppdaterDinSituasjon(state, DinSituasjon.ALDRI_HATT_JOBB);
 
@@ -15,11 +21,11 @@ describe('Oppdatering av skjemastate', () => {
     test('lar sisteJobb-verdien bli stående hvis man endrer dinSituasjon til noe annet enn ALDRIJOBBET', () => {
         const state: SkjemaState = {
             dinSituasjon: DinSituasjon.MISTET_JOBBEN,
-            sisteStilling: 'Kokk',
+            sisteStilling: sisteStilling,
         };
         const oppdatertState = oppdaterDinSituasjon(state, DinSituasjon.DELTIDSJOBB_VIL_MER);
 
-        expect(oppdatertState.sisteStilling).toEqual('Kokk');
+        expect(oppdatertState.sisteStilling).toEqual(sisteStilling);
     });
     test('setter godkjentUtdanning og bestaattUtdanning til undefined hvis man endrer utdanning til INGEN', () => {
         const state: SkjemaState = {
