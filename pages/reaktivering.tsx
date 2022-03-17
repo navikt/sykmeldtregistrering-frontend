@@ -1,6 +1,8 @@
 import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../hooks/useSprak';
 import { BodyShort, Button, ContentContainer, GuidePanel, Heading } from '@navikt/ds-react';
+import { fetcher as api } from '../lib/api-utils';
+import { useRouter } from 'next/router';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -16,6 +18,16 @@ const TEKSTER: Tekster<string> = {
 const Reaktivering = () => {
     const sprak = useSprak();
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
+    const router = useRouter();
+
+    const reaktiverBruker = async () => {
+        try {
+            await api('/api/reaktivering', { method: 'post', body: JSON.stringify({}) });
+            return router.push('/kvittering-reaktivering');
+        } catch (e) {
+            console.error(e);
+        }
+    };
 
     return (
         <ContentContainer>
@@ -24,7 +36,7 @@ const Reaktivering = () => {
             </Heading>
             <GuidePanel>{tekst('maaSokePaaNytt')}</GuidePanel>
             <BodyShort>{tekst('vilDuRegistreres')}</BodyShort>
-            <Button>{tekst('ja')}</Button>
+            <Button onClick={reaktiverBruker}>{tekst('ja')}</Button>
             <Button variant={'tertiary'}>{tekst('avbryt')}</Button>
         </ContentContainer>
     );
