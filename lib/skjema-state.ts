@@ -1,4 +1,4 @@
-import { SkjemaSide, SkjemaState } from '../model/skjema';
+import {SisteStilling, SkjemaSide, SkjemaState} from '../model/skjema';
 import { Reducer } from 'react';
 import { TilbakeTilJobbValg } from '../components/skjema/tilbake-til-jobb';
 import {
@@ -17,7 +17,7 @@ export type SkjemaAction =
     | { type: SkjemaSide.BestaattUtdanning; value: JaEllerNei }
     | { type: SkjemaSide.Helseproblemer; value: JaEllerNei }
     | { type: SkjemaSide.AndreProblemer; value: JaEllerNei }
-    | { type: SkjemaSide.SisteJobb; value: string }
+    | { type: SkjemaSide.SisteJobb; value: SisteStilling }
     | { type: SkjemaSide.SykmeldtFremtidigSituasjon; value: FremtidigSituasjon }
     | { type: SkjemaSide.TilbakeTilJobb; value: TilbakeTilJobbValg };
 
