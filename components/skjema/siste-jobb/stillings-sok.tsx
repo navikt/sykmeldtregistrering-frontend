@@ -7,6 +7,8 @@ interface StillingsSokProps {
     onClose: (value?: any) => void;
 }
 
+const annenStilling = { konseptId: -1, label: 'Annen stilling', styrk08: ['-1'] };
+
 const StillingsSok = (props: StillingsSokProps) => {
     const { onClose } = props;
     const [resultat, setResultat] = useState([] as any[]);
@@ -18,7 +20,9 @@ const StillingsSok = (props: StillingsSokProps) => {
             const url = `${basePath}/api/yrke-med-styrk?yrke=${value}`;
             const response = await fetch(url);
             const json = await response.json();
-            setResultat(json.typeaheadYrkeList || []);
+            const typeaheadYrkeList = json.typeaheadYrkeList;
+            typeaheadYrkeList.push(annenStilling);
+            setResultat(typeaheadYrkeList || [annenStilling]);
         },
         [basePath, setResultat]
     );
