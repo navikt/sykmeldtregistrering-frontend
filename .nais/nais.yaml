@@ -53,6 +53,8 @@ spec:
       value: {{startRegistreringUrl}}
     - name: FULLFOR_REGISTRERING_URL
       value: {{fullforRegistreringUrl}}
+    - name: REAKTIVERING_URL
+      value: {{reaktiveringUrl}}
     - name: SISTE_ARBEIDSFORHOLD_URL
       value: {{sisteArbeidsforholdUrl}}
     - name: OPPRETT_OPPGAVE_URL
