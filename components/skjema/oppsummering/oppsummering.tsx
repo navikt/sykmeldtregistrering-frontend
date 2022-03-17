@@ -46,7 +46,9 @@ const Oppsummering = ({ skjemaState, skjemaPrefix }: OppsummeringProps) => {
                             svar && (
                                 <Rad
                                     radTittel={tekst(sporsmalId + 'radTittel')}
-                                    svaralternativ={hentTekst(sprak, svar)}
+                                    svaralternativ={
+                                        sporsmalId === SporsmalId.sisteStilling ? svar.label : hentTekst(sprak, svar)
+                                    }
                                     url={`${skjemaPrefix}${hentSkjemaside(sporsmalId as SporsmalId)}`}
                                 />
                             )
