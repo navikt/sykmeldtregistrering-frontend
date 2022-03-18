@@ -4,7 +4,7 @@ import useSprak from '../../../hooks/useSprak';
 import { useEffect, useState } from 'react';
 import StillingsSok from './stillings-sok';
 import { SkjemaKomponentProps } from '../skjema-felleskomponenter';
-import { SisteStilling } from '../../../model/skjema'
+import { SisteJobb } from '../../../model/skjema';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -18,13 +18,13 @@ const TEKSTER: Tekster<string> = {
     },
 };
 
-const tomStilling: SisteStilling = {
+const tomStilling: SisteJobb = {
     label: '',
     konseptId: -1,
-    styrk08: ['-1']
-}
+    styrk08: ['-1'],
+};
 
-const SisteJobb = (props: SkjemaKomponentProps<SisteStilling>) => {
+const SisteJobb = (props: SkjemaKomponentProps<SisteJobb> & { children?: JSX.Element }) => {
     const { onChange } = props;
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
     const [visStillingsSok, settVisStillingsSok] = useState<boolean>(false);
@@ -48,6 +48,8 @@ const SisteJobb = (props: SkjemaKomponentProps<SisteStilling>) => {
             </Heading>
             <BodyShort>{tekst('registrert')}</BodyShort>
             <BodyShort className="mbm">{tekst('feilOpplysninger')}</BodyShort>
+
+            {props.children}
 
             <Heading spacing size={'small'} level="2">
                 {tekst('stilling')}

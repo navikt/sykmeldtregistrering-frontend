@@ -42,38 +42,35 @@ interface FullforProps {
 }
 const FullforRegistrering = (props: FullforProps) => {
     const { skjemaState } = props;
-    const sprak = useSprak();
-    const tekst = lagHentTekstForSprak(TEKSTER, sprak);
+    const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
     const [checked, setChecked] = useState<boolean>(false);
     const router = useRouter();
 
     const fullforRegistrering = async () => {
         try {
-            const skjema = Object.keys(skjemaState).reduce(
-                (resultat, key) => {
-                    const svarKey = (skjemaState as any)[key];
+            const skjema = Object.keys(skjemaState)
+                .filter((key) => key !== 'sisteJobb')
+                .reduce(
+                    (resultat, key) => {
+                        const svarKey = (skjemaState as any)[key];
 
-                    resultat.besvarelse[key] = svarKey;
-                    resultat.teksterForBesvarelse.push({
-                        sporsmalId: key,
-                        sporsmal: hentTekst('nb', key),
-                        svar: hentTekst('nb', svarKey),
-                    });
-                    return resultat;
-                },
-                { besvarelse: {}, teksterForBesvarelse: [] } as {
-                    besvarelse: Record<string, string>;
-                    teksterForBesvarelse: { sporsmalId: string; sporsmal: string; svar: string }[];
-                }
-            );
+                        resultat.besvarelse[key] = svarKey;
+                        resultat.teksterForBesvarelse.push({
+                            sporsmalId: key,
+                            sporsmal: hentTekst('nb', key),
+                            svar: hentTekst('nb', svarKey),
+                        });
+                        return resultat;
+                    },
+                    { besvarelse: {}, teksterForBesvarelse: [] } as {
+                        besvarelse: Record<string, string>;
+                        teksterForBesvarelse: { sporsmalId: string; sporsmal: string; svar: string }[];
+                    }
+                );
 
             const body = {
                 besvarelse: skjema.besvarelse,
-                sisteStilling: {
-                    label: 'string',
-                    konseptId: 0,
-                    styrk08: 'string',
-                },
+                sisteStilling: skjemaState.sisteJobb,
                 teksterForBesvarelse: skjema.teksterForBesvarelse,
             };
 

@@ -1,4 +1,4 @@
-import {SisteStilling, SkjemaSide, SkjemaState} from '../model/skjema';
+import { SisteJobb, SkjemaSide, SkjemaState } from '../model/skjema';
 import { Reducer } from 'react';
 import { TilbakeTilJobbValg } from '../components/skjema/tilbake-til-jobb';
 import {
@@ -7,6 +7,7 @@ import {
     JaEllerNei,
     Utdanningsnivaa,
     FremtidigSituasjon,
+    SisteStillingValg,
 } from '../model/sporsmal';
 
 export type SkjemaReducer = Reducer<SkjemaState, SkjemaAction>;
@@ -17,7 +18,7 @@ export type SkjemaAction =
     | { type: SkjemaSide.BestaattUtdanning; value: JaEllerNei }
     | { type: SkjemaSide.Helseproblemer; value: JaEllerNei }
     | { type: SkjemaSide.AndreProblemer; value: JaEllerNei }
-    | { type: SkjemaSide.SisteJobb; value: SisteStilling }
+    | { type: SkjemaSide.SisteJobb; value: { sisteJobb: SisteJobb } | { sisteStilling: SisteStillingValg } }
     | { type: SkjemaSide.SykmeldtFremtidigSituasjon; value: FremtidigSituasjon }
     | { type: SkjemaSide.TilbakeTilJobb; value: TilbakeTilJobbValg };
 
@@ -32,7 +33,7 @@ export function skjemaReducer(state: SkjemaState, action: SkjemaAction): SkjemaS
         case SkjemaSide.SisteJobb: {
             return {
                 ...state,
-                sisteStilling: action.value,
+                ...action.value,
             };
         }
         case SkjemaSide.GodkjentUtdanning: {
@@ -78,7 +79,7 @@ export const oppdaterDinSituasjon = (skjemaState: SkjemaState, dinSituasjon: Din
         return {
             ...skjemaState,
             dinSituasjon: dinSituasjon,
-            sisteStilling: undefined,
+            sisteJobb: undefined,
         };
     }
     return {

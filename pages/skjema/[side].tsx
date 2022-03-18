@@ -16,10 +16,12 @@ import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-spra
 import useSprak from '../../hooks/useSprak';
 import Oppsummering from '../../components/skjema/oppsummering/oppsummering';
 import { beregnNavigering } from '../../lib/standard-registrering-tilstandsmaskin';
-import { SkjemaSide, SkjemaState, StandardSkjemaSide } from '../../model/skjema';
+import { SkjemaSide, SkjemaState, StandardSkjemaSide, visSisteStilling } from '../../model/skjema';
 import { SkjemaAction, skjemaReducer, SkjemaReducer } from '../../lib/skjema-state';
 import FullforRegistrering from '../../components/skjema/fullforRegistrering';
 import TilbakeKnapp from '../../components/skjema/tilbake-knapp';
+import SisteStilling from '../../components/skjema/siste-jobb/siste-stilling';
+import { SisteStillingValg } from '../../model/sporsmal';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -46,9 +48,16 @@ const lagSiderMap = (skjemaState: SkjemaState, dispatch: Dispatch<SkjemaAction>)
         ),
         [SkjemaSide.SisteJobb]: (
             <SisteJobb
-                onChange={(value) => dispatch({ type: SkjemaSide.SisteJobb, value: value })}
-                valgt={skjemaState.sisteStilling}
-            />
+                onChange={(value) => dispatch({ type: SkjemaSide.SisteJobb, value: { sisteJobb: value } })}
+                valgt={skjemaState.sisteJobb}
+            >
+                {visSisteStilling(skjemaState) ? (
+                    <SisteStilling
+                        onChange={(value) => dispatch({ type: SkjemaSide.SisteJobb, value: { sisteStilling: value } })}
+                        valgt={skjemaState.sisteStilling}
+                    />
+                ) : undefined}
+            </SisteJobb>
         ),
         [SkjemaSide.Utdanning]: (
             <Utdanning
@@ -90,8 +99,12 @@ const validerSkjemaForSide = (side: StandardSkjemaSide, skjemaState: SkjemaState
         switch (side) {
             case SkjemaSide.DinSituasjon:
                 return skjemaState.dinSituasjon;
-            case SkjemaSide.SisteJobb:
-                return skjemaState.sisteStilling;
+            case SkjemaSide.SisteJobb: {
+                if (visSisteStilling(skjemaState)) {
+                    return skjemaState.sisteStilling && skjemaState.sisteStilling !== SisteStillingValg.INGEN_SVAR;
+                }
+                return skjemaState.sisteJobb;
+            }
             case SkjemaSide.Utdanning:
                 return skjemaState.utdanning;
             case SkjemaSide.GodkjentUtdanning:

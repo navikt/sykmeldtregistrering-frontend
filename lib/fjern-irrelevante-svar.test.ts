@@ -12,20 +12,20 @@ describe('Oppdatering av skjemastate', () => {
     test('setter sisteJobb til undefined hvis man endrer dinSituasjon til ALDRIJOBBET', () => {
         const state: SkjemaState = {
             dinSituasjon: DinSituasjon.MISTET_JOBBEN,
-            sisteStilling: sisteStilling,
+            sisteJobb: sisteStilling,
         };
         const oppdatertState = oppdaterDinSituasjon(state, DinSituasjon.ALDRI_HATT_JOBB);
 
-        expect(oppdatertState.sisteStilling).toBe(undefined);
+        expect(oppdatertState.sisteJobb).toBe(undefined);
     });
     test('lar sisteJobb-verdien bli stående hvis man endrer dinSituasjon til noe annet enn ALDRIJOBBET', () => {
         const state: SkjemaState = {
             dinSituasjon: DinSituasjon.MISTET_JOBBEN,
-            sisteStilling: sisteStilling,
+            sisteJobb: sisteStilling,
         };
         const oppdatertState = oppdaterDinSituasjon(state, DinSituasjon.DELTIDSJOBB_VIL_MER);
 
-        expect(oppdatertState.sisteStilling).toEqual(sisteStilling);
+        expect(oppdatertState.sisteJobb).toEqual(sisteStilling);
     });
     test('setter godkjentUtdanning og bestaattUtdanning til undefined hvis man endrer utdanning til INGEN', () => {
         const state: SkjemaState = {

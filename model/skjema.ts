@@ -6,6 +6,7 @@ import {
     Utdanningsnivaa,
     FremtidigSituasjon,
     SporsmalId,
+    SisteStillingValg,
 } from './sporsmal';
 
 export enum SkjemaSide {
@@ -46,11 +47,11 @@ export type SykmeldtSkjemaSide =
     | SkjemaSide.SkalTilbakeTilJobb
     | SkjemaSide.FullforRegistrering;
 
-export type SisteStilling = {
+export type SisteJobb = {
     label: string;
     konseptId: Number;
     styrk08: string[];
-}
+};
 
 export type Navigering<T extends SkjemaSide> = {
     neste?: T;
@@ -65,7 +66,8 @@ export interface SkjemaState {
     utdanningGodkjent?: UtdanningGodkjentValg;
     utdanningBestatt?: JaEllerNei;
     andreForhold?: JaEllerNei;
-    sisteStilling?: SisteStilling;
+    sisteStilling?: SisteStillingValg;
+    sisteJobb?: SisteJobb;
     helseHinder?: JaEllerNei;
     fremtidigSituasjon?: FremtidigSituasjon;
     tilbakeIArbeid?: TilbakeTilJobbValg;
@@ -84,3 +86,13 @@ const skjemasider = {
 };
 
 export const hentSkjemaside = (sporsmalId: SporsmalId) => skjemasider[sporsmalId];
+
+export function visSisteStilling(skjemaState: SkjemaState) {
+    return skjemaState.dinSituasjon
+        ? [
+              DinSituasjon.AKKURAT_FULLFORT_UTDANNING,
+              DinSituasjon.JOBB_OVER_2_AAR,
+              DinSituasjon.USIKKER_JOBBSITUASJON,
+          ].includes(skjemaState.dinSituasjon)
+        : false;
+}

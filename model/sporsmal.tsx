@@ -59,6 +59,12 @@ export enum FremtidigSituasjon {
     INGEN_PASSER = 'INGEN_PASSER',
 }
 
+export enum SisteStillingValg {
+    INGEN_SVAR = 'INGEN_SVAR',
+    HAR_HATT_JOBB = 'HAR_HATT_JOBB',
+    HAR_IKKE_HATT_JOBB = 'HAR_IKKE_HATT_JOBB',
+}
+
 const TEKSTER: Tekster<string> = {
     nb: {
         [SporsmalId.dinSituasjon]: 'Velg den situasjonen som passer deg best',
@@ -73,6 +79,8 @@ const TEKSTER: Tekster<string> = {
         [DinSituasjon.AKKURAT_FULLFORT_UTDANNING]: 'Har akkurat fullført utdanning, militærtjeneste eller annet',
         [DinSituasjon.VIL_FORTSETTE_I_JOBB]: 'Har jobb og ønsker å fortsette i den jobben jeg er i',
         [SporsmalId.sisteStilling]: '',
+        [SisteStillingValg.HAR_HATT_JOBB]: 'Har vært i jobb',
+        [SisteStillingValg.HAR_IKKE_HATT_JOBB]: 'Har ikke vært i jobb',
         [SporsmalId.utdanning]: 'Hva er din høyeste fullførte utdanning?',
         [Utdanningsnivaa.INGEN_UTDANNING]: 'Ingen utdanning',
         [Utdanningsnivaa.GRUNNSKOLE]: 'Grunnskole',
