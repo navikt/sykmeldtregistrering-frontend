@@ -1,69 +1,77 @@
-import { SisteJobb, SkjemaSide, SkjemaState } from '../model/skjema';
+import { SisteJobb, SkjemaState } from '../model/skjema';
 import { Reducer } from 'react';
 import { TilbakeTilJobbValg } from '../components/skjema/tilbake-til-jobb';
 import {
     DinSituasjon,
-    UtdanningGodkjentValg,
-    JaEllerNei,
-    Utdanningsnivaa,
     FremtidigSituasjon,
+    JaEllerNei,
     SisteStillingValg,
+    SporsmalId,
+    UtdanningGodkjentValg,
+    Utdanningsnivaa,
 } from '../model/sporsmal';
 
 export type SkjemaReducer = Reducer<SkjemaState, SkjemaAction>;
 export type SkjemaAction =
-    | { type: SkjemaSide.DinSituasjon; value: DinSituasjon }
-    | { type: SkjemaSide.Utdanning; value: Utdanningsnivaa }
-    | { type: SkjemaSide.GodkjentUtdanning; value: UtdanningGodkjentValg }
-    | { type: SkjemaSide.BestaattUtdanning; value: JaEllerNei }
-    | { type: SkjemaSide.Helseproblemer; value: JaEllerNei }
-    | { type: SkjemaSide.AndreProblemer; value: JaEllerNei }
-    | { type: SkjemaSide.SisteJobb; value: { sisteJobb: SisteJobb } | { sisteStilling: SisteStillingValg } }
-    | { type: SkjemaSide.SykmeldtFremtidigSituasjon; value: FremtidigSituasjon }
-    | { type: SkjemaSide.TilbakeTilJobb; value: TilbakeTilJobbValg };
+    | { type: SporsmalId.dinSituasjon; value: DinSituasjon }
+    | { type: SporsmalId.utdanning; value: Utdanningsnivaa }
+    | { type: SporsmalId.utdanningGodkjent; value: UtdanningGodkjentValg }
+    | { type: SporsmalId.utdanningBestatt; value: JaEllerNei }
+    | { type: SporsmalId.helseHinder; value: JaEllerNei }
+    | { type: SporsmalId.andreForhold; value: JaEllerNei }
+    | { type: SporsmalId.sisteJobb; value: SisteJobb }
+    | { type: SporsmalId.sisteStilling; value: SisteStillingValg }
+    | { type: SporsmalId.fremtidigSituasjon; value: FremtidigSituasjon }
+    | { type: SporsmalId.tilbakeIArbeid; value: TilbakeTilJobbValg };
 
 export function skjemaReducer(state: SkjemaState, action: SkjemaAction): SkjemaState {
     switch (action.type) {
-        case SkjemaSide.DinSituasjon: {
+        case SporsmalId.dinSituasjon: {
             return oppdaterDinSituasjon(state, action.value);
         }
-        case SkjemaSide.Utdanning: {
+        case SporsmalId.utdanning: {
             return oppdaterUtdanning(state, action.value);
         }
-        case SkjemaSide.SisteJobb: {
+        case SporsmalId.sisteJobb: {
             return {
                 ...state,
-                ...action.value,
+                sisteJobb: action.value,
             };
         }
-        case SkjemaSide.GodkjentUtdanning: {
+        case SporsmalId.sisteStilling: {
+            return {
+                ...state,
+                sisteStilling: action.value,
+            };
+        }
+        case SporsmalId.utdanningGodkjent: {
             return {
                 ...state,
                 utdanningGodkjent: action.value,
             };
         }
-        case SkjemaSide.BestaattUtdanning: {
+        case SporsmalId.utdanningBestatt: {
             return {
                 ...state,
                 utdanningBestatt: action.value,
             };
         }
-        case SkjemaSide.Helseproblemer: {
+        case SporsmalId.helseHinder: {
             return {
                 ...state,
                 helseHinder: action.value,
             };
         }
-        case SkjemaSide.AndreProblemer: {
+        case SporsmalId.andreForhold: {
             return {
                 ...state,
                 andreForhold: action.value,
             };
         }
-        case SkjemaSide.SykmeldtFremtidigSituasjon: {
+        case SporsmalId.fremtidigSituasjon: {
             return oppdaterFremtidigSituasjon(state, action.value);
         }
-        case SkjemaSide.TilbakeTilJobb: {
+        case SporsmalId.tilbakeIArbeid: {
             return {
                 ...state,
                 tilbakeIArbeid: action.value,

@@ -21,7 +21,7 @@ import { SkjemaAction, skjemaReducer, SkjemaReducer } from '../../lib/skjema-sta
 import FullforRegistrering from '../../components/skjema/fullforRegistrering';
 import TilbakeKnapp from '../../components/skjema/tilbake-knapp';
 import SisteStilling from '../../components/skjema/siste-jobb/siste-stilling';
-import { SisteStillingValg } from '../../model/sporsmal';
+import { SisteStillingValg, SporsmalId } from '../../model/sporsmal';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -42,19 +42,19 @@ const lagSiderMap = (skjemaState: SkjemaState, dispatch: Dispatch<SkjemaAction>)
     return {
         [SkjemaSide.DinSituasjon]: (
             <DinSituasjon
-                onChange={(value) => dispatch({ type: SkjemaSide.DinSituasjon, value: value })}
+                onChange={(value) => dispatch({ type: SporsmalId.dinSituasjon, value: value })}
                 valgt={skjemaState.dinSituasjon}
             />
         ),
         [SkjemaSide.SisteJobb]: (
             <SisteJobb
-                onChange={(value) => dispatch({ type: SkjemaSide.SisteJobb, value: { sisteJobb: value } })}
+                onChange={(value) => dispatch({ type: SporsmalId.sisteJobb, value: value })}
                 valgt={skjemaState.sisteJobb}
                 visSisteJobb={skjemaState.sisteStilling !== SisteStillingValg.HAR_IKKE_HATT_JOBB}
             >
                 {visSisteStilling(skjemaState) ? (
                     <SisteStilling
-                        onChange={(value) => dispatch({ type: SkjemaSide.SisteJobb, value: { sisteStilling: value } })}
+                        onChange={(value) => dispatch({ type: SporsmalId.sisteStilling, value: value })}
                         valgt={skjemaState.sisteStilling}
                     />
                 ) : undefined}
@@ -62,31 +62,31 @@ const lagSiderMap = (skjemaState: SkjemaState, dispatch: Dispatch<SkjemaAction>)
         ),
         [SkjemaSide.Utdanning]: (
             <Utdanning
-                onChange={(value) => dispatch({ type: SkjemaSide.Utdanning, value: value })}
+                onChange={(value) => dispatch({ type: SporsmalId.utdanning, value: value })}
                 valgt={skjemaState.utdanning}
             />
         ),
         [SkjemaSide.GodkjentUtdanning]: (
             <UtdanningGodkjent
-                onChange={(value) => dispatch({ type: SkjemaSide.GodkjentUtdanning, value: value })}
+                onChange={(value) => dispatch({ type: SporsmalId.utdanningGodkjent, value: value })}
                 valgt={skjemaState.utdanningGodkjent}
             />
         ),
         [SkjemaSide.BestaattUtdanning]: (
             <BestattUtdanning
-                onChange={(value) => dispatch({ type: SkjemaSide.BestaattUtdanning, value: value })}
+                onChange={(value) => dispatch({ type: SporsmalId.utdanningBestatt, value: value })}
                 valgt={skjemaState.utdanningBestatt}
             />
         ),
         [SkjemaSide.Helseproblemer]: (
             <Helseproblemer
-                onChange={(value) => dispatch({ type: SkjemaSide.Helseproblemer, value: value })}
+                onChange={(value) => dispatch({ type: SporsmalId.helseHinder, value: value })}
                 valgt={skjemaState.helseHinder}
             />
         ),
         [SkjemaSide.AndreProblemer]: (
             <AndreProblemer
-                onChange={(value) => dispatch({ type: SkjemaSide.AndreProblemer, value: value })}
+                onChange={(value) => dispatch({ type: SporsmalId.andreForhold, value: value })}
                 valgt={skjemaState.andreForhold}
             />
         ),

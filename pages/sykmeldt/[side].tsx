@@ -20,6 +20,7 @@ import SkalTilbakeTilJobb from '../../components/skjema/skal-tilbake-til-jobb';
 import { SkjemaAction, skjemaReducer, SkjemaReducer } from '../../lib/skjema-state';
 import FullforRegistrering from '../../components/skjema/fullforRegistrering';
 import TilbakeKnapp from '../../components/skjema/tilbake-knapp';
+import { SporsmalId } from '../../model/sporsmal';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -39,34 +40,34 @@ const lagSiderMap = (skjemaState: SkjemaState, dispatch: Dispatch<SkjemaAction>)
     return {
         [SkjemaSide.SykmeldtFremtidigSituasjon]: (
             <SykmeldtFremtidigSituasjon
-                onChange={(value: any) => dispatch({ type: SkjemaSide.SykmeldtFremtidigSituasjon, value })}
+                onChange={(value: any) => dispatch({ type: SporsmalId.fremtidigSituasjon, value })}
             />
         ),
         [SkjemaSide.TilbakeTilJobb]: (
-            <TilbakeTilJobb onChange={(value: any) => dispatch({ type: SkjemaSide.TilbakeTilJobb, value })} />
+            <TilbakeTilJobb onChange={(value: any) => dispatch({ type: SporsmalId.tilbakeIArbeid, value })} />
         ),
         [SkjemaSide.SkalTilbakeTilJobb]: <SkalTilbakeTilJobb />,
         [SkjemaSide.Utdanning]: (
             <Utdanning
-                onChange={(value: any) => dispatch({ type: SkjemaSide.Utdanning, value })}
+                onChange={(value: any) => dispatch({ type: SporsmalId.utdanning, value })}
                 valgt={skjemaState.utdanning}
             />
         ),
         [SkjemaSide.GodkjentUtdanning]: (
             <UtdanningGodkjent
-                onChange={(value: any) => dispatch({ type: SkjemaSide.GodkjentUtdanning, value })}
+                onChange={(value: any) => dispatch({ type: SporsmalId.utdanningGodkjent, value })}
                 valgt={skjemaState.utdanningGodkjent}
             />
         ),
         [SkjemaSide.BestaattUtdanning]: (
             <BestattUtdanning
-                onChange={(value: any) => dispatch({ type: SkjemaSide.BestaattUtdanning, value })}
+                onChange={(value: any) => dispatch({ type: SporsmalId.utdanningBestatt, value })}
                 valgt={skjemaState.utdanningBestatt}
             />
         ),
         [SkjemaSide.AndreHensyn]: (
             <AndreHensyn
-                onChange={(value: any) => dispatch({ type: SkjemaSide.AndreProblemer, value })}
+                onChange={(value: any) => dispatch({ type: SporsmalId.andreForhold, value })}
                 valgt={skjemaState.andreForhold}
             />
         ),
