@@ -40,6 +40,7 @@ const TEKSTER: Tekster<string> = {
 
 interface FullforProps {
     skjemaState: SkjemaState;
+    side: 'standard' | 'sykmeldt';
 }
 const FullforRegistrering = (props: FullforProps) => {
     const { skjemaState } = props;
@@ -50,7 +51,10 @@ const FullforRegistrering = (props: FullforProps) => {
     const fullforRegistrering = async () => {
         try {
             const body = byggFullforRegistreringPayload(skjemaState);
-            await api('/api/fullforregistrering', { method: 'post', body: JSON.stringify(body) });
+            await api(`/api/fullforregistrering${props.side === 'sykmeldt' ? 'sykmeldt' : ''}`, {
+                method: 'post',
+                body: JSON.stringify(body),
+            });
             return router.push('/kvittering');
         } catch (e) {
             console.error(e);

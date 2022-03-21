@@ -15,6 +15,7 @@ sentry:
 pamJanzzUrl: https://arbeidsplassen.dev.nav.no/pam-janzz/rest
 startRegistreringUrl: http://pto-proxy.pto.svc.cluster.local/proxy/veilarbregistrering/api/startregistrering
 fullforRegistreringUrl: http://pto-proxy.pto.svc.cluster.local/proxy/veilarbregistrering/api/startregistrering
+fullforRegistreringSykmeldtUrl: http://pto-proxy.pto.svc.cluster.local/proxy/veilarbregistrering/api/startregistreringsykmeldt
 reaktiveringUrl: http://pto-proxy.pto.svc.cluster.local/proxy/veilarbregistrering/api/reaktivering
 sisteArbeidsforholdUrl: http://pto-proxy.pto.svc.cluster.local/proxy/veilarbregistrering/api/sistearbeidsforhold
 opprettOppgaveUrl: http://pto-proxy.pto.svc.cluster.local/proxy/veilarbregistrering/api/oppgave
