@@ -76,6 +76,7 @@ export interface SkjemaState {
 const skjemasider = {
     [SporsmalId.dinSituasjon]: SkjemaSide.DinSituasjon,
     [SporsmalId.sisteStilling]: SkjemaSide.SisteJobb,
+    [SporsmalId.sisteJobb]: SkjemaSide.SisteJobb,
     [SporsmalId.utdanning]: SkjemaSide.Utdanning,
     [SporsmalId.utdanningBestatt]: SkjemaSide.BestaattUtdanning,
     [SporsmalId.utdanningGodkjent]: SkjemaSide.GodkjentUtdanning,

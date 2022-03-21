@@ -7,6 +7,7 @@ export enum SporsmalId {
     utdanningBestatt = 'utdanningBestatt',
     andreForhold = 'andreForhold',
     sisteStilling = 'sisteStilling',
+    sisteJobb = 'sisteJobb',
     helseHinder = 'helseHinder',
     fremtidigSituasjon = 'fremtidigSituasjon',
     tilbakeIArbeid = 'tilbakeIArbeid',

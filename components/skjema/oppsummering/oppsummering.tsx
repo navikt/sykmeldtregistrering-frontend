@@ -13,7 +13,7 @@ const TEKSTER: Tekster<string> = {
         ikkeIJobbSisteAaret: `Ifølge Arbeidsgiver- og arbeidstakerregisteret har du ikke vært i jobb i løpet av det siste året. 
              Hvis det er feil, er det likevel viktig at du fullfører registreringen. Du kan gi riktig informasjon senere til NAV.`,
         [SporsmalId.dinSituasjon + 'radTittel']: 'Situasjon',
-        [SporsmalId.sisteStilling + 'radTittel']: 'Siste stilling',
+        [SporsmalId.sisteJobb + 'radTittel']: 'Siste stilling',
         [SporsmalId.fremtidigSituasjon + 'radTittel']: 'Fremtidig situasjon',
         [SporsmalId.tilbakeIArbeid + 'radTittel']: 'Tilbake i jobb før sykmeldt i 52 uker',
         [SporsmalId.utdanning + 'radTittel']: 'Høyeste fullførte utdanning',
@@ -33,7 +33,6 @@ interface OppsummeringProps {
 const Oppsummering = ({ skjemaState, skjemaPrefix }: OppsummeringProps) => {
     const sprak = useSprak();
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
-
     return (
         <>
             <Heading size={'medium'}>{tekst('header')}</Heading>
@@ -41,18 +40,20 @@ const Oppsummering = ({ skjemaState, skjemaPrefix }: OppsummeringProps) => {
             <GuidePanel poster illustration={<OppsummeringSvg />}>
                 {tekst('ikkeIJobbSisteAaret')}
                 <Table>
-                    {Object.entries(skjemaState).map(
-                        ([sporsmalId, svar]) =>
-                            svar && (
-                                <Rad
-                                    radTittel={tekst(sporsmalId + 'radTittel')}
-                                    svaralternativ={
-                                        sporsmalId === SporsmalId.sisteStilling ? svar.label : hentTekst(sprak, svar)
-                                    }
-                                    url={`${skjemaPrefix}${hentSkjemaside(sporsmalId as SporsmalId)}`}
-                                />
-                            )
-                    )}
+                    {Object.entries(skjemaState)
+                        .filter(([sporsmalId]) => sporsmalId !== SporsmalId.sisteStilling)
+                        .map(
+                            ([sporsmalId, svar]) =>
+                                svar && (
+                                    <Rad
+                                        radTittel={tekst(sporsmalId + 'radTittel')}
+                                        svaralternativ={
+                                            sporsmalId === SporsmalId.sisteJobb ? svar.label : hentTekst(sprak, svar)
+                                        }
+                                        url={`${skjemaPrefix}${hentSkjemaside(sporsmalId as SporsmalId)}`}
+                                    />
+                                )
+                        )}
                 </Table>
             </GuidePanel>
         </>
