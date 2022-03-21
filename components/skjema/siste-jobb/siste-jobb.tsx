@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react';
 import StillingsSok from './stillings-sok';
 import { SkjemaKomponentProps } from '../skjema-felleskomponenter';
 import { SisteJobb } from '../../../model/skjema';
+import useSWR from 'swr';
+import { fetcher } from '../../../lib/api-utils';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -35,11 +37,19 @@ const SisteJobb = (props: SkjemaKomponentProps<SisteJobb> & { children?: JSX.Ele
         settVisStillingsSok(false);
     };
 
+    const { data: sisteArbeidsforhold, error } = useSWR('/api/sistearbeidsforhold', fetcher);
+
     useEffect(() => {
-        if (!props.valgt) {
+        if (sisteArbeidsforhold && !props.valgt) {
+            onChange(sisteArbeidsforhold);
+        }
+    }, [sisteArbeidsforhold]);
+
+    useEffect(() => {
+        if (error && !props.valgt) {
             onChange(tomStilling);
         }
-    }, [onChange]);
+    }, [error]);
 
     return (
         <div>

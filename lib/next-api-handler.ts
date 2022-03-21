@@ -1,6 +1,15 @@
 import { NextApiHandler } from 'next';
 import { nanoid } from 'nanoid';
 
+export const getHeaders = (idtoken: string, callId: string) => {
+    return {
+        cookie: `selvbetjening-idtoken=${idtoken}`,
+        'Nav-Consumer-Id': 'poa-arbeidssokerregistrering',
+        'Nav-Call-Id': callId,
+        'Content-Type': 'application/json',
+    };
+};
+
 const lagApiHandlerMedAuthHeaders: (url: string) => NextApiHandler = (url: string) => async (req, res) => {
     const idtoken = req.cookies['selvbetjening-idtoken'];
     const callId = nanoid();
@@ -14,12 +23,7 @@ const lagApiHandlerMedAuthHeaders: (url: string) => NextApiHandler = (url: strin
         const response = await fetch(url, {
             method: req.method,
             body,
-            headers: {
-                cookie: `selvbetjening-idtoken=${idtoken}`,
-                'Nav-Consumer-Id': 'poa-arbeidssokerregistrering',
-                'Nav-Call-Id': callId,
-                'Content-Type': 'application/json',
-            },
+            headers: getHeaders(idtoken, callId),
         }).then(async (apiResponse) => {
             const contentType = apiResponse.headers.get('content-type');
             const statusCode = apiResponse.status;
