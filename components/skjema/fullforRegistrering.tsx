@@ -6,6 +6,7 @@ import { SkjemaState } from '../../model/skjema';
 import { fetcher as api } from '../../lib/api-utils';
 import { useRouter } from 'next/router';
 import { hentTekst } from '../../model/sporsmal';
+import byggFullforRegistreringPayload from '../../lib/bygg-fullfor-registrering-payload';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -48,32 +49,7 @@ const FullforRegistrering = (props: FullforProps) => {
 
     const fullforRegistrering = async () => {
         try {
-            const skjema = Object.keys(skjemaState)
-                .filter((key) => key !== 'sisteJobb')
-                .reduce(
-                    (resultat, key) => {
-                        const svarKey = (skjemaState as any)[key];
-
-                        resultat.besvarelse[key] = svarKey;
-                        resultat.teksterForBesvarelse.push({
-                            sporsmalId: key,
-                            sporsmal: hentTekst('nb', key),
-                            svar: hentTekst('nb', svarKey),
-                        });
-                        return resultat;
-                    },
-                    { besvarelse: {}, teksterForBesvarelse: [] } as {
-                        besvarelse: Record<string, string>;
-                        teksterForBesvarelse: { sporsmalId: string; sporsmal: string; svar: string }[];
-                    }
-                );
-
-            const body = {
-                besvarelse: skjema.besvarelse,
-                sisteStilling: skjemaState.sisteJobb,
-                teksterForBesvarelse: skjema.teksterForBesvarelse,
-            };
-
+            const body = byggFullforRegistreringPayload(skjemaState);
             await api('/api/fullforregistrering', { method: 'post', body: JSON.stringify(body) });
             return router.push('/kvittering');
         } catch (e) {
