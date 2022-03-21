@@ -39,10 +39,7 @@ export function skjemaReducer(state: SkjemaState, action: SkjemaAction): SkjemaS
             };
         }
         case SporsmalId.sisteStilling: {
-            return {
-                ...state,
-                sisteStilling: action.value,
-            };
+            return oppdaterSisteStilling(state, action.value);
         }
         case SporsmalId.utdanningGodkjent: {
             return {
@@ -93,6 +90,20 @@ export const oppdaterDinSituasjon = (skjemaState: SkjemaState, dinSituasjon: Din
     return {
         ...skjemaState,
         dinSituasjon: dinSituasjon,
+    };
+};
+
+const oppdaterSisteStilling = (skjemaState: SkjemaState, sisteStilling: SisteStillingValg) => {
+    if (sisteStilling === SisteStillingValg.HAR_IKKE_HATT_JOBB) {
+        return {
+            ...skjemaState,
+            sisteStilling: sisteStilling,
+            sisteJobb: undefined,
+        };
+    }
+    return {
+        ...skjemaState,
+        sisteStilling: sisteStilling,
     };
 };
 
