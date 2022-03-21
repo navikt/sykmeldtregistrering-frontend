@@ -26,8 +26,8 @@ const tomStilling: SisteJobb = {
     styrk08: ['-1'],
 };
 
-const SisteJobb = (props: SkjemaKomponentProps<SisteJobb> & { children?: JSX.Element }) => {
-    const { onChange } = props;
+const SisteJobb = (props: SkjemaKomponentProps<SisteJobb> & { children?: JSX.Element; visSisteJobb: boolean }) => {
+    const { onChange, visSisteJobb } = props;
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
     const [visStillingsSok, settVisStillingsSok] = useState<boolean>(false);
     const onCloseStillingssok = (value?: any) => {
@@ -61,20 +61,24 @@ const SisteJobb = (props: SkjemaKomponentProps<SisteJobb> & { children?: JSX.Ele
 
             {props.children}
 
-            <Heading spacing size={'small'} level="2">
-                {tekst('stilling')}
-            </Heading>
-
-            {visStillingsSok ? (
-                <StillingsSok onClose={onCloseStillingssok} />
-            ) : (
-                <div>
-                    {props.valgt?.label}
-                    <Button variant="tertiary" onClick={() => settVisStillingsSok(true)}>
-                        Endre
-                    </Button>
-                </div>
+            {visSisteJobb && (
+                <>
+                    <Heading spacing size={'small'} level="2">
+                        {tekst('stilling')}
+                    </Heading>
+                    {visStillingsSok ? (
+                        <StillingsSok onClose={onCloseStillingssok} />
+                    ) : (
+                        <div>
+                            {props.valgt?.label}
+                            <Button variant="tertiary" onClick={() => settVisStillingsSok(true)}>
+                                Endre
+                            </Button>
+                        </div>
+                    )}
+                </>
             )}
+
             <div style={{ maxWidth: '34rem', margin: '2em 0' }}>
                 <Accordion>
                     <Accordion.Item>

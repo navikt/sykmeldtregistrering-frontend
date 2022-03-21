@@ -50,6 +50,7 @@ const lagSiderMap = (skjemaState: SkjemaState, dispatch: Dispatch<SkjemaAction>)
             <SisteJobb
                 onChange={(value) => dispatch({ type: SkjemaSide.SisteJobb, value: { sisteJobb: value } })}
                 valgt={skjemaState.sisteJobb}
+                visSisteJobb={skjemaState.sisteStilling !== SisteStillingValg.HAR_IKKE_HATT_JOBB}
             >
                 {visSisteStilling(skjemaState) ? (
                     <SisteStilling
