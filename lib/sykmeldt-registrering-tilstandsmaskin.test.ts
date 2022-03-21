@@ -49,11 +49,11 @@ describe('Sykmeldt registrering tilstandsmaskin', () => {
             });
             expect(state.neste).toBe(SkjemaSide.GodkjentUtdanning);
         });
-        it('returnerer AndreHensyn som neste for Utdanningsnivaa.INGEN', () => {
+        it('returnerer AndreProblemer som neste for Utdanningsnivaa.INGEN', () => {
             const state = beregnNavigering(SkjemaSide.Utdanning, {
                 utdanning: Utdanningsnivaa.INGEN_UTDANNING,
             });
-            expect(state.neste).toBe(SkjemaSide.AndreHensyn);
+            expect(state.neste).toBe(SkjemaSide.AndreProblemer);
         });
     });
 
@@ -73,27 +73,27 @@ describe('Sykmeldt registrering tilstandsmaskin', () => {
             const state = beregnNavigering(SkjemaSide.BestaattUtdanning, {});
             expect(state.forrige).toBe(SkjemaSide.GodkjentUtdanning);
         });
-        it('returnerer AndreHensyn som neste', () => {
+        it('returnerer AndreProblemer som neste', () => {
             const state = beregnNavigering(SkjemaSide.BestaattUtdanning, {});
-            expect(state.neste).toBe(SkjemaSide.AndreHensyn);
+            expect(state.neste).toBe(SkjemaSide.AndreProblemer);
         });
     });
 
-    describe('AndreHensyn', () => {
+    describe('AndreProblemer', () => {
         it('returnerer BestaattUtdanning som forrige hvis utdanning==Utdanningsnivaa.HOYERE', () => {
-            const state = beregnNavigering(SkjemaSide.AndreHensyn, {
+            const state = beregnNavigering(SkjemaSide.AndreProblemer, {
                 utdanning: Utdanningsnivaa.HOYERE_UTDANNING_5_ELLER_MER,
             });
             expect(state.forrige).toBe(SkjemaSide.BestaattUtdanning);
         });
         it('returnerer Utdanning som forrige hvis valgt utdanning er Utdanningsnivaa.INGEN', () => {
-            const state = beregnNavigering(SkjemaSide.AndreHensyn, {
+            const state = beregnNavigering(SkjemaSide.AndreProblemer, {
                 utdanning: Utdanningsnivaa.INGEN_UTDANNING,
             });
             expect(state.forrige).toBe(SkjemaSide.Utdanning);
         });
         it('returnerer Oppsummering som neste', () => {
-            const state = beregnNavigering(SkjemaSide.AndreHensyn, {});
+            const state = beregnNavigering(SkjemaSide.AndreProblemer, {});
             expect(state.neste).toBe(SkjemaSide.Oppsummering);
         });
     });
@@ -143,9 +143,9 @@ describe('Sykmeldt registrering tilstandsmaskin', () => {
             expect(state.forrige).toBe(SkjemaSide.TilbakeTilJobb);
         });
 
-        it('returnerer AndreHensyn som default', () => {
+        it('returnerer AndreProblemer som default', () => {
             const state = beregnNavigering(SkjemaSide.Oppsummering, {});
-            expect(state.forrige).toBe(SkjemaSide.AndreHensyn);
+            expect(state.forrige).toBe(SkjemaSide.AndreProblemer);
         });
     });
 });

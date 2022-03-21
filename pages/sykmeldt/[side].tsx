@@ -12,7 +12,6 @@ import Utdanning from '../../components/skjema/utdanning';
 import UtdanningGodkjent from '../../components/skjema/utdanning-godkjent';
 import BestattUtdanning from '../../components/skjema/utdanning-bestatt';
 import Oppsummering from '../../components/skjema/oppsummering/oppsummering';
-import AndreHensyn from '../../components/skjema/andre-hensyn';
 import { beregnNavigering } from '../../lib/sykmeldt-registrering-tilstandsmaskin';
 import SykmeldtFremtidigSituasjon from '../../components/skjema/sykmeldt-fremtidig-situasjon';
 import TilbakeTilJobb from '../../components/skjema/tilbake-til-jobb';
@@ -21,6 +20,7 @@ import { SkjemaAction, skjemaReducer, SkjemaReducer } from '../../lib/skjema-sta
 import FullforRegistrering from '../../components/skjema/fullforRegistrering';
 import TilbakeKnapp from '../../components/skjema/tilbake-knapp';
 import { SporsmalId } from '../../model/sporsmal';
+import AndreProblemer from '../../components/skjema/andre-problemer';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -65,10 +65,11 @@ const lagSiderMap = (skjemaState: SkjemaState, dispatch: Dispatch<SkjemaAction>)
                 valgt={skjemaState.utdanningBestatt}
             />
         ),
-        [SkjemaSide.AndreHensyn]: (
-            <AndreHensyn
+        [SkjemaSide.AndreProblemer]: (
+            <AndreProblemer
                 onChange={(value: any) => dispatch({ type: SporsmalId.andreForhold, value })}
                 valgt={skjemaState.andreForhold}
+                skjematype={'sykmeldt'}
             />
         ),
         [SkjemaSide.Oppsummering]: <Oppsummering skjemaState={skjemaState} skjemaPrefix={'/sykmeldt/'} />,
@@ -89,7 +90,7 @@ const validerSkjemaForSide = (side: SkjemaSide, skjemaState: SkjemaState) => {
                 return skjemaState.utdanningGodkjent;
             case SkjemaSide.BestaattUtdanning:
                 return skjemaState.utdanningBestatt;
-            case SkjemaSide.AndreHensyn:
+            case SkjemaSide.AndreProblemer:
                 return skjemaState.andreForhold;
             case SkjemaSide.Oppsummering:
                 return true;

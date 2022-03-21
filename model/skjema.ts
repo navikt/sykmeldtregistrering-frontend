@@ -19,10 +19,9 @@ export enum SkjemaSide {
     AndreProblemer = '6',
     Oppsummering = '8',
     SykmeldtFremtidigSituasjon = '9',
-    AndreHensyn = '10',
-    TilbakeTilJobb = '11',
-    SkalTilbakeTilJobb = '12',
-    FullforRegistrering = '13',
+    TilbakeTilJobb = '10',
+    SkalTilbakeTilJobb = '11',
+    FullforRegistrering = '12',
 }
 
 export type StandardSkjemaSide =
@@ -41,7 +40,7 @@ export type SykmeldtSkjemaSide =
     | SkjemaSide.Utdanning
     | SkjemaSide.GodkjentUtdanning
     | SkjemaSide.BestaattUtdanning
-    | SkjemaSide.AndreHensyn
+    | SkjemaSide.AndreProblemer
     | SkjemaSide.Oppsummering
     | SkjemaSide.TilbakeTilJobb
     | SkjemaSide.SkalTilbakeTilJobb

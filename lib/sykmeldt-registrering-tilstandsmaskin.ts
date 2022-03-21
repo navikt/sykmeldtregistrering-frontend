@@ -30,7 +30,7 @@ const TILSTANDER: NavigeringsTilstandsMaskin<SykmeldtSkjemaSide> = {
         return {
             neste:
                 skjemaState.utdanning === Utdanningsnivaa.INGEN_UTDANNING
-                    ? SkjemaSide.AndreHensyn
+                    ? SkjemaSide.AndreProblemer
                     : SkjemaSide.GodkjentUtdanning,
             forrige: SkjemaSide.SykmeldtFremtidigSituasjon,
         };
@@ -43,11 +43,11 @@ const TILSTANDER: NavigeringsTilstandsMaskin<SykmeldtSkjemaSide> = {
     },
     [SkjemaSide.BestaattUtdanning]: () => {
         return {
-            neste: SkjemaSide.AndreHensyn,
+            neste: SkjemaSide.AndreProblemer,
             forrige: SkjemaSide.GodkjentUtdanning,
         };
     },
-    [SkjemaSide.AndreHensyn]: (skjemaState: SkjemaState) => {
+    [SkjemaSide.AndreProblemer]: (skjemaState: SkjemaState) => {
         return {
             neste: SkjemaSide.Oppsummering,
             forrige:
@@ -82,7 +82,7 @@ const TILSTANDER: NavigeringsTilstandsMaskin<SykmeldtSkjemaSide> = {
             };
         }
         return {
-            forrige: SkjemaSide.AndreHensyn,
+            forrige: SkjemaSide.AndreProblemer,
             neste: SkjemaSide.FullforRegistrering,
         };
     },

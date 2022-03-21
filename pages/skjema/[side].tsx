@@ -88,6 +88,7 @@ const lagSiderMap = (skjemaState: SkjemaState, dispatch: Dispatch<SkjemaAction>)
             <AndreProblemer
                 onChange={(value) => dispatch({ type: SporsmalId.andreForhold, value: value })}
                 valgt={skjemaState.andreForhold}
+                skjematype={'standard'}
             />
         ),
         [SkjemaSide.Oppsummering]: <Oppsummering skjemaState={skjemaState} skjemaPrefix={'/skjema/'} />,
