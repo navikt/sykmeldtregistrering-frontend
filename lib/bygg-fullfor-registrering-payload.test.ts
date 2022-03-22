@@ -15,5 +15,15 @@ describe('bygg-fullfor-registrering-payload', () => {
             });
             expect(sisteStilling).toBe(aldriJobbet);
         });
+
+        it('har ikke sisteStilling for sykmeldt-side', () => {
+            const resultat = byggFullforRegistreringPayload(
+                {
+                    sisteStilling: SisteStillingValg.HAR_IKKE_HATT_JOBB,
+                },
+                'sykmeldt'
+            );
+            expect(Object.keys(resultat)).not.toContain('sisteStilling');
+        });
     });
 });

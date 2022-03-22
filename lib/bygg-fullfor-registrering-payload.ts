@@ -1,5 +1,5 @@
 import { DinSituasjon, hentTekst, SisteStillingValg } from '../model/sporsmal';
-import { SisteJobb, SkjemaState } from '../model/skjema';
+import { Side, SisteJobb, SkjemaState } from '../model/skjema';
 
 export const aldriJobbet: SisteJobb = {
     label: 'X',
@@ -7,7 +7,7 @@ export const aldriJobbet: SisteJobb = {
     styrk08: ['X'],
 };
 
-function byggFullforRegistreringPayload(skjemaState: SkjemaState) {
+function byggFullforRegistreringPayload(skjemaState: SkjemaState, side: Side = 'standard') {
     const skjema = Object.keys(skjemaState)
         .filter((key) => key !== 'sisteJobb')
         .reduce(
@@ -39,11 +39,17 @@ function byggFullforRegistreringPayload(skjemaState: SkjemaState) {
         return skjemaState.sisteJobb;
     };
 
-    return {
+    const payload = {
         besvarelse: skjema.besvarelse,
         sisteStilling: sisteStilling(),
         teksterForBesvarelse: skjema.teksterForBesvarelse,
     };
+
+    if (side === 'sykmeldt') {
+        delete payload.sisteStilling;
+    }
+
+    return payload;
 }
 
 export default byggFullforRegistreringPayload;

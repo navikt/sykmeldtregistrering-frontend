@@ -2,10 +2,10 @@ import { Accordion, Button, ConfirmationPanel, ContentContainer, GuidePanel, Hea
 import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../hooks/useSprak';
 import { useState } from 'react';
-import { SkjemaState } from '../../model/skjema';
+import { Side, SkjemaState } from '../../model/skjema';
 import { fetcher as api } from '../../lib/api-utils';
 import { useRouter } from 'next/router';
-import { hentTekst } from '../../model/sporsmal';
+
 import byggFullforRegistreringPayload from '../../lib/bygg-fullfor-registrering-payload';
 
 const TEKSTER: Tekster<string> = {
@@ -40,7 +40,7 @@ const TEKSTER: Tekster<string> = {
 
 interface FullforProps {
     skjemaState: SkjemaState;
-    side: 'standard' | 'sykmeldt';
+    side: Side;
 }
 const FullforRegistrering = (props: FullforProps) => {
     const { skjemaState } = props;
@@ -50,7 +50,7 @@ const FullforRegistrering = (props: FullforProps) => {
 
     const fullforRegistrering = async () => {
         try {
-            const body = byggFullforRegistreringPayload(skjemaState);
+            const body = byggFullforRegistreringPayload(skjemaState, props.side);
             await api(`/api/fullforregistrering${props.side === 'sykmeldt' ? 'sykmeldt' : ''}`, {
                 method: 'post',
                 body: JSON.stringify(body),

@@ -96,3 +96,5 @@ export function visSisteStilling(skjemaState: SkjemaState) {
           ].includes(skjemaState.dinSituasjon)
         : false;
 }
+
+export type Side = 'standard' | 'sykmeldt';
