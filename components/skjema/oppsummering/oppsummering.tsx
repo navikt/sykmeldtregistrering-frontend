@@ -2,9 +2,11 @@ import { GuidePanel, Heading, Ingress, Link, Table } from '@navikt/ds-react';
 import OppsummeringSvg from './oppsummering-svg';
 import lagHentTekstForSprak, { Tekster } from '../../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../../hooks/useSprak';
-import { hentSkjemaside, SkjemaSide, SkjemaState } from '../../../model/skjema';
+import { hentSkjemaside, SkjemaState } from '../../../model/skjema';
 import NextLink from 'next/link';
 import { hentTekst, SporsmalId } from '../../../model/sporsmal';
+import useSWR from 'swr';
+import { fetcher } from '../../../lib/api-utils';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -12,6 +14,9 @@ const TEKSTER: Tekster<string> = {
         ingress: 'Her er opplysningene vi har registrert om deg.',
         ikkeIJobbSisteAaret: `Ifølge Arbeidsgiver- og arbeidstakerregisteret har du ikke vært i jobb i løpet av det siste året. 
              Hvis det er feil, er det likevel viktig at du fullfører registreringen. Du kan gi riktig informasjon senere til NAV.`,
+        harJobbetSisteAaret:
+            'Ifølge Arbeidsgiver- og arbeidstakerregisteret har du vært i jobb i løpet av det siste året. ' +
+            'Hvis det er feil, er det likevel viktig at du fullfører registreringen. Du kan gi riktig informasjon senere til NAV.',
         [SporsmalId.dinSituasjon + 'radTittel']: 'Situasjon',
         [SporsmalId.sisteJobb + 'radTittel']: 'Siste stilling',
         [SporsmalId.fremtidigSituasjon + 'radTittel']: 'Fremtidig situasjon',
@@ -20,6 +25,7 @@ const TEKSTER: Tekster<string> = {
         [SporsmalId.utdanningGodkjent + 'radTittel']: 'Utdanning godkjent i Norge',
         [SporsmalId.utdanningBestatt + 'radTittel']: 'Utdanning bestått',
         [SporsmalId.helseHinder + 'radTittel']: 'Helseproblemer',
+        //TODO: Hvilken av andre forhold-tekstene skal vi bruke i oppsummeringen?
         [SporsmalId.andreForhold + 'radTittel']: 'Andre problemer',
         [SporsmalId.andreForhold + 'radTittel']: 'Andre hensyn',
     },
@@ -33,12 +39,16 @@ interface OppsummeringProps {
 const Oppsummering = ({ skjemaState, skjemaPrefix }: OppsummeringProps) => {
     const sprak = useSprak();
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
+    const { data: startRegistreringData, error } = useSWR('/api/startregistrering', fetcher);
+
     return (
         <>
             <Heading size={'medium'}>{tekst('header')}</Heading>
             <Ingress>{tekst('ingress')}</Ingress>
             <GuidePanel poster illustration={<OppsummeringSvg />}>
-                {tekst('ikkeIJobbSisteAaret')}
+                {startRegistreringData && startRegistreringData.jobbetSeksAvTolvSisteManeder
+                    ? tekst('harJobbetSisteAaret')
+                    : tekst('ikkeIJobbSisteAaret')}
                 <Table>
                     {Object.entries(skjemaState)
                         .filter(([sporsmalId]) => sporsmalId !== SporsmalId.sisteStilling)
