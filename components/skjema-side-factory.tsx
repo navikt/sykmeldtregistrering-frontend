@@ -1,5 +1,5 @@
 import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
-import { Navigering, SkjemaSide, SkjemaState, StandardSkjemaSide } from '../model/skjema';
+import { Navigering, SkjemaSide, SkjemaState, StandardSkjemaSide, SykmeldtSkjemaSide } from '../model/skjema';
 import { Dispatch, useReducer, useState } from 'react';
 import { SkjemaAction, skjemaReducer, SkjemaReducer } from '../lib/skjema-state';
 import { NextPage } from 'next';
@@ -10,20 +10,20 @@ import TilbakeKnapp from './skjema/tilbake-knapp';
 import { Alert } from '@navikt/ds-react';
 import { Knapperad } from './skjema/knapperad/knapperad';
 import Avbryt from './skjema/avbryt-lenke';
+import { SykmeldtRegistreringTilstandsmaskin } from '../lib/sykmeldt-registrering-tilstandsmaskin';
+import { StandardRegistreringTilstandsmaskin } from '../lib/standard-registrering-tilstandsmaskin';
 
 export type SiderMap = { [key: string]: JSX.Element };
-
 export interface SkjemaProps {
-    aktivSide: StandardSkjemaSide;
-    isValid?: boolean;
+    aktivSide: any;
 }
 
-interface LagSkjemaSideProps {
+export interface LagSkjemaSideProps {
     TEKSTER: Tekster<string>;
     urlPrefix: string;
     validerSkjemaForSide: (side: StandardSkjemaSide, skjemaState: SkjemaState) => boolean;
     hentKomponentForSide: (side: SkjemaSide, skjemaState: SkjemaState, dispatch: Dispatch<SkjemaAction>) => JSX.Element;
-    beregnNavigering: (aktivSide: StandardSkjemaSide, state: SkjemaState) => Navigering<SkjemaSide>;
+    beregnNavigering: StandardRegistreringTilstandsmaskin | SykmeldtRegistreringTilstandsmaskin;
 }
 
 export type SkjemaSideFactory = (opts: LagSkjemaSideProps) => NextPage<SkjemaProps>;

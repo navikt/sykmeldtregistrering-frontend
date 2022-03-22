@@ -96,7 +96,10 @@ const TILSTANDER: NavigeringsTilstandsMaskin<SykmeldtSkjemaSide> = {
         };
     },
 };
-
-export function beregnNavigering(aktivSide: SykmeldtSkjemaSide, state: SkjemaState): Navigering<SykmeldtSkjemaSide> {
+export type SykmeldtRegistreringTilstandsmaskin = (
+    aktivSide: SykmeldtSkjemaSide,
+    state: SkjemaState
+) => Navigering<SykmeldtSkjemaSide>;
+export const beregnNavigering: SykmeldtRegistreringTilstandsmaskin = (aktivSide, state) => {
     return TILSTANDER[aktivSide](state);
-}
+};

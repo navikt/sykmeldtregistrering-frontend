@@ -1,4 +1,11 @@
-import { Navigering, NavigeringsTilstandsMaskin, SkjemaSide, SkjemaState, StandardSkjemaSide } from '../model/skjema';
+import {
+    Navigering,
+    NavigeringsTilstandsMaskin,
+    SkjemaSide,
+    SkjemaState,
+    StandardSkjemaSide,
+    SykmeldtSkjemaSide,
+} from '../model/skjema';
 import { DinSituasjon, Utdanningsnivaa } from '../model/sporsmal';
 
 const TILSTANDER: NavigeringsTilstandsMaskin<StandardSkjemaSide> = {
@@ -74,6 +81,10 @@ const TILSTANDER: NavigeringsTilstandsMaskin<StandardSkjemaSide> = {
     },
 };
 
-export function beregnNavigering(aktivSide: StandardSkjemaSide, state: SkjemaState): Navigering<StandardSkjemaSide> {
+export type StandardRegistreringTilstandsmaskin = (
+    aktivSide: StandardSkjemaSide,
+    state: SkjemaState
+) => Navigering<StandardSkjemaSide>;
+export const beregnNavigering: StandardRegistreringTilstandsmaskin = (aktivSide, state) => {
     return TILSTANDER[aktivSide](state);
-}
+};

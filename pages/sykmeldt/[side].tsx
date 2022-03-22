@@ -1,13 +1,6 @@
-import { NextPage } from 'next';
-import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
-import useSprak from '../../hooks/useSprak';
-import { useRouter } from 'next/router';
-import { Dispatch, useReducer, useState } from 'react';
-import { SkjemaSide, SkjemaState, SykmeldtSkjemaSide } from '../../model/skjema';
-import styles from '../../styles/skjema.module.css';
-import { Alert } from '@navikt/ds-react';
-import { Knapperad } from '../../components/skjema/knapperad/knapperad';
-import Avbryt from '../../components/skjema/avbryt-lenke';
+import { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
+import { Dispatch } from 'react';
+import { SkjemaSide, SkjemaState } from '../../model/skjema';
 import Utdanning from '../../components/skjema/utdanning';
 import UtdanningGodkjent from '../../components/skjema/utdanning-godkjent';
 import BestattUtdanning from '../../components/skjema/utdanning-bestatt';
@@ -16,11 +9,11 @@ import { beregnNavigering } from '../../lib/sykmeldt-registrering-tilstandsmaski
 import SykmeldtFremtidigSituasjon from '../../components/skjema/sykmeldt-fremtidig-situasjon';
 import TilbakeTilJobb from '../../components/skjema/tilbake-til-jobb';
 import SkalTilbakeTilJobb from '../../components/skjema/skal-tilbake-til-jobb';
-import { SkjemaAction, skjemaReducer, SkjemaReducer } from '../../lib/skjema-state';
+import { SkjemaAction } from '../../lib/skjema-state';
 import FullforRegistrering from '../../components/skjema/fullforRegistrering';
-import TilbakeKnapp from '../../components/skjema/tilbake-knapp';
 import { SporsmalId } from '../../model/sporsmal';
 import AndreProblemer from '../../components/skjema/andre-problemer';
+import skjemaSideFactory, { SiderMap } from '../../components/skjema-side-factory';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -28,13 +21,6 @@ const TEKSTER: Tekster<string> = {
         fullfor: 'Fullfør registrering',
     },
 };
-
-interface SkjemaProps {
-    aktivSide: SykmeldtSkjemaSide;
-    isValid?: boolean;
-}
-
-type SiderMap = { [key: string]: JSX.Element };
 
 const lagSiderMap = (skjemaState: SkjemaState, dispatch: Dispatch<SkjemaAction>): SiderMap => {
     return {
@@ -102,52 +88,18 @@ const validerSkjemaForSide = (side: SkjemaSide, skjemaState: SkjemaState) => {
     return Boolean(hentVerdi());
 };
 
-const hentKomponentForSide = (side: SkjemaSide, siderMap: SiderMap) =>
+const hentKomponentForSykmeldtSide = (side: SkjemaSide, siderMap: SiderMap) =>
     siderMap[side] || siderMap[SkjemaSide.SykmeldtFremtidigSituasjon];
 
-const initializer = (skjemaState: SkjemaState) => skjemaState;
-
-const SykmeldtSkjema: NextPage<SkjemaProps> = (props) => {
-    const { aktivSide } = props;
-    const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
-    const router = useRouter();
-
-    const [skjemaState, dispatch] = useReducer<SkjemaReducer, SkjemaState>(skjemaReducer, {}, initializer);
-    const [visFeilmelding, settVisFeilmelding] = useState<boolean>(false);
-
-    const { forrige, neste } = beregnNavigering(aktivSide, skjemaState);
-
-    const navigerTilSide = (side: SkjemaSide) => {
-        return router.push(`/sykmeldt/${side}`);
-    };
-
-    const validerOgGaaTilNeste = () => {
-        if (!validerSkjemaForSide(aktivSide, skjemaState)) {
-            settVisFeilmelding(true);
-            return;
-        }
-
-        settVisFeilmelding(false);
-
-        if (neste) {
-            return navigerTilSide(neste);
-        }
-    };
-
-    const forrigeLenke = forrige ? `/sykmeldt/${forrige}` : undefined;
-
-    return (
-        <>
-            <main className={styles.main}>
-                {forrigeLenke && <TilbakeKnapp href={forrigeLenke} />}
-                {hentKomponentForSide(aktivSide, lagSiderMap(skjemaState, dispatch))}
-                {visFeilmelding && <Alert variant="warning">{tekst('advarsel')}</Alert>}
-                <Knapperad onNeste={validerOgGaaTilNeste} />
-                <Avbryt />
-            </main>
-        </>
-    );
-};
+const SykmeldtSkjema = skjemaSideFactory({
+    TEKSTER,
+    urlPrefix: 'sykmeldt',
+    validerSkjemaForSide,
+    beregnNavigering,
+    hentKomponentForSide: (side, skjemaState, dispatch) => {
+        return hentKomponentForSykmeldtSide(side, lagSiderMap(skjemaState, dispatch));
+    },
+});
 
 SykmeldtSkjema.getInitialProps = async (context: any) => {
     const { side } = context.query;
