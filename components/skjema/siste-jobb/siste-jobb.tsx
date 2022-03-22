@@ -23,7 +23,7 @@ const TEKSTER: Tekster<string> = {
 const tomStilling: SisteJobb = {
     label: '',
     konseptId: -1,
-    styrk08: ['-1'],
+    styrk08: '-1',
 };
 
 const SisteJobb = (props: SkjemaKomponentProps<SisteJobb> & { children?: JSX.Element; visSisteJobb: boolean }) => {

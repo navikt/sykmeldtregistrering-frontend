@@ -7,7 +7,7 @@ interface StillingsSokProps {
     onClose: (value?: any) => void;
 }
 
-const annenStilling = { konseptId: -1, label: 'Annen stilling', styrk08: ['-1'] };
+const annenStilling = { konseptId: -1, label: 'Annen stilling', styrk08: '-1' };
 
 const StillingsSok = (props: StillingsSokProps) => {
     const { onClose } = props;

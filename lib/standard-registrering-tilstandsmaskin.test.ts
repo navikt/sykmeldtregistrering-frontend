@@ -4,7 +4,7 @@ import { DinSituasjon, Utdanningsnivaa } from '../model/sporsmal';
 
 const sisteStilling = {
     label: 'Klovn kommunal sektor',
-    styrk08: ['5411'],
+    styrk08: '5411',
     konseptId: 45779,
 };
 

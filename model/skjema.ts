@@ -49,7 +49,7 @@ export type SykmeldtSkjemaSide =
 export type SisteJobb = {
     label: string;
     konseptId: Number;
-    styrk08: string[];
+    styrk08: string;
 };
 
 export type Navigering<T extends SkjemaSide> = {

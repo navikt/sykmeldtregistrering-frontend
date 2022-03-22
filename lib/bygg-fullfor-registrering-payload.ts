@@ -4,7 +4,7 @@ import { Side, SisteJobb, SkjemaState } from '../model/skjema';
 export const aldriJobbet: SisteJobb = {
     label: 'X',
     konseptId: -1,
-    styrk08: ['X'],
+    styrk08: 'X',
 };
 
 function byggFullforRegistreringPayload(skjemaState: SkjemaState, side: Side = 'standard') {

@@ -35,7 +35,10 @@ export function skjemaReducer(state: SkjemaState, action: SkjemaAction): SkjemaS
         case SporsmalId.sisteJobb: {
             return {
                 ...state,
-                sisteJobb: action.value,
+                sisteJobb: {
+                    ...action.value,
+                    styrk08: Array.isArray(action.value.styrk08) ? action.value.styrk08[0] : action.value.styrk08,
+                },
             };
         }
         case SporsmalId.sisteStilling: {
