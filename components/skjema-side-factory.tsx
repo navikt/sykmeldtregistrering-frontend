@@ -1,6 +1,6 @@
 import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
-import { Navigering, SkjemaSide, SkjemaState, StandardSkjemaSide, SykmeldtSkjemaSide } from '../model/skjema';
-import { Dispatch, useReducer, useState } from 'react';
+import { SkjemaSide, SkjemaState, StandardSkjemaSide, SykmeldtSkjemaSide } from '../model/skjema';
+import { Dispatch, useEffect, useReducer, useState } from 'react';
 import { SkjemaAction, skjemaReducer, SkjemaReducer } from '../lib/skjema-state';
 import { NextPage } from 'next';
 import useSprak from '../hooks/useSprak';
@@ -21,7 +21,7 @@ export interface SkjemaProps {
 export interface LagSkjemaSideProps {
     TEKSTER: Tekster<string>;
     urlPrefix: string;
-    validerSkjemaForSide: (side: StandardSkjemaSide, skjemaState: SkjemaState) => boolean;
+    validerSkjemaForSide: (side: SkjemaSide, skjemaState: SkjemaState) => boolean;
     hentKomponentForSide: (side: SkjemaSide, skjemaState: SkjemaState, dispatch: Dispatch<SkjemaAction>) => JSX.Element;
     beregnNavigering: StandardRegistreringTilstandsmaskin | SykmeldtRegistreringTilstandsmaskin;
 }
@@ -40,6 +40,15 @@ const skjemaSideFactory: SkjemaSideFactory = (opts) => {
         const [visFeilmelding, settVisFeilmelding] = useState<boolean>(false);
 
         const { forrige, neste } = beregnNavigering(aktivSide, skjemaState);
+
+        useEffect(() => {
+            // valider at forrige side har gyldig state. Hvis ikke starter vi registrering på nytt
+            if (forrige) {
+                if (!validerSkjemaForSide(forrige, skjemaState)) {
+                    router.push('/start/');
+                }
+            }
+        }, [forrige]);
 
         const navigerTilSide = (side: SkjemaSide) => {
             return router.push(`/${urlPrefix}/${side}`);

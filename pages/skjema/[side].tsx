@@ -9,7 +9,7 @@ import { Dispatch } from 'react';
 import { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import Oppsummering from '../../components/skjema/oppsummering/oppsummering';
 import { beregnNavigering } from '../../lib/standard-registrering-tilstandsmaskin';
-import { SkjemaSide, SkjemaState, StandardSkjemaSide, visSisteStilling } from '../../model/skjema';
+import { SkjemaSide, SkjemaState, visSisteStilling } from '../../model/skjema';
 import { SkjemaAction } from '../../lib/skjema-state';
 import FullforRegistrering from '../../components/skjema/fullforRegistrering';
 import SisteStilling from '../../components/skjema/siste-jobb/siste-stilling';
@@ -80,7 +80,7 @@ const lagSiderMap = (skjemaState: SkjemaState, dispatch: Dispatch<SkjemaAction>)
     };
 };
 
-const validerSkjemaForSide = (side: StandardSkjemaSide, skjemaState: SkjemaState) => {
+const validerSkjemaForSide = (side: SkjemaSide, skjemaState: SkjemaState) => {
     const hentVerdi = () => {
         switch (side) {
             case SkjemaSide.DinSituasjon:
