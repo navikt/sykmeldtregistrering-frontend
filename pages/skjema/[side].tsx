@@ -1,42 +1,26 @@
-import { NextPage } from 'next';
-import { useRouter } from 'next/router';
 import DinSituasjon from '../../components/skjema/din-situasjon';
-import styles from '../../styles/skjema.module.css';
 import SisteJobb from '../../components/skjema/siste-jobb/siste-jobb';
 import Utdanning from '../../components/skjema/utdanning';
 import UtdanningGodkjent from '../../components/skjema/utdanning-godkjent';
 import BestattUtdanning from '../../components/skjema/utdanning-bestatt';
 import Helseproblemer from '../../components/skjema/helseproblemer';
 import AndreProblemer from '../../components/skjema/andre-problemer';
-import { Dispatch, useReducer, useState } from 'react';
-import { Knapperad } from '../../components/skjema/knapperad/knapperad';
-import Avbryt from '../../components/skjema/avbryt-lenke';
-import { Alert } from '@navikt/ds-react';
-import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
-import useSprak from '../../hooks/useSprak';
+import { Dispatch } from 'react';
+import { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import Oppsummering from '../../components/skjema/oppsummering/oppsummering';
 import { beregnNavigering } from '../../lib/standard-registrering-tilstandsmaskin';
 import { SkjemaSide, SkjemaState, StandardSkjemaSide, visSisteStilling } from '../../model/skjema';
-import { SkjemaAction, skjemaReducer, SkjemaReducer } from '../../lib/skjema-state';
+import { SkjemaAction } from '../../lib/skjema-state';
 import FullforRegistrering from '../../components/skjema/fullforRegistrering';
-import TilbakeKnapp from '../../components/skjema/tilbake-knapp';
 import SisteStilling from '../../components/skjema/siste-jobb/siste-stilling';
 import { SisteStillingValg, SporsmalId } from '../../model/sporsmal';
+import skjemaSideFactory, { SiderMap } from '../../components/skjema-side-factory';
 
 const TEKSTER: Tekster<string> = {
     nb: {
         advarsel: 'Du må svare på spørsmålet før du kan gå videre.',
     },
 };
-
-interface SkjemaProps {
-    aktivSide: StandardSkjemaSide;
-    isValid?: boolean;
-}
-
-type SiderMap = { [key: string]: JSX.Element };
-
-const initializer = (skjemaState: SkjemaState) => skjemaState;
 
 const lagSiderMap = (skjemaState: SkjemaState, dispatch: Dispatch<SkjemaAction>): SiderMap => {
     return {
@@ -127,50 +111,18 @@ const validerSkjemaForSide = (side: StandardSkjemaSide, skjemaState: SkjemaState
     return Boolean(hentVerdi());
 };
 
-const hentKomponentForSide = (side: StandardSkjemaSide, siderMap: SiderMap) =>
+const hentKomponentForSkjemaSide = (side: SkjemaSide, siderMap: SiderMap) =>
     siderMap[side] || siderMap[SkjemaSide.DinSituasjon];
 
-const Skjema: NextPage<SkjemaProps> = (props) => {
-    const { aktivSide } = props;
-    const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
-    const router = useRouter();
-
-    const [skjemaState, dispatch] = useReducer<SkjemaReducer, SkjemaState>(skjemaReducer, {}, initializer);
-    const [visFeilmelding, settVisFeilmelding] = useState<boolean>(false);
-
-    const { forrige, neste } = beregnNavigering(aktivSide, skjemaState);
-
-    const navigerTilSide = (side: StandardSkjemaSide) => {
-        return router.push(`/skjema/${side}`);
-    };
-
-    const validerOgGaaTilNeste = () => {
-        if (!validerSkjemaForSide(aktivSide, skjemaState)) {
-            settVisFeilmelding(true);
-            return;
-        }
-
-        settVisFeilmelding(false);
-
-        if (neste) {
-            return navigerTilSide(neste);
-        }
-    };
-
-    const forrigeLenke = forrige ? `/skjema/${forrige}` : undefined;
-
-    return (
-        <>
-            <main className={styles.main}>
-                {forrigeLenke && <TilbakeKnapp href={forrigeLenke} />}
-                {hentKomponentForSide(aktivSide, lagSiderMap(skjemaState, dispatch))}
-                {visFeilmelding && <Alert variant="warning">{tekst('advarsel')}</Alert>}
-                <Knapperad onNeste={validerOgGaaTilNeste} />
-                <Avbryt />
-            </main>
-        </>
-    );
-};
+const Skjema = skjemaSideFactory({
+    TEKSTER,
+    urlPrefix: 'skjema',
+    validerSkjemaForSide,
+    beregnNavigering,
+    hentKomponentForSide: (side, skjemaState, dispatch) => {
+        return hentKomponentForSkjemaSide(side, lagSiderMap(skjemaState, dispatch));
+    },
+});
 
 Skjema.getInitialProps = async (context: any) => {
     const { side } = context.query;
