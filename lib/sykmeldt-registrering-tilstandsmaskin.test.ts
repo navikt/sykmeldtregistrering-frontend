@@ -1,7 +1,6 @@
 import { SkjemaSide } from '../model/skjema';
 import { beregnNavigering } from './sykmeldt-registrering-tilstandsmaskin';
-import { TilbakeTilJobbValg } from '../components/skjema/tilbake-til-jobb';
-import { FremtidigSituasjon, Utdanningsnivaa } from '../model/sporsmal';
+import { FremtidigSituasjon, Utdanningsnivaa, TilbakeIArbeid } from '../model/sporsmal';
 
 describe('Sykmeldt registrering tilstandsmaskin', () => {
     describe('Fremtidig situasjon', () => {
@@ -101,25 +100,25 @@ describe('Sykmeldt registrering tilstandsmaskin', () => {
     describe('TilbakeTilJobb', () => {
         it('returnerer Oppsummering som neste for REDUSERT_STILLING', () => {
             const state = beregnNavigering(SkjemaSide.TilbakeTilJobb, {
-                tilbakeIArbeid: TilbakeTilJobbValg.JA_REDUSERT_STILLING,
+                tilbakeIArbeid: TilbakeIArbeid.JA_REDUSERT_STILLING,
             });
             expect(state.neste).toBe(SkjemaSide.Oppsummering);
         });
         it('returnerer Oppsummering som neste for USIKKER', () => {
             const state = beregnNavigering(SkjemaSide.TilbakeTilJobb, {
-                tilbakeIArbeid: TilbakeTilJobbValg.USIKKER,
+                tilbakeIArbeid: TilbakeIArbeid.USIKKER,
             });
             expect(state.neste).toBe(SkjemaSide.Oppsummering);
         });
         it('returnerer Oppsummering som neste for NEI', () => {
             const state = beregnNavigering(SkjemaSide.TilbakeTilJobb, {
-                tilbakeIArbeid: TilbakeTilJobbValg.NEI,
+                tilbakeIArbeid: TilbakeIArbeid.NEI,
             });
             expect(state.neste).toBe(SkjemaSide.Oppsummering);
         });
         it('returnerer SkalTilbakeTilJobb som neste for FULL_STILLING', () => {
             const state = beregnNavigering(SkjemaSide.TilbakeTilJobb, {
-                tilbakeIArbeid: TilbakeTilJobbValg.JA_FULL_STILLING,
+                tilbakeIArbeid: TilbakeIArbeid.JA_FULL_STILLING,
             });
             expect(state.neste).toBe(SkjemaSide.SkalTilbakeTilJobb);
         });
@@ -138,7 +137,7 @@ describe('Sykmeldt registrering tilstandsmaskin', () => {
 
         it('returnerer TilbakeTilJobb når tilbakeTilJobb er satt i state', () => {
             const state = beregnNavigering(SkjemaSide.Oppsummering, {
-                tilbakeIArbeid: TilbakeTilJobbValg.JA_REDUSERT_STILLING,
+                tilbakeIArbeid: TilbakeIArbeid.JA_REDUSERT_STILLING,
             });
             expect(state.forrige).toBe(SkjemaSide.TilbakeTilJobb);
         });

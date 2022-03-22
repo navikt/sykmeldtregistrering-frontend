@@ -1,12 +1,12 @@
 import { SisteJobb, SkjemaState } from '../model/skjema';
 import { Reducer } from 'react';
-import { TilbakeTilJobbValg } from '../components/skjema/tilbake-til-jobb';
 import {
     DinSituasjon,
     FremtidigSituasjon,
     JaEllerNei,
     SisteStillingValg,
     SporsmalId,
+    TilbakeIArbeid,
     UtdanningGodkjentValg,
     Utdanningsnivaa,
 } from '../model/sporsmal';
@@ -22,7 +22,7 @@ export type SkjemaAction =
     | { type: SporsmalId.sisteJobb; value: SisteJobb }
     | { type: SporsmalId.sisteStilling; value: SisteStillingValg }
     | { type: SporsmalId.fremtidigSituasjon; value: FremtidigSituasjon }
-    | { type: SporsmalId.tilbakeIArbeid; value: TilbakeTilJobbValg };
+    | { type: SporsmalId.tilbakeIArbeid; value: TilbakeIArbeid };
 
 export function skjemaReducer(state: SkjemaState, action: SkjemaAction): SkjemaState {
     switch (action.type) {

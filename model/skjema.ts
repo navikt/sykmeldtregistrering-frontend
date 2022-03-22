@@ -1,4 +1,3 @@
-import { TilbakeTilJobbValg } from '../components/skjema/tilbake-til-jobb';
 import {
     DinSituasjon,
     UtdanningGodkjentValg,
@@ -7,6 +6,7 @@ import {
     FremtidigSituasjon,
     SporsmalId,
     SisteStillingValg,
+    TilbakeIArbeid,
 } from './sporsmal';
 
 export enum SkjemaSide {
@@ -69,7 +69,7 @@ export interface SkjemaState {
     sisteJobb?: SisteJobb;
     helseHinder?: JaEllerNei;
     fremtidigSituasjon?: FremtidigSituasjon;
-    tilbakeIArbeid?: TilbakeTilJobbValg;
+    tilbakeIArbeid?: TilbakeIArbeid;
 }
 
 const skjemasider = {

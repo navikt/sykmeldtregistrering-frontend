@@ -3,35 +3,19 @@ import { SkjemaKomponentProps } from './skjema-felleskomponenter';
 import useSprak from '../../hooks/useSprak';
 import { Heading } from '@navikt/ds-react';
 import RadioGruppe from '../radio-gruppe/radio-gruppe';
-import { SporsmalId } from '../../model/sporsmal';
+import { SporsmalId, TilbakeIArbeid, hentTekst } from '../../model/sporsmal';
 
-export enum TilbakeTilJobbValg {
-    JA_FULL_STILLING = 'fullStilling',
-    JA_REDUSERT_STILLING = 'redusertStilling',
-    USIKKER = 'usikker',
-    NEI = 'nei',
-}
-
-const TEKSTER: Tekster<string> = {
-    nb: {
-        tittel: 'Tror du at du kommer tilbake i jobb før du har vært sykmeldt i 52 uker?',
-        [TilbakeTilJobbValg.JA_FULL_STILLING]: 'Ja, i full stilling',
-        [TilbakeTilJobbValg.JA_REDUSERT_STILLING]: 'Ja, i redusert stilling',
-        [TilbakeTilJobbValg.USIKKER]: 'Usikker',
-        [TilbakeTilJobbValg.NEI]: 'Nei',
-    },
-};
-
-const TilbakeTilJobb = (props: SkjemaKomponentProps<TilbakeTilJobbValg>) => {
-    const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
+const TilbakeTilJobb = (props: SkjemaKomponentProps<TilbakeIArbeid>) => {
+    const sprak = useSprak();
+    const tekst = (key: string) => hentTekst(sprak, key);
     const { onChange, valgt } = props;
 
-    const lagValg = (valg: TilbakeTilJobbValg) => ({ tekst: tekst(valg), value: valg });
+    const lagValg = (valg: TilbakeIArbeid) => ({ tekst: tekst(valg), value: valg });
     const valg = [
-        lagValg(TilbakeTilJobbValg.JA_FULL_STILLING),
-        lagValg(TilbakeTilJobbValg.JA_REDUSERT_STILLING),
-        lagValg(TilbakeTilJobbValg.USIKKER),
-        lagValg(TilbakeTilJobbValg.NEI),
+        lagValg(TilbakeIArbeid.JA_FULL_STILLING),
+        lagValg(TilbakeIArbeid.JA_REDUSERT_STILLING),
+        lagValg(TilbakeIArbeid.USIKKER),
+        lagValg(TilbakeIArbeid.NEI),
     ];
 
     return (

@@ -1,6 +1,5 @@
 import { Navigering, NavigeringsTilstandsMaskin, SkjemaSide, SkjemaState, SykmeldtSkjemaSide } from '../model/skjema';
-import { TilbakeTilJobbValg } from '../components/skjema/tilbake-til-jobb';
-import { FremtidigSituasjon, Utdanningsnivaa } from '../model/sporsmal';
+import { FremtidigSituasjon, Utdanningsnivaa, TilbakeIArbeid } from '../model/sporsmal';
 
 const TILSTANDER: NavigeringsTilstandsMaskin<SykmeldtSkjemaSide> = {
     [SkjemaSide.SykmeldtFremtidigSituasjon]: (state: SkjemaState) => {
@@ -57,7 +56,7 @@ const TILSTANDER: NavigeringsTilstandsMaskin<SykmeldtSkjemaSide> = {
         };
     },
     [SkjemaSide.TilbakeTilJobb]: (state: SkjemaState) => {
-        if (state.tilbakeIArbeid === TilbakeTilJobbValg.JA_FULL_STILLING) {
+        if (state.tilbakeIArbeid === TilbakeIArbeid.JA_FULL_STILLING) {
             return {
                 neste: SkjemaSide.SkalTilbakeTilJobb,
                 forrige: SkjemaSide.SykmeldtFremtidigSituasjon,
