@@ -43,13 +43,13 @@ const SisteJobb = (props: SkjemaKomponentProps<SisteJobb> & { children?: JSX.Ele
         if (sisteArbeidsforhold && !props.valgt) {
             onChange(sisteArbeidsforhold);
         }
-    }, [sisteArbeidsforhold]);
+    }, [onChange, props.valgt, sisteArbeidsforhold]);
 
     useEffect(() => {
         if (error && !props.valgt) {
             onChange(tomStilling);
         }
-    }, [error]);
+    }, [error, onChange, props.valgt]);
 
     return (
         <div>
