@@ -1,4 +1,5 @@
 import lagHentTekstForSprak, { Sprak, Tekster } from '../lib/lag-hent-tekst-for-sprak';
+import StillingsSok from '../components/skjema/siste-jobb/stillings-sok';
 
 export enum SporsmalId {
     dinSituasjon = 'dinSituasjon',
@@ -82,6 +83,7 @@ const TEKSTER: Tekster<string> = {
         [SporsmalId.sisteStilling]: '',
         [SisteStillingValg.HAR_HATT_JOBB]: 'Har vært i jobb',
         [SisteStillingValg.HAR_IKKE_HATT_JOBB]: 'Har ikke vært i jobb',
+        [SisteStillingValg.INGEN_SVAR]: 'Ikke besvart',
         [SporsmalId.utdanning]: 'Hva er din høyeste fullførte utdanning?',
         [Utdanningsnivaa.INGEN_UTDANNING]: 'Ingen utdanning',
         [Utdanningsnivaa.GRUNNSKOLE]: 'Grunnskole',
