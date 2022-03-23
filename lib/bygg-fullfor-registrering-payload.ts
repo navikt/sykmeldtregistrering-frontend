@@ -8,25 +8,33 @@ export const aldriJobbet: SisteJobb = {
 };
 
 function byggFullforRegistreringPayload(skjemaState: SkjemaState, side: Side = 'standard') {
-    const skjema = Object.keys(skjemaState)
-        .filter((key) => key !== 'sisteJobb')
-        .reduce(
-            (resultat, key) => {
-                const svarKey = (skjemaState as any)[key];
+    const initialStandardState = {
+        dinSituasjon: undefined,
+        utdanning: 'INGEN_SVAR',
+        utdanningGodkjent: 'INGEN_SVAR',
+        utdanningBestatt: 'INGEN_SVAR',
+        andreForhold: 'INGEN_SVAR',
+        sisteStilling: 'INGEN_SVAR',
+        helseHinder: 'INGEN_SVAR',
+    };
 
-                resultat.besvarelse[key] = svarKey;
-                resultat.teksterForBesvarelse.push({
-                    sporsmalId: key,
-                    sporsmal: hentTekst('nb', key),
-                    svar: hentTekst('nb', svarKey),
-                });
-                return resultat;
-            },
-            { besvarelse: {}, teksterForBesvarelse: [] } as {
-                besvarelse: Record<string, string>;
-                teksterForBesvarelse: { sporsmalId: string; sporsmal: string; svar: string }[];
-            }
-        );
+    const skjema = Object.keys(initialStandardState).reduce(
+        (resultat, key) => {
+            const svarKey = (skjemaState as any)[key];
+
+            resultat.besvarelse[key] = svarKey || (initialStandardState as any)[key];
+            resultat.teksterForBesvarelse.push({
+                sporsmalId: key,
+                sporsmal: hentTekst('nb', key),
+                svar: hentTekst('nb', svarKey),
+            });
+            return resultat;
+        },
+        { besvarelse: {}, teksterForBesvarelse: [] } as {
+            besvarelse: Record<string, string>;
+            teksterForBesvarelse: { sporsmalId: string; sporsmal: string; svar: string }[];
+        }
+    );
 
     const sisteStilling = () => {
         if (
