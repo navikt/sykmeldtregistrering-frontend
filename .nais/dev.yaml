@@ -13,10 +13,10 @@ amplitude:
 sentry:
   dsn: https://b2f662d8ed7a42b29f465f365e25832f@sentry.gc.nav.no/118
 pamJanzzUrl: https://arbeidsplassen.dev.nav.no/pam-janzz/rest
-startRegistreringUrl: http://pto-proxy.pto.svc.cluster.local/proxy/veilarbregistrering/api/startregistrering
-fullforRegistreringUrl: http://pto-proxy.pto.svc.cluster.local/proxy/veilarbregistrering/api/startregistrering
-fullforRegistreringSykmeldtUrl: http://pto-proxy.pto.svc.cluster.local/proxy/veilarbregistrering/api/startregistreringsykmeldt
-reaktiveringUrl: http://pto-proxy.pto.svc.cluster.local/proxy/veilarbregistrering/api/reaktivering
-sisteArbeidsforholdUrl: http://pto-proxy.pto.svc.cluster.local/proxy/veilarbregistrering/api/sistearbeidsforhold
-opprettOppgaveUrl: http://pto-proxy.pto.svc.cluster.local/proxy/veilarbregistrering/api/oppgave
-ptoProxyUrl: http://pto-proxy.pto.svc.cluster.local/proxy
+startRegistreringUrl: http://pto-proxy.pto.svc.cluster.local/proxy/veilarbregistrering/api/startregistrering/
+fullforRegistreringUrl: http://pto-proxy.pto.svc.cluster.local/proxy/veilarbregistrering/api/startregistrering/
+fullforRegistreringSykmeldtUrl: http://pto-proxy.pto.svc.cluster.local/proxy/veilarbregistrering/api/startregistreringsykmeldt/
+reaktiveringUrl: http://pto-proxy.pto.svc.cluster.local/proxy/veilarbregistrering/api/reaktivering/
+sisteArbeidsforholdUrl: http://pto-proxy.pto.svc.cluster.local/proxy/veilarbregistrering/api/sistearbeidsforhold/
+opprettOppgaveUrl: http://pto-proxy.pto.svc.cluster.local/proxy/veilarbregistrering/api/oppgave/
+ptoProxyUrl: http://pto-proxy.pto.svc.cluster.local/proxy/
