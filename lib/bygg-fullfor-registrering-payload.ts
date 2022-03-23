@@ -18,7 +18,19 @@ function byggFullforRegistreringPayload(skjemaState: SkjemaState, side: Side = '
         helseHinder: 'INGEN_SVAR',
     };
 
-    const skjema = Object.keys(initialStandardState).reduce(
+    const initialSykmeldtState = {
+        utdanning: 'INGEN_SVAR',
+        utdanningGodkjent: 'INGEN_SVAR',
+        utdanningBestatt: 'INGEN_SVAR',
+        andreForhold: 'INGEN_SVAR',
+        sisteStilling: 'INGEN_SVAR',
+        fremtidigSituasjon: undefined,
+        tilbakeIArbeid: undefined,
+    };
+
+    const initialState = side === 'standard' ? initialStandardState : initialSykmeldtState;
+
+    const skjema = Object.keys(initialState).reduce(
         (resultat, key) => {
             const svarKey = (skjemaState as any)[key];
 
