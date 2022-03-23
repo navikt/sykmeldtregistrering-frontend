@@ -35,11 +35,13 @@ function byggFullforRegistreringPayload(skjemaState: SkjemaState, side: Side = '
             const svarKey = (skjemaState as any)[key] || (initialStandardState as any)[key];
 
             resultat.besvarelse[key] = svarKey;
-            resultat.teksterForBesvarelse.push({
-                sporsmalId: key,
-                sporsmal: hentTekst('nb', key),
-                svar: hentTekst('nb', svarKey),
-            });
+            if (svarKey) {
+                resultat.teksterForBesvarelse.push({
+                    sporsmalId: key,
+                    sporsmal: hentTekst('nb', key),
+                    svar: hentTekst('nb', svarKey),
+                });
+            }
             return resultat;
         },
         { besvarelse: {}, teksterForBesvarelse: [] } as {
