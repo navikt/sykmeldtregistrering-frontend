@@ -20,8 +20,8 @@ const TEKSTER: Tekster<string> = {
     },
 };
 
-const tomStilling: SisteJobb = {
-    label: '',
+const annenStilling: SisteJobb = {
+    label: 'Annen stilling',
     konseptId: -1,
     styrk08: '-1',
 };
@@ -47,7 +47,7 @@ const SisteJobb = (props: SkjemaKomponentProps<SisteJobb> & { children?: JSX.Ele
 
     useEffect(() => {
         if (error && !props.valgt) {
-            onChange(tomStilling);
+            onChange(annenStilling);
         }
     }, [error, onChange, props.valgt]);
 
