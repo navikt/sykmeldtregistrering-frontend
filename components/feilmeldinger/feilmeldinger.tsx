@@ -1,4 +1,4 @@
-import { Alert, BodyShort, GuidePanel, Heading } from '@navikt/ds-react';
+import { Alert, BodyShort, Button, GuidePanel, Heading, Panel } from '@navikt/ds-react';
 import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../hooks/useSprak';
 
@@ -15,6 +15,11 @@ const TEKSTER: Tekster<string> = {
         //TODO: Fjerne troubleWithYourRequest-teksten når vi har oversatt til engelsk:
         troubleWithYourRequest:
             'We’re having trouble with your request right now. Please try again later. If you are still having problems, you can call us on 55 55 33 33.',
+        utvandretHeading: 'En veileder må hjelpe deg slik at du blir registrert',
+        utvandretBody1: 'Du står registrert som utvandret i våre systemer.',
+        utvandretBody2: 'Dette gjør at du ikke kan registrere deg som arbeidssøker på nett.',
+        utvandretKontaktOss: 'Kontakt oss, så hjelper vi deg videre.',
+        utvandretKontaktKnapp: 'Ta kontakt',
     },
 };
 
@@ -43,4 +48,19 @@ const FeilmeldingNoeGikkGalt = () => {
     );
 };
 
-export { FeilmeldingGenerell, FeilmeldingNoeGikkGalt };
+const FeilmeldingDodUtvandretEllerForsvunnet = () => {
+    const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
+    return (
+        <Panel border>
+            <Heading size="medium" spacing={true}>
+                {tekst('utvandretHeading')}
+            </Heading>
+            <BodyShort>{tekst('utvandretBody')}</BodyShort>
+            <BodyShort>{tekst('utvandretBody1')}</BodyShort>
+            <BodyShort spacing>{tekst('utvandretBody2')}</BodyShort>
+            <BodyShort spacing>{tekst('utvandretKontaktOss')}</BodyShort>
+            <Button>{tekst('utvandretKontaktKnapp')}</Button>
+        </Panel>
+    );
+};
+export { FeilmeldingGenerell, FeilmeldingNoeGikkGalt, FeilmeldingDodUtvandretEllerForsvunnet };
