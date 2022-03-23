@@ -1,6 +1,7 @@
 import {
     FeilmeldingDodUtvandretEllerForsvunnet,
     FeilmeldingGenerell,
+    FeilmeldingManglerArbeidstillatelse,
     FeilmeldingNoeGikkGalt,
 } from '../components/feilmeldinger/feilmeldinger';
 
@@ -14,6 +15,9 @@ const Feilmeldinger = () => {
             <br />
             <br />
             <FeilmeldingDodUtvandretEllerForsvunnet />
+            <br />
+            <br />
+            <FeilmeldingManglerArbeidstillatelse />
         </div>
     );
 };

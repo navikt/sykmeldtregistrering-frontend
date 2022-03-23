@@ -20,6 +20,7 @@ const TEKSTER: Tekster<string> = {
         utvandretBody2: 'Dette gjør at du ikke kan registrere deg som arbeidssøker på nett.',
         utvandretKontaktOss: 'Kontakt oss, så hjelper vi deg videre.',
         utvandretKontaktKnapp: 'Ta kontakt',
+        manglerArbeidstillatelseBody: 'Vi har ikke mulighet til å sjekke om du har en godkjent oppholdstillatelse.',
     },
 };
 
@@ -48,19 +49,32 @@ const FeilmeldingNoeGikkGalt = () => {
     );
 };
 
-const FeilmeldingDodUtvandretEllerForsvunnet = () => {
+interface FeilmeldingDodUtvandretEllerForsvunnetProps {
+    manglerArbeidsTillatelse?: boolean;
+}
+const FeilmeldingDodUtvandretEllerForsvunnet = (props: FeilmeldingDodUtvandretEllerForsvunnetProps) => {
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
     return (
         <Panel border>
             <Heading size="medium" spacing={true}>
                 {tekst('utvandretHeading')}
             </Heading>
-            <BodyShort>{tekst('utvandretBody')}</BodyShort>
-            <BodyShort>{tekst('utvandretBody1')}</BodyShort>
+            <BodyShort>
+                {tekst(props.manglerArbeidsTillatelse ? 'manglerArbeidstillatelseBody' : 'utvandretBody1')}
+            </BodyShort>
             <BodyShort spacing>{tekst('utvandretBody2')}</BodyShort>
             <BodyShort spacing>{tekst('utvandretKontaktOss')}</BodyShort>
             <Button>{tekst('utvandretKontaktKnapp')}</Button>
         </Panel>
     );
 };
-export { FeilmeldingGenerell, FeilmeldingNoeGikkGalt, FeilmeldingDodUtvandretEllerForsvunnet };
+
+const FeilmeldingManglerArbeidstillatelse = () => {
+    return <FeilmeldingDodUtvandretEllerForsvunnet manglerArbeidsTillatelse={true} />;
+};
+export {
+    FeilmeldingGenerell,
+    FeilmeldingNoeGikkGalt,
+    FeilmeldingDodUtvandretEllerForsvunnet,
+    FeilmeldingManglerArbeidstillatelse,
+};
