@@ -32,9 +32,9 @@ function byggFullforRegistreringPayload(skjemaState: SkjemaState, side: Side = '
 
     const skjema = Object.keys(initialState).reduce(
         (resultat, key) => {
-            const svarKey = (skjemaState as any)[key];
+            const svarKey = (skjemaState as any)[key] || (initialStandardState as any)[key];
 
-            resultat.besvarelse[key] = svarKey || (initialStandardState as any)[key];
+            resultat.besvarelse[key] = svarKey;
             resultat.teksterForBesvarelse.push({
                 sporsmalId: key,
                 sporsmal: hentTekst('nb', key),
