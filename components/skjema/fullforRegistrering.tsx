@@ -7,6 +7,7 @@ import { fetcher as api } from '../../lib/api-utils';
 import { useRouter } from 'next/router';
 
 import byggFullforRegistreringPayload from '../../lib/bygg-fullfor-registrering-payload';
+import { ErrorTypes } from '../../model/error';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -51,11 +52,16 @@ const FullforRegistrering = (props: FullforProps) => {
     const fullforRegistrering = async () => {
         try {
             const body = byggFullforRegistreringPayload(skjemaState, props.side);
-            await api(`/api/fullforregistrering${props.side === 'sykmeldt' ? 'sykmeldt' : ''}`, {
+            const response = await api(`/api/fullforregistrering${props.side === 'sykmeldt' ? 'sykmeldt' : ''}`, {
                 method: 'post',
                 body: JSON.stringify(body),
             });
-            return router.push('/kvittering');
+
+            if (response.type === ErrorTypes.BRUKER_ER_DOD_UTVANDRET_ELLER_FORSVUNNET) {
+                return router.push('/utvandret/');
+            }
+
+            return router.push('/kvittering/');
         } catch (e) {
             console.error(e);
         }
