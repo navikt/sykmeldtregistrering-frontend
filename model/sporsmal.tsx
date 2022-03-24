@@ -1,5 +1,15 @@
 import lagHentTekstForSprak, { Sprak, Tekster } from '../lib/lag-hent-tekst-for-sprak';
-import StillingsSok from '../components/skjema/siste-jobb/stillings-sok';
+import { SisteJobb } from './skjema';
+
+export type Svar =
+    | DinSituasjon
+    | SisteJobb
+    | Utdanningsnivaa
+    | JaEllerNei
+    | UtdanningGodkjentValg
+    | TilbakeIArbeid
+    | FremtidigSituasjon
+    | SisteStillingValg;
 
 export enum SporsmalId {
     dinSituasjon = 'dinSituasjon',
@@ -33,17 +43,20 @@ export enum Utdanningsnivaa {
     VIDEREGAENDE_FAGBREV_SVENNEBREV = 'VIDEREGAENDE_FAGBREV_SVENNEBREV',
     HOYERE_UTDANNING_1_TIL_4 = 'HOYERE_UTDANNING_1_TIL_4',
     HOYERE_UTDANNING_5_ELLER_MER = 'HOYERE_UTDANNING_5_ELLER_MER',
+    INGEN_SVAR = 'INGEN_SVAR',
 }
 
 export enum JaEllerNei {
     JA = 'JA',
     NEI = 'NEI',
+    INGEN_SVAR = 'INGEN_SVAR',
 }
 
 export enum UtdanningGodkjentValg {
     JA = 'JA',
     NEI = 'NEI',
     VET_IKKE = 'VET_IKKE',
+    INGEN_SVAR = 'INGEN_SVAR',
 }
 
 export enum TilbakeIArbeid {

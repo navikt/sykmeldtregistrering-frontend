@@ -1,4 +1,13 @@
-import { DinSituasjon, hentTekst, SisteStillingValg } from '../model/sporsmal';
+import {
+    DinSituasjon,
+    hentTekst,
+    JaEllerNei,
+    SisteStillingValg,
+    SporsmalId,
+    Svar,
+    UtdanningGodkjentValg,
+    Utdanningsnivaa,
+} from '../model/sporsmal';
 import { Side, SisteJobb, SkjemaState } from '../model/skjema';
 
 export const aldriJobbet: SisteJobb = {
@@ -7,70 +16,66 @@ export const aldriJobbet: SisteJobb = {
     styrk08: 'X',
 };
 
+type TeksterForBesvarelse = { sporsmalId: SporsmalId; sporsmal: string; svar: string }[];
+
+type Payload = {
+    besvarelse: Record<keyof SkjemaState, Svar | undefined>;
+    sisteStilling: SisteJobb;
+    teksterForBesvarelse: TeksterForBesvarelse;
+};
+
 function byggFullforRegistreringPayload(skjemaState: SkjemaState, side: Side = 'standard') {
-    const initialStandardState = {
+    const initialStandardState: SkjemaState = {
         dinSituasjon: undefined,
-        utdanning: 'INGEN_SVAR',
-        utdanningGodkjent: 'INGEN_SVAR',
-        utdanningBestatt: 'INGEN_SVAR',
-        andreForhold: 'INGEN_SVAR',
-        sisteStilling: 'INGEN_SVAR',
-        helseHinder: 'INGEN_SVAR',
+        utdanning: Utdanningsnivaa.INGEN_SVAR,
+        utdanningGodkjent: UtdanningGodkjentValg.INGEN_SVAR,
+        utdanningBestatt: JaEllerNei.INGEN_SVAR,
+        andreForhold: JaEllerNei.INGEN_SVAR,
+        sisteStilling: SisteStillingValg.INGEN_SVAR,
+        helseHinder: JaEllerNei.INGEN_SVAR,
     };
 
     const initialSykmeldtState = {
-        utdanning: 'INGEN_SVAR',
-        utdanningGodkjent: 'INGEN_SVAR',
-        utdanningBestatt: 'INGEN_SVAR',
-        andreForhold: 'INGEN_SVAR',
-        sisteStilling: 'INGEN_SVAR',
+        utdanning: Utdanningsnivaa.INGEN_SVAR,
+        utdanningGodkjent: UtdanningGodkjentValg.INGEN_SVAR,
+        utdanningBestatt: JaEllerNei.INGEN_SVAR,
+        andreForhold: JaEllerNei.INGEN_SVAR,
+        sisteStilling: SisteStillingValg.INGEN_SVAR,
         fremtidigSituasjon: undefined,
         tilbakeIArbeid: undefined,
     };
 
     const initialState = side === 'standard' ? initialStandardState : initialSykmeldtState;
 
-    const skjema = Object.keys(initialState).reduce(
-        (resultat, key) => {
-            const svar = (skjemaState as any)[key] || (initialStandardState as any)[key];
+    let payload = (Object.keys(initialState) as Array<keyof SkjemaState>).reduce(
+        (resultat: Payload, key) => {
+            const svar = skjemaState[key] || initialStandardState[key];
 
             resultat.besvarelse[key] = svar;
             if (svar) {
                 resultat.teksterForBesvarelse.push({
                     sporsmalId: key,
                     sporsmal: hentTekst('nb', key),
-                    svar: hentTekst('nb', svar),
+                    svar: hentTekst('nb', svar.toString()),
                 });
             }
             return resultat;
         },
-        { besvarelse: {}, teksterForBesvarelse: [] } as {
-            besvarelse: Record<string, string>;
-            teksterForBesvarelse: { sporsmalId: string; sporsmal: string; svar: string }[];
-        }
+        { besvarelse: {}, teksterForBesvarelse: [] as TeksterForBesvarelse } as Payload
     );
 
-    const sisteStilling = () => {
-        if (
-            skjemaState.dinSituasjon === DinSituasjon.ALDRI_HATT_JOBB ||
-            skjemaState.sisteStilling === SisteStillingValg.HAR_IKKE_HATT_JOBB
-        ) {
-            return aldriJobbet;
-        }
+    const harAldriJobbet =
+        skjemaState.dinSituasjon === DinSituasjon.ALDRI_HATT_JOBB ||
+        skjemaState.sisteStilling === SisteStillingValg.HAR_IKKE_HATT_JOBB;
 
-        return skjemaState.sisteJobb;
-    };
+    const sisteStilling = harAldriJobbet ? aldriJobbet : skjemaState.sisteJobb;
 
-    const payload = {
-        besvarelse: skjema.besvarelse,
-        sisteStilling: sisteStilling(),
-        teksterForBesvarelse: skjema.teksterForBesvarelse,
-    };
-
-    if (side === 'sykmeldt') {
-        delete payload.sisteStilling;
+    if (side === 'standard' && sisteStilling) {
+        payload = {
+            ...payload,
+            sisteStilling: sisteStilling,
+        };
     }
-
     return payload;
 }
 

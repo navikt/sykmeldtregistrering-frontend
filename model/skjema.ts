@@ -60,16 +60,16 @@ export type Navigering<T extends SkjemaSide> = {
 export type NavigeringsTilstandsMaskin<T extends SkjemaSide> = Record<T, (state: SkjemaState) => Navigering<T>>;
 
 export interface SkjemaState {
-    dinSituasjon?: DinSituasjon;
-    utdanning?: Utdanningsnivaa;
-    utdanningGodkjent?: UtdanningGodkjentValg;
-    utdanningBestatt?: JaEllerNei;
-    andreForhold?: JaEllerNei;
-    sisteStilling?: SisteStillingValg;
-    sisteJobb?: SisteJobb;
-    helseHinder?: JaEllerNei;
-    fremtidigSituasjon?: FremtidigSituasjon;
-    tilbakeIArbeid?: TilbakeIArbeid;
+    [SporsmalId.dinSituasjon]?: DinSituasjon;
+    [SporsmalId.utdanning]?: Utdanningsnivaa;
+    [SporsmalId.utdanningGodkjent]?: UtdanningGodkjentValg;
+    [SporsmalId.utdanningBestatt]?: JaEllerNei;
+    [SporsmalId.andreForhold]?: JaEllerNei;
+    [SporsmalId.sisteStilling]?: SisteStillingValg;
+    [SporsmalId.sisteJobb]?: SisteJobb;
+    [SporsmalId.helseHinder]?: JaEllerNei;
+    [SporsmalId.fremtidigSituasjon]?: FremtidigSituasjon;
+    [SporsmalId.tilbakeIArbeid]?: TilbakeIArbeid;
 }
 
 const skjemasider = {
