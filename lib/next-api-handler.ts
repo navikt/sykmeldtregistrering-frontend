@@ -10,6 +10,15 @@ export const getHeaders = (idtoken: string, callId: string) => {
     };
 };
 
+export const lagApiPostHandlerMedAuthHeaders: (url: string) => NextApiHandler | undefined =
+    (url: string) => async (req, res) => {
+        if (req.method === 'POST') {
+            return lagApiHandlerMedAuthHeaders(url)(req, res);
+        } else {
+            res.status(405).end();
+        }
+    };
+
 const lagApiHandlerMedAuthHeaders: (url: string) => NextApiHandler = (url: string) => async (req, res) => {
     const idtoken = req.cookies['selvbetjening-idtoken'];
     const callId = nanoid();
