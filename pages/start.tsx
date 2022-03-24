@@ -39,6 +39,12 @@ const Start = () => {
         router.push(hentNesteSideUrl(data));
     }, [data]);
 
+    useEffect(() => {
+        if (error) {
+            router.push('/feil/');
+        }
+    }, [error]);
+
     return (
         <div style={{ textAlign: 'center' }}>
             <Loader variant="neutral" size="2xlarge" title="venter..." />
