@@ -11,3 +11,5 @@ Veiledning.getInitialProps = async (context: any) => {
 
     return { situasjon };
 };
+
+export default Veiledning;
