@@ -1,13 +1,14 @@
 import { Accordion, Button, ConfirmationPanel, ContentContainer, GuidePanel, Heading } from '@navikt/ds-react';
 import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../hooks/useSprak';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Side, SkjemaState } from '../../model/skjema';
 import { fetcher as api } from '../../lib/api-utils';
 import { useRouter } from 'next/router';
 
 import byggFullforRegistreringPayload from '../../lib/bygg-fullfor-registrering-payload';
 import { ErrorTypes } from '../../model/error';
+import { FeilmeldingGenerell } from '../feilmeldinger/feilmeldinger';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -47,11 +48,16 @@ const FullforRegistrering = (props: FullforProps) => {
     const { skjemaState } = props;
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
     const [checked, setChecked] = useState<boolean>(false);
+    const [senderSkjema, settSenderSkjema] = useState<boolean>(false);
+    const [visFeilmelding, settVisFeilmelding] = useState<boolean>(false);
+    const [visFeilmeldingTeller, settVisFeilmeldingTeller] = useState<number>(0);
     const router = useRouter();
 
-    const fullforRegistrering = async () => {
+    const fullforRegistrering = useCallback(async () => {
         try {
             const body = byggFullforRegistreringPayload(skjemaState, props.side);
+            settSenderSkjema(true);
+            settVisFeilmelding(false);
             const response = await api(`/api/fullforregistrering${props.side === 'sykmeldt' ? 'sykmeldt' : ''}`, {
                 method: 'post',
                 body: JSON.stringify(body),
@@ -66,9 +72,16 @@ const FullforRegistrering = (props: FullforProps) => {
             }
             return router.push('/kvittering/');
         } catch (e) {
-            console.error(e);
+            settVisFeilmeldingTeller(visFeilmeldingTeller + 1);
+            settVisFeilmelding(true);
+
+            if (visFeilmeldingTeller >= 3) {
+                return router.push('/feil/');
+            }
+        } finally {
+            settSenderSkjema(false);
         }
-    };
+    }, [props.side, router, skjemaState, visFeilmeldingTeller]);
 
     return (
         <>
@@ -127,9 +140,16 @@ const FullforRegistrering = (props: FullforProps) => {
                     checked={checked}
                     onChange={() => setChecked(!checked)}
                     label={tekst('lestOgForstaatt')}
+                    className="mbm"
                 ></ConfirmationPanel>
 
-                <Button onClick={fullforRegistrering} disabled={!checked}>
+                {visFeilmelding && (
+                    <div className="mbm">
+                        <FeilmeldingGenerell />
+                    </div>
+                )}
+
+                <Button onClick={fullforRegistrering} disabled={!checked} loading={senderSkjema}>
                     {tekst('fullfor')}
                 </Button>
             </ContentContainer>
