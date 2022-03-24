@@ -9,6 +9,8 @@ import { useRouter } from 'next/router';
 import byggFullforRegistreringPayload from '../../lib/bygg-fullfor-registrering-payload';
 import { ErrorTypes } from '../../model/error';
 import { FeilmeldingGenerell } from '../feilmeldinger/feilmeldinger';
+import { FullforRegistreringResponse } from '../../model/registrering';
+import hentKvitteringsUrl from '../../lib/hent-kvitterings-url';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -44,6 +46,7 @@ interface FullforProps {
     skjemaState: SkjemaState;
     side: Side;
 }
+
 const FullforRegistrering = (props: FullforProps) => {
     const { skjemaState } = props;
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
@@ -58,19 +61,16 @@ const FullforRegistrering = (props: FullforProps) => {
             const body = byggFullforRegistreringPayload(skjemaState, props.side);
             settSenderSkjema(true);
             settVisFeilmelding(false);
-            const response = await api(`/api/fullforregistrering${props.side === 'sykmeldt' ? 'sykmeldt' : ''}`, {
-                method: 'post',
-                body: JSON.stringify(body),
-            });
 
-            if (response.type === ErrorTypes.BRUKER_ER_DOD_UTVANDRET_ELLER_FORSVUNNET) {
-                return router.push('/veiledning/utvandret/');
-            } else if (response.type === ErrorTypes.BRUKER_MANGLER_ARBEIDSTILLATELSE) {
-                return router.push('/veiledning/mangler-arbeidstillatelse/');
-            } else if ([ErrorTypes.BRUKER_ER_UKJENT, ErrorTypes.BRUKER_KAN_IKKE_REAKTIVERES].includes(response.type)) {
-                return router.push('/feil/');
-            }
-            return router.push('/kvittering/');
+            const response: FullforRegistreringResponse = await api(
+                `/api/fullforregistrering${props.side === 'sykmeldt' ? 'sykmeldt' : ''}`,
+                {
+                    method: 'post',
+                    body: JSON.stringify(body),
+                }
+            );
+
+            return router.push(hentKvitteringsUrl(response));
         } catch (e) {
             settVisFeilmeldingTeller(visFeilmeldingTeller + 1);
             settVisFeilmelding(true);
