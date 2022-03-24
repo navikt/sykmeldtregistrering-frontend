@@ -1,10 +1,6 @@
-import { Alert, BodyShort, Button, GuidePanel, Heading, Link, Panel } from '@navikt/ds-react';
+import { Alert, BodyShort, GuidePanel, Link } from '@navikt/ds-react';
 import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../hooks/useSprak';
-import { useCallback } from 'react';
-import { fetcher as api } from '../../lib/api-utils';
-import { useRouter } from 'next/router';
-import { NextApiResponse } from 'next';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -19,12 +15,6 @@ const TEKSTER: Tekster<string> = {
         //TODO: Fjerne troubleWithYourRequest-teksten når vi har oversatt til engelsk:
         troubleWithYourRequest:
             'We’re having trouble with your request right now. Please try again later. If you are still having problems, you can call us on 55 55 33 33.',
-        utvandretHeading: 'En veileder må hjelpe deg slik at du blir registrert',
-        utvandretBody1: 'Du står registrert som utvandret i våre systemer.',
-        utvandretBody2: 'Dette gjør at du ikke kan registrere deg som arbeidssøker på nett.',
-        utvandretKontaktOss: 'Kontakt oss, så hjelper vi deg videre.',
-        utvandretKontaktKnapp: 'Ta kontakt',
-        manglerArbeidstillatelseBody: 'Vi har ikke mulighet til å sjekke om du har en godkjent oppholdstillatelse.',
     },
 };
 
@@ -57,47 +47,4 @@ const FeilmeldingNoeGikkGalt = () => {
     );
 };
 
-interface FeilmeldingTrengerVeiledningProps {
-    manglerArbeidsTillatelse?: boolean;
-}
-const FeilmeldingTrengerVeiledning = (props: FeilmeldingTrengerVeiledningProps) => {
-    const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
-    const router = useRouter();
-
-    const opprettOppgave = useCallback(async () => {
-        try {
-            const oppgaveType = props.manglerArbeidsTillatelse ? 'OPPHOLDSTILLATELSE' : 'UTVANDRET';
-
-            const response: NextApiResponse<any> = await api('/api/oppgave', {
-                method: 'post',
-                body: JSON.stringify({ oppgaveType: oppgaveType }),
-            });
-
-            return router.push('/veiledning/kvittering/');
-        } catch (e) {}
-    }, [props.manglerArbeidsTillatelse, router]);
-
-    return (
-        <Panel border>
-            <Heading size="medium" spacing={true}>
-                {tekst('utvandretHeading')}
-            </Heading>
-            <BodyShort>
-                {tekst(props.manglerArbeidsTillatelse ? 'manglerArbeidstillatelseBody' : 'utvandretBody1')}
-            </BodyShort>
-            <BodyShort spacing>{tekst('utvandretBody2')}</BodyShort>
-            <BodyShort spacing>{tekst('utvandretKontaktOss')}</BodyShort>
-            <Button onClick={opprettOppgave}>{tekst('utvandretKontaktKnapp')}</Button>
-        </Panel>
-    );
-};
-
-const FeilmeldingManglerArbeidstillatelse = () => {
-    return <FeilmeldingTrengerVeiledning manglerArbeidsTillatelse={true} />;
-};
-export {
-    FeilmeldingGenerell,
-    FeilmeldingNoeGikkGalt,
-    FeilmeldingTrengerVeiledning,
-    FeilmeldingManglerArbeidstillatelse,
-};
+export { FeilmeldingGenerell, FeilmeldingNoeGikkGalt };

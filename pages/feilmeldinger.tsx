@@ -1,9 +1,5 @@
-import {
-    FeilmeldingTrengerVeiledning,
-    FeilmeldingGenerell,
-    FeilmeldingManglerArbeidstillatelse,
-    FeilmeldingNoeGikkGalt,
-} from '../components/feilmeldinger/feilmeldinger';
+import { FeilmeldingGenerell, FeilmeldingNoeGikkGalt } from '../components/feilmeldinger/feilmeldinger';
+import KontaktVeileder from './veiledning/[situasjon]';
 
 const Feilmeldinger = () => {
     return (
@@ -14,10 +10,10 @@ const Feilmeldinger = () => {
             <FeilmeldingNoeGikkGalt />
             <br />
             <br />
-            <FeilmeldingTrengerVeiledning />
+            <KontaktVeileder situasjon="utvandret" />
             <br />
             <br />
-            <FeilmeldingManglerArbeidstillatelse />
+            <KontaktVeileder situasjon="mangler-arbeidstillatelse" />
         </div>
     );
 };
