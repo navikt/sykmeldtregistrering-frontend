@@ -20,3 +20,4 @@ reaktiveringUrl: http://pto-proxy.pto.svc.cluster.local/proxy/veilarbregistrerin
 sisteArbeidsforholdUrl: http://pto-proxy.pto.svc.cluster.local/proxy/veilarbregistrering/api/sistearbeidsforhold/
 opprettOppgaveUrl: http://pto-proxy.pto.svc.cluster.local/proxy/veilarbregistrering/api/oppgave/
 ptoProxyUrl: http://pto-proxy.pto.svc.cluster.local/proxy/
+featureToggleUrl: https://unleash.nais.io/api/client/features?tag[]=simple:arbeidssokerregistrering

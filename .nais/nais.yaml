@@ -63,6 +63,8 @@ spec:
       value: {{sisteArbeidsforholdUrl}}
     - name: PTO_PROXY_URL
       value: {{ptoProxyUrl}}
+    - name: FEATURE_TOGGLE_URL
+      value: {{featureToggleUrl}}
   ingresses:
     - {{ingress}}
   idporten:
