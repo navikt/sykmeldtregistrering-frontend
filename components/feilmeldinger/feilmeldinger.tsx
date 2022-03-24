@@ -1,4 +1,4 @@
-import { Alert, BodyShort, Button, GuidePanel, Heading, Panel } from '@navikt/ds-react';
+import { Alert, BodyShort, Button, GuidePanel, Heading, Link, Panel } from '@navikt/ds-react';
 import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../hooks/useSprak';
 
@@ -29,9 +29,13 @@ const FeilmeldingGenerell = () => {
 
     return (
         <Alert variant={'error'}>
-            <BodyShort>{tekst('feilISystemene')}</BodyShort>
-            <BodyShort>{tekst('provIgjen')}</BodyShort>
-            <BodyShort>{tekst('kontaktBrukerstotte')}</BodyShort>
+            <BodyShort spacing>{tekst('feilISystemene')}</BodyShort>
+            <BodyShort spacing>{tekst('provIgjen')}</BodyShort>
+            <BodyShort>
+                <Link href="https://www.nav.no/no/nav-og-samfunn/kontakt-nav/teknisk-brukerstotte/kontakt-teknisk-brukerstotte-nav.no">
+                    {tekst('kontaktBrukerstotte')}
+                </Link>
+            </BodyShort>
         </Alert>
     );
 };
