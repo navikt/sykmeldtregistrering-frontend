@@ -61,6 +61,8 @@ const FullforRegistrering = (props: FullforProps) => {
                 return router.push('/veiledning/utvandret/');
             } else if (response.type === ErrorTypes.BRUKER_MANGLER_ARBEIDSTILLATELSE) {
                 return router.push('/veiledning/mangler-arbeidstillatelse/');
+            } else if ([ErrorTypes.BRUKER_ER_UKJENT, ErrorTypes.BRUKER_KAN_IKKE_REAKTIVERES].includes(response.type)) {
+                return router.push('/feil/');
             }
             return router.push('/kvittering/');
         } catch (e) {
