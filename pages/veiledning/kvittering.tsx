@@ -14,6 +14,7 @@ import {
 import useSprak from '../../hooks/useSprak';
 import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import { ExternalLink } from '@navikt/ds-icons';
+import virkedager from '@alheimsins/virkedager';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -81,6 +82,9 @@ type Kilde = 'KRR' | 'NAV';
 const Kontaktinformasjon = (props: KontaktinfoProps) => {
     const sprak = useSprak();
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
+    const idag = new Date();
+    const nesteVirkedag = virkedager(idag, 2);
+
     return (
         <Panel border>
             <Heading spacing size={'small'}>
