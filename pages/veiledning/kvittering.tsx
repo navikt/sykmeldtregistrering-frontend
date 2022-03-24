@@ -20,7 +20,7 @@ const TEKSTER: Tekster<string> = {
         mottatt: 'Henvendelse mottatt',
         viktig: 'Viktig:',
         kontakterDegInnen: 'Vi kontakter deg innen utgangen av ',
-        kontaktopplysninger: 'Pass på at kontaktopplysningene dine er oppdatert, ellers kan vi ikke nå deg.',
+        kontaktopplysningerOppdatert: 'Pass på at kontaktopplysningene dine er oppdatert, ellers kan vi ikke nå deg.',
         tlfHosKRR: 'Telefonnummer lagret hos Kontakt- og reservasjonsregisteret',
         kildeKRR: 'Kilde: Kontakt- og reservasjonsregisteret',
         tlfHosNAV: 'Telefonnummer lagret hos NAV',
@@ -31,7 +31,7 @@ const TEKSTER: Tekster<string> = {
         mottatt: 'Request received',
         viktig: 'Important:',
         kontakterDegInnen: 'We will contact you before the end of ',
-        kontaktopplysninger: 'Please make sure your contact details are updated.',
+        kontaktopplysningerOppdatert: 'Please make sure your contact details are updated.',
         endreOpplysninger: 'Change contact details',
         //TODO: Oversette alle tekster
     },
@@ -54,27 +54,14 @@ const KvitteringOppgave = () => {
                         <BodyShort spacing>
                             {tekst('kontakterDegInnen')}
                             xx.xx.xxxx.
-                            {tekst('kontaktopplysninger')}
+                            {tekst('kontaktopplysningerOppdatert')}
                         </BodyShort>
                     </Cell>
-
                     <Cell xs={12}>
-                        <Panel border>
-                            <Heading spacing size={'small'}>
-                                {tekst('tlfHosKRR')}
-                            </Heading>
-                            <Label>XXXXXXXX</Label>
-                            <Detail size={'small'}>{tekst('kildeKRR')}</Detail>
-                        </Panel>
+                        <Kontaktinformasjon kilde="KRR" tlfnr="XXXXXXXXX" />
                     </Cell>
                     <Cell xs={12}>
-                        <Panel border>
-                            <Heading spacing size={'small'}>
-                                {tekst('tlfHosNAV')}
-                            </Heading>
-                            <Label>XXXXXXXX</Label>
-                            <Detail size={'small'}>{tekst('kildeNAV')}</Detail>
-                        </Panel>
+                        <Kontaktinformasjon kilde="NAV" tlfnr="XXXXXXXXX" />
                     </Cell>
                     <Cell xs={12}>
                         <Link href="https://www.nav.no/person/personopplysninger/#kontaktinformasjon">
@@ -88,4 +75,20 @@ const KvitteringOppgave = () => {
     );
 };
 
+type KontaktinfoProps = { kilde: Kilde; tlfnr: string };
+type Kilde = 'KRR' | 'NAV';
+
+const Kontaktinformasjon = (props: KontaktinfoProps) => {
+    const sprak = useSprak();
+    const tekst = lagHentTekstForSprak(TEKSTER, sprak);
+    return (
+        <Panel border>
+            <Heading spacing size={'small'}>
+                {tekst(`tlfHos${props.kilde}`)}
+            </Heading>
+            <Label>props.tlfnr</Label>
+            <Detail size={'small'}>{tekst(`kilde${props.kilde}`)}</Detail>
+        </Panel>
+    );
+};
 export default KvitteringOppgave;
