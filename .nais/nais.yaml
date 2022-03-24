@@ -47,6 +47,8 @@ spec:
       value: {{mocking}}
     - name: NEXT_PUBLIC_SENTRY_DSN
       value: {{sentry.dsn}}
+    - name: NEXT_PUBLIC_FEATURETOGGLE_URL
+      value: {{featureToggles.client}}
     - name: PAM_JANZZ_URL
       value: {{ pamJanzzUrl }}
     - name: START_REGISTRERING_URL
@@ -64,7 +66,7 @@ spec:
     - name: PTO_PROXY_URL
       value: {{ptoProxyUrl}}
     - name: FEATURE_TOGGLE_URL
-      value: {{featureToggleUrl}}
+      value: {{featureToggles.server}}
   ingresses:
     - {{ingress}}
   idporten:

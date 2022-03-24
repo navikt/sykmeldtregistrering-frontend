@@ -6,10 +6,10 @@ async function features(req: NextApiRequest, res: NextApiResponse) {
         const response = await fetch(url);
         const json = await response.json();
         const features = json.features || [];
-        res.status(200).json(features);
+        return res.status(200).json(features);
     } catch (error) {
-        console.log(error);
-        res.status(200).json([]);
+        console.error(error);
+        return res.status(200).json([]);
     }
 }
 
