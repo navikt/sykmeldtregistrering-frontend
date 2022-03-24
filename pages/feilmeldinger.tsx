@@ -1,5 +1,5 @@
 import {
-    FeilmeldingDodUtvandretEllerForsvunnet,
+    FeilmeldingTrengerVeiledning,
     FeilmeldingGenerell,
     FeilmeldingManglerArbeidstillatelse,
     FeilmeldingNoeGikkGalt,
@@ -14,7 +14,7 @@ const Feilmeldinger = () => {
             <FeilmeldingNoeGikkGalt />
             <br />
             <br />
-            <FeilmeldingDodUtvandretEllerForsvunnet />
+            <FeilmeldingTrengerVeiledning />
             <br />
             <br />
             <FeilmeldingManglerArbeidstillatelse />

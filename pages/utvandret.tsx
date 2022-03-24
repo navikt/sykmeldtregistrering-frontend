@@ -1,7 +1,7 @@
-import { FeilmeldingDodUtvandretEllerForsvunnet } from '../components/feilmeldinger/feilmeldinger';
+import { FeilmeldingTrengerVeiledning } from '../components/feilmeldinger/feilmeldinger';
 
 const Utvandret = () => {
-    return <FeilmeldingDodUtvandretEllerForsvunnet />;
+    return <FeilmeldingTrengerVeiledning />;
 };
 
 export default Utvandret;

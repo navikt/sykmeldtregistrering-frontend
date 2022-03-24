@@ -58,9 +58,10 @@ const FullforRegistrering = (props: FullforProps) => {
             });
 
             if (response.type === ErrorTypes.BRUKER_ER_DOD_UTVANDRET_ELLER_FORSVUNNET) {
-                return router.push('/utvandret/');
+                return router.push('/veiledning/utvandret/');
+            } else if (response.type === ErrorTypes.BRUKER_MANGLER_ARBEIDSTILLATELSE) {
+                return router.push('/veiledning/mangler-arbeidstillatelse/');
             }
-
             return router.push('/kvittering/');
         } catch (e) {
             console.error(e);

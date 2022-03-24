@@ -49,10 +49,10 @@ const FeilmeldingNoeGikkGalt = () => {
     );
 };
 
-interface FeilmeldingDodUtvandretEllerForsvunnetProps {
+interface FeilmeldingTrengerVeiledningProps {
     manglerArbeidsTillatelse?: boolean;
 }
-const FeilmeldingDodUtvandretEllerForsvunnet = (props: FeilmeldingDodUtvandretEllerForsvunnetProps) => {
+const FeilmeldingTrengerVeiledning = (props: FeilmeldingTrengerVeiledningProps) => {
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
     return (
         <Panel border>
@@ -70,11 +70,11 @@ const FeilmeldingDodUtvandretEllerForsvunnet = (props: FeilmeldingDodUtvandretEl
 };
 
 const FeilmeldingManglerArbeidstillatelse = () => {
-    return <FeilmeldingDodUtvandretEllerForsvunnet manglerArbeidsTillatelse={true} />;
+    return <FeilmeldingTrengerVeiledning manglerArbeidsTillatelse={true} />;
 };
 export {
     FeilmeldingGenerell,
     FeilmeldingNoeGikkGalt,
-    FeilmeldingDodUtvandretEllerForsvunnet,
+    FeilmeldingTrengerVeiledning,
     FeilmeldingManglerArbeidstillatelse,
 };
