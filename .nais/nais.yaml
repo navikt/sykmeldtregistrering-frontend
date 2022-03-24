@@ -62,7 +62,7 @@ spec:
     - name: SISTE_ARBEIDSFORHOLD_URL
       value: {{sisteArbeidsforholdUrl}}
     - name: OPPRETT_OPPGAVE_URL
-      value: {{sisteArbeidsforholdUrl}}
+      value: {{opprettOppgaveUrl}}
     - name: PTO_PROXY_URL
       value: {{ptoProxyUrl}}
     - name: FEATURE_TOGGLE_URL

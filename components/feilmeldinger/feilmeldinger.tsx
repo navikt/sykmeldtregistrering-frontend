@@ -1,6 +1,10 @@
 import { Alert, BodyShort, Button, GuidePanel, Heading, Link, Panel } from '@navikt/ds-react';
 import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../hooks/useSprak';
+import { useCallback } from 'react';
+import { fetcher as api } from '../../lib/api-utils';
+import { useRouter } from 'next/router';
+import { NextApiResponse } from 'next';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -58,6 +62,21 @@ interface FeilmeldingTrengerVeiledningProps {
 }
 const FeilmeldingTrengerVeiledning = (props: FeilmeldingTrengerVeiledningProps) => {
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
+    const router = useRouter();
+
+    const opprettOppgave = useCallback(async () => {
+        try {
+            const oppgaveType = props.manglerArbeidsTillatelse ? 'OPPHOLDSTILLATELSE' : 'UTVANDRET';
+
+            const response: NextApiResponse<any> = await api('/api/oppgave', {
+                method: 'post',
+                body: JSON.stringify({ oppgaveType: oppgaveType }),
+            });
+
+            return router.push('/veiledning/kvittering/');
+        } catch (e) {}
+    }, [props.manglerArbeidsTillatelse, router]);
+
     return (
         <Panel border>
             <Heading size="medium" spacing={true}>
@@ -68,7 +87,7 @@ const FeilmeldingTrengerVeiledning = (props: FeilmeldingTrengerVeiledningProps) 
             </BodyShort>
             <BodyShort spacing>{tekst('utvandretBody2')}</BodyShort>
             <BodyShort spacing>{tekst('utvandretKontaktOss')}</BodyShort>
-            <Button>{tekst('utvandretKontaktKnapp')}</Button>
+            <Button onClick={opprettOppgave}>{tekst('utvandretKontaktKnapp')}</Button>
         </Panel>
     );
 };

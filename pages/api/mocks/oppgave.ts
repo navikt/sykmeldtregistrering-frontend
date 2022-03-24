@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-const opprettOppgave = (req: NextApiRequest, res: NextApiResponse): void => {
+const oppgave = (req: NextApiRequest, res: NextApiResponse): void => {
     res.status(200).json({
         id: 308030803,
         tildeltEnhetsnr: 1503,
@@ -12,4 +12,4 @@ const opprettOppgave = (req: NextApiRequest, res: NextApiResponse): void => {
     });
 };
 
-export default opprettOppgave;
+export default oppgave;
