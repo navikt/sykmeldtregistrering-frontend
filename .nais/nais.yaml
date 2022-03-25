@@ -63,6 +63,8 @@ spec:
       value: {{sisteArbeidsforholdUrl}}
     - name: OPPRETT_OPPGAVE_URL
       value: {{opprettOppgaveUrl}}
+    - name: KONTAKTINFORMASJON_URL
+      value: {{kontaktinformasjonUrl}}
     - name: PTO_PROXY_URL
       value: {{ptoProxyUrl}}
     - name: FEATURE_TOGGLE_URL
