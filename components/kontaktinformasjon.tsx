@@ -19,6 +19,7 @@ export const Kontaktinformasjon = (props: { kontaktinfo: Kontaktinfo }) => {
     const manglerKontaktinfo = telefonnummerKRR === undefined && telefonnummerNAV === undefined;
 
     if (manglerKontaktinfo) {
+        //TODO: Riktig visning av feilmelding for manglende kontaktinfo
         return (
             <Cell xs={12}>
                 <BodyShort>Mangler kontaktinfo</BodyShort>{' '}
