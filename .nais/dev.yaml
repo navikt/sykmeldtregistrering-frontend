@@ -19,6 +19,7 @@ fullforRegistreringSykmeldtUrl: http://pto-proxy.pto.svc.cluster.local/proxy/vei
 reaktiveringUrl: http://pto-proxy.pto.svc.cluster.local/proxy/veilarbregistrering/api/reaktivering/
 sisteArbeidsforholdUrl: http://pto-proxy.pto.svc.cluster.local/proxy/veilarbregistrering/api/sistearbeidsforhold/
 opprettOppgaveUrl: http://pto-proxy.pto.svc.cluster.local/proxy/veilarbregistrering/api/oppgave/
+kontaktinformasjonUrl: http://pto-proxy.pto.svc.cluster.local/proxy/veilarbregistrering/api/person/kontaktinfo
 ptoProxyUrl: http://pto-proxy.pto.svc.cluster.local/proxy/
 featureToggles:
   server: https://unleash.nais.io/api/client/features?tag[]=simple:arbeidssokerregistrering
