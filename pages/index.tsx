@@ -9,6 +9,7 @@ import DineOpplysninger from '../components/forsiden/dine-opplysninger';
 import { SkjemaSide } from '../model/skjema';
 import RettigheterPanel from '../components/forsiden/rettigheter';
 import PlikterPanel from '../components/forsiden/plikter';
+import RedirectTilVedlikehold from '../components/redirect-til-vedlikehold';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -27,36 +28,39 @@ const Home: NextPage = (props) => {
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
 
     return (
-        <div>
-            <Head>
-                <title>{tekst('metaTittel')}</title>
-                <meta name="description" content={tekst('metaDescription')} />
-            </Head>
-            <Heading spacing size="xlarge" level="2">
-                {tekst('tittel')}
-            </Heading>
-            <p>
-                <NextLink href={`/skjema/${SkjemaSide.DinSituasjon}`} passHref>
-                    <Button>Standard registrering</Button>
-                </NextLink>
-            </p>
-            <p>
-                <NextLink href={`/sykmeldt/${SkjemaSide.SykmeldtFremtidigSituasjon}`} passHref>
-                    <Button variant="secondary">Sykmeldt registrering</Button>
-                </NextLink>
-            </p>
-            <Grid>
-                <Cell xs={12} md={6}>
-                    <RettigheterPanel />
-                </Cell>
-                <Cell xs={12} md={6}>
-                    <PlikterPanel />
-                </Cell>
-                <Cell xs={12}>
-                    <DineOpplysninger />
-                </Cell>
-            </Grid>
-        </div>
+        <>
+            <RedirectTilVedlikehold />
+            <div>
+                <Head>
+                    <title>{tekst('metaTittel')}</title>
+                    <meta name="description" content={tekst('metaDescription')} />
+                </Head>
+                <Heading spacing size="xlarge" level="2">
+                    {tekst('tittel')}
+                </Heading>
+                <p>
+                    <NextLink href={`/skjema/${SkjemaSide.DinSituasjon}`} passHref>
+                        <Button>Standard registrering</Button>
+                    </NextLink>
+                </p>
+                <p>
+                    <NextLink href={`/sykmeldt/${SkjemaSide.SykmeldtFremtidigSituasjon}`} passHref>
+                        <Button variant="secondary">Sykmeldt registrering</Button>
+                    </NextLink>
+                </p>
+                <Grid>
+                    <Cell xs={12} md={6}>
+                        <RettigheterPanel />
+                    </Cell>
+                    <Cell xs={12} md={6}>
+                        <PlikterPanel />
+                    </Cell>
+                    <Cell xs={12}>
+                        <DineOpplysninger />
+                    </Cell>
+                </Grid>
+            </div>
+        </>
     );
 };
 
