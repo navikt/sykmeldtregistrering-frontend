@@ -19,6 +19,7 @@ import {
 } from '@navikt/ds-react';
 import virkedager from '@alheimsins/virkedager';
 import { ExternalLink } from '@navikt/ds-icons';
+import { Kontaktinfo, Kontaktinformasjon } from '../../components/kontaktinformasjon';
 
 export type Situasjon = 'utvandret' | 'mangler-arbeidstillatelse';
 
@@ -50,28 +51,39 @@ const TEKSTER: Tekster<string> = {
     },
 };
 
+type OppgaveRespons = {
+    id: number;
+    tildeltEnhetsnr: number;
+    data: {
+        telefonnummerHosKrr: string;
+        telefonnummerHosNav: string;
+    };
+    response: string;
+};
+
 const KontaktVeileder = (props: { situasjon: Situasjon }) => {
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
-    const router = useRouter();
-
-    const idag = new Date();
-    const nesteVirkedag = virkedager(idag, 2);
     const [oppgaveOpprettet, settOppgaveOpprettet] = useState<boolean>(false);
+    const [kontaktinfo, settKontaktinfo] = useState<Kontaktinfo>({
+        telefonnummerNAV: undefined,
+        telefonnummerKRR: undefined,
+    });
 
     const opprettOppgave = useCallback(async () => {
         try {
             const oppgaveType = props.situasjon === 'utvandret' ? 'UTVANDRET' : 'OPPHOLDSTILLATELSE';
 
-            await api('/api/oppgave', {
+            const { data }: OppgaveRespons = await api('/api/oppgave', {
                 method: 'post',
                 body: JSON.stringify({ oppgaveType: oppgaveType }),
             });
             settOppgaveOpprettet(true);
+            settKontaktinfo({ telefonnummerNAV: data.telefonnummerHosNav, telefonnummerKRR: data.telefonnummerHosKrr });
         } catch (e) {}
     }, [props.situasjon]);
 
     if (oppgaveOpprettet) {
-        return <HenvendelseMottatt />;
+        return <HenvendelseMottatt kontaktinfo={kontaktinfo} />;
     } else
         return (
             <Panel border>
@@ -88,9 +100,12 @@ const KontaktVeileder = (props: { situasjon: Situasjon }) => {
         );
 };
 
-const HenvendelseMottatt = () => {
+const HenvendelseMottatt = (props: { kontaktinfo: Kontaktinfo }) => {
     const sprak = useSprak();
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
+    const idag = new Date();
+    const toVirkedagerFraNaa = virkedager(idag, 2);
+
     return (
         <ContentContainer>
             <GuidePanel poster>
@@ -104,16 +119,12 @@ const HenvendelseMottatt = () => {
                         </Heading>
                         <BodyShort spacing>
                             {tekst('kontakterDegInnen')}
-                            xx.xx.xxxx.
+                            {toVirkedagerFraNaa}
+                            {'. '}
                             {tekst('kontaktopplysningerOppdatert')}
                         </BodyShort>
                     </Cell>
-                    <Cell xs={12}>
-                        <Kontaktinformasjon kilde="KRR" tlfnr="XXXXXXXXX" />
-                    </Cell>
-                    <Cell xs={12}>
-                        <Kontaktinformasjon kilde="NAV" tlfnr="XXXXXXXXX" />
-                    </Cell>
+                    <Kontaktinformasjon kontaktinfo={props.kontaktinfo} />
                     <Cell xs={12}>
                         <Link href="https://www.nav.no/person/personopplysninger/#kontaktinformasjon">
                             {tekst('endreOpplysninger')}
@@ -123,26 +134,6 @@ const HenvendelseMottatt = () => {
                 </Grid>
             </GuidePanel>
         </ContentContainer>
-    );
-};
-
-type KontaktinfoProps = { kilde: Kilde; tlfnr: string };
-type Kilde = 'KRR' | 'NAV';
-
-const Kontaktinformasjon = (props: KontaktinfoProps) => {
-    const sprak = useSprak();
-    const tekst = lagHentTekstForSprak(TEKSTER, sprak);
-    const idag = new Date();
-    const nesteVirkedag = virkedager(idag, 2);
-
-    return (
-        <Panel border>
-            <Heading spacing size={'small'}>
-                {tekst(`tlfHos${props.kilde}`)}
-            </Heading>
-            <Label>props.tlfnr</Label>
-            <Detail size={'small'}>{tekst(`kilde${props.kilde}`)}</Detail>
-        </Panel>
     );
 };
 

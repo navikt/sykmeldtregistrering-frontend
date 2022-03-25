@@ -5,8 +5,8 @@ const oppgave = (req: NextApiRequest, res: NextApiResponse): void => {
         id: 308030803,
         tildeltEnhetsnr: 1503,
         data: {
-            telefonnummerHosKrr: '',
-            telefonnummerHosNav: '',
+            telefonnummerHosKrr: '12345678',
+            telefonnummerHosNav: '12345678',
         },
         response: '',
     });
