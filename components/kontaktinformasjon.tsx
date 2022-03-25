@@ -12,6 +12,13 @@ const TEKSTER: Tekster<string> = {
         kildeNAV: 'Kilde: NAV',
         endreOpplysninger: 'Endre opplysninger',
     },
+    en: {
+        tlfHosKRR: 'Phone number registered with the common contact register',
+        kildeKRR: 'Source: The common contact register',
+        tlfHosNAV: 'Phone number registered with NAV',
+        kildeNAV: 'Source: NAV',
+        endreOpplysninger: 'Change contact details',
+    },
 };
 
 export const Kontaktinformasjon = (props: { kontaktinfo: Kontaktinfo }) => {
