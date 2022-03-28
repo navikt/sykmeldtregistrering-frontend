@@ -22,6 +22,9 @@ function hentNesteSideUrl(data: any) {
         case RegistreringType.SPERRET: {
             return '/sperret';
         }
+        case RegistreringType.ALLEREDE_REGISTRERT: {
+            return '/veiledning/allerede-registrert';
+        }
         default:
             return '/';
     }
