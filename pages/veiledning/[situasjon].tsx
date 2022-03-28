@@ -71,6 +71,8 @@ const KontaktVeileder = (props: { situasjon: Situasjon }) => {
                 onError: (res) => {
                     if (res.status === 403) {
                         settOppgaveAlleredeMottatt(true);
+                    } else {
+                        throw Error(res.statusText);
                     }
                 },
             });
