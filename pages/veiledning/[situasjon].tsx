@@ -1,6 +1,5 @@
 import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../hooks/useSprak';
-import { useRouter } from 'next/router';
 import { useCallback, useState } from 'react';
 import { fetcher as api } from '../../lib/api-utils';
 import {
@@ -9,17 +8,16 @@ import {
     Button,
     Cell,
     ContentContainer,
-    Detail,
     Grid,
     GuidePanel,
     Heading,
-    Label,
     Link,
     Panel,
 } from '@navikt/ds-react';
 import virkedager from '@alheimsins/virkedager';
 import { ExternalLink } from '@navikt/ds-icons';
 import { Kontaktinfo, Kontaktinformasjon } from '../../components/kontaktinformasjon';
+import { formaterDato } from '../../lib/date-utils';
 
 export type Situasjon = 'utvandret' | 'mangler-arbeidstillatelse';
 
@@ -119,7 +117,7 @@ const HenvendelseMottatt = (props: { kontaktinfo: Kontaktinfo }) => {
                         </Heading>
                         <BodyShort spacing>
                             {tekst('kontakterDegInnen')}
-                            {toVirkedagerFraNaa}
+                            {formaterDato(toVirkedagerFraNaa)}
                             {'. '}
                             {tekst('kontaktopplysningerOppdatert')}
                         </BodyShort>
