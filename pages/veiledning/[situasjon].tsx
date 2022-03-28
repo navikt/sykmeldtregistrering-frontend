@@ -127,10 +127,10 @@ const KvitteringOppgaveIkkeOpprettet = (props: { feil: Opprettelsesfeil }) => {
     if (props.feil === 'finnesAllerede') {
         return Kvittering({ variant: 'info', children: tekst('alertVennligstVent') }, tekst('alleredeBedtOmKontakt'));
     }
-    return Kvittering({ variant: 'error', children: tekst('alertFeil') }, tekst('klarteIkkeMotta'));
+    return Kvittering({ variant: 'error', children: tekst('alertFeil') }, tekst('klarteIkkeMotta'), false);
 };
 
-const Kvittering = (alertProps: AlertProps, infotekst: string, tittel?: string) => {
+const Kvittering = (alertProps: AlertProps, infotekst: string, visKontaktinfo: boolean = true, tittel?: string) => {
     const sprak = useSprak();
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
     const [kontaktinfo, settKontaktinfo] = useState<Kontaktinfo | undefined>(undefined);
@@ -169,13 +169,7 @@ const Kvittering = (alertProps: AlertProps, infotekst: string, tittel?: string) 
                         )}
                         {infotekst}
                     </Cell>
-                    {kontaktinfo && <Kontaktinformasjon kontaktinfo={kontaktinfo} />}
-                    <Cell xs={12}>
-                        <Link href="https://www.nav.no/person/personopplysninger/#kontaktinformasjon">
-                            {tekst('endreOpplysninger')}
-                            <ExternalLink />
-                        </Link>
-                    </Cell>
+                    {visKontaktinfo && kontaktinfo && <Kontaktinformasjon kontaktinfo={kontaktinfo} />}
                 </Grid>
             </GuidePanel>
         </ContentContainer>

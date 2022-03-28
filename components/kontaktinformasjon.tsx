@@ -1,6 +1,7 @@
-import { Alert, Cell, Detail, Heading, HelpText, Label, Panel } from '@navikt/ds-react';
+import { Alert, Cell, Detail, Heading, HelpText, Label, Link, Panel } from '@navikt/ds-react';
 import useSprak from '../hooks/useSprak';
 import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
+import { ExternalLink } from '@navikt/ds-icons';
 
 export type Kontaktinfo = { telefonnummerNAV?: string; telefonnummerKRR?: string };
 
@@ -34,14 +35,17 @@ export const Kontaktinformasjon = (props: { kontaktinfo: Kontaktinfo }) => {
     if (manglerKontaktinfo) {
         //TODO: Riktig visning av feilmelding for manglende kontaktinfo
         return (
-            <Cell xs={12}>
-                <Alert variant="error" inline>
-                    <div style={{ display: 'flex' }}>
-                        {tekst('ingenOpplysninger')}
-                        <HelpText>{tekst('hjelpetekst')}</HelpText>
-                    </div>
-                </Alert>
-            </Cell>
+            <>
+                <Cell xs={12}>
+                    <Alert variant="error" inline>
+                        <div style={{ display: 'flex' }}>
+                            {tekst('ingenOpplysninger')}
+                            <HelpText>{tekst('hjelpetekst')}</HelpText>
+                        </div>
+                    </Alert>
+                </Cell>
+                <EndreOpplysninger />
+            </>
         );
     } else {
         return (
@@ -56,6 +60,7 @@ export const Kontaktinformasjon = (props: { kontaktinfo: Kontaktinfo }) => {
                         <Telefonnummer kilde="NAV" telefonnummer={telefonnummerNAV!} />
                     </Cell>
                 )}
+                <EndreOpplysninger />
             </>
         );
     }
@@ -73,5 +78,18 @@ const Telefonnummer = (props: { kilde: Kilde; telefonnummer: string }) => {
             <Label>{props.telefonnummer}</Label>
             <Detail size={'small'}>{tekst(`kilde${props.kilde}`)}</Detail>
         </Panel>
+    );
+};
+
+const EndreOpplysninger = () => {
+    const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
+
+    return (
+        <Cell xs={12}>
+            <Link href="https://www.nav.no/person/personopplysninger/#kontaktinformasjon">
+                {tekst('endreOpplysninger')}
+                <ExternalLink />
+            </Link>
+        </Cell>
     );
 };
