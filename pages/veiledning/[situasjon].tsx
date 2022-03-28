@@ -1,7 +1,7 @@
 import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../hooks/useSprak';
-import { useCallback, useState } from 'react';
-import { fetcher as api } from '../../lib/api-utils';
+import { useCallback, useEffect, useState } from 'react';
+import { fetcher, fetcher as api } from '../../lib/api-utils';
 import {
     Alert,
     AlertProps,
@@ -19,6 +19,7 @@ import virkedager from '@alheimsins/virkedager';
 import { ExternalLink } from '@navikt/ds-icons';
 import { Kontaktinfo, Kontaktinformasjon } from '../../components/kontaktinformasjon';
 import { formaterDato } from '../../lib/date-utils';
+import useSWR from 'swr';
 
 export type Situasjon = 'utvandret' | 'mangler-arbeidstillatelse';
 
@@ -69,10 +70,6 @@ type OppgaveRespons = {
 const KontaktVeileder = (props: { situasjon: Situasjon }) => {
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
     const [oppgaveOpprettet, settOppgaveOpprettet] = useState<boolean>(false);
-    const [kontaktinfo, settKontaktinfo] = useState<Kontaktinfo>({
-        telefonnummerNAV: undefined,
-        telefonnummerKRR: undefined,
-    });
 
     const opprettOppgave = useCallback(async () => {
         try {
@@ -83,13 +80,12 @@ const KontaktVeileder = (props: { situasjon: Situasjon }) => {
                 body: JSON.stringify({ oppgaveType: oppgaveType }),
             });
             settOppgaveOpprettet(true);
-            settKontaktinfo({ telefonnummerNAV: data.telefonnummerHosNav, telefonnummerKRR: data.telefonnummerHosKrr });
         } catch (e) {}
     }, [props.situasjon]);
 
     if (oppgaveOpprettet) {
         //TODO: Sjekke om henvendelsen allerede er mottatt. Inntil videre hardkodet til false.
-        return <HenvendelseMottatt kontaktinfo={kontaktinfo} alleredeMottatt={false} />;
+        return <HenvendelseMottatt alleredeMottatt={false} />;
     } else
         return (
             <Panel border>
@@ -106,15 +102,36 @@ const KontaktVeileder = (props: { situasjon: Situasjon }) => {
         );
 };
 
-const HenvendelseMottatt = (props: { kontaktinfo: Kontaktinfo; alleredeMottatt: Boolean }) => {
+const HenvendelseMottatt = (props: { alleredeMottatt: Boolean }) => {
     const sprak = useSprak();
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
     const idag = new Date();
     const toVirkedagerFraNaa = virkedager(idag, 2);
+    const [kontaktinfo, settKontaktinfo] = useState<Kontaktinfo | undefined>(undefined);
 
+    const { data, error } = useSWR('/api/kontaktinformasjon', fetcher);
     const alertProps: AlertProps = props.alleredeMottatt
         ? { variant: 'info', children: tekst('vennligstVent') }
         : { variant: 'success', children: tekst('mottatt') };
+
+    useEffect(() => {
+        if (data) {
+            settKontaktinfo({
+                telefonnummerNAV: data.telefonnummerHosNav,
+                telefonnummerKRR: data.telefonnummerHosKrr,
+            });
+        }
+    }, [data]);
+
+    // TODO: feilhåndtering
+    // useEffect(() => {
+    //     if (error) {
+    //         settKontaktinfo({
+    //             telefonnummerNAV: undefined,
+    //             telefonnummerKRR: undefined,
+    //         });
+    //     }
+    // }, [error]);
 
     return (
         <ContentContainer>
@@ -140,7 +157,7 @@ const HenvendelseMottatt = (props: { kontaktinfo: Kontaktinfo; alleredeMottatt: 
                             </>
                         )}
                     </Cell>
-                    <Kontaktinformasjon kontaktinfo={props.kontaktinfo} />
+                    {kontaktinfo && <Kontaktinformasjon kontaktinfo={kontaktinfo} />}
                     <Cell xs={12}>
                         <Link href="https://www.nav.no/person/personopplysninger/#kontaktinformasjon">
                             {tekst('endreOpplysninger')}
