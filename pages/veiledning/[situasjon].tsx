@@ -4,6 +4,7 @@ import { useCallback, useState } from 'react';
 import { fetcher as api } from '../../lib/api-utils';
 import {
     Alert,
+    AlertProps,
     BodyShort,
     Button,
     Cell,
@@ -30,6 +31,9 @@ const TEKSTER: Tekster<string> = {
         kontaktOss: 'Kontakt oss, så hjelper vi deg videre.',
         kontaktKnapp: 'Ta kontakt',
         mottatt: 'Henvendelse mottatt',
+        vennligstVent: 'Vennligst vent',
+        alleredeBedtOmKontakt:
+            'Du har allerede bedt oss kontakte deg. Vi tar kontakt i løpet av to arbeidsdager regnet fra den første meldingen. Pass på at kontaktopplysningene dine er oppdatert ellers kan vi ikke nå deg.',
         viktig: 'Viktig:',
         kontakterDegInnen: 'Vi kontakter deg innen utgangen av ',
         kontaktopplysningerOppdatert: 'Pass på at kontaktopplysningene dine er oppdatert, ellers kan vi ikke nå deg.',
@@ -41,6 +45,9 @@ const TEKSTER: Tekster<string> = {
     },
     en: {
         mottatt: 'Request received',
+        vennligstVent: 'Please wait',
+        alleredeBedtOmKontakt:
+            'We have received your first message. We will contact you within two working days from the first message. Please make sure your contact details are updated.',
         viktig: 'Important:',
         kontakterDegInnen: 'We will contact you before the end of ',
         kontaktopplysningerOppdatert: 'Please make sure your contact details are updated.',
@@ -81,7 +88,8 @@ const KontaktVeileder = (props: { situasjon: Situasjon }) => {
     }, [props.situasjon]);
 
     if (oppgaveOpprettet) {
-        return <HenvendelseMottatt kontaktinfo={kontaktinfo} />;
+        //TODO: Sjekke om henvendelsen allerede er mottatt. Inntil videre hardkodet til false.
+        return <HenvendelseMottatt kontaktinfo={kontaktinfo} alleredeMottatt={false} />;
     } else
         return (
             <Panel border>
@@ -98,29 +106,39 @@ const KontaktVeileder = (props: { situasjon: Situasjon }) => {
         );
 };
 
-const HenvendelseMottatt = (props: { kontaktinfo: Kontaktinfo }) => {
+const HenvendelseMottatt = (props: { kontaktinfo: Kontaktinfo; alleredeMottatt: Boolean }) => {
     const sprak = useSprak();
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
     const idag = new Date();
     const toVirkedagerFraNaa = virkedager(idag, 2);
+
+    const alertProps: AlertProps = props.alleredeMottatt
+        ? { variant: 'info', children: tekst('vennligstVent') }
+        : { variant: 'success', children: tekst('mottatt') };
 
     return (
         <ContentContainer>
             <GuidePanel poster>
                 <Grid>
                     <Cell xs={12}>
-                        <Alert variant={'success'}>{tekst('mottatt')}</Alert>
+                        <Alert variant={alertProps.variant}>{alertProps.children}</Alert>
                     </Cell>
                     <Cell xs={12}>
-                        <Heading spacing size={'small'}>
-                            {tekst('viktig')}
-                        </Heading>
-                        <BodyShort spacing>
-                            {tekst('kontakterDegInnen')}
-                            {formaterDato(toVirkedagerFraNaa)}
-                            {'. '}
-                            {tekst('kontaktopplysningerOppdatert')}
-                        </BodyShort>
+                        {props.alleredeMottatt ? (
+                            tekst('alleredeBedtOmKontakt')
+                        ) : (
+                            <>
+                                <Heading spacing size={'small'}>
+                                    {tekst('viktig')}
+                                </Heading>
+                                <BodyShort spacing>
+                                    {tekst('kontakterDegInnen')}
+                                    {formaterDato(toVirkedagerFraNaa)}
+                                    {'. '}
+                                    {tekst('kontaktopplysningerOppdatert')}
+                                </BodyShort>
+                            </>
+                        )}
                     </Cell>
                     <Kontaktinformasjon kontaktinfo={props.kontaktinfo} />
                     <Cell xs={12}>
