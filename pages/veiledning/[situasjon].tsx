@@ -57,35 +57,29 @@ const TEKSTER: Tekster<string> = {
     },
 };
 
-type OppgaveRespons = {
-    id: number;
-    tildeltEnhetsnr: number;
-    data: {
-        telefonnummerHosKrr: string;
-        telefonnummerHosNav: string;
-    };
-    response: string;
-};
-
 const KontaktVeileder = (props: { situasjon: Situasjon }) => {
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
     const [oppgaveOpprettet, settOppgaveOpprettet] = useState<boolean>(false);
-
+    const [oppgaveAlleredeMottatt, settOppgaveAlleredeMottatt] = useState<boolean>(false);
     const opprettOppgave = useCallback(async () => {
         try {
             const oppgaveType = props.situasjon === 'utvandret' ? 'UTVANDRET' : 'OPPHOLDSTILLATELSE';
 
-            const { data }: OppgaveRespons = await api('/api/oppgave', {
+            await api('/api/oppgave', {
                 method: 'post',
                 body: JSON.stringify({ oppgaveType: oppgaveType }),
+                onError: (res) => {
+                    if (res.status === 403) {
+                        settOppgaveAlleredeMottatt(true);
+                    }
+                },
             });
             settOppgaveOpprettet(true);
         } catch (e) {}
     }, [props.situasjon]);
 
     if (oppgaveOpprettet) {
-        //TODO: Sjekke om henvendelsen allerede er mottatt. Inntil videre hardkodet til false.
-        return <HenvendelseMottatt alleredeMottatt={false} />;
+        return <HenvendelseMottatt alleredeMottatt={oppgaveAlleredeMottatt} />;
     } else
         return (
             <Panel border>
