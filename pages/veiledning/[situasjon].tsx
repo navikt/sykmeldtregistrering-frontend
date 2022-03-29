@@ -12,11 +12,9 @@ import {
     Grid,
     GuidePanel,
     Heading,
-    Link,
     Panel,
 } from '@navikt/ds-react';
 import virkedager from '@alheimsins/virkedager';
-import { ExternalLink } from '@navikt/ds-icons';
 import { Kontaktinfo, Kontaktinformasjon } from '../../components/kontaktinformasjon';
 import { formaterDato } from '../../lib/date-utils';
 import useSWR from 'swr';
@@ -131,8 +129,6 @@ const KvitteringOppgaveIkkeOpprettet = (props: { feil: Opprettelsesfeil }) => {
 };
 
 const Kvittering = (alertProps: AlertProps, infotekst: string, visKontaktinfo: boolean = true, tittel?: string) => {
-    const sprak = useSprak();
-    const tekst = lagHentTekstForSprak(TEKSTER, sprak);
     const [kontaktinfo, settKontaktinfo] = useState<Kontaktinfo | undefined>(undefined);
     const { data, error } = useSWR('/api/kontaktinformasjon', fetcher);
 

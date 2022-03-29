@@ -33,7 +33,6 @@ export const Kontaktinformasjon = (props: { kontaktinfo: Kontaktinfo }) => {
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
 
     if (manglerKontaktinfo) {
-        //TODO: Riktig visning av feilmelding for manglende kontaktinfo
         return (
             <>
                 <Cell xs={12}>
