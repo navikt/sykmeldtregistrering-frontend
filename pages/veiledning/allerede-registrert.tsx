@@ -6,8 +6,6 @@ import useSprak from '../../hooks/useSprak';
 
 const DIALOG_URL = process.env.NEXT_PUBLIC_DIALOG_URL as string;
 
-//TODO: ha større telefonnummer
-
 const TEKSTER: Tekster<string> = {
     nb: {
         overskrift: 'Vi må hjelpe deg videre i andre kanaler',
@@ -36,10 +34,9 @@ function AlleredeRegistrert() {
             <BodyShort>
                 <NextLink href={DIALOG_URL} passHref>
                     <Link>{tekst('sendMelding')}</Link>
-                </NextLink>
+                </NextLink>{' '}
+                {tekst('ringOss')} <b>{tekst('telefonNummer')}</b>
             </BodyShort>
-            <BodyShort>{tekst('ringOss')}</BodyShort>
-            <BodyShort>{tekst('telefonNummer')}</BodyShort>
         </GuidePanel>
     );
 }
