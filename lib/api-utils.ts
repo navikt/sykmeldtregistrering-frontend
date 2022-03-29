@@ -4,13 +4,16 @@ const { basePath } = getConfig().publicRuntimeConfig;
 
 const getUrl = (path: string) => `${basePath}/${path}`;
 
-export const fetcher = async (path: string, opts?: RequestInit) => {
+export const fetcher = async (path: string, opts?: RequestInit & { onError?: (response: any) => void }) => {
     const response = await fetch(getUrl(path), {
         ...opts,
         credentials: 'include',
     });
 
     if (!response.ok) {
+        if (typeof opts?.onError === 'function') {
+            return opts.onError(response);
+        }
         throw new Error(response.statusText);
     }
 

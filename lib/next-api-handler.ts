@@ -19,6 +19,10 @@ export const lagApiPostHandlerMedAuthHeaders: (url: string) => NextApiHandler | 
         }
     };
 
+interface ApiError extends Error {
+    status?: number;
+}
+
 const lagApiHandlerMedAuthHeaders: (url: string) => NextApiHandler = (url: string) => async (req, res) => {
     const idtoken = req.cookies['selvbetjening-idtoken'];
     const callId = nanoid();
@@ -40,6 +44,13 @@ const lagApiHandlerMedAuthHeaders: (url: string) => NextApiHandler = (url: strin
             if (statusCode === 204) {
                 return apiResponse;
             }
+
+            if (!apiResponse.ok) {
+                const e = new Error(apiResponse.statusText) as ApiError;
+                e.status = apiResponse.status;
+                throw e;
+            }
+
             if (!contentType || !contentType.includes('application/json')) {
                 throw new TypeError(`Fikk ikke JSON fra ${url} (callId ${callId}). Body: ${await apiResponse.text()}.`);
             }
@@ -50,8 +61,7 @@ const lagApiHandlerMedAuthHeaders: (url: string) => NextApiHandler = (url: strin
         return res.json(response);
     } catch (error) {
         console.error(`Kall mot ${url} (callId: ${callId}) feilet. Feilmelding: ${error}`);
-
-        res.status(500).end(`Noe gikk galt (callId: ${callId})`);
+        res.status((error as ApiError).status || 500).end(`Noe gikk galt (callId: ${callId})`);
     }
 };
 

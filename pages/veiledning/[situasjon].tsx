@@ -1,9 +1,10 @@
 import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../hooks/useSprak';
-import { useCallback, useState } from 'react';
-import { fetcher as api } from '../../lib/api-utils';
+import { useCallback, useEffect, useState } from 'react';
+import { fetcher, fetcher as api } from '../../lib/api-utils';
 import {
     Alert,
+    AlertProps,
     BodyShort,
     Button,
     Cell,
@@ -18,6 +19,7 @@ import virkedager from '@alheimsins/virkedager';
 import { ExternalLink } from '@navikt/ds-icons';
 import { Kontaktinfo, Kontaktinformasjon } from '../../components/kontaktinformasjon';
 import { formaterDato } from '../../lib/date-utils';
+import useSWR from 'swr';
 
 export type Situasjon = 'utvandret' | 'mangler-arbeidstillatelse';
 
@@ -29,7 +31,13 @@ const TEKSTER: Tekster<string> = {
         body2: 'Dette gjør at du ikke kan registrere deg som arbeidssøker på nett.',
         kontaktOss: 'Kontakt oss, så hjelper vi deg videre.',
         kontaktKnapp: 'Ta kontakt',
-        mottatt: 'Henvendelse mottatt',
+        alertMottatt: 'Henvendelse mottatt',
+        alertVennligstVent: 'Vennligst vent',
+        alertFeil: 'Noe gikk galt',
+        alleredeBedtOmKontakt:
+            'Du har allerede bedt oss kontakte deg. Vi tar kontakt i løpet av to arbeidsdager regnet fra den første meldingen. Pass på at kontaktopplysningene dine er oppdatert ellers kan vi ikke nå deg.',
+        klarteIkkeMotta:
+            'Vi klarte ikke å ta imot henvendelsen din. Vennligst forsøk igjen senere. Opplever du dette flere ganger kan du ringe oss på 55 55 33 33.',
         viktig: 'Viktig:',
         kontakterDegInnen: 'Vi kontakter deg innen utgangen av ',
         kontaktopplysningerOppdatert: 'Pass på at kontaktopplysningene dine er oppdatert, ellers kan vi ikke nå deg.',
@@ -40,7 +48,13 @@ const TEKSTER: Tekster<string> = {
         endreOpplysninger: 'Endre opplysninger',
     },
     en: {
-        mottatt: 'Request received',
+        alertMottatt: 'Request received',
+        alertVennligstVent: 'Please wait',
+        alertFeil: "We're having trouble",
+        alleredeBedtOmKontakt:
+            'We have received your first message. We will contact you within two working days from the first message. Please make sure your contact details are updated.',
+        klarteIkkeMotta:
+            'We’re having trouble with your request right now. Please try again later. If you are still having problems, you can call us on 55 55 33 33.',
         viktig: 'Important:',
         kontakterDegInnen: 'We will contact you before the end of ',
         kontaktopplysningerOppdatert: 'Please make sure your contact details are updated.',
@@ -49,39 +63,35 @@ const TEKSTER: Tekster<string> = {
     },
 };
 
-type OppgaveRespons = {
-    id: number;
-    tildeltEnhetsnr: number;
-    data: {
-        telefonnummerHosKrr: string;
-        telefonnummerHosNav: string;
-    };
-    response: string;
-};
+type Opprettelsesfeil = 'finnesAllerede' | 'opprettelseFeilet';
 
 const KontaktVeileder = (props: { situasjon: Situasjon }) => {
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
-    const [oppgaveOpprettet, settOppgaveOpprettet] = useState<boolean>(false);
-    const [kontaktinfo, settKontaktinfo] = useState<Kontaktinfo>({
-        telefonnummerNAV: undefined,
-        telefonnummerKRR: undefined,
-    });
-
+    const [responseMottatt, settResponseMottatt] = useState<boolean>(false);
+    const [feil, settFeil] = useState<Opprettelsesfeil | undefined>(undefined);
     const opprettOppgave = useCallback(async () => {
         try {
             const oppgaveType = props.situasjon === 'utvandret' ? 'UTVANDRET' : 'OPPHOLDSTILLATELSE';
 
-            const { data }: OppgaveRespons = await api('/api/oppgave', {
+            await api('/api/oppgave', {
                 method: 'post',
                 body: JSON.stringify({ oppgaveType: oppgaveType }),
+                onError: (res) => {
+                    if (res.status === 403) {
+                        settFeil('finnesAllerede');
+                    } else {
+                        throw Error(res.statusText);
+                    }
+                },
             });
-            settOppgaveOpprettet(true);
-            settKontaktinfo({ telefonnummerNAV: data.telefonnummerHosNav, telefonnummerKRR: data.telefonnummerHosKrr });
-        } catch (e) {}
+        } catch (e) {
+            settFeil('opprettelseFeilet');
+        }
+        settResponseMottatt(true);
     }, [props.situasjon]);
 
-    if (oppgaveOpprettet) {
-        return <HenvendelseMottatt kontaktinfo={kontaktinfo} />;
+    if (responseMottatt) {
+        return feil ? <KvitteringOppgaveIkkeOpprettet feil={feil} /> : <KvitteringOppgaveOpprettet />;
     } else
         return (
             <Panel border>
@@ -98,37 +108,68 @@ const KontaktVeileder = (props: { situasjon: Situasjon }) => {
         );
 };
 
-const HenvendelseMottatt = (props: { kontaktinfo: Kontaktinfo }) => {
+const KvitteringOppgaveOpprettet = () => {
+    const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
+
+    const idag = new Date();
+    const toVirkedagerFraNaa = formaterDato(virkedager(idag, 2));
+
+    const alertProps: AlertProps = { variant: 'success', children: tekst('alertMottatt') };
+    const tittel = tekst('viktig');
+    const infotekst = tekst('kontakterDegInnen') + toVirkedagerFraNaa + '. ' + tekst('kontaktopplysningerOppdatert');
+
+    return Kvittering(alertProps, infotekst, tittel);
+};
+
+const KvitteringOppgaveIkkeOpprettet = (props: { feil: Opprettelsesfeil }) => {
+    const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
+
+    if (props.feil === 'finnesAllerede') {
+        return Kvittering({ variant: 'info', children: tekst('alertVennligstVent') }, tekst('alleredeBedtOmKontakt'));
+    }
+    return Kvittering({ variant: 'error', children: tekst('alertFeil') }, tekst('klarteIkkeMotta'), false);
+};
+
+const Kvittering = (alertProps: AlertProps, infotekst: string, visKontaktinfo: boolean = true, tittel?: string) => {
     const sprak = useSprak();
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
-    const idag = new Date();
-    const toVirkedagerFraNaa = virkedager(idag, 2);
+    const [kontaktinfo, settKontaktinfo] = useState<Kontaktinfo | undefined>(undefined);
+    const { data, error } = useSWR('/api/kontaktinformasjon', fetcher);
+
+    useEffect(() => {
+        if (data) {
+            settKontaktinfo({
+                telefonnummerNAV: data.telefonnummerHosNav,
+                telefonnummerKRR: data.telefonnummerHosKrr,
+            });
+        }
+    }, [data]);
+    // TODO: feilhåndtering
+    // useEffect(() => {
+    //     if (error) {
+    //         settKontaktinfo({
+    //             telefonnummerNAV: undefined,
+    //             telefonnummerKRR: undefined,
+    //         });
+    //     }
+    // }, [error]);
 
     return (
         <ContentContainer>
             <GuidePanel poster>
                 <Grid>
                     <Cell xs={12}>
-                        <Alert variant={'success'}>{tekst('mottatt')}</Alert>
+                        <Alert variant={alertProps.variant}>{alertProps.children}</Alert>
                     </Cell>
                     <Cell xs={12}>
-                        <Heading spacing size={'small'}>
-                            {tekst('viktig')}
-                        </Heading>
-                        <BodyShort spacing>
-                            {tekst('kontakterDegInnen')}
-                            {formaterDato(toVirkedagerFraNaa)}
-                            {'. '}
-                            {tekst('kontaktopplysningerOppdatert')}
-                        </BodyShort>
+                        {tittel && (
+                            <Heading spacing size={'small'}>
+                                {tittel}
+                            </Heading>
+                        )}
+                        {infotekst}
                     </Cell>
-                    <Kontaktinformasjon kontaktinfo={props.kontaktinfo} />
-                    <Cell xs={12}>
-                        <Link href="https://www.nav.no/person/personopplysninger/#kontaktinformasjon">
-                            {tekst('endreOpplysninger')}
-                            <ExternalLink />
-                        </Link>
-                    </Cell>
+                    {visKontaktinfo && kontaktinfo && <Kontaktinformasjon kontaktinfo={kontaktinfo} />}
                 </Grid>
             </GuidePanel>
         </ContentContainer>
