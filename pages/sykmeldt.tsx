@@ -1,10 +1,13 @@
-import { BodyLong, Button, Cell, ContentContainer, Grid, Heading } from '@navikt/ds-react';
+import { BodyLong, Button, Cell, ContentContainer, Grid, GuidePanel, Heading, Label } from '@navikt/ds-react';
 import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../hooks/useSprak';
 import NextLink from 'next/link';
 
 const TEKSTER: Tekster<string> = {
     nb: {
+        hei: 'Hei, ',
+        sykmeldtInformasjon:
+            'Vi ser at du er sykmeldt, og at det begynner å nærme seg datoen du ikke lenger kan få sykepenger. Tror du at du snart er tilbake i jobb, eller vil du trenge noe mer fra arbeidsgiveren din eller NAV? Hvis du trenger mer veiledning, må du registrere deg og svare på noen spørsmål.',
         naarRegistrertTittel: 'Når du har registrert deg',
         faaVeiledning: 'får du veiledning om mulighetene dine',
         brukeAktivitetsplan: 'kan du bruke din egen aktivitetsplan',
@@ -20,33 +23,37 @@ const TEKSTER: Tekster<string> = {
 const SykmeldtStartside = () => {
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
     return (
-        <>
-            <ContentContainer>
-                <Grid>
-                    <Cell xs={12}>
-                        <Heading spacing size="medium">
-                            {tekst('naarRegistrertTittel')}
-                        </Heading>
-                        <ul>
-                            <li>{tekst('faaVeiledning')}</li>
-                            <li>{tekst('brukeAktivitetsplan')}</li>
-                            <li>{tekst('kravPaaStotte')}</li>
-                            <li>{tekst('dialogMedVeileder')}</li>
-                        </ul>
-                        <Button variant="secondary">{tekst('seVideo')}</Button>
-                    </Cell>
-                    <Cell xs={12}>
-                        <Heading spacing size="medium">
-                            {tekst('registrerDegTittel')}
-                        </Heading>
-                        <BodyLong spacing>{tekst('registrerDegIngress')}</BodyLong>
-                        <NextLink href="/sykmeldt/0" passHref>
-                            <Button>{tekst('startRegistrering')}</Button>
-                        </NextLink>
-                    </Cell>
-                </Grid>
-            </ContentContainer>
-        </>
+        <ContentContainer>
+            <Grid>
+                <Cell xs={12}>
+                    <GuidePanel>
+                        <Label>{tekst('hei')}</Label>
+                        {tekst('sykmeldtInformasjon')}
+                    </GuidePanel>
+                </Cell>
+                <Cell xs={12}>
+                    <Heading spacing size="medium">
+                        {tekst('naarRegistrertTittel')}
+                    </Heading>
+                    <ul>
+                        <li>{tekst('faaVeiledning')}</li>
+                        <li>{tekst('brukeAktivitetsplan')}</li>
+                        <li>{tekst('kravPaaStotte')}</li>
+                        <li>{tekst('dialogMedVeileder')}</li>
+                    </ul>
+                    <Button variant="secondary">{tekst('seVideo')}</Button>
+                </Cell>
+                <Cell xs={12}>
+                    <Heading spacing size="medium">
+                        {tekst('registrerDegTittel')}
+                    </Heading>
+                    <BodyLong spacing>{tekst('registrerDegIngress')}</BodyLong>
+                    <NextLink href="/sykmeldt/0" passHref>
+                        <Button>{tekst('startRegistrering')}</Button>
+                    </NextLink>
+                </Cell>
+            </Grid>
+        </ContentContainer>
     );
 };
 
