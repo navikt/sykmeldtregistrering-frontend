@@ -1,23 +1,8 @@
 import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../hooks/useSprak';
-import { useCallback, useEffect, useState } from 'react';
-import { fetcher, fetcher as api } from '../../lib/api-utils';
-import {
-    Alert,
-    AlertProps,
-    BodyShort,
-    Button,
-    Cell,
-    ContentContainer,
-    Grid,
-    GuidePanel,
-    Heading,
-    Panel,
-} from '@navikt/ds-react';
-import virkedager from '@alheimsins/virkedager';
-import { Kontaktinfo, Kontaktinformasjon } from '../../components/kontaktinformasjon';
-import { formaterDato } from '../../lib/date-utils';
-import useSWR from 'swr';
+import { useCallback, useState } from 'react';
+import { fetcher as api } from '../../lib/api-utils';
+import { BodyShort, Button, Heading, Panel } from '@navikt/ds-react';
 import {
     KvitteringOppgaveIkkeOpprettet,
     KvitteringOppgaveOpprettet,
