@@ -21,6 +21,7 @@ sisteArbeidsforholdUrl: http://pto-proxy.pto.svc.cluster.local/proxy/veilarbregi
 opprettOppgaveUrl: http://pto-proxy.pto.svc.cluster.local/proxy/veilarbregistrering/api/oppgave/
 kontaktinformasjonUrl: http://pto-proxy.pto.svc.cluster.local/proxy/veilarbregistrering/api/person/kontaktinfo
 ptoProxyUrl: http://pto-proxy.pto.svc.cluster.local/proxy/
+dittNAVUrl: https://www.dev.nav.no/person/dittnav
 featureToggles:
   server: https://unleash.nais.io/api/client/features?tag[]=simple:arbeidssokerregistrering
   client: https://arbeid.dev.nav.no/arbeid/registrering-ny/api/features

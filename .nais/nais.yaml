@@ -49,8 +49,10 @@ spec:
       value: {{sentry.dsn}}
     - name: NEXT_PUBLIC_FEATURETOGGLE_URL
       value: {{featureToggles.client}}
+    - name: NEXT_PUBLIC_DITTNAV_URL
+      value: {{dittNAVUrl}}
     - name: PAM_JANZZ_URL
-      value: {{ pamJanzzUrl }}
+      value: {{pamJanzzUrl}}
     - name: START_REGISTRERING_URL
       value: {{startRegistreringUrl}}
     - name: FULLFOR_REGISTRERING_URL
