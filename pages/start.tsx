@@ -3,8 +3,15 @@ import useSWR from 'swr';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { SkjemaSide } from '../model/skjema';
-import { RegistreringType } from '../model/registrering';
+import { Formidlingsgruppe, RegistreringType } from '../model/registrering';
 import { fetcher } from '../lib/api-utils';
+
+const DITT_NAV_URL = process.env.NEXT_PUBLIC_DITTNAV_URL;
+
+function skalVideresendesTilDittNAV(data: any) {
+    const { formidlingsgruppe, underOppfolging } = data;
+    return formidlingsgruppe === Formidlingsgruppe.ARBS && underOppfolging === true;
+}
 
 function hentNesteSideUrl(data: any) {
     const { registreringType } = data;
@@ -23,6 +30,9 @@ function hentNesteSideUrl(data: any) {
             return '/sperret';
         }
         case RegistreringType.ALLEREDE_REGISTRERT: {
+            if (skalVideresendesTilDittNAV(data)) {
+                return `${DITT_NAV_URL}?goTo=registrering`;
+            }
             return '/veiledning/allerede-registrert';
         }
         default:
