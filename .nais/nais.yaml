@@ -51,6 +51,8 @@ spec:
       value: {{featureToggles.client}}
     - name: NEXT_PUBLIC_DITTNAV_URL
       value: {{dittNAVUrl}}
+    - name: NEXT_PUBLIC_DIALOG_URL
+      value: {{dialogUrl}}
     - name: PAM_JANZZ_URL
       value: {{pamJanzzUrl}}
     - name: START_REGISTRERING_URL

@@ -1,9 +1,12 @@
-import { BodyShort, GuidePanel, Heading } from '@navikt/ds-react';
+import { BodyShort, GuidePanel, Heading, Link } from '@navikt/ds-react';
+import NextLink from 'next/link';
 
 import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../hooks/useSprak';
 
-//TODO: linke opp til dialog og ha større telefonnummer
+const DIALOG_URL = process.env.NEXT_PUBLIC_DIALOG_URL as string;
+
+//TODO: ha større telefonnummer
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -30,7 +33,11 @@ function AlleredeRegistrert() {
                 {tekst('overskrift')}
             </Heading>
             <BodyShort>{tekst('innledning')}</BodyShort>
-            <BodyShort>{tekst('sendMelding')}</BodyShort>
+            <BodyShort>
+                <NextLink href={DIALOG_URL} passHref>
+                    <Link>{tekst('sendMelding')}</Link>
+                </NextLink>
+            </BodyShort>
             <BodyShort>{tekst('ringOss')}</BodyShort>
             <BodyShort>{tekst('telefonNummer')}</BodyShort>
         </GuidePanel>
