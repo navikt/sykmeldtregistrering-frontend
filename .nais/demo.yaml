@@ -1,0 +1,28 @@
+ingress: https://arbeid.labs.nais.io/arbeid/registrering-ny
+basePath: /arbeid/registrering-ny
+mocking: enabled
+dekorator:
+  url: https://dekoratoren.dev.nav.no/
+  env: dev
+loginservice:
+  url: https://loginservice.dev.nav.no/login
+  wellKnown: https://navtestb2c.b2clogin.com/navtestb2c.onmicrosoft.com/v2.0/.well-known/openid-configuration?p=B2C_1A_idporten_ver1
+amplitude:
+  apiKey: 2f190e67f31d7e4719c5ff048ad3d3e6
+  endPoint: amplitude.nav.no/collect
+sentry:
+  dsn: https://b2f662d8ed7a42b29f465f365e25832f@sentry.gc.nav.no/118
+pamJanzzUrl: https://arbeidsplassen.nav.no/pam-janzz/rest
+startRegistreringUrl: https://arbeid.labs.nais.io/arbeid/registrering-ny/api/mocks/startregistrering
+fullforRegistreringUrl: https://arbeid.labs.nais.io/arbeid/registrering-ny/api/mocks/fullforregistrering
+fullforRegistreringSykmeldtUrl: https://arbeid.labs.nais.io/arbeid/registrering-ny/api/mocks/fullforregistreringsykmeldt
+reaktiveringUrl: https://arbeid.labs.nais.io/arbeid/registrering-ny/api/mocks/reaktivering
+sisteArbeidsforholdUrl: https://arbeid.labs.nais.io/arbeid/registrering-ny/api/mocks/sistearbeidsforhold
+opprettOppgaveUrl: https://arbeid.labs.nais.io/arbeid/registrering-ny/api/mocks/oppgave
+kontaktinformasjonUrl: https://arbeid.labs.nais.io/arbeid/registrering-ny/api/mocks/kontaktinformasjon
+ptoProxyUrl: http://pto-proxy.pto.svc.cluster.local/proxy/
+dittNAVUrl: https://www.nav.no/person/dittnav
+dialogUrl: https://www.nav.no/arbeid/dialog
+featureToggles:
+  server: https://arbeid.labs.nais.io/arbeid/registrering-ny/api/mocks/features
+  client: https://arbeid.labs.nais.io/arbeid/registrering-ny/api/features

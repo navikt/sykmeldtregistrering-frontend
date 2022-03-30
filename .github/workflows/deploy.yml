@@ -74,6 +74,26 @@ jobs:
           name: nais-yaml
           path: .nais
 
+  deploy-demo:
+    name: Deploy to demo
+    needs: [test, build]
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch NAIS yaml
+        uses: actions/download-artifact@v1
+        with:
+          name: nais-yaml
+          path: .nais
+
+      - uses: nais/deploy/actions/deploy@v1
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: dev-gcp
+          RESOURCE: .nais/nais.yaml
+          VARS: .nais/demo.yaml
+          PRINT_PAYLOAD: true
+
   deploy-dev:
     name: Deploy to dev
     needs: [test, build]

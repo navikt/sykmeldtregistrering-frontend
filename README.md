@@ -2,6 +2,10 @@
 
 Arbeidssøkerregistrering
 
+## Demo
+
+[https://arbeid.labs.nais.io/arbeid/registrering-ny](https://arbeid.labs.nais.io/arbeid/registrering-ny)
+
 # Utvikling
 
 Bruk Node.js 16.
