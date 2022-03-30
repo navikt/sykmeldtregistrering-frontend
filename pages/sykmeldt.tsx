@@ -2,6 +2,7 @@ import { BodyLong, Button, Cell, ContentContainer, Grid, GuidePanel, Heading, La
 import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../hooks/useSprak';
 import NextLink from 'next/link';
+import SykmeldtVeiledningSvg from '../components/sykmeldtVeiledningSvg';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -35,6 +36,8 @@ const SykmeldtStartside = () => {
                     <Heading spacing size="medium">
                         {tekst('naarRegistrertTittel')}
                     </Heading>
+                </Cell>
+                <Cell xs={12} md={6}>
                     <ul>
                         <li>{tekst('faaVeiledning')}</li>
                         <li>{tekst('brukeAktivitetsplan')}</li>
@@ -42,6 +45,9 @@ const SykmeldtStartside = () => {
                         <li>{tekst('dialogMedVeileder')}</li>
                     </ul>
                     <Button variant="secondary">{tekst('seVideo')}</Button>
+                </Cell>
+                <Cell xs={12} md={6}>
+                    <SykmeldtVeiledningSvg />
                 </Cell>
                 <Cell xs={12}>
                     <Heading spacing size="medium">
