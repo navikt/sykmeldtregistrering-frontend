@@ -1,6 +1,7 @@
-import { Alert, BodyShort, GuidePanel, Link } from '@navikt/ds-react';
+import { Alert, BodyShort, Button, GuidePanel, Link } from '@navikt/ds-react';
 import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../hooks/useSprak';
+import { useErrorContext } from '../../contexts/error-context';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -47,4 +48,30 @@ const FeilmeldingNoeGikkGalt = () => {
     );
 };
 
-export { FeilmeldingGenerell, FeilmeldingNoeGikkGalt };
+const GlobalFeilmelding = () => {
+    const { error, setError } = useErrorContext();
+    const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
+
+    if (!error) {
+        return null;
+    }
+
+    return (
+        <Alert variant={'error'}>
+            <BodyShort spacing>{tekst('feilISystemene')}</BodyShort>
+            <BodyShort spacing>{tekst('provIgjen')}</BodyShort>
+            <BodyShort spacing>
+                <Link href="https://www.nav.no/no/nav-og-samfunn/kontakt-nav/teknisk-brukerstotte/kontakt-teknisk-brukerstotte-nav.no">
+                    {tekst('kontaktBrukerstotte')}
+                </Link>
+            </BodyShort>
+            <BodyShort>
+                <Button variant={'secondary'} onClick={() => setError(null)}>
+                    Lukk
+                </Button>
+            </BodyShort>
+        </Alert>
+    );
+};
+
+export { FeilmeldingGenerell, FeilmeldingNoeGikkGalt, GlobalFeilmelding };

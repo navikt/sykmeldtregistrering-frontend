@@ -3,6 +3,7 @@ import useSprak from '../hooks/useSprak';
 import { BodyShort, Button, ContentContainer, GuidePanel, Heading } from '@navikt/ds-react';
 import { fetcher as api } from '../lib/api-utils';
 import { useRouter } from 'next/router';
+import { useErrorContext } from '../contexts/error-context';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -19,14 +20,13 @@ const Reaktivering = () => {
     const sprak = useSprak();
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
     const router = useRouter();
+    const { medFeilHandtering } = useErrorContext();
 
     const reaktiverBruker = async () => {
-        try {
+        medFeilHandtering(async () => {
             await api('/api/reaktivering', { method: 'post', body: JSON.stringify({}) });
             return router.push('/kvittering-reaktivering');
-        } catch (e) {
-            console.error(e);
-        }
+        });
     };
 
     return (

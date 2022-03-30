@@ -3,6 +3,8 @@ import NextApp, { AppContext, AppProps } from 'next/app';
 import { onLanguageSelect } from '@navikt/nav-dekoratoren-moduler';
 import { AmplitudeProvider } from '../contexts/amplitude-context';
 import { FeatureToggleProvider } from '../contexts/featuretoggle-context';
+import { ErrorProvider } from '../contexts/error-context';
+import { GlobalFeilmelding } from '../components/feilmeldinger/feilmeldinger';
 
 function MyApp({ Component, pageProps, router }: AppProps) {
     onLanguageSelect(({ locale }) => router.push(router.asPath, router.asPath, { locale }));
@@ -10,7 +12,10 @@ function MyApp({ Component, pageProps, router }: AppProps) {
     return (
         <FeatureToggleProvider>
             <AmplitudeProvider>
-                <Component {...pageProps} />
+                <ErrorProvider>
+                    <GlobalFeilmelding />
+                    <Component {...pageProps} />
+                </ErrorProvider>
             </AmplitudeProvider>
         </FeatureToggleProvider>
     );
