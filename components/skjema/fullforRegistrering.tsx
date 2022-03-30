@@ -1,4 +1,4 @@
-import { Accordion, Button, ConfirmationPanel, ContentContainer, GuidePanel, Heading } from '@navikt/ds-react';
+import { Accordion, Alert, Button, ConfirmationPanel, ContentContainer, GuidePanel, Heading } from '@navikt/ds-react';
 import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../hooks/useSprak';
 import { useCallback, useState } from 'react';
@@ -7,7 +7,6 @@ import { fetcher as api } from '../../lib/api-utils';
 import { useRouter } from 'next/router';
 
 import byggFullforRegistreringPayload from '../../lib/bygg-fullfor-registrering-payload';
-import { ErrorTypes } from '../../model/error';
 import { FeilmeldingGenerell } from '../feilmeldinger/feilmeldinger';
 import { FullforRegistreringResponse } from '../../model/registrering';
 import hentKvitteringsUrl from '../../lib/hent-kvitterings-url';
@@ -38,6 +37,7 @@ const TEKSTER: Tekster<string> = {
             'Når du fullfører registreringen, vil du få en oppgave i aktivitetsplanen om at du må fylle ut CV-en din. ' +
             'Det er viktig at du holder CV-en din oppdatert slik at du er synlig for arbeidsgivere.',
         lestOgForstaatt: 'Jeg har lest og forstått kravene',
+        lestKravFeilmelding: 'Du må huke av at du har lest og forstått kravene for å kunne fullføre registreringen.',
         fullfor: 'Fullfør',
     },
 };
@@ -50,11 +50,20 @@ interface FullforProps {
 const FullforRegistrering = (props: FullforProps) => {
     const { skjemaState } = props;
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
-    const [checked, setChecked] = useState<boolean>(false);
+    const [lestKravChecked, setLestKravChecked] = useState<boolean>(false);
     const [senderSkjema, settSenderSkjema] = useState<boolean>(false);
     const [visFeilmelding, settVisFeilmelding] = useState<boolean>(false);
+    const [visFeilmeldingLestKrav, settVisFeilmeldingLestKrav] = useState<boolean>(false);
     const [visFeilmeldingTeller, settVisFeilmeldingTeller] = useState<number>(0);
     const router = useRouter();
+
+    const validerOgFullfor = () => {
+        if (!lestKravChecked) {
+            settVisFeilmeldingLestKrav(true);
+            return;
+        }
+        return fullforRegistrering();
+    };
 
     const fullforRegistrering = useCallback(async () => {
         try {
@@ -137,19 +146,26 @@ const FullforRegistrering = (props: FullforProps) => {
                 </div>
 
                 <ConfirmationPanel
-                    checked={checked}
-                    onChange={() => setChecked(!checked)}
+                    checked={lestKravChecked}
+                    onChange={() => {
+                        settVisFeilmeldingLestKrav(false);
+                        setLestKravChecked(!lestKravChecked);
+                    }}
                     label={tekst('lestOgForstaatt')}
                     className="mbm"
-                ></ConfirmationPanel>
+                />
 
                 {visFeilmelding && (
                     <div className="mbm">
                         <FeilmeldingGenerell />
                     </div>
                 )}
-
-                <Button onClick={fullforRegistrering} disabled={!checked} loading={senderSkjema}>
+                {visFeilmeldingLestKrav && (
+                    <div className="mbm">
+                        <Alert variant={'warning'}>{tekst('lestKravFeilmelding')}</Alert>
+                    </div>
+                )}
+                <Button onClick={validerOgFullfor} loading={senderSkjema}>
                     {tekst('fullfor')}
                 </Button>
             </ContentContainer>
