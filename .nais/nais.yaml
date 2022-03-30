@@ -43,7 +43,7 @@ spec:
       value: {{amplitude.apiKey}}
     - name: NEXT_PUBLIC_AMPLITUDE_ENDPOINT
       value: {{amplitude.endPoint}}
-    - name: NEXT_PUBLIC_API_MOCKING
+    - name: NEXT_PUBLIC_ENABLE_MOCK
       value: {{mocking}}
     - name: NEXT_PUBLIC_SENTRY_DSN
       value: {{sentry.dsn}}

@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 export default function redirectToLogin(req: NextRequest) {
     const { cookies } = req;
     const url = req.nextUrl.clone();
-    const brukerMock = process.env.NEXT_PUBLIC_ENABLE_MOCK;
+    const brukerMock = process.env.NEXT_PUBLIC_ENABLE_MOCK === 'enabled';
     const erInnlogget = cookies['selvbetjening-idtoken'];
     const erForsiden = url.pathname === '/';
 

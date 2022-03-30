@@ -32,7 +32,7 @@ const dekoratorProps: DecoratorProps = {
 };
 
 function enforceLogin(ctx: DocumentContext) {
-    if (ctx.pathname === '/' || process.env.NEXT_PUBLIC_ENABLE_MOCK) {
+    if (ctx.pathname === '/' || process.env.NEXT_PUBLIC_ENABLE_MOCK === 'enabled') {
         return false;
     }
 
