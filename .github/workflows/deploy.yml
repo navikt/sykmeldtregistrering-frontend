@@ -89,8 +89,8 @@ jobs:
       - uses: nais/deploy/actions/deploy@v1
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
-          CLUSTER: dev-gcp
-          RESOURCE: .nais/nais.yaml
+          CLUSTER: labs-gcp
+          RESOURCE: .nais/nais-labs.yaml
           VARS: .nais/demo.yaml
           PRINT_PAYLOAD: true
 
