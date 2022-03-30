@@ -75,7 +75,7 @@ const skjemaSideFactory: SkjemaSideFactory = (opts) => {
                     {forrigeLenke && <TilbakeKnapp href={forrigeLenke} />}
                     {hentKomponentForSide(aktivSide, skjemaState, dispatch)}
                     {visFeilmelding && <Alert variant="warning">{tekst('advarsel')}</Alert>}
-                    <Knapperad onNeste={validerOgGaaTilNeste} />
+                    {neste && <Knapperad onNeste={validerOgGaaTilNeste} />}
                     <Avbryt />
                 </main>
             </>
