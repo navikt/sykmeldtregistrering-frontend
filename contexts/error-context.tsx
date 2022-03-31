@@ -37,7 +37,7 @@ function useErrorContext() {
     const context = useContext(ErrorContext);
 
     if (context === undefined) {
-        throw new Error('useAmplitude må brukes under en AmplitudeProvider');
+        throw new Error('useErrorContext må brukes under en ErrorProvider');
     }
 
     return context;
