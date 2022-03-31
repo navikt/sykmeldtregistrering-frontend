@@ -20,6 +20,10 @@ const TEKSTER: Tekster<string> = {
         advarsel: 'Du må svare på spørsmålet før du kan gå videre.',
         fullfor: 'Fullfør registrering',
     },
+    en: {
+        advarsel: 'You will need to answer before you can continue.',
+        fullfor: 'Complete the registration',
+    },
 };
 
 const lagSiderMap = (skjemaState: SkjemaState, dispatch: Dispatch<SkjemaAction>): SiderMap => {
