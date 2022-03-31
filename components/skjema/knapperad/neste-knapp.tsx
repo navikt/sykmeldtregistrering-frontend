@@ -8,6 +8,9 @@ const TEKSTER: Tekster<string> = {
     nb: {
         neste: 'Neste',
     },
+    en: {
+        neste: 'Next',
+    },
 };
 
 interface NesteProps {
