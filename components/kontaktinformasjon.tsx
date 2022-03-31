@@ -20,8 +20,8 @@ const TEKSTER: Tekster<string> = {
         kildeKRR: 'Source: The common contact register',
         tlfHosNAV: 'Phone number registered with NAV',
         kildeNAV: 'Source: NAV',
-        //TODO: Mangler oversettelse for ingenOpplysninger
         endreOpplysninger: 'Change contact details',
+        ingenOpplysninger: 'We could not find any contact information!',
         hjelpetekst: 'Please make sure your contact details are updated or we will be unable to reach you.',
     },
 };
