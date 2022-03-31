@@ -50,13 +50,13 @@ const Start = () => {
         }
 
         router.push(hentNesteSideUrl(data));
-    }, [data]);
+    }, [data, router]);
 
     useEffect(() => {
         if (error) {
             router.push('/feil/');
         }
-    }, [error]);
+    }, [error, router]);
 
     return (
         <div style={{ textAlign: 'center' }}>
