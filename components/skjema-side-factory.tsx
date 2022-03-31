@@ -67,6 +67,12 @@ const skjemaSideFactory: SkjemaSideFactory = (opts) => {
             }
         };
 
+        useEffect(() => {
+            if (validerSkjemaForSide(aktivSide, skjemaState)) {
+                settVisFeilmelding(false);
+            }
+        }, [skjemaState, aktivSide]);
+
         const forrigeLenke = forrige ? `/${urlPrefix}/${forrige}` : undefined;
 
         return (
