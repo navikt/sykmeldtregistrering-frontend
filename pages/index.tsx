@@ -16,11 +16,13 @@ const TEKSTER: Tekster<string> = {
         metaTittel: 'Arbeidssøkerregistrering',
         metaDescription: 'Registrer deg som arbeidssøker',
         tittel: 'Registrer deg som arbeidssøker',
+        startRegistrering: 'Start registrering',
     },
     en: {
         metaTittel: 'Job seeker registration',
         metaDescription: 'Register as job seeker',
         tittel: 'Register as job seeker',
+        startRegistrering: 'Start registration',
     },
 };
 
@@ -57,6 +59,11 @@ const Home: NextPage = (props) => {
                     </Cell>
                     <Cell xs={12}>
                         <DineOpplysninger />
+                    </Cell>
+                    <Cell xs={12} className={'text-center p-y'}>
+                        <NextLink href="/start" passHref>
+                            <Button>{tekst('startRegistrering')}</Button>
+                        </NextLink>
                     </Cell>
                 </Grid>
             </div>

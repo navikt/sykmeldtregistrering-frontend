@@ -26,3 +26,11 @@ a {
 .mbl {
   margin-bottom: 2rem;
 }
+
+.text-center {
+  text-align: center;
+}
+
+.p-y {
+  padding: 1rem 0;
+}
