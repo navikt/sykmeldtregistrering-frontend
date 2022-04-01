@@ -5,19 +5,40 @@ import { AmplitudeProvider } from '../contexts/amplitude-context';
 import { FeatureToggleProvider } from '../contexts/featuretoggle-context';
 import { ErrorProvider } from '../contexts/error-context';
 import { GlobalFeilmelding } from '../components/feilmeldinger/feilmeldinger';
+import Head from 'next/head';
+import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
+import useSprak from '../hooks/useSprak';
+
+const TEKSTER: Tekster<string> = {
+    nb: {
+        metaTittel: 'Arbeidssøkerregistrering',
+        metaDescription: 'Skjema for arbeidssøkerregistrering',
+    },
+    en: {
+        metaTittel: 'Job seeker registration',
+        metaDescription: 'Register as job seeker',
+    },
+};
 
 function MyApp({ Component, pageProps, router }: AppProps) {
     onLanguageSelect(({ locale }) => router.push(router.asPath, router.asPath, { locale }));
+    const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
 
     return (
-        <FeatureToggleProvider>
-            <AmplitudeProvider>
-                <ErrorProvider>
-                    <GlobalFeilmelding />
-                    <Component {...pageProps} />
-                </ErrorProvider>
-            </AmplitudeProvider>
-        </FeatureToggleProvider>
+        <>
+            <Head>
+                <title>{tekst('metaTittel')}</title>
+                <meta name="description" content={tekst('metaDescription')} />
+            </Head>
+            <FeatureToggleProvider>
+                <AmplitudeProvider>
+                    <ErrorProvider>
+                        <GlobalFeilmelding />
+                        <Component {...pageProps} />
+                    </ErrorProvider>
+                </AmplitudeProvider>
+            </FeatureToggleProvider>
+        </>
     );
 }
 
