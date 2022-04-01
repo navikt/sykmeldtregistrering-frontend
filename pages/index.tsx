@@ -6,10 +6,10 @@ import { Button, Cell, Grid, Heading } from '@navikt/ds-react';
 import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../hooks/useSprak';
 import DineOpplysninger from '../components/forsiden/dine-opplysninger';
-import { SkjemaSide } from '../model/skjema';
 import RettigheterPanel from '../components/forsiden/rettigheter';
 import PlikterPanel from '../components/forsiden/plikter';
 import RedirectTilVedlikehold from '../components/redirect-til-vedlikehold';
+import DemoPanel from '../components/forsiden/demo-panel';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -40,16 +40,6 @@ const Home: NextPage = (props) => {
                 <Heading spacing size="xlarge" level="2">
                     {tekst('tittel')}
                 </Heading>
-                <p>
-                    <NextLink href={`/skjema/${SkjemaSide.DinSituasjon}`} passHref>
-                        <Button>Standard registrering</Button>
-                    </NextLink>
-                </p>
-                <p>
-                    <NextLink href={`/sykmeldt/${SkjemaSide.SykmeldtFremtidigSituasjon}`} passHref>
-                        <Button variant="secondary">Sykmeldt registrering</Button>
-                    </NextLink>
-                </p>
                 <Grid>
                     <Cell xs={12} md={6}>
                         <RettigheterPanel />
@@ -66,6 +56,7 @@ const Home: NextPage = (props) => {
                         </NextLink>
                     </Cell>
                 </Grid>
+                <DemoPanel />
             </div>
         </>
     );
