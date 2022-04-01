@@ -47,7 +47,7 @@ function byggFullforRegistreringPayload(skjemaState: SkjemaState, side: Side = '
 
     const initialState = side === 'standard' ? initialStandardState : initialSykmeldtState;
 
-    let payload = (Object.keys(initialState) as Array<keyof SkjemaState>).reduce(
+    let payload = (Object.keys(initialState) as Array<keyof Omit<SkjemaState, 'startTid'>>).reduce(
         (resultat: Payload, key) => {
             const svar = skjemaState[key] || initialStandardState[key];
 

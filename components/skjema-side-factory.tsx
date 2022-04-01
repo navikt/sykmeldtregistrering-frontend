@@ -28,6 +28,7 @@ export interface LagSkjemaSideProps {
 
 export type SkjemaSideFactory = (opts: LagSkjemaSideProps) => NextPage<SkjemaProps>;
 
+const initialArgs = () => ({ startTid: Date.now() });
 const skjemaSideFactory: SkjemaSideFactory = (opts) => {
     const { TEKSTER, beregnNavigering, urlPrefix, validerSkjemaForSide, hentKomponentForSide } = opts;
 
@@ -36,7 +37,12 @@ const skjemaSideFactory: SkjemaSideFactory = (opts) => {
         const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
         const router = useRouter();
         const initializer = (skjemaState: SkjemaState) => skjemaState;
-        const [skjemaState, dispatch] = useReducer<SkjemaReducer, SkjemaState>(skjemaReducer, {}, initializer);
+
+        const [skjemaState, dispatch] = useReducer<SkjemaReducer, SkjemaState>(
+            skjemaReducer,
+            initialArgs(),
+            initializer
+        );
         const [visFeilmelding, settVisFeilmelding] = useState<boolean>(false);
 
         const { forrige, neste } = beregnNavigering(aktivSide, skjemaState);

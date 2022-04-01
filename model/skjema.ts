@@ -70,6 +70,7 @@ export interface SkjemaState {
     [SporsmalId.helseHinder]?: JaEllerNei;
     [SporsmalId.fremtidigSituasjon]?: FremtidigSituasjon;
     [SporsmalId.tilbakeIArbeid]?: TilbakeIArbeid;
+    startTid?: number;
 }
 
 const skjemasider = {

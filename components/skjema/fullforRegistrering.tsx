@@ -47,6 +47,14 @@ interface FullforProps {
     side: Side;
 }
 
+const beregnTidBrukt = (skjemaState: SkjemaState) => {
+    if (!skjemaState.startTid) {
+        return;
+    }
+
+    return (Date.now() - skjemaState.startTid) / 1000;
+};
+
 const FullforRegistrering = (props: FullforProps) => {
     const { skjemaState } = props;
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
@@ -70,6 +78,8 @@ const FullforRegistrering = (props: FullforProps) => {
             const body = byggFullforRegistreringPayload(skjemaState, props.side);
             settSenderSkjema(true);
             settVisFeilmelding(false);
+
+            console.info('Tid brukt på å fullføre skjema (sekunder):', beregnTidBrukt(skjemaState));
 
             const response: FullforRegistreringResponse = await api(
                 `/api/fullforregistrering${props.side === 'sykmeldt' ? 'sykmeldt' : ''}`,
