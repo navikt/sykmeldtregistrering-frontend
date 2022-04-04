@@ -32,13 +32,16 @@ const Kvittering = () => {
                 <BodyShort>{tekst('tidligstFaaDagpenger')}</BodyShort>
                 <BodyShort>{tekst('sendeSoknaden')}</BodyShort>
             </GuidePanel>
-            <NextLink href={'https://www.nav.no/arbeid/dagpenger/soknad-veileder'} passHref>
-                <Button>{tekst('sokDagpenger')}</Button>
-            </NextLink>
 
-            <NextLink href={'https://www.dev.nav.no/person/dittnav'} passHref>
-                <Link>{tekst('skalIkkeSoke')}</Link>
-            </NextLink>
+            <section className="flex-center mhl">
+                <NextLink href={'https://www.nav.no/arbeid/dagpenger/soknad-veileder'} passHref>
+                    <Button className="mrl">{tekst('sokDagpenger')}</Button>
+                </NextLink>
+
+                <NextLink href={'https://www.dev.nav.no/person/dittnav'} passHref>
+                    <Link>{tekst('skalIkkeSoke')}</Link>
+                </NextLink>
+            </section>
         </>
     );
 };
