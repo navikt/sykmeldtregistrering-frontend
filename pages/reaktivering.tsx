@@ -36,8 +36,12 @@ const Reaktivering = () => {
             </Heading>
             <GuidePanel>{tekst('maaSokePaaNytt')}</GuidePanel>
             <BodyShort>{tekst('vilDuRegistreres')}</BodyShort>
-            <Button onClick={reaktiverBruker}>{tekst('ja')}</Button>
-            <Button variant={'tertiary'}>{tekst('avbryt')}</Button>
+            <section className="flex-center mhl">
+                <Button className="knapp mrl" onClick={reaktiverBruker}>
+                    {tekst('ja')}
+                </Button>
+                <Button variant={'tertiary'}>{tekst('avbryt')}</Button>
+            </section>
         </ContentContainer>
     );
 };

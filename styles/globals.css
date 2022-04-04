@@ -47,3 +47,6 @@ a {
   padding: 1rem 0;
 }
 
+.knapp {
+  min-width: 80px;
+}

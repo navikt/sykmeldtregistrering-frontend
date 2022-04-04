@@ -1,7 +1,6 @@
 import { Button, Cell, Grid, GuidePanel, Heading, Panel } from '@navikt/ds-react';
 import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../hooks/useSprak';
-import styles from './knapperad/knapperad.module.css';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -42,7 +41,7 @@ const SkalTilbakeTilJobb = (props: any) => {
                     <Button variant="secondary">{tekst('uenig')}</Button>
                 </Cell>
 
-                <Cell xs={6} className={styles.knapp}>
+                <Cell xs={6} className="knapp">
                     <Button variant="secondary">{tekst('enig')}</Button>
                 </Cell>
             </Grid>
