@@ -8,6 +8,7 @@ import { GlobalFeilmelding } from '../components/feilmeldinger/feilmeldinger';
 import Head from 'next/head';
 import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../hooks/useSprak';
+import styles from '../styles/app.module.css';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -25,7 +26,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
 
     return (
-        <>
+        <main className={styles.main}>
             <Head>
                 <title>{tekst('metaTittel')}</title>
                 <meta name="description" content={tekst('metaDescription')} />
@@ -38,7 +39,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
                     </ErrorProvider>
                 </AmplitudeProvider>
             </FeatureToggleProvider>
-        </>
+        </main>
     );
 }
 
