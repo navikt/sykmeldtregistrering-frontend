@@ -7,7 +7,6 @@ const TEKSTER: Tekster<string> = {
     nb: {
         feilISystemene: 'På grunn av feil i systemene våre kan du ikke registrere deg akkurat nå.',
         provIgjen: 'Vennligst prøv igjen litt senere.',
-        //TODO: Link til kontakt brukerstøtte:
         kontaktBrukerstotte: 'Kontakt teknisk brukerstøtte dersom problemene vedvarer.',
     },
 };
