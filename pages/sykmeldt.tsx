@@ -3,6 +3,7 @@ import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../hooks/useSprak';
 import NextLink from 'next/link';
 import SykmeldtVeiledningSvg from '../components/sykmeldtVeiledningSvg';
+import { SkjemaSide } from '../model/skjema';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -54,7 +55,7 @@ const SykmeldtStartside = () => {
                         {tekst('registrerDegTittel')}
                     </Heading>
                     <BodyLong spacing>{tekst('registrerDegIngress')}</BodyLong>
-                    <NextLink href="/sykmeldt/0" passHref>
+                    <NextLink href={`/sykmeldt/${SkjemaSide.SykmeldtFremtidigSituasjon}`} passHref>
                         <Button>{tekst('startRegistrering')}</Button>
                     </NextLink>
                 </Cell>
