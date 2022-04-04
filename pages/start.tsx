@@ -24,16 +24,16 @@ function hentNesteSideUrl(data: any) {
             return `/sykmeldt/${SkjemaSide.SykmeldtFremtidigSituasjon}`;
         }
         case RegistreringType.REAKTIVERING: {
-            return '/reaktivering';
+            return '/reaktivering/';
         }
         case RegistreringType.SPERRET: {
-            return '/sperret';
+            return '/veiledning/sperret/';
         }
         case RegistreringType.ALLEREDE_REGISTRERT: {
             if (skalVideresendesTilDittNAV(data)) {
                 return `${DITT_NAV_URL}?goTo=registrering`;
             }
-            return '/veiledning/allerede-registrert';
+            return '/veiledning/allerede-registrert/';
         }
         default:
             return '/';
