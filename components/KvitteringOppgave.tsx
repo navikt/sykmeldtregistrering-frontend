@@ -78,15 +78,15 @@ const Kvittering = (alertProps: AlertProps, infotekst: string, visKontaktinfo: b
             });
         }
     }, [data]);
-    // TODO: feilhåndtering
-    // useEffect(() => {
-    //     if (error) {
-    //         settKontaktinfo({
-    //             telefonnummerNAV: undefined,
-    //             telefonnummerKRR: undefined,
-    //         });
-    //     }
-    // }, [error]);
+
+    useEffect(() => {
+        if (error) {
+            settKontaktinfo({
+                telefonnummerNAV: undefined,
+                telefonnummerKRR: undefined,
+            });
+        }
+    }, [error]);
 
     return (
         <ContentContainer>
