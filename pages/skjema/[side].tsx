@@ -105,7 +105,7 @@ const validerSkjemaForSide = (side: SkjemaSide, skjemaState: SkjemaState) => {
             case SkjemaSide.AndreProblemer:
                 return skjemaState.andreForhold;
             case SkjemaSide.Oppsummering:
-                return true;
+                return skjemaState.andreForhold;
             case SkjemaSide.FullforRegistrering:
                 return true;
         }
