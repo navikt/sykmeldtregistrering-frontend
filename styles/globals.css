@@ -26,6 +26,18 @@ a {
 .mbl {
   margin-bottom: 2rem;
 }
+.mhl {
+  margin: 2rem 0;
+}
+.mrl {
+  margin-right: 2rem;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 .text-center {
   text-align: center;
