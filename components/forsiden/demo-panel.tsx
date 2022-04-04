@@ -7,7 +7,7 @@ function DemoPanel() {
     if (process.env.NEXT_PUBLIC_ENABLE_MOCK !== 'enabled') return null;
 
     return (
-        <Panel border>
+        <Panel border style={{ backgroundColor: 'hotpink' }}>
             <div className="text-center">
                 <Heading level="2" size="xlarge">
                     Demo valg
