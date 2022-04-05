@@ -23,6 +23,7 @@ opprettOppgaveUrl: https://arbeid.labs.nais.io/arbeid/registrering-ny/api/mocks/
 kontaktinformasjonUrl: https://arbeid.labs.nais.io/arbeid/registrering-ny/api/mocks/kontaktinformasjon
 ptoProxyUrl: http://pto-proxy.pto.svc.cluster.local/proxy/
 dittNAVUrl: https://www.nav.no/person/dittnav
+dagpengesoknadUrl: https://www.nav.no/arbeid/dagpenger/soknad-veileder
 dialogUrl: https://www.nav.no/arbeid/dialog
 featureToggles:
   server: https://arbeid.labs.nais.io/arbeid/registrering-ny/api/mocks/features

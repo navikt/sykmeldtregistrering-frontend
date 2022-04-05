@@ -3,6 +3,9 @@ import useSprak from '../hooks/useSprak';
 import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
 import NextLink from 'next/link';
 
+const DITTNAV_URL = process.env.NEXT_PUBLIC_DITTNAV_URL as string;
+const DAGPENGESOKNAD_URL = process.env.NEXT_PUBLIC_DAGPENGESOKNAD_URL as string;
+
 const TEKSTER: Tekster<string> = {
     nb: {
         header: 'Du er nå registrert som arbeidssøker',
@@ -34,11 +37,11 @@ const Kvittering = () => {
             </GuidePanel>
 
             <section className="flex-center mhl">
-                <NextLink href={'https://www.nav.no/arbeid/dagpenger/soknad-veileder'} passHref>
+                <NextLink href={DAGPENGESOKNAD_URL} passHref>
                     <Button className="mrl">{tekst('sokDagpenger')}</Button>
                 </NextLink>
 
-                <NextLink href={'https://www.dev.nav.no/person/dittnav'} passHref>
+                <NextLink href={DITTNAV_URL} passHref>
                     <Link>{tekst('skalIkkeSoke')}</Link>
                 </NextLink>
             </section>
