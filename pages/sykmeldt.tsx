@@ -15,7 +15,6 @@ const TEKSTER: Tekster<string> = {
         brukeAktivitetsplan: 'kan du bruke din egen aktivitetsplan',
         kravPaaStotte: 'får du vite om du har krav på annen økonomisk støtte',
         dialogMedVeileder: 'kan du ha dialog med veilederen din',
-        seVideo: 'Se video om aktivitetsplanen',
         registrerDegTittel: 'Registrer deg',
         registrerDegIngress:
             'Når du registrerer deg for å få mer veiledning, skal NAV vurdere hva slags informasjon, veiledning og hjelp du trenger. Du vil derfor få noen spørsmål om situasjonen din slik at du kan få riktig hjelp. Du kan endre på svarene hvis situasjonen din endrer seg. Det er bare veilederen din som kan se hva du har svart. Opplysningene dine blir lagret etter arkivloven. Les mer om hvordan NAV behandler personopplysninger.',
