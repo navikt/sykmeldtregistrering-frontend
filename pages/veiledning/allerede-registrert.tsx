@@ -1,8 +1,11 @@
+import { useEffect } from 'react';
 import { BodyShort, GuidePanel, Heading, Link } from '@navikt/ds-react';
 import NextLink from 'next/link';
 
 import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../hooks/useSprak';
+
+import { loggStoppsituasjon } from '../../lib/amplitude';
 
 const DIALOG_URL = process.env.NEXT_PUBLIC_DIALOG_URL as string;
 
@@ -25,6 +28,13 @@ const TEKSTER: Tekster<string> = {
 
 function AlleredeRegistrert() {
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
+
+    useEffect(() => {
+        loggStoppsituasjon({
+            situasjon: 'Arbeidssøkeren er allerede registrert',
+        });
+    }, []);
+
     return (
         <GuidePanel poster>
             <Heading spacing size="large" level="1">
