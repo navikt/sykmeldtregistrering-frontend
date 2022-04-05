@@ -19,12 +19,14 @@ const lagSiderMap = (skjemaState: SkjemaState, dispatch: Dispatch<SkjemaAction>,
         [SkjemaSide.SykmeldtFremtidigSituasjon]: (
             <SykmeldtFremtidigSituasjon
                 onChange={(value: any) => dispatch({ type: SporsmalId.fremtidigSituasjon, value })}
+                valgt={skjemaState[SporsmalId.fremtidigSituasjon]}
                 visFeilmelding={visFeilmelding}
             />
         ),
         [SkjemaSide.TilbakeTilJobb]: (
             <TilbakeTilJobb
                 onChange={(value: any) => dispatch({ type: SporsmalId.tilbakeIArbeid, value })}
+                valgt={skjemaState[SporsmalId.tilbakeIArbeid]}
                 visFeilmelding={visFeilmelding}
             />
         ),
@@ -40,6 +42,7 @@ const lagSiderMap = (skjemaState: SkjemaState, dispatch: Dispatch<SkjemaAction>,
             <UtdanningGodkjent
                 onChange={(value: any) => dispatch({ type: SporsmalId.utdanningGodkjent, value })}
                 valgt={skjemaState.utdanningGodkjent}
+                visFeilmelding={visFeilmelding}
             />
         ),
         [SkjemaSide.BestaattUtdanning]: (

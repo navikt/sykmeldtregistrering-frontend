@@ -1,9 +1,9 @@
-import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import { SkjemaKomponentProps } from './skjema-felleskomponenter';
 import useSprak from '../../hooks/useSprak';
-import { Heading } from '@navikt/ds-react';
+import { Panel } from '@navikt/ds-react';
 import RadioGruppe from '../radio-gruppe/radio-gruppe';
-import { SporsmalId, TilbakeIArbeid, hentTekst } from '../../model/sporsmal';
+import { hentTekst, SporsmalId, TilbakeIArbeid } from '../../model/sporsmal';
+import styles from '../../styles/skjema.module.css';
 
 const TilbakeTilJobb = (props: SkjemaKomponentProps<TilbakeIArbeid>) => {
     const sprak = useSprak();
@@ -19,15 +19,16 @@ const TilbakeTilJobb = (props: SkjemaKomponentProps<TilbakeIArbeid>) => {
     ];
 
     return (
-        <>
-            <Heading spacing size={'large'} level="1">
-                {tekst(SporsmalId.tilbakeIArbeid)}
-            </Heading>
-
-            <form className="mbl">
-                <RadioGruppe valg={valg} onSelect={(val) => onChange(val)} valgt={valgt} />
+        <Panel className={styles.panel} border={true}>
+            <form>
+                <RadioGruppe
+                    legend={tekst(SporsmalId.tilbakeIArbeid)}
+                    valg={valg}
+                    onSelect={(val) => onChange(val)}
+                    valgt={valgt}
+                />
             </form>
-        </>
+        </Panel>
     );
 };
 

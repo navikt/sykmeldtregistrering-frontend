@@ -1,13 +1,14 @@
 import { SkjemaKomponentProps } from './skjema-felleskomponenter';
 import useSprak from '../../hooks/useSprak';
-import { Heading } from '@navikt/ds-react';
+import { Panel } from '@navikt/ds-react';
 import RadioGruppe from '../radio-gruppe/radio-gruppe';
 import { FremtidigSituasjon, hentTekst, SporsmalId } from '../../model/sporsmal';
+import styles from '../../styles/skjema.module.css';
 
 const SykmeldtFremtidigSituasjon = (props: SkjemaKomponentProps<FremtidigSituasjon>) => {
     const sprak = useSprak();
     const tekst = (key: string) => hentTekst(sprak, key);
-    const { onChange, valgt } = props;
+    const { onChange, valgt, visFeilmelding } = props;
 
     const lagValg = (valg: FremtidigSituasjon) => ({ tekst: tekst(valg), value: valg });
     const valg = [
@@ -19,15 +20,17 @@ const SykmeldtFremtidigSituasjon = (props: SkjemaKomponentProps<FremtidigSituasj
     ];
 
     return (
-        <>
-            <Heading spacing size={'large'} level="1">
-                {tekst(SporsmalId.fremtidigSituasjon)}
-            </Heading>
-
-            <form className="mbl">
-                <RadioGruppe valg={valg} onSelect={(val) => onChange(val)} valgt={valgt} />
+        <Panel className={styles.panel} border={true}>
+            <form>
+                <RadioGruppe
+                    legend={tekst(SporsmalId.fremtidigSituasjon)}
+                    valg={valg}
+                    onSelect={(val) => onChange(val)}
+                    valgt={valgt}
+                    visFeilmelding={visFeilmelding}
+                />
             </form>
-        </>
+        </Panel>
     );
 };
 
