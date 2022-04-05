@@ -6,7 +6,6 @@ import BestattUtdanning from '../../components/skjema/utdanning-bestatt';
 import Helseproblemer from '../../components/skjema/helseproblemer';
 import AndreProblemer from '../../components/skjema/andre-problemer';
 import { Dispatch } from 'react';
-import { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import Oppsummering from '../../components/skjema/oppsummering/oppsummering';
 import { beregnNavigering } from '../../lib/standard-registrering-tilstandsmaskin';
 import { SkjemaSide, SkjemaState, visSisteStilling } from '../../model/skjema';
@@ -16,21 +15,13 @@ import SisteStilling from '../../components/skjema/siste-jobb/siste-stilling';
 import { SisteStillingValg, SporsmalId } from '../../model/sporsmal';
 import skjemaSideFactory, { SiderMap } from '../../components/skjema-side-factory';
 
-const TEKSTER: Tekster<string> = {
-    nb: {
-        advarsel: 'Du må svare på spørsmålet før du kan gå videre.',
-    },
-    en: {
-        advarsel: 'You will need to answer before you can continue.',
-    },
-};
-
-const lagSiderMap = (skjemaState: SkjemaState, dispatch: Dispatch<SkjemaAction>): SiderMap => {
+const lagSiderMap = (skjemaState: SkjemaState, dispatch: Dispatch<SkjemaAction>, visFeilmelding: boolean): SiderMap => {
     return {
         [SkjemaSide.DinSituasjon]: (
             <DinSituasjon
                 onChange={(value) => dispatch({ type: SporsmalId.dinSituasjon, value: value })}
                 valgt={skjemaState.dinSituasjon}
+                visFeilmelding={visFeilmelding}
             />
         ),
         [SkjemaSide.SisteJobb]: (
@@ -43,6 +34,7 @@ const lagSiderMap = (skjemaState: SkjemaState, dispatch: Dispatch<SkjemaAction>)
                     <SisteStilling
                         onChange={(value) => dispatch({ type: SporsmalId.sisteStilling, value: value })}
                         valgt={skjemaState.sisteStilling}
+                        visFeilmelding={visFeilmelding}
                     />
                 ) : undefined}
             </SisteJobb>
@@ -51,24 +43,28 @@ const lagSiderMap = (skjemaState: SkjemaState, dispatch: Dispatch<SkjemaAction>)
             <Utdanning
                 onChange={(value) => dispatch({ type: SporsmalId.utdanning, value: value })}
                 valgt={skjemaState.utdanning}
+                visFeilmelding={visFeilmelding}
             />
         ),
         [SkjemaSide.GodkjentUtdanning]: (
             <UtdanningGodkjent
                 onChange={(value) => dispatch({ type: SporsmalId.utdanningGodkjent, value: value })}
                 valgt={skjemaState.utdanningGodkjent}
+                visFeilmelding={visFeilmelding}
             />
         ),
         [SkjemaSide.BestaattUtdanning]: (
             <BestattUtdanning
                 onChange={(value) => dispatch({ type: SporsmalId.utdanningBestatt, value: value })}
                 valgt={skjemaState.utdanningBestatt}
+                visFeilmelding={visFeilmelding}
             />
         ),
         [SkjemaSide.Helseproblemer]: (
             <Helseproblemer
                 onChange={(value) => dispatch({ type: SporsmalId.helseHinder, value: value })}
                 valgt={skjemaState.helseHinder}
+                visFeilmelding={visFeilmelding}
             />
         ),
         [SkjemaSide.AndreProblemer]: (
@@ -76,6 +72,7 @@ const lagSiderMap = (skjemaState: SkjemaState, dispatch: Dispatch<SkjemaAction>)
                 onChange={(value) => dispatch({ type: SporsmalId.andreForhold, value: value })}
                 valgt={skjemaState.andreForhold}
                 skjematype={'standard'}
+                visFeilmelding={visFeilmelding}
             />
         ),
         [SkjemaSide.Oppsummering]: <Oppsummering skjemaState={skjemaState} skjemaPrefix={'/skjema/'} />,
@@ -118,12 +115,11 @@ const hentKomponentForSkjemaSide = (side: SkjemaSide, siderMap: SiderMap) =>
     siderMap[side] || siderMap[SkjemaSide.DinSituasjon];
 
 const Skjema = skjemaSideFactory({
-    TEKSTER,
     urlPrefix: 'skjema',
     validerSkjemaForSide,
     beregnNavigering,
-    hentKomponentForSide: (side, skjemaState, dispatch) => {
-        return hentKomponentForSkjemaSide(side, lagSiderMap(skjemaState, dispatch));
+    hentKomponentForSide: (side, skjemaState, dispatch, visFeilmelding) => {
+        return hentKomponentForSkjemaSide(side, lagSiderMap(skjemaState, dispatch, visFeilmelding));
     },
 });
 

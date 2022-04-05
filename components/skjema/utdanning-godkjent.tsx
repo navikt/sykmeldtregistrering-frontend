@@ -1,11 +1,12 @@
 import useSprak from '../../hooks/useSprak';
-import { Heading } from '@navikt/ds-react';
+import { Panel } from '@navikt/ds-react';
 import RadioGruppe from '../radio-gruppe/radio-gruppe';
 import { SkjemaKomponentProps } from './skjema-felleskomponenter';
 import { hentTekst, SporsmalId, UtdanningGodkjentValg } from '../../model/sporsmal';
+import styles from '../../styles/skjema.module.css';
 
 const UtdanningGodkjent = (props: SkjemaKomponentProps<UtdanningGodkjentValg>) => {
-    const { onChange, valgt } = props;
+    const { onChange, valgt, visFeilmelding } = props;
     const sprak = useSprak();
     const tekst = (key: string) => hentTekst(sprak, key);
 
@@ -17,15 +18,17 @@ const UtdanningGodkjent = (props: SkjemaKomponentProps<UtdanningGodkjentValg>) =
     ];
 
     return (
-        <>
-            <Heading spacing size={'large'} level="1">
-                {tekst(SporsmalId.utdanningGodkjent)}
-            </Heading>
-
-            <form className="mbl">
-                <RadioGruppe valg={valg} onSelect={(val) => onChange(val)} valgt={valgt} />
+        <Panel className={styles.panel} border={true}>
+            <form>
+                <RadioGruppe
+                    legend={tekst(SporsmalId.utdanningGodkjent)}
+                    valg={valg}
+                    onSelect={(val) => onChange(val)}
+                    valgt={valgt}
+                    visFeilmelding={visFeilmelding}
+                />
             </form>
-        </>
+        </Panel>
     );
 };
 

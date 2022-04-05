@@ -2,9 +2,11 @@ import RadioGruppe from '../../radio-gruppe/radio-gruppe';
 import { SkjemaKomponentProps } from '../skjema-felleskomponenter';
 import { hentTekst, SisteStillingValg } from '../../../model/sporsmal';
 import useSprak from '../../../hooks/useSprak';
+import { Panel } from '@navikt/ds-react';
+import styles from '../../../styles/skjema.module.css';
 
 const SisteStilling = (props: SkjemaKomponentProps<SisteStillingValg>) => {
-    const { onChange } = props;
+    const { onChange, visFeilmelding } = props;
     let sprak = useSprak();
 
     const valg = [
@@ -12,7 +14,17 @@ const SisteStilling = (props: SkjemaKomponentProps<SisteStillingValg>) => {
         { tekst: hentTekst(sprak, SisteStillingValg.HAR_IKKE_HATT_JOBB), value: SisteStillingValg.HAR_IKKE_HATT_JOBB },
     ];
 
-    return <RadioGruppe valg={valg} valgt={props.valgt} onSelect={(val) => onChange(val)} />;
+    return (
+        <Panel className={`${styles.panel} mbm`} border={true}>
+            <RadioGruppe
+                valg={valg}
+                valgt={props.valgt}
+                onSelect={(val) => onChange(val)}
+                visFeilmelding={visFeilmelding}
+            />
+            ;
+        </Panel>
+    );
 };
 
 export default SisteStilling;

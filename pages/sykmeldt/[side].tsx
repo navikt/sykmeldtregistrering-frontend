@@ -1,4 +1,3 @@
-import { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import { Dispatch } from 'react';
 import { SkjemaSide, SkjemaState } from '../../model/skjema';
 import Utdanning from '../../components/skjema/utdanning';
@@ -15,32 +14,26 @@ import { SporsmalId } from '../../model/sporsmal';
 import AndreProblemer from '../../components/skjema/andre-problemer';
 import skjemaSideFactory, { SiderMap } from '../../components/skjema-side-factory';
 
-const TEKSTER: Tekster<string> = {
-    nb: {
-        advarsel: 'Du må svare på spørsmålet før du kan gå videre.',
-        fullfor: 'Fullfør registrering',
-    },
-    en: {
-        advarsel: 'You will need to answer before you can continue.',
-        fullfor: 'Complete the registration',
-    },
-};
-
-const lagSiderMap = (skjemaState: SkjemaState, dispatch: Dispatch<SkjemaAction>): SiderMap => {
+const lagSiderMap = (skjemaState: SkjemaState, dispatch: Dispatch<SkjemaAction>, visFeilmelding: boolean): SiderMap => {
     return {
         [SkjemaSide.SykmeldtFremtidigSituasjon]: (
             <SykmeldtFremtidigSituasjon
                 onChange={(value: any) => dispatch({ type: SporsmalId.fremtidigSituasjon, value })}
+                visFeilmelding={visFeilmelding}
             />
         ),
         [SkjemaSide.TilbakeTilJobb]: (
-            <TilbakeTilJobb onChange={(value: any) => dispatch({ type: SporsmalId.tilbakeIArbeid, value })} />
+            <TilbakeTilJobb
+                onChange={(value: any) => dispatch({ type: SporsmalId.tilbakeIArbeid, value })}
+                visFeilmelding={visFeilmelding}
+            />
         ),
         [SkjemaSide.SkalTilbakeTilJobb]: <SkalTilbakeTilJobb />,
         [SkjemaSide.Utdanning]: (
             <Utdanning
                 onChange={(value: any) => dispatch({ type: SporsmalId.utdanning, value })}
                 valgt={skjemaState.utdanning}
+                visFeilmelding={visFeilmelding}
             />
         ),
         [SkjemaSide.GodkjentUtdanning]: (
@@ -53,6 +46,7 @@ const lagSiderMap = (skjemaState: SkjemaState, dispatch: Dispatch<SkjemaAction>)
             <BestattUtdanning
                 onChange={(value: any) => dispatch({ type: SporsmalId.utdanningBestatt, value })}
                 valgt={skjemaState.utdanningBestatt}
+                visFeilmelding={visFeilmelding}
             />
         ),
         [SkjemaSide.AndreProblemer]: (
@@ -60,6 +54,7 @@ const lagSiderMap = (skjemaState: SkjemaState, dispatch: Dispatch<SkjemaAction>)
                 onChange={(value: any) => dispatch({ type: SporsmalId.andreForhold, value })}
                 valgt={skjemaState.andreForhold}
                 skjematype={'sykmeldt'}
+                visFeilmelding={visFeilmelding}
             />
         ),
         [SkjemaSide.Oppsummering]: <Oppsummering skjemaState={skjemaState} skjemaPrefix={'/sykmeldt/'} />,
@@ -96,12 +91,11 @@ const hentKomponentForSykmeldtSide = (side: SkjemaSide, siderMap: SiderMap) =>
     siderMap[side] || siderMap[SkjemaSide.SykmeldtFremtidigSituasjon];
 
 const SykmeldtSkjema = skjemaSideFactory({
-    TEKSTER,
     urlPrefix: 'sykmeldt',
     validerSkjemaForSide,
     beregnNavigering,
-    hentKomponentForSide: (side, skjemaState, dispatch) => {
-        return hentKomponentForSykmeldtSide(side, lagSiderMap(skjemaState, dispatch));
+    hentKomponentForSide: (side, skjemaState, dispatch, visFeilmelding) => {
+        return hentKomponentForSykmeldtSide(side, lagSiderMap(skjemaState, dispatch, visFeilmelding));
     },
 });
 

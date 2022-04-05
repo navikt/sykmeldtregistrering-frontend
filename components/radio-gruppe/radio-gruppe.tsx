@@ -1,4 +1,6 @@
-import { Cell, Grid, Radio, RadioGroup } from '@navikt/ds-react';
+import { Radio, RadioGroup } from '@navikt/ds-react';
+import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
+import useSprak from '../../hooks/useSprak';
 
 interface RadioGruppeProps {
     valg: {
@@ -7,21 +9,34 @@ interface RadioGruppeProps {
     }[];
     onSelect?: (val: any) => void;
     valgt?: string;
+    visFeilmelding?: boolean;
+    legend?: string;
+    beskrivelse?: string;
 }
 
+const TEKSTER: Tekster<string> = {
+    nb: {
+        advarsel: 'Du må svare på spørsmålet før du kan gå videre.',
+    },
+    en: {
+        advarsel: 'You will need to answer before you can continue.',
+    },
+};
+
 const RadioGruppe = (props: RadioGruppeProps) => {
-    const { valg, onSelect, valgt } = props;
+    const { valg, onSelect, valgt, visFeilmelding, legend, beskrivelse } = props;
+    const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
+    const error = visFeilmelding ? tekst('advarsel') : undefined;
+
     return (
-        <RadioGroup defaultValue={valgt} legend="" onChange={onSelect}>
-            <Grid>
-                {valg.map((alternativ) => {
-                    return (
-                        <Cell key={alternativ.value} xs={12} md={6}>
-                            <Radio value={alternativ.value}>{alternativ.tekst}</Radio>
-                        </Cell>
-                    );
-                })}
-            </Grid>
+        <RadioGroup defaultValue={valgt} legend={legend} onChange={onSelect} error={error} description={beskrivelse}>
+            {valg.map((alternativ) => {
+                return (
+                    <Radio key={alternativ.value} value={alternativ.value}>
+                        {alternativ.tekst}
+                    </Radio>
+                );
+            })}
         </RadioGroup>
     );
 };

@@ -1,13 +1,10 @@
-import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
-import { SkjemaSide, SkjemaState, StandardSkjemaSide, SykmeldtSkjemaSide } from '../model/skjema';
+import { SkjemaSide, SkjemaState } from '../model/skjema';
 import { Dispatch, useEffect, useReducer, useState } from 'react';
 import { SkjemaAction, skjemaReducer, SkjemaReducer } from '../lib/skjema-state';
 import { NextPage } from 'next';
-import useSprak from '../hooks/useSprak';
 import { useRouter } from 'next/router';
 import styles from '../styles/skjema.module.css';
 import TilbakeKnapp from './skjema/tilbake-knapp';
-import { Alert } from '@navikt/ds-react';
 import { Knapperad } from './skjema/knapperad/knapperad';
 import Avbryt from './skjema/avbryt-lenke';
 import { SykmeldtRegistreringTilstandsmaskin } from '../lib/sykmeldt-registrering-tilstandsmaskin';
@@ -19,10 +16,14 @@ export interface SkjemaProps {
 }
 
 export interface LagSkjemaSideProps {
-    TEKSTER: Tekster<string>;
     urlPrefix: string;
     validerSkjemaForSide: (side: SkjemaSide, skjemaState: SkjemaState) => boolean;
-    hentKomponentForSide: (side: SkjemaSide, skjemaState: SkjemaState, dispatch: Dispatch<SkjemaAction>) => JSX.Element;
+    hentKomponentForSide: (
+        side: SkjemaSide,
+        skjemaState: SkjemaState,
+        dispatch: Dispatch<SkjemaAction>,
+        visFeilmelding: boolean
+    ) => JSX.Element;
     beregnNavigering: StandardRegistreringTilstandsmaskin | SykmeldtRegistreringTilstandsmaskin;
 }
 
@@ -30,11 +31,10 @@ export type SkjemaSideFactory = (opts: LagSkjemaSideProps) => NextPage<SkjemaPro
 
 const initialArgs = () => ({ startTid: Date.now() });
 const skjemaSideFactory: SkjemaSideFactory = (opts) => {
-    const { TEKSTER, beregnNavigering, urlPrefix, validerSkjemaForSide, hentKomponentForSide } = opts;
+    const { beregnNavigering, urlPrefix, validerSkjemaForSide, hentKomponentForSide } = opts;
 
     const SkjemaSide = (props: SkjemaProps) => {
         const { aktivSide } = props;
-        const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
         const router = useRouter();
         const initializer = (skjemaState: SkjemaState) => skjemaState;
 
@@ -43,6 +43,7 @@ const skjemaSideFactory: SkjemaSideFactory = (opts) => {
             initialArgs(),
             initializer
         );
+
         const [visFeilmelding, settVisFeilmelding] = useState<boolean>(false);
 
         const { forrige, neste } = beregnNavigering(aktivSide, skjemaState);
@@ -82,15 +83,12 @@ const skjemaSideFactory: SkjemaSideFactory = (opts) => {
         const forrigeLenke = forrige ? `/${urlPrefix}/${forrige}` : undefined;
 
         return (
-            <>
-                <main className={styles.main}>
-                    {forrigeLenke && <TilbakeKnapp href={forrigeLenke} />}
-                    {hentKomponentForSide(aktivSide, skjemaState, dispatch)}
-                    {visFeilmelding && <Alert variant="warning">{tekst('advarsel')}</Alert>}
-                    {neste && <Knapperad onNeste={validerOgGaaTilNeste} />}
-                    <Avbryt />
-                </main>
-            </>
+            <div className={styles.main}>
+                {forrigeLenke && <TilbakeKnapp href={forrigeLenke} />}
+                {hentKomponentForSide(aktivSide, skjemaState, dispatch, visFeilmelding)}
+                {neste && <Knapperad onNeste={validerOgGaaTilNeste} />}
+                <Avbryt />
+            </div>
         );
     };
 

@@ -51,7 +51,7 @@ const Oppsummering = ({ skjemaState, skjemaPrefix }: OppsummeringProps) => {
                     : tekst('ikkeIJobbSisteAaret')}
                 <Table>
                     {Object.entries(skjemaState)
-                        .filter(([sporsmalId]) => sporsmalId !== SporsmalId.sisteStilling)
+                        .filter(([sporsmalId]) => ![SporsmalId.sisteStilling, 'startTid'].includes(sporsmalId))
                         .map(
                             ([sporsmalId, svar]) =>
                                 svar && (

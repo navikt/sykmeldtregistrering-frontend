@@ -1,9 +1,10 @@
 import lagHentTekstForSprak, { TeksterMedDefinerteNokler } from '../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../hooks/useSprak';
-import { Alert, BodyShort, Heading } from '@navikt/ds-react';
+import { Alert, Panel } from '@navikt/ds-react';
 import RadioGruppe from '../radio-gruppe/radio-gruppe';
 import { SkjemaKomponentProps } from './skjema-felleskomponenter';
 import { JaEllerNei } from '../../model/sporsmal';
+import styles from '../../styles/skjema.module.css';
 
 const TEKSTER_STANDARD: AndreProblemerTekster = {
     nb: {
@@ -36,23 +37,25 @@ type AndreProblemerProps = SkjemaKomponentProps<JaEllerNei> & { skjematype: 'sta
 const AndreProblemer = (props: AndreProblemerProps) => {
     const TEKSTER = props.skjematype === 'standard' ? TEKSTER_STANDARD : TEKSTER_SYKMELDT;
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
-    const { onChange, valgt } = props;
+    const { onChange, valgt, visFeilmelding } = props;
 
     const lagValg = (valg: JaEllerNei) => ({ tekst: tekst(valg), value: valg });
     const valg = [lagValg(JaEllerNei.JA), lagValg(JaEllerNei.NEI)];
 
     return (
         <>
-            <Heading spacing size={'large'} level="1">
-                {tekst('tittel')}
-            </Heading>
-
-            <BodyShort>{tekst('ingress')}</BodyShort>
-
-            <form className="mbl">
-                <RadioGruppe valg={valg} onSelect={(val) => onChange(val)} valgt={valgt} />
-            </form>
-
+            <Panel className={`${styles.panel} mbm`} border={true}>
+                <form>
+                    <RadioGruppe
+                        legend={tekst('tittel')}
+                        beskrivelse={tekst('ingress')}
+                        valg={valg}
+                        onSelect={(val) => onChange(val)}
+                        valgt={valgt}
+                        visFeilmelding={visFeilmelding}
+                    />
+                </form>
+            </Panel>
             <Alert variant="info" inline={true}>
                 {tekst('fortellMer')}
             </Alert>

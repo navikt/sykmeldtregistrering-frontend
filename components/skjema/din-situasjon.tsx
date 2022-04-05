@@ -1,11 +1,12 @@
-import { Heading } from '@navikt/ds-react';
+import { Panel } from '@navikt/ds-react';
 import useSprak from '../../hooks/useSprak';
 import RadioGruppe from '../radio-gruppe/radio-gruppe';
 import { SkjemaKomponentProps } from './skjema-felleskomponenter';
 import { DinSituasjon as Jobbsituasjon, hentTekst, SporsmalId } from '../../model/sporsmal';
+import styles from '../../styles/skjema.module.css';
 
 const DinSituasjon = (props: SkjemaKomponentProps<Jobbsituasjon>) => {
-    const { onChange, valgt } = props;
+    const { onChange, valgt, visFeilmelding } = props;
     const sprak = useSprak();
     const tekst = (key: string) => hentTekst(sprak, key);
 
@@ -29,15 +30,17 @@ const DinSituasjon = (props: SkjemaKomponentProps<Jobbsituasjon>) => {
     ];
 
     return (
-        <>
-            <Heading spacing size={'large'} level="1">
-                {tekst(SporsmalId.dinSituasjon)}
-            </Heading>
-
-            <form className="mbl">
-                <RadioGruppe valg={valg} onSelect={(val) => onChange(val)} valgt={valgt} />
+        <Panel className={styles.panel} border={true}>
+            <form>
+                <RadioGruppe
+                    legend={tekst(SporsmalId.dinSituasjon)}
+                    valg={valg}
+                    onSelect={(val) => onChange(val)}
+                    valgt={valgt}
+                    visFeilmelding={visFeilmelding!}
+                />
             </form>
-        </>
+        </Panel>
     );
 };
 
