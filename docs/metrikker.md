@@ -4,6 +4,8 @@
 
 Situasjoner som gjør at brukeren ikke får registrert seg
 
+Kan hentes ut ved å sjekke `arbeidssokerregistrering.stoppsituasjoner` og gruppere på `situasjon`
+
 -   vedlikehold av Arena
     -   midlertidig
 -   teknisk feil
