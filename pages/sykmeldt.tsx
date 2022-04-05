@@ -45,7 +45,6 @@ const SykmeldtStartside = () => {
                         <li>{tekst('kravPaaStotte')}</li>
                         <li>{tekst('dialogMedVeileder')}</li>
                     </ul>
-                    <Button variant="secondary">{tekst('seVideo')}</Button>
                 </Cell>
                 <Cell xs={12} md={6}>
                     <SykmeldtVeiledningSvg />
