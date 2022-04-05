@@ -3,8 +3,10 @@ import { Button, Heading, Panel } from '@navikt/ds-react';
 
 import { SkjemaSide } from '../../model/skjema';
 
+const ikkeDemo = process.env.NEXT_PUBLIC_ENABLE_MOCK !== 'enabled';
+
 function DemoPanel() {
-    if (process.env.NEXT_PUBLIC_ENABLE_MOCK !== 'enabled') return null;
+    if (ikkeDemo) return null;
 
     return (
         <Panel border style={{ backgroundColor: 'hotpink' }}>
