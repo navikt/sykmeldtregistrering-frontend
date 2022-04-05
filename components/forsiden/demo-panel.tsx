@@ -3,10 +3,12 @@ import { Button, Heading, Panel } from '@navikt/ds-react';
 
 import { SkjemaSide } from '../../model/skjema';
 
-const ikkeDemo = process.env.NEXT_PUBLIC_ENABLE_MOCK !== 'enabled';
+interface Props {
+    brukerMock?: boolean;
+}
 
-function DemoPanel() {
-    if (ikkeDemo) return null;
+function DemoPanel({ brukerMock }: Props) {
+    if (!brukerMock) return null;
 
     return (
         <Panel border style={{ backgroundColor: 'hotpink' }}>

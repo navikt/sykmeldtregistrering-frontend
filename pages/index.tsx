@@ -23,6 +23,7 @@ const TEKSTER: Tekster<string> = {
 
 const Home: NextPage = () => {
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
+    const brukerMock = process.env.NEXT_PUBLIC_ENABLE_MOCK === 'enabled';
 
     return (
         <>
@@ -47,7 +48,7 @@ const Home: NextPage = () => {
                         </NextLink>
                     </Cell>
                 </Grid>
-                <DemoPanel />
+                <DemoPanel brukerMock />
             </div>
         </>
     );
