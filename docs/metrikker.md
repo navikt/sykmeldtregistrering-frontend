@@ -20,18 +20,15 @@ Kan hentes ut ved å sjekke `arbeidssokerregistrering.stoppsituasjoner` og grupp
 -   antall reaktiveringer
     -   som søker gjenopptak
 
-## Brukeropplevelse
+## Brukeradferd
 
-Målinger omkring brukeropplevelsen
+Målinger omkring brukeradferd.
+
+Kan hentes ut ved å sjekke `arbeidssokerregistrering.aktiviteter` og `arbeidssokerregistrering.besvarelser`
 
 -   Hvor lang tid bruker man på å fylle ut skjemaet?
 -   Hvor mange treffer feilsituasjoner?
 -   Hvor mange får registrert seg vellykket?
-
-## Bruk
-
-Målinger omkring bruken av løsningen
-
 -   Hva svarer man på du ulike spørsmålene?
 -   Hvilken flyt havner brukeren på?
 -   Hva gjør de etter registrering?
