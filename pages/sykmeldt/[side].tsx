@@ -13,6 +13,7 @@ import FullforRegistrering from '../../components/skjema/fullforRegistrering';
 import { SporsmalId } from '../../model/sporsmal';
 import AndreProblemer from '../../components/skjema/andre-problemer';
 import skjemaSideFactory, { SiderMap } from '../../components/skjema-side-factory';
+import { loggBesvarelse } from '../../lib/amplitude';
 
 const lagSiderMap = (skjemaState: SkjemaState, dispatch: Dispatch<SkjemaAction>, visFeilmelding: boolean): SiderMap => {
     return {
@@ -93,12 +94,19 @@ const validerSkjemaForSide = (side: SkjemaSide, skjemaState: SkjemaState) => {
 const hentKomponentForSykmeldtSide = (side: SkjemaSide, siderMap: SiderMap) =>
     siderMap[side] || siderMap[SkjemaSide.SykmeldtFremtidigSituasjon];
 
+const loggOgDispatch = (dispatch: Dispatch<SkjemaAction>) => {
+    return (action: SkjemaAction) => {
+        loggBesvarelse({ skjematype: 'sykmeldt', sporsmalId: action.type, svar: action.value });
+        return dispatch(action);
+    };
+};
+
 const SykmeldtSkjema = skjemaSideFactory({
     urlPrefix: 'sykmeldt',
     validerSkjemaForSide,
     beregnNavigering,
     hentKomponentForSide: (side, skjemaState, dispatch, visFeilmelding) => {
-        return hentKomponentForSykmeldtSide(side, lagSiderMap(skjemaState, dispatch, visFeilmelding));
+        return hentKomponentForSykmeldtSide(side, lagSiderMap(skjemaState, loggOgDispatch(dispatch), visFeilmelding));
     },
 });
 

@@ -14,6 +14,7 @@ import FullforRegistrering from '../../components/skjema/fullforRegistrering';
 import SisteStilling from '../../components/skjema/siste-jobb/siste-stilling';
 import { SisteStillingValg, SporsmalId } from '../../model/sporsmal';
 import skjemaSideFactory, { SiderMap } from '../../components/skjema-side-factory';
+import { loggBesvarelse } from '../../lib/amplitude';
 
 const lagSiderMap = (skjemaState: SkjemaState, dispatch: Dispatch<SkjemaAction>, visFeilmelding: boolean): SiderMap => {
     return {
@@ -114,12 +115,19 @@ const validerSkjemaForSide = (side: SkjemaSide, skjemaState: SkjemaState) => {
 const hentKomponentForSkjemaSide = (side: SkjemaSide, siderMap: SiderMap) =>
     siderMap[side] || siderMap[SkjemaSide.DinSituasjon];
 
+const loggOgDispatch = (dispatch: Dispatch<SkjemaAction>) => {
+    return (action: SkjemaAction) => {
+        loggBesvarelse({ skjematype: 'standard', sporsmalId: action.type, svar: action.value });
+        return dispatch(action);
+    };
+};
+
 const Skjema = skjemaSideFactory({
     urlPrefix: 'skjema',
     validerSkjemaForSide,
     beregnNavigering,
     hentKomponentForSide: (side, skjemaState, dispatch, visFeilmelding) => {
-        return hentKomponentForSkjemaSide(side, lagSiderMap(skjemaState, dispatch, visFeilmelding));
+        return hentKomponentForSkjemaSide(side, lagSiderMap(skjemaState, loggOgDispatch(dispatch), visFeilmelding));
     },
 });
 
