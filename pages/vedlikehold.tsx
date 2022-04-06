@@ -1,5 +1,7 @@
+import { useEffect } from 'react';
 import { Alert, BodyShort, GuidePanel } from '@navikt/ds-react';
 
+import { loggStoppsituasjon } from '../lib/amplitude';
 import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../hooks/useSprak';
 
@@ -20,6 +22,12 @@ const TEKSTER: Tekster<string> = {
 
 function Vedlikehold() {
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
+
+    useEffect(() => {
+        loggStoppsituasjon({
+            situasjon: 'Arbeidssøkeren får ikke registrert seg pga nedetid',
+        });
+    }, []);
 
     return (
         <GuidePanel poster>
