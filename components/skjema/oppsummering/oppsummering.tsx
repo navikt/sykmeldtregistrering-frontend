@@ -50,20 +50,25 @@ const Oppsummering = ({ skjemaState, skjemaPrefix }: OppsummeringProps) => {
                     ? tekst('harJobbetSisteAaret')
                     : tekst('ikkeIJobbSisteAaret')}
                 <Table>
-                    {Object.entries(skjemaState)
-                        .filter(([sporsmalId]) => ![SporsmalId.sisteStilling, 'startTid'].includes(sporsmalId))
-                        .map(
-                            ([sporsmalId, svar]) =>
-                                svar && (
-                                    <Rad
-                                        radTittel={tekst(sporsmalId + 'radTittel')}
-                                        svaralternativ={
-                                            sporsmalId === SporsmalId.sisteJobb ? svar.label : hentTekst(sprak, svar)
-                                        }
-                                        url={`${skjemaPrefix}${hentSkjemaside(sporsmalId as SporsmalId)}`}
-                                    />
-                                )
-                        )}
+                    <Table.Body>
+                        {Object.entries(skjemaState)
+                            .filter(([sporsmalId]) => ![SporsmalId.sisteStilling, 'startTid'].includes(sporsmalId))
+                            .map(
+                                ([sporsmalId, svar]) =>
+                                    svar && (
+                                        <Rad
+                                            radTittel={tekst(sporsmalId + 'radTittel')}
+                                            svaralternativ={
+                                                sporsmalId === SporsmalId.sisteJobb
+                                                    ? svar.label
+                                                    : hentTekst(sprak, svar)
+                                            }
+                                            url={`${skjemaPrefix}${hentSkjemaside(sporsmalId as SporsmalId)}`}
+                                            key={sporsmalId}
+                                        />
+                                    )
+                            )}
+                    </Table.Body>
                 </Table>
             </GuidePanel>
         </>
@@ -74,6 +79,7 @@ interface RadProps {
     radTittel: string;
     svaralternativ: string;
     url: string;
+    key: string;
 }
 
 const Rad = (props: RadProps) => {
