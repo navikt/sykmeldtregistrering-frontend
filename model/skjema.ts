@@ -1,12 +1,12 @@
 import {
     DinSituasjon,
-    UtdanningGodkjentValg,
-    JaEllerNei,
-    Utdanningsnivaa,
     FremtidigSituasjon,
-    SporsmalId,
+    JaEllerNei,
     SisteStillingValg,
+    SporsmalId,
     TilbakeIArbeid,
+    UtdanningGodkjentValg,
+    Utdanningsnivaa,
 } from './sporsmal';
 
 export enum SkjemaSide {
@@ -55,6 +55,7 @@ export type SisteJobb = {
 export type Navigering<T extends SkjemaSide> = {
     neste?: T;
     forrige?: T;
+    fremdrift: number;
 };
 
 export type NavigeringsTilstandsMaskin<T extends SkjemaSide> = Record<T, (state: SkjemaState) => Navigering<T>>;

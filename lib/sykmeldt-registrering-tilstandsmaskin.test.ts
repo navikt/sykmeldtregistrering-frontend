@@ -1,6 +1,6 @@
 import { SkjemaSide } from '../model/skjema';
 import { beregnNavigering } from './sykmeldt-registrering-tilstandsmaskin';
-import { FremtidigSituasjon, Utdanningsnivaa, TilbakeIArbeid } from '../model/sporsmal';
+import { FremtidigSituasjon, TilbakeIArbeid, Utdanningsnivaa } from '../model/sporsmal';
 
 describe('Sykmeldt registrering tilstandsmaskin', () => {
     describe('Fremtidig situasjon', () => {
@@ -35,6 +35,12 @@ describe('Sykmeldt registrering tilstandsmaskin', () => {
             });
             expect(state.neste).toBe(SkjemaSide.TilbakeTilJobb);
         });
+        it('returnerer 0 i fremdrift', () => {
+            const state = beregnNavigering(SkjemaSide.SykmeldtFremtidigSituasjon, {
+                fremtidigSituasjon: FremtidigSituasjon.SAMME_ARBEIDSGIVER_NY_STILLING,
+            });
+            expect(state.fremdrift).toBe(0);
+        });
     });
 
     describe('Utdanning', () => {
@@ -54,6 +60,12 @@ describe('Sykmeldt registrering tilstandsmaskin', () => {
             });
             expect(state.neste).toBe(SkjemaSide.AndreProblemer);
         });
+        it('returnerer 2/7 i fremdrift', () => {
+            const state = beregnNavigering(SkjemaSide.Utdanning, {
+                fremtidigSituasjon: FremtidigSituasjon.SAMME_ARBEIDSGIVER_NY_STILLING,
+            });
+            expect(state.fremdrift).toBe(2 / 7);
+        });
     });
 
     describe('GodkjentUtdanning', () => {
@@ -65,6 +77,10 @@ describe('Sykmeldt registrering tilstandsmaskin', () => {
             const state = beregnNavigering(SkjemaSide.GodkjentUtdanning, {});
             expect(state.neste).toBe(SkjemaSide.BestaattUtdanning);
         });
+        it('returnerer 3/7 i fremdrift', () => {
+            const state = beregnNavigering(SkjemaSide.GodkjentUtdanning, {});
+            expect(state.fremdrift).toBe(3 / 7);
+        });
     });
 
     describe('BestaattUtdanning', () => {
@@ -75,6 +91,10 @@ describe('Sykmeldt registrering tilstandsmaskin', () => {
         it('returnerer AndreProblemer som neste', () => {
             const state = beregnNavigering(SkjemaSide.BestaattUtdanning, {});
             expect(state.neste).toBe(SkjemaSide.AndreProblemer);
+        });
+        it('returnerer 4/7 i fremdrift', () => {
+            const state = beregnNavigering(SkjemaSide.BestaattUtdanning, {});
+            expect(state.fremdrift).toBe(4 / 7);
         });
     });
 
@@ -94,6 +114,10 @@ describe('Sykmeldt registrering tilstandsmaskin', () => {
         it('returnerer Oppsummering som neste', () => {
             const state = beregnNavigering(SkjemaSide.AndreProblemer, {});
             expect(state.neste).toBe(SkjemaSide.Oppsummering);
+        });
+        it('returnerer 5/7 i fremdrift', () => {
+            const state = beregnNavigering(SkjemaSide.AndreProblemer, {});
+            expect(state.fremdrift).toBe(5 / 7);
         });
     });
 
@@ -126,6 +150,10 @@ describe('Sykmeldt registrering tilstandsmaskin', () => {
             const state = beregnNavigering(SkjemaSide.TilbakeTilJobb, {});
             expect(state.forrige).toBe(SkjemaSide.SykmeldtFremtidigSituasjon);
         });
+        it('returnerer 2/4 i fremdrift', () => {
+            const state = beregnNavigering(SkjemaSide.TilbakeTilJobb, {});
+            expect(state.fremdrift).toBe(2 / 4);
+        });
     });
     describe('Oppsummering', () => {
         it('returnerer SykmeldtFremtidigSituasjon når sykmeldtFremtidigSituasjon=SykmeldtValg.INGEN_ALTERNATIVER_PASSER', () => {
@@ -145,6 +173,10 @@ describe('Sykmeldt registrering tilstandsmaskin', () => {
         it('returnerer AndreProblemer som default', () => {
             const state = beregnNavigering(SkjemaSide.Oppsummering, {});
             expect(state.forrige).toBe(SkjemaSide.AndreProblemer);
+        });
+        it('returnerer 5/7 i fremdrift', () => {
+            const state = beregnNavigering(SkjemaSide.Oppsummering, {});
+            expect(state.fremdrift).toBe(5 / 7);
         });
     });
 });

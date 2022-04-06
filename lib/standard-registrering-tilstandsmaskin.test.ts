@@ -22,6 +22,12 @@ describe('Standard registrering tilstandsmaskin', () => {
             });
             expect(state.neste).toBe(SkjemaSide.Utdanning);
         });
+        it('returnerer 0 i fremdrift', () => {
+            const state = beregnNavigering(SkjemaSide.DinSituasjon, {
+                dinSituasjon: DinSituasjon.ALDRI_HATT_JOBB,
+            });
+            expect(state.neste).toBe(SkjemaSide.Utdanning);
+        });
     });
     describe('siste jobb', () => {
         it('returnerer Utdanning som neste side', () => {
@@ -33,10 +39,15 @@ describe('Standard registrering tilstandsmaskin', () => {
         });
         it('returnerer Din situasjon som forrige side', () => {
             const state = beregnNavigering(SkjemaSide.SisteJobb, {
-                dinSituasjon: DinSituasjon.MISTET_JOBBEN,
-                sisteJobb: sisteStilling,
+                dinSituasjon: DinSituasjon.ALDRI_HATT_JOBB,
             });
-            expect(state.forrige).toBe(SkjemaSide.DinSituasjon);
+            expect(state.neste).toBe(SkjemaSide.Utdanning);
+        });
+        it('returnerer 1/9 i fremdrift', () => {
+            const state = beregnNavigering(SkjemaSide.SisteJobb, {
+                dinSituasjon: DinSituasjon.ALDRI_HATT_JOBB,
+            });
+            expect(state.fremdrift).toBe(1 / 9);
         });
     });
     describe('utdanning', () => {
@@ -72,6 +83,14 @@ describe('Standard registrering tilstandsmaskin', () => {
             });
             expect(state.forrige).toBe(SkjemaSide.SisteJobb);
         });
+        it('returnerer 2/9 i fremdrift', () => {
+            const state = beregnNavigering(SkjemaSide.Utdanning, {
+                dinSituasjon: DinSituasjon.MISTET_JOBBEN,
+                sisteJobb: sisteStilling,
+                utdanning: Utdanningsnivaa.HOYERE_UTDANNING_5_ELLER_MER,
+            });
+            expect(state.fremdrift).toBe(2 / 9);
+        });
     });
     describe('GodkjentUtdanning', () => {
         it('returnerer BestattUtdanning som neste', () => {
@@ -82,6 +101,11 @@ describe('Standard registrering tilstandsmaskin', () => {
         it('returnerer Utdanning som forrige', () => {
             const { forrige } = beregnNavigering(SkjemaSide.GodkjentUtdanning, {});
             expect(forrige).toBe(SkjemaSide.Utdanning);
+        });
+
+        it('returnerer 3/9 i fremdrift', () => {
+            const { fremdrift } = beregnNavigering(SkjemaSide.GodkjentUtdanning, {});
+            expect(fremdrift).toBe(3 / 9);
         });
     });
 
@@ -94,6 +118,11 @@ describe('Standard registrering tilstandsmaskin', () => {
         it('returnerer GodkjentUtdanning som forrige', () => {
             const { forrige } = beregnNavigering(SkjemaSide.BestaattUtdanning, {});
             expect(forrige).toBe(SkjemaSide.GodkjentUtdanning);
+        });
+
+        it('returnerer 4/9 i fremdrift', () => {
+            const { fremdrift } = beregnNavigering(SkjemaSide.BestaattUtdanning, {});
+            expect(fremdrift).toBe(4 / 9);
         });
     });
 
@@ -116,6 +145,11 @@ describe('Standard registrering tilstandsmaskin', () => {
             });
             expect(forrige).toBe(SkjemaSide.BestaattUtdanning);
         });
+
+        it('returnerer 5/9 i fremdrift', () => {
+            const { fremdrift } = beregnNavigering(SkjemaSide.Helseproblemer, {});
+            expect(fremdrift).toBe(5 / 9);
+        });
     });
 
     describe('AndreProblemer', () => {
@@ -127,6 +161,11 @@ describe('Standard registrering tilstandsmaskin', () => {
         it('returnerer Oppsummering som neste', () => {
             const { neste } = beregnNavigering(SkjemaSide.AndreProblemer, {});
             expect(neste).toBe(SkjemaSide.Oppsummering);
+        });
+
+        it('returnerer 6/9 i fremdrift', () => {
+            const { fremdrift } = beregnNavigering(SkjemaSide.AndreProblemer, {});
+            expect(fremdrift).toBe(6 / 9);
         });
     });
 });
