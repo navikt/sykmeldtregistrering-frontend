@@ -1,9 +1,12 @@
+import { useEffect } from 'react';
+import { BodyShort, Button, ContentContainer, GuidePanel, Heading } from '@navikt/ds-react';
+
 import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../hooks/useSprak';
-import { BodyShort, Button, ContentContainer, GuidePanel, Heading } from '@navikt/ds-react';
 import { fetcher as api } from '../lib/api-utils';
 import { useRouter } from 'next/router';
 import { useErrorContext } from '../contexts/error-context';
+import { loggStoppsituasjon } from '../lib/amplitude';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -28,6 +31,12 @@ const Reaktivering = () => {
             return router.push('/kvittering-reaktivering');
         });
     };
+
+    useEffect(() => {
+        loggStoppsituasjon({
+            situasjon: 'Arbeidssøkeren er må reaktivere seg',
+        });
+    }, []);
 
     return (
         <ContentContainer>
