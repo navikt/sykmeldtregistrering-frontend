@@ -9,6 +9,7 @@ import { Knapperad } from './skjema/knapperad/knapperad';
 import Avbryt from './skjema/avbryt-lenke';
 import { SykmeldtRegistreringTilstandsmaskin } from '../lib/sykmeldt-registrering-tilstandsmaskin';
 import { StandardRegistreringTilstandsmaskin } from '../lib/standard-registrering-tilstandsmaskin';
+import ProgressBar from './progress-bar/progress-bar';
 
 export type SiderMap = { [key: string]: JSX.Element };
 export interface SkjemaProps {
@@ -37,6 +38,7 @@ const skjemaSideFactory: SkjemaSideFactory = (opts) => {
         const { aktivSide } = props;
         const router = useRouter();
         const initializer = (skjemaState: SkjemaState) => skjemaState;
+        const [erSkjemaSendt, settErSkjemaSendt] = useState<boolean>(false);
 
         const [skjemaState, dispatch] = useReducer<SkjemaReducer, SkjemaState>(
             skjemaReducer,
@@ -46,7 +48,7 @@ const skjemaSideFactory: SkjemaSideFactory = (opts) => {
 
         const [visFeilmelding, settVisFeilmelding] = useState<boolean>(false);
 
-        const { forrige, neste } = beregnNavigering(aktivSide, skjemaState);
+        const { forrige, neste, fremdrift } = beregnNavigering(aktivSide, skjemaState);
 
         useEffect(() => {
             // valider at forrige side har gyldig state. Hvis ikke starter vi registrering på nytt
@@ -82,10 +84,18 @@ const skjemaSideFactory: SkjemaSideFactory = (opts) => {
 
         const forrigeLenke = forrige ? `/${urlPrefix}/${forrige}` : undefined;
 
+        const dispatcher = (action: SkjemaAction) => {
+            if (action.type === 'SenderSkjema') {
+                settErSkjemaSendt(true);
+            } else {
+                dispatch(action);
+            }
+        };
         return (
             <div className={styles.main}>
+                <ProgressBar value={erSkjemaSendt ? 1 : fremdrift} className={'mbm'} />
                 {forrigeLenke && <TilbakeKnapp href={forrigeLenke} />}
-                {hentKomponentForSide(aktivSide, skjemaState, dispatch, visFeilmelding)}
+                {hentKomponentForSide(aktivSide, skjemaState, dispatcher, visFeilmelding)}
                 {neste && <Knapperad onNeste={validerOgGaaTilNeste} />}
                 <Avbryt />
             </div>

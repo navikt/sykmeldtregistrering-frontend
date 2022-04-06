@@ -23,12 +23,11 @@ const TEKSTER: Tekster<string> = {
 
 const Home: NextPage = () => {
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
-    const brukerMock = process.env.NEXT_PUBLIC_ENABLE_MOCK === 'enabled';
 
     return (
         <>
             <RedirectTilVedlikehold />
-            <div>
+            <div className="maxWidth">
                 <Heading spacing size="xlarge" level="2">
                     {tekst('tittel')}
                 </Heading>

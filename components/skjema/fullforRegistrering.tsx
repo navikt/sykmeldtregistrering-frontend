@@ -45,6 +45,7 @@ const TEKSTER: Tekster<string> = {
 interface FullforProps {
     skjemaState: SkjemaState;
     side: Side;
+    onSubmit(): void;
 }
 
 const beregnTidBrukt = (skjemaState: SkjemaState) => {
@@ -56,7 +57,7 @@ const beregnTidBrukt = (skjemaState: SkjemaState) => {
 };
 
 const FullforRegistrering = (props: FullforProps) => {
-    const { skjemaState } = props;
+    const { skjemaState, onSubmit } = props;
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
     const [lestKravChecked, setLestKravChecked] = useState<boolean>(false);
     const [senderSkjema, settSenderSkjema] = useState<boolean>(false);
@@ -78,7 +79,7 @@ const FullforRegistrering = (props: FullforProps) => {
             const body = byggFullforRegistreringPayload(skjemaState, props.side);
             settSenderSkjema(true);
             settVisFeilmelding(false);
-
+            onSubmit();
             console.info('Tid brukt på å fullføre skjema (sekunder):', beregnTidBrukt(skjemaState));
 
             const response: FullforRegistreringResponse = await api(
@@ -100,7 +101,7 @@ const FullforRegistrering = (props: FullforProps) => {
         } finally {
             settSenderSkjema(false);
         }
-    }, [props.side, router, skjemaState, visFeilmeldingTeller]);
+    }, [onSubmit, props.side, router, skjemaState, visFeilmeldingTeller]);
 
     return (
         <>

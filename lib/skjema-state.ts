@@ -22,7 +22,8 @@ export type SkjemaAction =
     | { type: SporsmalId.sisteJobb; value: SisteJobb }
     | { type: SporsmalId.sisteStilling; value: SisteStillingValg }
     | { type: SporsmalId.fremtidigSituasjon; value: FremtidigSituasjon }
-    | { type: SporsmalId.tilbakeIArbeid; value: TilbakeIArbeid };
+    | { type: SporsmalId.tilbakeIArbeid; value: TilbakeIArbeid }
+    | { type: 'SenderSkjema' };
 
 export function skjemaReducer(state: SkjemaState, action: SkjemaAction): SkjemaState {
     switch (action.type) {

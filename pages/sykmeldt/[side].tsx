@@ -62,7 +62,13 @@ const lagSiderMap = (skjemaState: SkjemaState, dispatch: Dispatch<SkjemaAction>,
             />
         ),
         [SkjemaSide.Oppsummering]: <Oppsummering skjemaState={skjemaState} skjemaPrefix={'/sykmeldt/'} />,
-        [SkjemaSide.FullforRegistrering]: <FullforRegistrering side={'sykmeldt'} skjemaState={skjemaState} />,
+        [SkjemaSide.FullforRegistrering]: (
+            <FullforRegistrering
+                side={'sykmeldt'}
+                skjemaState={skjemaState}
+                onSubmit={() => dispatch({ type: 'SenderSkjema' })}
+            />
+        ),
     };
 };
 
@@ -96,7 +102,9 @@ const hentKomponentForSykmeldtSide = (side: SkjemaSide, siderMap: SiderMap) =>
 
 const loggOgDispatch = (dispatch: Dispatch<SkjemaAction>) => {
     return (action: SkjemaAction) => {
-        loggBesvarelse({ skjematype: 'sykmeldt', sporsmalId: action.type, svar: action.value });
+        if (action.type !== 'SenderSkjema') {
+            loggBesvarelse({ skjematype: 'standard', sporsmalId: action.type, svar: action.value });
+        }
         return dispatch(action);
     };
 };
