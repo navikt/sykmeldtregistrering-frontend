@@ -1,4 +1,4 @@
-import { BodyLong, Button, Cell, ContentContainer, Grid, GuidePanel, Heading, Label } from '@navikt/ds-react';
+import { BodyLong, Button, Cell, ContentContainer, Grid, GuidePanel, Heading, Label, Link } from '@navikt/ds-react';
 import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../hooks/useSprak';
 import NextLink from 'next/link';
@@ -17,7 +17,8 @@ const TEKSTER: Tekster<string> = {
         dialogMedVeileder: 'kan du ha dialog med veilederen din',
         registrerDegTittel: 'Registrer deg',
         registrerDegIngress:
-            'Når du registrerer deg for å få mer veiledning, skal NAV vurdere hva slags informasjon, veiledning og hjelp du trenger. Du vil derfor få noen spørsmål om situasjonen din slik at du kan få riktig hjelp. Du kan endre på svarene hvis situasjonen din endrer seg. Det er bare veilederen din som kan se hva du har svart. Opplysningene dine blir lagret etter arkivloven. Les mer om hvordan NAV behandler personopplysninger.',
+            'Når du registrerer deg for å få mer veiledning, skal NAV vurdere hva slags informasjon, veiledning og hjelp du trenger. Du vil derfor få noen spørsmål om situasjonen din slik at du kan få riktig hjelp. Du kan endre på svarene hvis situasjonen din endrer seg. Det er bare veilederen din som kan se hva du har svart. Opplysningene dine blir lagret etter arkivloven. ',
+        personopplysningerLenkeTekst: 'Les mer om hvordan NAV behandler personopplysninger.',
         startRegistrering: 'Start registrering',
     },
 };
@@ -52,7 +53,12 @@ const SykmeldtStartside = () => {
                     <Heading spacing size="medium">
                         {tekst('registrerDegTittel')}
                     </Heading>
-                    <BodyLong spacing>{tekst('registrerDegIngress')}</BodyLong>
+                    <BodyLong spacing>
+                        {tekst('registrerDegIngress')}
+                        <Link href="https://www.nav.no/personvern" target="_blank">
+                            {tekst('personopplysningerLenkeTekst')}
+                        </Link>
+                    </BodyLong>
                     <NextLink href={`/sykmeldt/${SkjemaSide.SykmeldtFremtidigSituasjon}`} passHref>
                         <Button>{tekst('startRegistrering')}</Button>
                     </NextLink>
