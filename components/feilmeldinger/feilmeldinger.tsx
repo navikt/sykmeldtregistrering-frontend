@@ -40,6 +40,14 @@ const GlobalFeilmelding = () => {
     const { error, setError } = useErrorContext();
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
 
+    useEffect(() => {
+        if (error) {
+            loggStoppsituasjon({
+                situasjon: 'Arbeidssøkeren får en feilmelding',
+            });
+        }
+    }, [error]);
+
     if (!error) {
         return null;
     }
