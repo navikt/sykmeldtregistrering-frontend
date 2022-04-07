@@ -34,7 +34,7 @@ const initialArgs = () => ({ startTid: Date.now() });
 const skjemaSideFactory: SkjemaSideFactory = (opts) => {
     const { beregnNavigering, urlPrefix, validerSkjemaForSide, hentKomponentForSide } = opts;
 
-    const SkjemaSide = (props: SkjemaProps) => {
+    const SkjemaSideKomponent = (props: SkjemaProps) => {
         const { aktivSide } = props;
         const router = useRouter();
         const initializer = (skjemaState: SkjemaState) => skjemaState;
@@ -79,8 +79,10 @@ const skjemaSideFactory: SkjemaSideFactory = (opts) => {
         useEffect(() => {
             if (validerSkjemaForSide(aktivSide, skjemaState)) {
                 settVisFeilmelding(false);
+            } else if (aktivSide !== SkjemaSide.FullforRegistrering && erSkjemaSendt) {
+                settErSkjemaSendt(false);
             }
-        }, [skjemaState, aktivSide]);
+        }, [skjemaState, aktivSide, erSkjemaSendt]);
 
         const forrigeLenke = forrige ? `/${urlPrefix}/${forrige}/` : undefined;
 
@@ -88,10 +90,10 @@ const skjemaSideFactory: SkjemaSideFactory = (opts) => {
             if (action.type === 'SenderSkjema') {
                 settErSkjemaSendt(true);
             } else {
-                settErSkjemaSendt(false);
                 dispatch(action);
             }
         };
+
         return (
             <div className={styles.main}>
                 <ProgressBar value={erSkjemaSendt ? 1 : fremdrift} className={'mbm'} />
@@ -103,7 +105,7 @@ const skjemaSideFactory: SkjemaSideFactory = (opts) => {
         );
     };
 
-    return SkjemaSide;
+    return SkjemaSideKomponent;
 };
 
 export default skjemaSideFactory;
