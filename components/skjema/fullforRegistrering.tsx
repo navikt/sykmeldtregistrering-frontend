@@ -83,7 +83,7 @@ const FullforRegistrering = (props: FullforProps) => {
             onSubmit();
 
             const response: FullforRegistreringResponse = await api(
-                `/api/fullforregistrering${props.side === 'sykmeldt' ? 'sykmeldt' : ''}`,
+                `api/fullforregistrering${props.side === 'sykmeldt' ? 'sykmeldt' : ''}/`,
                 {
                     method: 'post',
                     body: JSON.stringify(body),
