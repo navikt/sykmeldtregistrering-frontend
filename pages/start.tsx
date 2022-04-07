@@ -18,10 +18,10 @@ function hentNesteSideUrl(data: any) {
 
     switch (registreringType) {
         case RegistreringType.ORDINAER_REGISTRERING: {
-            return `/skjema/${SkjemaSide.DinSituasjon}`;
+            return `/skjema/${SkjemaSide.DinSituasjon}/`;
         }
         case RegistreringType.SYKMELDT_REGISTRERING: {
-            return `/sykmeldt/${SkjemaSide.SykmeldtFremtidigSituasjon}`;
+            return `/sykmeldt/${SkjemaSide.SykmeldtFremtidigSituasjon}/`;
         }
         case RegistreringType.REAKTIVERING: {
             return '/reaktivering/';
@@ -41,7 +41,7 @@ function hentNesteSideUrl(data: any) {
 }
 
 const Start = () => {
-    const { data, error } = useSWR('/api/startregistrering', fetcher);
+    const { data, error } = useSWR('/api/startregistrering/', fetcher);
     const router = useRouter();
 
     useEffect(() => {

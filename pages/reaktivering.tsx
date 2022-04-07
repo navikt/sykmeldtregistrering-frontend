@@ -27,8 +27,8 @@ const Reaktivering = () => {
 
     const reaktiverBruker = async () => {
         medFeilHandtering(async () => {
-            await api('/api/reaktivering', { method: 'post', body: JSON.stringify({}) });
-            return router.push('/kvittering-reaktivering');
+            await api('/api/reaktivering/', { method: 'post', body: JSON.stringify({}) });
+            return router.push('/kvittering-reaktivering/');
         });
     };
 
