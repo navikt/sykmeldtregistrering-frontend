@@ -1,7 +1,6 @@
-import { BodyShort, Button, GuidePanel, Heading, Link } from '@navikt/ds-react';
+import { BodyShort, GuidePanel, Heading, Link } from '@navikt/ds-react';
 import useSprak from '../hooks/useSprak';
 import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
-import NextLink from 'next/link';
 
 const DITTNAV_URL = process.env.NEXT_PUBLIC_DITTNAV_URL as string;
 const DAGPENGESOKNAD_URL = process.env.NEXT_PUBLIC_DAGPENGESOKNAD_URL as string;
@@ -37,13 +36,10 @@ const Kvittering = () => {
             </GuidePanel>
 
             <section className="flex-center mhl">
-                <NextLink href={DAGPENGESOKNAD_URL} passHref>
-                    <Button className="mrl">{tekst('sokDagpenger')}</Button>
-                </NextLink>
-
-                <NextLink href={DITTNAV_URL} passHref>
-                    <Link>{tekst('skalIkkeSoke')}</Link>
-                </NextLink>
+                <a href={DAGPENGESOKNAD_URL} className="navds-button navds-button--primary navds-button--medium mrl">
+                    {tekst('sokDagpenger')}
+                </a>
+                <Link href={DITTNAV_URL}>{tekst('skalIkkeSoke')}</Link>
             </section>
         </>
     );
