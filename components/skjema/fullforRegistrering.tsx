@@ -10,6 +10,7 @@ import byggFullforRegistreringPayload from '../../lib/bygg-fullfor-registrering-
 import { FeilmeldingGenerell } from '../feilmeldinger/feilmeldinger';
 import { FullforRegistreringResponse } from '../../model/registrering';
 import hentKvitteringsUrl from '../../lib/hent-kvitterings-url';
+import { loggAktivitet } from '../../lib/amplitude';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -80,7 +81,6 @@ const FullforRegistrering = (props: FullforProps) => {
             settSenderSkjema(true);
             settVisFeilmelding(false);
             onSubmit();
-            console.info('Tid brukt på å fullføre skjema (sekunder):', beregnTidBrukt(skjemaState));
 
             const response: FullforRegistreringResponse = await api(
                 `/api/fullforregistrering${props.side === 'sykmeldt' ? 'sykmeldt' : ''}`,
@@ -89,6 +89,10 @@ const FullforRegistrering = (props: FullforProps) => {
                     body: JSON.stringify(body),
                 }
             );
+
+            loggAktivitet({
+                tidBruktForAaFullforeSkjema: beregnTidBrukt(skjemaState),
+            });
 
             return router.push(hentKvitteringsUrl(response));
         } catch (e) {
