@@ -88,6 +88,7 @@ const skjemaSideFactory: SkjemaSideFactory = (opts) => {
             if (action.type === 'SenderSkjema') {
                 settErSkjemaSendt(true);
             } else {
+                settErSkjemaSendt(false);
                 dispatch(action);
             }
         };
