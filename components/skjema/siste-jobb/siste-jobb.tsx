@@ -37,7 +37,7 @@ const SisteJobb = (props: SkjemaKomponentProps<SisteJobb> & { children?: JSX.Ele
         settVisStillingsSok(false);
     };
 
-    const { data: sisteArbeidsforhold, error } = useSWR('/api/sistearbeidsforhold', fetcher);
+    const { data: sisteArbeidsforhold, error } = useSWR('api/sistearbeidsforhold/', fetcher);
 
     useEffect(() => {
         if (sisteArbeidsforhold && !props.valgt) {

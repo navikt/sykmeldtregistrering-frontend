@@ -1,7 +1,9 @@
 import { useCallback, useState } from 'react';
 import styles from './autosuggest.module.css';
-const Autosuggest = require('react-autosuggest');
 import getConfig from 'next/config';
+import { debounce } from 'lodash';
+
+const Autosuggest = require('react-autosuggest');
 
 interface StillingsSokProps {
     onClose: (value?: any) => void;
@@ -16,14 +18,14 @@ const StillingsSok = (props: StillingsSokProps) => {
     const { basePath } = getConfig().publicRuntimeConfig;
 
     const onSuggestionsFetchRequested = useCallback(
-        async ({ value }: { value: string }) => {
+        debounce(async ({ value }: { value: string }) => {
             const url = `${basePath}/api/yrke-med-styrk?yrke=${value}`;
             const response = await fetch(url);
             const json = await response.json();
             const typeaheadYrkeList = json.typeaheadYrkeList;
             typeaheadYrkeList.push(annenStilling);
             setResultat(typeaheadYrkeList || [annenStilling]);
-        },
+        }, 200),
         [basePath, setResultat]
     );
 
