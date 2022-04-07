@@ -82,7 +82,7 @@ const skjemaSideFactory: SkjemaSideFactory = (opts) => {
             }
         }, [skjemaState, aktivSide]);
 
-        const forrigeLenke = forrige ? `/${urlPrefix}/${forrige}` : undefined;
+        const forrigeLenke = forrige ? `/${urlPrefix}/${forrige}/` : undefined;
 
         const dispatcher = (action: SkjemaAction) => {
             if (action.type === 'SenderSkjema') {
