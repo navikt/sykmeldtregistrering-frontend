@@ -1,4 +1,4 @@
-import { Accordion, BodyShort, Button, Heading } from '@navikt/ds-react';
+import { Accordion, BodyShort, Button, Heading, Panel } from '@navikt/ds-react';
 import lagHentTekstForSprak, { Tekster } from '../../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../../hooks/useSprak';
 import { useEffect, useState } from 'react';
@@ -7,6 +7,7 @@ import { SkjemaKomponentProps } from '../skjema-felleskomponenter';
 import { SisteJobb } from '../../../model/skjema';
 import useSWR from 'swr';
 import { fetcher } from '../../../lib/api-utils';
+import styles from '../../../styles/skjema.module.css';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -52,42 +53,44 @@ const SisteJobb = (props: SkjemaKomponentProps<SisteJobb> & { children?: JSX.Ele
     }, [error, onChange, props.valgt]);
 
     return (
-        <div>
-            <Heading spacing size={'large'} level="1">
-                {tekst('tittel')}
-            </Heading>
-            <BodyShort>{tekst('registrert')}</BodyShort>
-            <BodyShort className="mbm">{tekst('feilOpplysninger')}</BodyShort>
+        <Panel className={`${styles.panel} mbm`} border={true}>
+            <div>
+                <Heading spacing size={'medium'} level="1">
+                    {tekst('tittel')}
+                </Heading>
+                <BodyShort>{tekst('registrert')}</BodyShort>
+                <BodyShort className="mbm">{tekst('feilOpplysninger')}</BodyShort>
 
-            {props.children}
+                {props.children}
 
-            {visSisteJobb && (
-                <>
-                    <Heading spacing size={'small'} level="2">
-                        {tekst('stilling')}
-                    </Heading>
-                    {visStillingsSok ? (
-                        <StillingsSok onClose={onCloseStillingssok} />
-                    ) : (
-                        <div>
-                            {props.valgt?.label}
-                            <Button variant="tertiary" onClick={() => settVisStillingsSok(true)}>
-                                Endre
-                            </Button>
-                        </div>
-                    )}
-                </>
-            )}
+                {visSisteJobb && (
+                    <>
+                        <Heading spacing size={'small'} level="2">
+                            {tekst('stilling')}
+                        </Heading>
+                        {visStillingsSok ? (
+                            <StillingsSok onClose={onCloseStillingssok} />
+                        ) : (
+                            <div>
+                                {props.valgt?.label}
+                                <Button variant="tertiary" onClick={() => settVisStillingsSok(true)}>
+                                    Endre
+                                </Button>
+                            </div>
+                        )}
+                    </>
+                )}
 
-            <div style={{ maxWidth: '34rem', margin: '2em 0' }}>
-                <Accordion>
-                    <Accordion.Item>
-                        <Accordion.Header>{tekst('brukesTilTittel')}</Accordion.Header>
-                        <Accordion.Content>{tekst('brukesTilInnhold')}</Accordion.Content>
-                    </Accordion.Item>
-                </Accordion>
+                <div style={{ maxWidth: '34rem', margin: '2em 0' }}>
+                    <Accordion>
+                        <Accordion.Item>
+                            <Accordion.Header>{tekst('brukesTilTittel')}</Accordion.Header>
+                            <Accordion.Content>{tekst('brukesTilInnhold')}</Accordion.Content>
+                        </Accordion.Item>
+                    </Accordion>
+                </div>
             </div>
-        </div>
+        </Panel>
     );
 };
 
