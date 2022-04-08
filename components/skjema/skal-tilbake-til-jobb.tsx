@@ -1,6 +1,9 @@
-import { Button, Cell, Grid, GuidePanel, Heading, Panel } from '@navikt/ds-react';
+import { Button, GuidePanel, Heading, Panel } from '@navikt/ds-react';
 import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../hooks/useSprak';
+import styles from '../../styles/skjema.module.css';
+import { useRouter } from 'next/router';
+import { SkjemaSide } from '../../model/skjema';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -18,34 +21,43 @@ const TEKSTER: Tekster<string> = {
 };
 const SkalTilbakeTilJobb = (props: any) => {
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
+    const router = useRouter();
+    const navigerTilSide = (side: string) => router.push(side);
+
     return (
-        <>
-            <GuidePanel className="mbl">
-                <Heading size="medium">{tekst('hei')}Test</Heading>
-                {tekst('infoTekst')}
-            </GuidePanel>
+        <Panel className={styles.panel} border={true}>
+            <div>
+                <GuidePanel className="mbl">
+                    <Heading size="medium">{tekst('hei')}Test</Heading>
+                    {tekst('infoTekst')}
+                </GuidePanel>
 
-            <Panel border={true} className="mbl">
-                <Heading size="large">{tekst('tittel')}</Heading>
-                <ul>
-                    <li>{tekst('punkt1')}</li>
-                    <li>{tekst('punkt2')}</li>
-                </ul>
-            </Panel>
+                <Panel border={true} className="mbl">
+                    <Heading size="medium">{tekst('tittel')}</Heading>
+                    <ul>
+                        <li>{tekst('punkt1')}</li>
+                        <li>{tekst('punkt2')}</li>
+                    </ul>
+                </Panel>
 
-            <Heading size="medium" spacing={true}>
-                {tekst('enigTittel')}
-            </Heading>
-            <Grid>
-                <Cell xs={12} md={6}>
-                    <Button variant="secondary">{tekst('uenig')}</Button>
-                </Cell>
+                <Heading size="medium" spacing={true} style={{ textAlign: 'center' }}>
+                    {tekst('enigTittel')}
+                </Heading>
 
-                <Cell xs={6} className="knapp">
-                    <Button variant="secondary">{tekst('enig')}</Button>
-                </Cell>
-            </Grid>
-        </>
+                <section className="flex-center flex-wrap">
+                    <Button
+                        variant="secondary"
+                        className="mrl mbs"
+                        onClick={() => navigerTilSide(`/sykmeldt/${SkjemaSide.Oppsummering}`)}
+                    >
+                        {tekst('uenig')}
+                    </Button>
+                    <Button variant="secondary" className="mbs" onClick={() => navigerTilSide('/')}>
+                        {tekst('enig')}
+                    </Button>
+                </section>
+            </div>
+        </Panel>
     );
 };
 
