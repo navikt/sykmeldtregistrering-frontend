@@ -26,7 +26,6 @@ const SisteStilling = (props: SkjemaKomponentProps<SisteStillingValg>) => {
                 onSelect={(val) => onChange(val)}
                 visFeilmelding={visFeilmelding}
             />
-            ;
         </Panel>
     );
 };
