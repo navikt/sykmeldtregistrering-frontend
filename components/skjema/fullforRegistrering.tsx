@@ -94,7 +94,7 @@ const FullforRegistrering = (props: FullforProps) => {
                 tidBruktForAaFullforeSkjema: beregnTidBrukt(skjemaState),
             });
 
-            return router.push(hentKvitteringsUrl(response));
+            return router.push(hentKvitteringsUrl(response, props.side));
         } catch (e) {
             settVisFeilmeldingTeller(visFeilmeldingTeller + 1);
             settVisFeilmelding(true);

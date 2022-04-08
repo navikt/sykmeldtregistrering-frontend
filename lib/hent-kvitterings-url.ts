@@ -1,7 +1,8 @@
 import { ErrorTypes } from '../model/error';
 import { FullforRegistreringResponse } from '../model/registrering';
+import { Side } from '../model/skjema';
 
-export default function hentKvitteringsUrl(response: FullforRegistreringResponse = {}) {
+export default function hentKvitteringsUrl(response: FullforRegistreringResponse = {}, side: Side = 'standard') {
     const { type } = response;
 
     if (type === ErrorTypes.BRUKER_ER_DOD_UTVANDRET_ELLER_FORSVUNNET) {
@@ -12,5 +13,5 @@ export default function hentKvitteringsUrl(response: FullforRegistreringResponse
         return '/feil/';
     }
 
-    return '/kvittering/';
+    return side === 'sykmeldt' ? '/kvittering-sykmeldt/' : '/kvittering/';
 }
