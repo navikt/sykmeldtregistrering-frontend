@@ -10,6 +10,8 @@ import PlikterPanel from '../components/forsiden/plikter';
 import RedirectTilVedlikehold from '../components/redirect-til-vedlikehold';
 import DemoPanel from '../components/forsiden/demo-panel';
 
+const brukerMock = process.env.NEXT_PUBLIC_ENABLE_MOCK === 'enabled';
+
 const TEKSTER: Tekster<string> = {
     nb: {
         tittel: 'Registrer deg som arbeidssøker',
@@ -23,7 +25,6 @@ const TEKSTER: Tekster<string> = {
 
 const Home: NextPage = () => {
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
-    const brukerMock = process.env.NEXT_PUBLIC_ENABLE_MOCK === 'enabled';
 
     return (
         <>
