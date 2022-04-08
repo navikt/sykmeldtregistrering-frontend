@@ -79,7 +79,9 @@ const skjemaSideFactory: SkjemaSideFactory = (opts) => {
         useEffect(() => {
             if (validerSkjemaForSide(aktivSide, skjemaState)) {
                 settVisFeilmelding(false);
-            } else if (aktivSide !== SkjemaSide.FullforRegistrering && erSkjemaSendt) {
+            }
+
+            if (aktivSide !== SkjemaSide.FullforRegistrering && erSkjemaSendt) {
                 settErSkjemaSendt(false);
             }
         }, [skjemaState, aktivSide, erSkjemaSendt]);
