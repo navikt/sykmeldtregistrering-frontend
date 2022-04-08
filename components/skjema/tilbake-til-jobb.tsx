@@ -8,7 +8,7 @@ import styles from '../../styles/skjema.module.css';
 const TilbakeTilJobb = (props: SkjemaKomponentProps<TilbakeIArbeid>) => {
     const sprak = useSprak();
     const tekst = (key: string) => hentTekst(sprak, key);
-    const { onChange, valgt } = props;
+    const { onChange, valgt, visFeilmelding } = props;
 
     const lagValg = (valg: TilbakeIArbeid) => ({ tekst: tekst(valg), value: valg });
     const valg = [
@@ -26,6 +26,7 @@ const TilbakeTilJobb = (props: SkjemaKomponentProps<TilbakeIArbeid>) => {
                     valg={valg}
                     onSelect={(val) => onChange(val)}
                     valgt={valgt}
+                    visFeilmelding={visFeilmelding}
                 />
             </form>
         </Panel>
