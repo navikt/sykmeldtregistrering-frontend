@@ -17,7 +17,7 @@ function ErrorProvider({ children }: { children: ReactNode }) {
 
     const contextValue = {
         error,
-        setError: useCallback((error) => setError(error), [setError]),
+        setError: useCallback((error: Error | null) => setError(error), [setError]),
         medFeilHandtering: useCallback(
             async (fn: Function) => {
                 try {
