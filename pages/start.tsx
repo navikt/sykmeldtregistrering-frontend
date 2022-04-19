@@ -41,7 +41,7 @@ function hentNesteSideUrl(data: any) {
 }
 
 const Start = () => {
-    const { data, error } = useSWR('/api/startregistrering/', fetcher);
+    const { data, error } = useSWR('api/startregistrering/', fetcher);
     const router = useRouter();
 
     useEffect(() => {
