@@ -50,14 +50,14 @@ const skjemaSideFactory: SkjemaSideFactory = (opts) => {
 
         const { forrige, neste, fremdrift } = beregnNavigering(aktivSide, skjemaState);
 
-        useEffect(() => {
-            // valider at forrige side har gyldig state. Hvis ikke starter vi registrering på nytt
-            if (forrige) {
-                if (!validerSkjemaForSide(forrige, skjemaState)) {
-                    router.push('/start/');
-                }
-            }
-        }, [forrige, router, skjemaState]);
+        // useEffect(() => {
+        //     // valider at forrige side har gyldig state. Hvis ikke starter vi registrering på nytt
+        //     if (forrige) {
+        //         if (!validerSkjemaForSide(forrige, skjemaState)) {
+        //             router.push('/start/');
+        //         }
+        //     }
+        // }, [forrige, router, skjemaState]);
 
         const navigerTilSide = (side: SkjemaSide) => {
             return router.push(`/${urlPrefix}/${side}`);
