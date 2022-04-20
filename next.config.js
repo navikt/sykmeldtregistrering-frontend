@@ -7,11 +7,11 @@ const basePath = '/arbeid/registrering-ny';
 const nextConfig = {
     reactStrictMode: true,
     basePath,
-    i18n: {
-        locales: ['nb', 'en', 'nn', 'pl'],
-        defaultLocale: 'nb',
-        localeDetection: false,
-    },
+    // i18n: {
+    //     locales: ['nb', 'en', 'nn', 'pl'],
+    //     defaultLocale: 'nb',
+    //     localeDetection: false,
+    // },
     trailingSlash: true,
     experimental: {
         outputStandalone: true,
