@@ -12,7 +12,7 @@ export default function redirectToLogin(req: NextRequest) {
     }
 
     if (!erInnlogget) {
-        console.log('Bruker ikke innlogget. Vidersender til login');
+        console.log(`${new Date()}: Bruker ikke innlogget. Vidersender til login`);
         const url = `${process.env.LOGINSERVICE_URL}?redirect=${process.env.NEXT_PUBLIC_START_URL}`;
         return NextResponse.redirect(url);
     }
