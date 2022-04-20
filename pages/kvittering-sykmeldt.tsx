@@ -1,6 +1,9 @@
 import useSprak from '../hooks/useSprak';
 import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
 import { BodyShort, GuidePanel, Heading, Link } from '@navikt/ds-react';
+import React from 'react';
+import { RegistreringType } from '../model/registrering';
+import { loggAktivitet } from '../lib/amplitude-typescript';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -17,6 +20,14 @@ const VTA_URL = '';
 const KvitteringSykmeldt = () => {
     const sprak = useSprak();
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
+
+    React.useEffect(() => {
+        loggAktivitet({
+            aktivitet: 'Viser kvittering',
+            registreringstype: RegistreringType.SYKMELDT_REGISTRERING,
+        });
+    }, []);
+
     return (
         <>
             <Heading spacing size={'medium'}>

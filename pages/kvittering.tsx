@@ -1,6 +1,9 @@
 import { BodyShort, GuidePanel, Heading, Link } from '@navikt/ds-react';
 import useSprak from '../hooks/useSprak';
 import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
+import { loggAktivitet } from '../lib/amplitude-typescript';
+import React from 'react';
+import { RegistreringType } from '../model/registrering';
 
 const DITTNAV_URL = process.env.NEXT_PUBLIC_DITTNAV_URL as string;
 const DAGPENGESOKNAD_URL = process.env.NEXT_PUBLIC_DAGPENGESOKNAD_URL as string;
@@ -21,6 +24,14 @@ const TEKSTER: Tekster<string> = {
 const Kvittering = () => {
     const sprak = useSprak();
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
+
+    React.useEffect(() => {
+        loggAktivitet({
+            aktivitet: 'Viser kvittering',
+            registreringstype: RegistreringType.ORDINAER_REGISTRERING,
+        });
+    }, []);
+
     return (
         <>
             <Heading spacing size={'medium'}>
@@ -36,10 +47,29 @@ const Kvittering = () => {
             </GuidePanel>
 
             <section className="flex-center mhl">
-                <a href={DAGPENGESOKNAD_URL} className="navds-button navds-button--primary navds-button--medium mrl">
+                <a
+                    href={DAGPENGESOKNAD_URL}
+                    onClick={() =>
+                        loggAktivitet({
+                            aktivitet: 'Går til dagpenger fra kvittering',
+                            registreringstype: RegistreringType.ORDINAER_REGISTRERING,
+                        })
+                    }
+                    className="navds-button navds-button--primary navds-button--medium mrl"
+                >
                     {tekst('sokDagpenger')}
                 </a>
-                <Link href={DITTNAV_URL}>{tekst('skalIkkeSoke')}</Link>
+                <Link
+                    href={DITTNAV_URL}
+                    onClick={() =>
+                        loggAktivitet({
+                            aktivitet: 'Velger å ikke gå til dagpenger fra kvittering',
+                            registreringstype: RegistreringType.ORDINAER_REGISTRERING,
+                        })
+                    }
+                >
+                    {tekst('skalIkkeSoke')}
+                </Link>
             </section>
         </>
     );

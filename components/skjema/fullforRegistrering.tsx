@@ -10,7 +10,7 @@ import byggFullforRegistreringPayload from '../../lib/bygg-fullfor-registrering-
 import { FeilmeldingGenerell } from '../feilmeldinger/feilmeldinger';
 import { FullforRegistreringResponse } from '../../model/registrering';
 import hentKvitteringsUrl from '../../lib/hent-kvitterings-url';
-import { loggAktivitet } from '../../lib/amplitude';
+import { loggAktivitet } from '../../lib/amplitude-typescript';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -91,6 +91,7 @@ const FullforRegistrering = (props: FullforProps) => {
             );
 
             loggAktivitet({
+                aktivitet: 'Utfylling av skjema fullført',
                 tidBruktForAaFullforeSkjema: beregnTidBrukt(skjemaState),
             });
 
