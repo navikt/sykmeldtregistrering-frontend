@@ -1,5 +1,6 @@
 import { Loader } from '@navikt/ds-react';
 import useSWR from 'swr';
+
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { SkjemaSide } from '../model/skjema';
@@ -43,6 +44,8 @@ function hentNesteSideUrl(data: any) {
 const Start = () => {
     const { data, error } = useSWR('api/startregistrering/', fetcher);
     const router = useRouter();
+
+    console.log('DITTNAV_URL', DITT_NAV_URL);
 
     useEffect(() => {
         if (!data) {
