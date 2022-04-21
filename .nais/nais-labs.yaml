@@ -77,5 +77,7 @@ spec:
       value: {{ptoProxyUrl}}
     - name: FEATURE_TOGGLE_URL
       value: {{featureToggles.server}}
+    - name: NODE_ENV
+      value: {{nodeEnv}}
   ingresses:
     - {{ingress}}

@@ -1,6 +1,7 @@
 ingress: https://arbeid.labs.nais.io/arbeid/registrering-ny
 basePath: /arbeid/registrering-ny
 mocking: enabled
+nodeEnv: development
 dekorator:
   url: https://dekoratoren.ekstern.dev.nav.no/
   env: dev

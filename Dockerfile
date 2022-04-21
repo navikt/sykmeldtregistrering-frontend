@@ -2,7 +2,7 @@ FROM node:16-alpine AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-COPY package*.json .npmrc .env ./ 
+COPY package*.json .npmrc .env.* ./ 
 RUN npm ci && \
     node /app/node_modules/@sentry/cli/scripts/install.js
 
@@ -20,8 +20,7 @@ RUN npm run build
 
 FROM node:16-alpine AS runner
 
-ENV PORT=3000 \
-    NODE_ENV=production
+ENV PORT=3000
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
@@ -30,7 +29,7 @@ RUN adduser --system --uid 1001 nextjs
 COPY --from=builder /app/next.config.js ./
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/package.json ./package.json
-COPY --from=builder /app/.env ./.env
+COPY --from=builder /app/.env.* ./.env.*
 
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static

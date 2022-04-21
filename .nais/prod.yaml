@@ -1,6 +1,7 @@
 ingress: https://www.nav.no/arbeid/registrering-ny
 basePath: /arbeid/registrering-ny
 mocking: disabled
+nodeEnv: production
 dekorator:
   url: https://dekoratoren.nav.no/
   env: prod
