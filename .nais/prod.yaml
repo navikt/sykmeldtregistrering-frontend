@@ -27,4 +27,4 @@ dagpengesoknadUrl: https://www.nav.no/arbeid/dagpenger/soknad-veileder
 dialogUrl: https://www.nav.no/arbeid/dialog
 featureToggles:
   server: https://unleash.nais.io/api/client/features?tag[]=simple:arbeidssokerregistrering
-  client: https://arbeid.nav.no/arbeid/registrering-ny/api/features
+  client: https://www.nav.no/arbeid/registrering-ny/api/features
