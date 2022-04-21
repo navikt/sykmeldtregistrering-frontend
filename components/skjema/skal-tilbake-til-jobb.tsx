@@ -25,39 +25,36 @@ const SkalTilbakeTilJobb = (props: any) => {
     const navigerTilSide = (side: string) => router.push(side);
 
     return (
-        <Panel className={styles.panel} border={true}>
-            <div>
-                <GuidePanel className="mbl">
-                    <Heading size="medium">{tekst('hei')}Test</Heading>
-                    {tekst('infoTekst')}
-                </GuidePanel>
+        <div>
+            <GuidePanel className="mbl">
+                <Heading size="medium">{tekst('hei')}Test</Heading>
+                {tekst('infoTekst')}
+            </GuidePanel>
 
-                <Panel border={true} className="mbl">
-                    <Heading size="medium">{tekst('tittel')}</Heading>
-                    <ul>
-                        <li>{tekst('punkt1')}</li>
-                        <li>{tekst('punkt2')}</li>
-                    </ul>
-                </Panel>
+            <Panel border={true} className="mbl">
+                <Heading size="medium">{tekst('tittel')}</Heading>
+                <ul>
+                    <li>{tekst('punkt1')}</li>
+                    <li>{tekst('punkt2')}</li>
+                </ul>
+            </Panel>
+            <Heading size="medium" spacing={true} style={{ textAlign: 'center' }}>
+                {tekst('enigTittel')}
+            </Heading>
 
-                <Heading size="medium" spacing={true} style={{ textAlign: 'center' }}>
-                    {tekst('enigTittel')}
-                </Heading>
-
-                <section className="flex-center flex-wrap">
-                    <Button
-                        variant="secondary"
-                        className="mrl mbs"
-                        onClick={() => navigerTilSide(`/sykmeldt/${SkjemaSide.Oppsummering}`)}
-                    >
-                        {tekst('uenig')}
-                    </Button>
-                    <Button variant="secondary" className="mbs" onClick={() => navigerTilSide('/')}>
-                        {tekst('enig')}
-                    </Button>
-                </section>
-            </div>
-        </Panel>
+            <section className="flex-center flex-wrap">
+                <Button
+                    variant="secondary"
+                    className="mrl mbs"
+                    onClick={() => navigerTilSide(`/sykmeldt/${SkjemaSide.Oppsummering}`)}
+                >
+                    {tekst('uenig')}
+                </Button>
+                <Button variant="secondary" className="mbs" onClick={() => navigerTilSide('/')}>
+                    {tekst('enig')}
+                </Button>
+            </section>
+        </div>
     );
 };
 
