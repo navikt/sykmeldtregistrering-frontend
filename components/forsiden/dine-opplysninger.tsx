@@ -29,7 +29,7 @@ const dineOpplysninger = () => {
 
     return (
         <>
-            <Heading spacing size={'large'} level="2">
+            <Heading size={'large'} level="2" className="text-center mbm">
                 {tekst('tittel')}
             </Heading>
             <BodyShort>{tekst('innledning')}</BodyShort>
