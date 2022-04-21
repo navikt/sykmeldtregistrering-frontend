@@ -18,7 +18,9 @@ const RettigheterPanel = () => {
 
     return (
         <GuidePanel className={styles.rettigheter} poster>
-            <Heading size={'small'}>{tekst('tittel')}</Heading>
+            <Heading size={'small'} level={'2'}>
+                {tekst('tittel')}
+            </Heading>
             <ul>
                 <li>
                     {tekst('kravPaVurdering')}

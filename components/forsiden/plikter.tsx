@@ -15,7 +15,9 @@ const PlikterPanel = () => {
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
     return (
         <GuidePanel className={styles.plikter} poster>
-            <Heading size={'small'}>{tekst('tittel')}</Heading>
+            <Heading size={'small'} level={'2'}>
+                {tekst('tittel')}
+            </Heading>
             <ul>
                 <li>{tekst('sendeMeldekort')}</li>
                 <li>{tekst('aktivArbeidssoker')}</li>

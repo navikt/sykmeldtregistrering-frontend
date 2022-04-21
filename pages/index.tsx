@@ -30,7 +30,7 @@ const Home: NextPage = () => {
         <>
             <RedirectTilVedlikehold />
             <div className="maxWidth">
-                <Heading spacing size="xlarge" level="2">
+                <Heading spacing size="xlarge" level="1">
                     {tekst('tittel')}
                 </Heading>
                 <Grid>

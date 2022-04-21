@@ -29,7 +29,7 @@ const dineOpplysninger = () => {
 
     return (
         <>
-            <Heading spacing size={'large'} level="1">
+            <Heading spacing size={'large'} level="2">
                 {tekst('tittel')}
             </Heading>
             <BodyShort>{tekst('innledning')}</BodyShort>
@@ -41,12 +41,12 @@ const dineOpplysninger = () => {
                     <li>{tekst('utfordringer')}</li>
                 </ul>
             </div>
-            <BodyShort>{tekst('beskrivelse')}</BodyShort>
-            <Heading spacing size={'medium'} level="2">
+            <BodyShort className="mbm">{tekst('beskrivelse')}</BodyShort>
+            <Heading spacing size={'small'} level="3">
                 {tekst('overskriftPersonopplysninger')}
             </Heading>
             <BodyShort>{tekst('personopplysninger')}</BodyShort>
-            <BodyShort>
+            <BodyShort className="mbm">
                 <NextLink href="https://www.nav.no/personvern" passHref locale={false}>
                     <Link>{tekst('personopplysningerLenkeTekst')}</Link>
                 </NextLink>
