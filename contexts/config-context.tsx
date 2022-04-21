@@ -3,9 +3,9 @@ import useSWR from 'swr';
 import { fetcher } from '../lib/api-utils';
 import { Config } from '../model/config';
 
-type ConfigProviderType = Config | {};
+type uninitializedConfig = {};
 
-const ConfigContext = createContext<ConfigProviderType>({});
+const ConfigContext = createContext<Config | uninitializedConfig>({});
 
 function ConfigProvider({ children }: { children: ReactNode }) {
     const { data } = useSWR('/api/config/', fetcher);

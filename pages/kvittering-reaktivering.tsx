@@ -4,9 +4,8 @@ import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
 import { loggAktivitet } from '../lib/amplitude-typescript';
 import React from 'react';
 import { RegistreringType } from '../model/registrering';
-
-const DITTNAV_URL = process.env.NEXT_PUBLIC_DITTNAV_URL as string;
-const DAGPENGESOKNAD_URL = process.env.NEXT_PUBLIC_DAGPENGESOKNAD_URL as string;
+import { useConfig } from '../contexts/config-context';
+import { Config } from '../model/config';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -32,6 +31,8 @@ const Kvittering = () => {
         });
     }, []);
 
+    const { dagpengesoknadUrl, dittNavUrl } = useConfig() as Config;
+
     return (
         <>
             <Heading spacing size={'medium'}>
@@ -48,7 +49,7 @@ const Kvittering = () => {
 
             <section className="flex-center mhl">
                 <a
-                    href={DAGPENGESOKNAD_URL}
+                    href={dagpengesoknadUrl}
                     onClick={() =>
                         loggAktivitet({
                             aktivitet: 'Går til dagpenger fra kvittering',
@@ -60,7 +61,7 @@ const Kvittering = () => {
                     {tekst('sokDagpenger')}
                 </a>
                 <Link
-                    href={DITTNAV_URL}
+                    href={dittNavUrl}
                     onClick={() =>
                         loggAktivitet({
                             aktivitet: 'Velger å ikke gå til dagpenger fra kvittering',

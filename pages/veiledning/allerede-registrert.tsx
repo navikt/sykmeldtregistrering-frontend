@@ -6,8 +6,8 @@ import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-spra
 import useSprak from '../../hooks/useSprak';
 
 import { loggStoppsituasjon } from '../../lib/amplitude';
-
-const DIALOG_URL = process.env.NEXT_PUBLIC_DIALOG_URL as string;
+import { useConfig } from '../../contexts/config-context';
+import { Config } from '../../model/config';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -35,6 +35,8 @@ function AlleredeRegistrert() {
         });
     }, []);
 
+    const { dialogUrl } = useConfig() as Config;
+
     return (
         <GuidePanel poster>
             <Heading spacing size="large" level="1">
@@ -42,10 +44,7 @@ function AlleredeRegistrert() {
             </Heading>
             <BodyShort>{tekst('innledning')}</BodyShort>
             <BodyShort>
-                <NextLink href={DIALOG_URL} passHref locale={false}>
-                    <Link>{tekst('sendMelding')}</Link>
-                </NextLink>{' '}
-                {tekst('ringOss')} <b>{tekst('telefonNummer')}</b>
+                <Link href={dialogUrl}>{tekst('sendMelding')}</Link> {tekst('ringOss')} <b>{tekst('telefonNummer')}</b>
             </BodyShort>
         </GuidePanel>
     );

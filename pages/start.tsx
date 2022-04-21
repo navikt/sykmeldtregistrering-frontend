@@ -6,15 +6,15 @@ import { useRouter } from 'next/router';
 import { SkjemaSide } from '../model/skjema';
 import { Formidlingsgruppe, RegistreringType } from '../model/registrering';
 import { fetcher } from '../lib/api-utils';
-
-const DITT_NAV_URL = process.env.NEXT_PUBLIC_DITTNAV_URL;
+import { useConfig } from '../contexts/config-context';
+import { Config } from '../model/config';
 
 function skalVideresendesTilDittNAV(data: any) {
     const { formidlingsgruppe, underOppfolging } = data;
     return formidlingsgruppe === Formidlingsgruppe.ARBS && underOppfolging === true;
 }
 
-function hentNesteSideUrl(data: any) {
+function hentNesteSideUrl(data: any, dittNavUrl: string) {
     const { registreringType } = data;
 
     switch (registreringType) {
@@ -32,7 +32,7 @@ function hentNesteSideUrl(data: any) {
         }
         case RegistreringType.ALLEREDE_REGISTRERT: {
             if (skalVideresendesTilDittNAV(data)) {
-                return `${DITT_NAV_URL}?goTo=registrering`;
+                return `${dittNavUrl}?goTo=registrering`;
             }
             return '/veiledning/allerede-registrert/';
         }
@@ -42,18 +42,17 @@ function hentNesteSideUrl(data: any) {
 }
 
 const Start = () => {
+    const { dittNavUrl } = useConfig() as Config;
     const { data, error } = useSWR('api/startregistrering/', fetcher);
     const router = useRouter();
 
-    console.log('DITTNAV_URL', DITT_NAV_URL);
-
     useEffect(() => {
-        if (!data) {
+        if (!data || !dittNavUrl) {
             return;
         }
 
-        router.push(hentNesteSideUrl(data));
-    }, [data, router]);
+        router.push(hentNesteSideUrl(data, dittNavUrl));
+    }, [data, router, dittNavUrl]);
 
     useEffect(() => {
         if (error) {
