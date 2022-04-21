@@ -111,7 +111,7 @@ const FullforRegistrering = (props: FullforProps) => {
     return (
         <>
             <div style={{ width: '100%' }}>
-                <Heading spacing size={'large'}>
+                <Heading size={'large'} className="text-center mbm">
                     {tekst('tittel')}
                 </Heading>
                 <GuidePanel poster className="mbm">
