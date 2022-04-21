@@ -99,7 +99,11 @@ const skjemaSideFactory: SkjemaSideFactory = (opts) => {
         return (
             <div className={styles.main}>
                 <ProgressBar value={erSkjemaSendt ? 1 : fremdrift} className={'mbm'} />
-                {forrigeLenke && <TilbakeKnapp href={forrigeLenke} />}
+                {forrigeLenke && (
+                    <div className={styles.forrigeLenke}>
+                        <TilbakeKnapp href={forrigeLenke} />
+                    </div>
+                )}
                 {hentKomponentForSide(aktivSide, skjemaState, dispatcher, visFeilmelding)}
                 {neste && <Knapperad onNeste={validerOgGaaTilNeste} />}
                 <Avbryt />
