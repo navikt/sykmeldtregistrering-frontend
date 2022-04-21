@@ -1,14 +1,14 @@
 import { createContext, useContext, useEffect, useState } from 'react';
+import { useConfig } from './config-context';
 
 const FeatureToggleContext = createContext();
 
 function FeatureToggleProvider({ children }) {
     const [toggles, setToggles] = useState({});
-
+    const { feautureTogglesUrl } = useConfig();
     useEffect(() => {
         const fetchToggles = async () => {
-            const url = process.env.NEXT_PUBLIC_FEATURETOGGLES_URL;
-            const response = await fetch(url);
+            const response = await fetch(feautureTogglesUrl);
 
             const json = await response.json();
             const aktiveFeatures = json.reduce((features, feature) => {
@@ -20,8 +20,10 @@ function FeatureToggleProvider({ children }) {
             setToggles(aktiveFeatures);
         };
 
-        fetchToggles();
-    }, []);
+        if (feautureTogglesUrl) {
+            fetchToggles();
+        }
+    }, [feautureTogglesUrl]);
 
     return <FeatureToggleContext.Provider value={{ toggles }}>{children}</FeatureToggleContext.Provider>;
 }
