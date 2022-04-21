@@ -1,4 +1,4 @@
-import { Button, GuidePanel, Heading, Panel } from '@navikt/ds-react';
+import { BodyShort, Button, GuidePanel, Heading, Panel } from '@navikt/ds-react';
 import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../hooks/useSprak';
 import styles from '../../styles/skjema.module.css';
@@ -7,7 +7,6 @@ import { SkjemaSide } from '../../model/skjema';
 
 const TEKSTER: Tekster<string> = {
     nb: {
-        hei: 'Hei, ',
         infoTekst:
             'På spørsmål om hva du mener er din fremtidige situasjon, har du svart at du skal tilbake i full jobb før du har vært sykmeldt i 52 uker.',
         tittel: 'Fordi du skal tilbake i full jobb innen 52 uker',
@@ -27,17 +26,17 @@ const SkalTilbakeTilJobb = (props: any) => {
     return (
         <div>
             <GuidePanel className="mbl">
-                <Heading size="medium">{tekst('hei')}Test</Heading>
-                {tekst('infoTekst')}
+                <BodyShort spacing={true}>{tekst('infoTekst')}</BodyShort>
+
+                <section>
+                    <Heading size="small">{tekst('tittel')}</Heading>
+                    <ul>
+                        <li>{tekst('punkt1')}</li>
+                        <li>{tekst('punkt2')}</li>
+                    </ul>
+                </section>
             </GuidePanel>
 
-            <Panel border={true} className="mbl">
-                <Heading size="medium">{tekst('tittel')}</Heading>
-                <ul>
-                    <li>{tekst('punkt1')}</li>
-                    <li>{tekst('punkt2')}</li>
-                </ul>
-            </Panel>
             <Heading size="medium" spacing={true} style={{ textAlign: 'center' }}>
                 {tekst('enigTittel')}
             </Heading>

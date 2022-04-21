@@ -100,6 +100,7 @@ const TILSTANDER: NavigeringsTilstandsMaskin<SykmeldtSkjemaSide> = {
     [SkjemaSide.SkalTilbakeTilJobb]: () => {
         return {
             fremdrift: 1,
+            forrige: SkjemaSide.TilbakeTilJobb,
         };
     },
     [SkjemaSide.FullforRegistrering]: () => {
