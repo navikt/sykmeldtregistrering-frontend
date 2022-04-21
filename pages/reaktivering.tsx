@@ -40,19 +40,22 @@ const Reaktivering = () => {
 
     return (
         <ContentContainer>
+            <Heading spacing level="1" size={'medium'}>
+                {tekst('tittel')}
+            </Heading>
             <GuidePanel poster>
-                <Heading spacing level="1" size={'medium'}>
+                <Heading spacing level="2" size={'medium'}>
                     {tekst('tittel')}
                 </Heading>
                 <BodyShort spacing>{tekst('maaSokePaaNytt')}</BodyShort>
                 <BodyShort spacing>{tekst('vilDuRegistreres')}</BodyShort>
-                <section className="flex-center mhl">
-                    <Button className="knapp mrl" onClick={reaktiverBruker}>
-                        {tekst('ja')}
-                    </Button>
-                    <Button variant={'tertiary'}>{tekst('avbryt')}</Button>
-                </section>
             </GuidePanel>
+            <section className="flex-center mhl">
+                <Button variant={'primary'} className="mrl" onClick={reaktiverBruker}>
+                    {tekst('ja')}
+                </Button>
+                <Button variant={'tertiary'}>{tekst('avbryt')}</Button>
+            </section>
         </ContentContainer>
     );
 };

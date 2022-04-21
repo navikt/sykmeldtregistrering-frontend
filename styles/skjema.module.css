@@ -24,6 +24,14 @@
     width: 10rem;
 }
 
+.mw10 {
+    min-width: 10rem;
+}
+
+.mw20 {
+    min-width: 20rem;
+}
+
 .spaceEvenly {
     display: flex;
     justify-content: space-evenly;
