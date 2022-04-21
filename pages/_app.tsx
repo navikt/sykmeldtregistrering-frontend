@@ -9,6 +9,7 @@ import Head from 'next/head';
 import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../hooks/useSprak';
 import styles from '../styles/app.module.css';
+import { ConfigProvider } from '../contexts/config-context';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -31,14 +32,16 @@ function MyApp({ Component, pageProps, router }: AppProps) {
                 <title>{tekst('metaTittel')}</title>
                 <meta name="description" content={tekst('metaDescription')} />
             </Head>
-            <FeatureToggleProvider>
-                <AmplitudeProvider>
-                    <ErrorProvider>
-                        <GlobalFeilmelding />
-                        <Component {...pageProps} />
-                    </ErrorProvider>
-                </AmplitudeProvider>
-            </FeatureToggleProvider>
+            <ConfigProvider>
+                <FeatureToggleProvider>
+                    <AmplitudeProvider>
+                        <ErrorProvider>
+                            <GlobalFeilmelding />
+                            <Component {...pageProps} />
+                        </ErrorProvider>
+                    </AmplitudeProvider>
+                </FeatureToggleProvider>
+            </ConfigProvider>
         </main>
     );
 }
