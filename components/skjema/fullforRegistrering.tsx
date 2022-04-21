@@ -110,11 +110,11 @@ const FullforRegistrering = (props: FullforProps) => {
 
     return (
         <>
-            <ContentContainer>
+            <div style={{ width: '100%' }}>
                 <Heading spacing size={'large'}>
                     {tekst('tittel')}
                 </Heading>
-                <GuidePanel poster>
+                <GuidePanel poster className="mbm">
                     <Heading level={'2'} size={'xsmall'}>
                         {tekst('naarDuFullforer')}
                     </Heading>
@@ -125,41 +125,39 @@ const FullforRegistrering = (props: FullforProps) => {
                         <li>{tekst('brukeAktivitetsplan')}</li>
                     </ul>
                 </GuidePanel>
-                <div style={{ maxWidth: '34rem', margin: '2em 0' }}>
-                    <Accordion>
-                        <Accordion.Item>
-                            <Accordion.Header>{tekst('lesMer')}</Accordion.Header>
-                            <Accordion.Content>
-                                <ul>
-                                    <li>
-                                        <Heading level={'3'} size={'xsmall'}>
-                                            {tekst('okonomi')}
-                                        </Heading>
-                                        {tekst('okonomiInfo')}
-                                    </li>
-                                    <li>
-                                        <Heading level={'3'} size={'xsmall'}>
-                                            {tekst('meldekort')}
-                                        </Heading>
-                                        {tekst('meldekortInfo')}
-                                    </li>
-                                    <li>
-                                        <Heading level={'3'} size={'xsmall'}>
-                                            {tekst('aktivitetsplan')}
-                                        </Heading>
-                                        {tekst('aktivitetsplanInfo')}
-                                    </li>
-                                    <li>
-                                        <Heading level={'3'} size={'xsmall'}>
-                                            {tekst('CV')}
-                                        </Heading>
-                                        {tekst('CVInfo')}
-                                    </li>
-                                </ul>
-                            </Accordion.Content>
-                        </Accordion.Item>
-                    </Accordion>
-                </div>
+                <Accordion className="mbm">
+                    <Accordion.Item>
+                        <Accordion.Header>{tekst('lesMer')}</Accordion.Header>
+                        <Accordion.Content>
+                            <ul>
+                                <li>
+                                    <Heading level={'3'} size={'xsmall'}>
+                                        {tekst('okonomi')}
+                                    </Heading>
+                                    {tekst('okonomiInfo')}
+                                </li>
+                                <li>
+                                    <Heading level={'3'} size={'xsmall'}>
+                                        {tekst('meldekort')}
+                                    </Heading>
+                                    {tekst('meldekortInfo')}
+                                </li>
+                                <li>
+                                    <Heading level={'3'} size={'xsmall'}>
+                                        {tekst('aktivitetsplan')}
+                                    </Heading>
+                                    {tekst('aktivitetsplanInfo')}
+                                </li>
+                                <li>
+                                    <Heading level={'3'} size={'xsmall'}>
+                                        {tekst('CV')}
+                                    </Heading>
+                                    {tekst('CVInfo')}
+                                </li>
+                            </ul>
+                        </Accordion.Content>
+                    </Accordion.Item>
+                </Accordion>
 
                 <ConfirmationPanel
                     checked={lestKravChecked}
@@ -184,7 +182,7 @@ const FullforRegistrering = (props: FullforProps) => {
                 <Button onClick={validerOgFullfor} loading={senderSkjema}>
                     {tekst('fullfor')}
                 </Button>
-            </ContentContainer>
+            </div>
         </>
     );
 };
