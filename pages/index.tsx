@@ -44,7 +44,7 @@ const Home: NextPage = () => {
                         <DineOpplysninger />
                     </Cell>
                     <Cell xs={12} className={'text-center phs'}>
-                        <NextLink href="/start" passHref>
+                        <NextLink href="/start" passHref locale={false}>
                             <Button>{tekst('startRegistrering')}</Button>
                         </NextLink>
                     </Cell>

@@ -42,7 +42,7 @@ function AlleredeRegistrert() {
             </Heading>
             <BodyShort>{tekst('innledning')}</BodyShort>
             <BodyShort>
-                <NextLink href={DIALOG_URL} passHref>
+                <NextLink href={DIALOG_URL} passHref locale={false}>
                     <Link>{tekst('sendMelding')}</Link>
                 </NextLink>{' '}
                 {tekst('ringOss')} <b>{tekst('telefonNummer')}</b>

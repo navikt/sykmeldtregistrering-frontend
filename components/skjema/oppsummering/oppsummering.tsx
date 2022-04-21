@@ -1,11 +1,12 @@
 import { GuidePanel, Heading, Ingress, Link, Table } from '@navikt/ds-react';
+import NextLink from 'next/link';
+import useSWR from 'swr';
+
+import { hentTekst, SporsmalId } from '../../../model/sporsmal';
 import OppsummeringSvg from './oppsummering-svg';
 import lagHentTekstForSprak, { Tekster } from '../../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../../hooks/useSprak';
 import { hentSkjemaside, SkjemaState } from '../../../model/skjema';
-import NextLink from 'next/link';
-import { hentTekst, SporsmalId } from '../../../model/sporsmal';
-import useSWR from 'swr';
 import { fetcher } from '../../../lib/api-utils';
 
 const TEKSTER: Tekster<string> = {
@@ -88,7 +89,7 @@ const Rad = (props: RadProps) => {
             <Table.HeaderCell scope="row">{props.radTittel}</Table.HeaderCell>
             <Table.DataCell>{props.svaralternativ}</Table.DataCell>
             <Table.DataCell>
-                <NextLink href={props.url} passHref>
+                <NextLink href={props.url} passHref locale={false}>
                     <Link>Endre</Link>
                 </NextLink>
             </Table.DataCell>

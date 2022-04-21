@@ -17,57 +17,57 @@ function DemoPanel({ brukerMock }: Props) {
                     Demo valg
                 </Heading>
                 <p>
-                    <NextLink href={`/skjema/${SkjemaSide.DinSituasjon}`} passHref>
+                    <NextLink href={`/skjema/${SkjemaSide.DinSituasjon}`} passHref locale={false}>
                         <Button>Standard registrering</Button>
                     </NextLink>
                 </p>
                 <p>
-                    <NextLink href={`/sykmeldt/${SkjemaSide.SykmeldtFremtidigSituasjon}`} passHref>
+                    <NextLink href={`/sykmeldt/${SkjemaSide.SykmeldtFremtidigSituasjon}`} passHref locale={false}>
                         <Button variant="secondary">Sykmeldt registrering</Button>
                     </NextLink>
                 </p>
                 <p>
-                    <NextLink href="/kvittering/" passHref>
+                    <NextLink href="/kvittering/" passHref locale={false}>
                         <Button variant="secondary">Kvittering</Button>
                     </NextLink>
                 </p>
                 <p>
-                    <NextLink href="/reaktivering" passHref>
+                    <NextLink href="/reaktivering" passHref locale={false}>
                         <Button variant="secondary">Reaktivering</Button>
                     </NextLink>
                 </p>
                 <p>
-                    <NextLink href="/kvittering-reaktivering/" passHref>
+                    <NextLink href="/kvittering-reaktivering/" passHref locale={false}>
                         <Button variant="secondary">Kvittering Reaktivering</Button>
                     </NextLink>
                 </p>
                 <p>
-                    <NextLink href="/veiledning/utvandret/" passHref>
+                    <NextLink href="/veiledning/utvandret/" passHref locale={false}>
                         <Button variant="secondary">Utvandret</Button>
                     </NextLink>
                 </p>
                 <p>
-                    <NextLink href="/veiledning/mangler-arbeidstillatelse/" passHref>
+                    <NextLink href="/veiledning/mangler-arbeidstillatelse/" passHref locale={false}>
                         <Button variant="secondary">Mangler arbeidstillatelse</Button>
                     </NextLink>
                 </p>
                 <p>
-                    <NextLink href="/veiledning/allerede-registrert/" passHref>
+                    <NextLink href="/veiledning/allerede-registrert/" passHref locale={false}>
                         <Button variant="secondary">Allerede registrert</Button>
                     </NextLink>
                 </p>
                 <p>
-                    <NextLink href="/veiledning/sperret/" passHref>
+                    <NextLink href="/veiledning/sperret/" passHref locale={false}>
                         <Button variant="secondary">Sperret</Button>
                     </NextLink>
                 </p>
                 <p>
-                    <NextLink href="/vedlikehold/" passHref>
+                    <NextLink href="/vedlikehold/" passHref locale={false}>
                         <Button variant="secondary">Vedlikehold</Button>
                     </NextLink>
                 </p>
                 <p>
-                    <NextLink href="/feil/" passHref>
+                    <NextLink href="/feil/" passHref locale={false}>
                         <Button variant="secondary">Feil</Button>
                     </NextLink>
                 </p>

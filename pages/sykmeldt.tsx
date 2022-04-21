@@ -1,7 +1,8 @@
 import { BodyLong, Button, Cell, ContentContainer, Grid, GuidePanel, Heading, Label, Link } from '@navikt/ds-react';
+import NextLink from 'next/link';
+
 import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../hooks/useSprak';
-import NextLink from 'next/link';
 import SykmeldtVeiledningSvg from '../components/sykmeldtVeiledningSvg';
 import { SkjemaSide } from '../model/skjema';
 
@@ -59,7 +60,7 @@ const SykmeldtStartside = () => {
                             {tekst('personopplysningerLenkeTekst')}
                         </Link>
                     </BodyLong>
-                    <NextLink href={`/sykmeldt/${SkjemaSide.SykmeldtFremtidigSituasjon}`} passHref>
+                    <NextLink href={`/sykmeldt/${SkjemaSide.SykmeldtFremtidigSituasjon}`} passHref locale={false}>
                         <Button>{tekst('startRegistrering')}</Button>
                     </NextLink>
                 </Cell>
