@@ -1,9 +1,12 @@
+import { useEffect } from 'react';
+import { BodyShort, GuidePanel, Heading, Link } from '@navikt/ds-react';
+
 import useSprak from '../hooks/useSprak';
 import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
-import { BodyShort, GuidePanel, Heading, Link } from '@navikt/ds-react';
-import React from 'react';
-import { RegistreringType } from '../model/registrering';
 import { loggAktivitet } from '../lib/amplitude-typescript';
+import { useConfig } from '../contexts/config-context';
+import { RegistreringType } from '../model/registrering';
+import { Config } from '../model/config';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -16,12 +19,12 @@ const TEKSTER: Tekster<string> = {
     },
 };
 
-const VTA_URL = '';
 const KvitteringSykmeldt = () => {
     const sprak = useSprak();
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
+    const { dittNavUrl } = useConfig() as Config;
 
-    React.useEffect(() => {
+    useEffect(() => {
         loggAktivitet({
             aktivitet: 'Viser kvittering',
             registreringstype: RegistreringType.SYKMELDT_REGISTRERING,
@@ -41,10 +44,10 @@ const KvitteringSykmeldt = () => {
             </GuidePanel>
 
             <section className="flex-center mhl">
-                <a href={VTA_URL} className="navds-button navds-button--primary navds-button--medium mrl">
+                <a href={dittNavUrl} className="navds-button navds-button--primary navds-button--medium mrl">
                     {tekst('lesMer')}
                 </a>
-                <Link href={VTA_URL}>{tekst('skalIkkeSoke')}</Link>
+                <Link href={dittNavUrl}>{tekst('skalIkkeSoke')}</Link>
             </section>
         </>
     );
