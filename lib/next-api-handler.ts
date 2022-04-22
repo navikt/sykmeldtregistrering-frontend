@@ -52,6 +52,7 @@ const lagApiHandlerMedAuthHeaders: (url: string) => NextApiHandler = (url: strin
             }
 
             if (!contentType || !contentType.includes('application/json')) {
+                console.log(JSON.stringify(apiResponse));
                 throw new TypeError(`Fikk ikke JSON fra ${url} (callId ${callId}). Body: ${await apiResponse.text()}.`);
             }
 
