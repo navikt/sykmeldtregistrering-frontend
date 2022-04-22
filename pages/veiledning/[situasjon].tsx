@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { BodyShort, Button, Heading, Panel } from '@navikt/ds-react';
+import { BodyShort, Button, Heading, GuidePanel } from '@navikt/ds-react';
 
 import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../hooks/useSprak';
@@ -62,7 +62,7 @@ const KontaktVeileder = (props: { situasjon: Situasjon }) => {
         return feil ? <KvitteringOppgaveIkkeOpprettet feil={feil} /> : <KvitteringOppgaveOpprettet />;
     } else
         return (
-            <Panel border>
+            <GuidePanel poster>
                 <Heading size="medium" spacing={true}>
                     {tekst('heading')}
                 </Heading>
@@ -72,7 +72,7 @@ const KontaktVeileder = (props: { situasjon: Situasjon }) => {
                 <BodyShort spacing>{tekst('body2')}</BodyShort>
                 <BodyShort spacing>{tekst('kontaktOss')}</BodyShort>
                 <Button onClick={opprettOppgave}>{tekst('kontaktKnapp')}</Button>
-            </Panel>
+            </GuidePanel>
         );
 };
 
