@@ -11,7 +11,6 @@ import RedirectTilVedlikehold from '../components/redirect-til-vedlikehold';
 import DemoPanel from '../components/forsiden/demo-panel';
 import { useConfig } from '../contexts/config-context';
 import { Config } from '../model/config';
-import VeiledningSvg from '../components/veiledningSvg';
 
 const TEKSTER: Tekster<string> = {
     nb: {

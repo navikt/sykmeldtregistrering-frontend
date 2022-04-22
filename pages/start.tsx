@@ -27,7 +27,7 @@ function hentNesteSideUrl(data: any, dittNavUrl: string) {
             return `/skjema/${SkjemaSide.DinSituasjon}/`;
         }
         case RegistreringType.SYKMELDT_REGISTRERING: {
-            return `/sykmeldt/${SkjemaSide.SykmeldtFremtidigSituasjon}/`;
+            return `/sykmeldt/`;
         }
         case RegistreringType.REAKTIVERING: {
             return '/reaktivering/';
