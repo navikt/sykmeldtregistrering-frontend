@@ -9,8 +9,8 @@ import RettigheterPanel from '../components/forsiden/rettigheter';
 import PlikterPanel from '../components/forsiden/plikter';
 import RedirectTilVedlikehold from '../components/redirect-til-vedlikehold';
 import DemoPanel from '../components/forsiden/demo-panel';
-
-const brukerMock = process.env.NEXT_PUBLIC_ENABLE_MOCK === 'enabled';
+import { useConfig } from '../contexts/config-context';
+import { Config } from '../model/config';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -25,6 +25,8 @@ const TEKSTER: Tekster<string> = {
 
 const Home: NextPage = () => {
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
+    const { enableMock } = useConfig() as Config;
+    const brukerMock = enableMock === 'enabled';
 
     return (
         <>
