@@ -3,12 +3,14 @@ import { loggAktivitet as loggAktivitetJs } from './amplitude';
 
 type AktivitetData =
     | { aktivitet: KvitteringAktivitet; registreringstype: RegistreringType }
-    | { aktivitet: 'Utfylling av skjema fullført'; tidBruktForAaFullforeSkjema?: number };
+    | { aktivitet: 'Utfylling av skjema fullført'; tidBruktForAaFullforeSkjema?: number }
+    | { aktivitet: 'Start registrering'; registreringstype?: any };
 
 type KvitteringAktivitet =
     | 'Viser kvittering'
     | 'Går til dagpenger fra kvittering'
-    | 'Velger å ikke gå til dagpenger fra kvittering';
+    | 'Velger å ikke gå til dagpenger fra kvittering'
+    | 'Starter registrering';
 
 export function loggAktivitet(data: AktivitetData) {
     loggAktivitetJs(data);

@@ -8,6 +8,7 @@ import { Formidlingsgruppe, RegistreringType } from '../model/registrering';
 import { fetcher } from '../lib/api-utils';
 import { useConfig } from '../contexts/config-context';
 import { Config } from '../model/config';
+import { loggAktivitet } from '../lib/amplitude-typescript';
 
 function skalVideresendesTilDittNAV(data: any) {
     const { formidlingsgruppe, underOppfolging } = data;
@@ -16,6 +17,10 @@ function skalVideresendesTilDittNAV(data: any) {
 
 function hentNesteSideUrl(data: any, dittNavUrl: string) {
     const { registreringType } = data;
+    loggAktivitet({
+        aktivitet: 'Start registrering',
+        registreringstype: registreringType,
+    });
 
     switch (registreringType) {
         case RegistreringType.ORDINAER_REGISTRERING: {
