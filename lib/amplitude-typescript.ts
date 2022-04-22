@@ -9,8 +9,7 @@ type AktivitetData =
 type KvitteringAktivitet =
     | 'Viser kvittering'
     | 'Går til dagpenger fra kvittering'
-    | 'Velger å ikke gå til dagpenger fra kvittering'
-    | 'Starter registrering';
+    | 'Velger å ikke gå til dagpenger fra kvittering';
 
 export function loggAktivitet(data: AktivitetData) {
     loggAktivitetJs(data);
