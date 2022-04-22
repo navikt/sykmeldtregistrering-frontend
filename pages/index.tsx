@@ -16,11 +16,6 @@ import VeiledningSvg from '../components/veiledningSvg';
 const TEKSTER: Tekster<string> = {
     nb: {
         tittel: 'Registrer deg som arbeidssøker',
-        naarRegistrertTittel: 'Når du har registrert deg',
-        hjelpTilJobb: 'får du hjelp til å komme i jobb',
-        brukeAktivitetsplan: 'kan du bruke din egen aktivitetsplan',
-        sokeOmStotte: 'kan du søke om annen økonomisk støtte',
-        sokeOmDagpenger: 'kan du søke om dagpenger hvis du er permittert eller arbeidsledig',
         startRegistrering: 'Start registrering',
     },
     en: {
@@ -42,22 +37,6 @@ const Home: NextPage = () => {
                     {tekst('tittel')}
                 </Heading>
                 <Grid>
-                    <Cell xs={12}>
-                        <Heading spacing size="medium" level="2" className="text-center">
-                            {tekst('naarRegistrertTittel')}
-                        </Heading>
-                        <div className={'flex-center phs flex-wrap'}>
-                            <ul className={'mrl'} style={{ flex: '1', minWidth: '20rem' }}>
-                                <li>{tekst('hjelpTilJobb')}</li>
-                                <li>{tekst('sokeOmDagpenger')}</li>
-                                <li>{tekst('sokeOmStotte')}</li>
-                                <li>{tekst('brukeAktivitetsplan')}</li>
-                            </ul>
-                            <div className={'flex-center'}>
-                                <VeiledningSvg />
-                            </div>
-                        </div>
-                    </Cell>
                     <Cell xs={12} md={6}>
                         <RettigheterPanel />
                     </Cell>
