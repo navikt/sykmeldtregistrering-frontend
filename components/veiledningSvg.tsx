@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SykmeldtVeiledningSvg = () => (
+const VeiledningSvg = () => (
     <svg width="339" height="143" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
         <defs>
             <path
@@ -717,4 +717,4 @@ const SykmeldtVeiledningSvg = () => (
     </svg>
 );
 
-export default SykmeldtVeiledningSvg;
+export default VeiledningSvg;

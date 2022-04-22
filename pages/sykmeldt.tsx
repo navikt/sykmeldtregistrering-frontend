@@ -3,7 +3,7 @@ import NextLink from 'next/link';
 
 import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../hooks/useSprak';
-import SykmeldtVeiledningSvg from '../components/sykmeldtVeiledningSvg';
+import VeiledningSvg from '../components/veiledningSvg';
 import { SkjemaSide } from '../model/skjema';
 
 const TEKSTER: Tekster<string> = {
@@ -48,7 +48,7 @@ const SykmeldtStartside = () => {
                     </ul>
                 </Cell>
                 <Cell xs={12} md={6}>
-                    <SykmeldtVeiledningSvg />
+                    <VeiledningSvg />
                 </Cell>
                 <Cell xs={12}>
                     <Heading spacing size="medium">
