@@ -18,7 +18,7 @@ startUrl: https://www.nav.no/arbeid/registrering-ny/start
 startRegistreringUrl: http://pto-proxy.pto.svc.cluster.local/proxy/veilarbregistrering/api/startregistrering/
 fullforRegistreringUrl: http://pto-proxy.pto.svc.cluster.local/proxy/veilarbregistrering/api/startregistrering/
 fullforRegistreringSykmeldtUrl: http://pto-proxy.pto.svc.cluster.local/proxy/veilarbregistrering/api/startregistrersykmeldt/
-reaktiveringUrl: http://pto-proxy.pto.svc.cluster.local/proxy/veilarbregistrering/api/reaktivering/
+reaktiveringUrl: http://pto-proxy.pto.svc.cluster.local/proxy/veilarbregistrering/api/startreaktivering/
 sisteArbeidsforholdUrl: http://pto-proxy.pto.svc.cluster.local/proxy/veilarbregistrering/api/sistearbeidsforhold/
 opprettOppgaveUrl: http://pto-proxy.pto.svc.cluster.local/proxy/veilarbregistrering/api/oppgave/
 kontaktinformasjonUrl: http://pto-proxy.pto.svc.cluster.local/proxy/veilarbregistrering/api/person/kontaktinfo
