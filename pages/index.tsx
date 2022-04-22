@@ -9,7 +9,6 @@ import RettigheterPanel from '../components/forsiden/rettigheter';
 import PlikterPanel from '../components/forsiden/plikter';
 import RedirectTilVedlikehold from '../components/redirect-til-vedlikehold';
 import DemoPanel from '../components/forsiden/demo-panel';
-import styles from '../styles/app.module.css';
 
 const brukerMock = process.env.NEXT_PUBLIC_ENABLE_MOCK === 'enabled';
 
