@@ -1,4 +1,4 @@
-import { Accordion, BodyShort, Button, Heading, Panel } from '@navikt/ds-react';
+import { BodyShort, Button, Heading, Panel, ReadMore } from '@navikt/ds-react';
 import lagHentTekstForSprak, { Tekster } from '../../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../../hooks/useSprak';
 import { useEffect, useState } from 'react';
@@ -80,15 +80,9 @@ const SisteJobb = (props: SkjemaKomponentProps<SisteJobb> & { children?: JSX.Ele
                         )}
                     </>
                 )}
-
-                <div style={{ maxWidth: '34rem', margin: '2em 0' }}>
-                    <Accordion>
-                        <Accordion.Item>
-                            <Accordion.Header>{tekst('brukesTilTittel')}</Accordion.Header>
-                            <Accordion.Content>{tekst('brukesTilInnhold')}</Accordion.Content>
-                        </Accordion.Item>
-                    </Accordion>
-                </div>
+                <ReadMore header={tekst('brukesTilTittel')}>
+                    <div style={{ maxWidth: '34rem' }}>{tekst('brukesTilInnhold')}</div>
+                </ReadMore>
             </div>
         </Panel>
     );
