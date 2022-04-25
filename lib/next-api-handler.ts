@@ -46,18 +46,16 @@ const lagApiHandlerMedAuthHeaders: (url: string) => NextApiHandler = (url: strin
             }
 
             if (!apiResponse.ok) {
-                console.error(`apiResponse ikke ok callId: ${callId}`);
-                console.error(`apiResonse.type: ${apiResponse.type} callId: ${callId}`);
+                console.error(`apiResponse ikke ok callId - ${callId}`);
                 console.error(`contentType: ${contentType} callId - ${callId}`);
-                try {
-                    const json = await apiResponse.json();
-                    console.log(JSON.stringify(json));
-                } catch (error) {
-                    console.error(error);
+                if (contentType && contentType.includes('application/json')) {
+                    console.log(`contentType: ${contentType} callId - ${callId}`);
+                    return apiResponse.json();
+                } else {
+                    const error = new Error(apiResponse.statusText) as ApiError;
+                    error.status = apiResponse.status;
+                    throw error;
                 }
-                const error = new Error(apiResponse.statusText) as ApiError;
-                error.status = apiResponse.status;
-                throw error;
             }
 
             if (!contentType || !contentType.includes('application/json')) {
