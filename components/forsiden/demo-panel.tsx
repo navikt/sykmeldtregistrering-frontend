@@ -22,7 +22,7 @@ function DemoPanel({ brukerMock }: Props) {
                     </NextLink>
                 </p>
                 <p>
-                    <NextLink href={`/sykmeldt/${SkjemaSide.SykmeldtFremtidigSituasjon}`} passHref locale={false}>
+                    <NextLink href={`/sykmeldt/`} passHref locale={false}>
                         <Button variant="secondary">Sykmeldt registrering</Button>
                     </NextLink>
                 </p>
