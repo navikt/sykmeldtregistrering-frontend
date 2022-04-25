@@ -49,8 +49,7 @@ const lagApiHandlerMedAuthHeaders: (url: string, errorHandler?: (response: Respo
                 }
 
                 if (!apiResponse.ok) {
-                    console.error(`apiResponse ikke ok callId - ${callId}`);
-                    console.error(`contentType: ${contentType} callId - ${callId}`);
+                    console.error(`apiResponse ikke ok, contentType: ${contentType}, callId - ${callId}`);
                     if (typeof errorHandler === 'function') {
                         return errorHandler(apiResponse);
                     } else {
