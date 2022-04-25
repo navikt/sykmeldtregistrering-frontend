@@ -17,10 +17,6 @@ function skalVideresendesTilDittNAV(data: any) {
 
 function hentNesteSideUrl(data: any, dittNavUrl: string) {
     const { registreringType } = data;
-    loggAktivitet({
-        aktivitet: 'Start registrering',
-        registreringstype: registreringType,
-    });
 
     switch (registreringType) {
         case RegistreringType.ORDINAER_REGISTRERING: {
@@ -55,6 +51,11 @@ const Start = () => {
         if (!data || !dittNavUrl) {
             return;
         }
+
+        loggAktivitet({
+            aktivitet: 'Start registrering',
+            registreringstype: data.registreringType,
+        });
 
         router.push(hentNesteSideUrl(data, dittNavUrl));
     }, [data, router, dittNavUrl]);
