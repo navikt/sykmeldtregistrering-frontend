@@ -64,7 +64,7 @@ const SisteJobb = (props: SkjemaKomponentProps<SisteJobb> & { children?: JSX.Ele
                 {props.children}
 
                 {visSisteJobb && (
-                    <>
+                    <div className="mbs">
                         <Heading spacing size={'small'} level="2">
                             {tekst('stilling')}
                         </Heading>
@@ -73,13 +73,14 @@ const SisteJobb = (props: SkjemaKomponentProps<SisteJobb> & { children?: JSX.Ele
                         ) : (
                             <div>
                                 {props.valgt?.label}
-                                <Button variant="tertiary" onClick={() => settVisStillingsSok(true)}>
+                                <Button variant="tertiary" className="mls" onClick={() => settVisStillingsSok(true)}>
                                     Endre
                                 </Button>
                             </div>
                         )}
-                    </>
+                    </div>
                 )}
+
                 <ReadMore header={tekst('brukesTilTittel')}>
                     <div style={{ maxWidth: '34rem' }}>{tekst('brukesTilInnhold')}</div>
                 </ReadMore>

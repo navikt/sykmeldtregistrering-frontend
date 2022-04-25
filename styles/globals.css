@@ -36,6 +36,9 @@ a {
 .mrl {
   margin-right: 2rem;
 }
+.mls {
+  margin-left: 1rem;
+}
 
 .flex-center {
   display: flex;
