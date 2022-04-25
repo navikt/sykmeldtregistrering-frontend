@@ -2,7 +2,7 @@ import { GuidePanel, Heading, Ingress, Link, Table } from '@navikt/ds-react';
 import NextLink from 'next/link';
 import useSWR from 'swr';
 
-import { hentTekst, SporsmalId } from '../../../model/sporsmal';
+import { hentTekst, SisteStillingValg, SporsmalId } from '../../../model/sporsmal';
 import OppsummeringSvg from './oppsummering-svg';
 import lagHentTekstForSprak, { Tekster } from '../../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../../hooks/useSprak';
@@ -53,7 +53,15 @@ const Oppsummering = ({ skjemaState, skjemaPrefix }: OppsummeringProps) => {
                 <Table>
                     <Table.Body>
                         {Object.entries(skjemaState)
-                            .filter(([sporsmalId]) => ![SporsmalId.sisteStilling, 'startTid'].includes(sporsmalId))
+                            .filter(([sporsmalId]) => {
+                                const filtrerVekkSporsmalId = [SporsmalId.sisteStilling, 'startTid'];
+
+                                if (skjemaState[SporsmalId.sisteStilling] === SisteStillingValg.HAR_IKKE_HATT_JOBB) {
+                                    filtrerVekkSporsmalId.push(SporsmalId.sisteJobb);
+                                }
+
+                                return !filtrerVekkSporsmalId.includes(sporsmalId);
+                            })
                             .map(
                                 ([sporsmalId, svar]) =>
                                     svar && (
