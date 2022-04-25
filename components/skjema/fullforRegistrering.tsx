@@ -1,4 +1,4 @@
-import { Accordion, Alert, Button, ConfirmationPanel, ContentContainer, GuidePanel, Heading } from '@navikt/ds-react';
+import { Alert, Button, ConfirmationPanel, GuidePanel, Heading, ReadMore } from '@navikt/ds-react';
 import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../hooks/useSprak';
 import { useCallback, useState } from 'react';
@@ -125,40 +125,34 @@ const FullforRegistrering = (props: FullforProps) => {
                         <li>{tekst('brukeAktivitetsplan')}</li>
                     </ul>
                 </GuidePanel>
-                <Accordion className="mbm">
-                    <Accordion.Item>
-                        <Accordion.Header>{tekst('lesMer')}</Accordion.Header>
-                        <Accordion.Content>
-                            <ul>
-                                <li>
-                                    <Heading level={'3'} size={'xsmall'}>
-                                        {tekst('okonomi')}
-                                    </Heading>
-                                    {tekst('okonomiInfo')}
-                                </li>
-                                <li>
-                                    <Heading level={'3'} size={'xsmall'}>
-                                        {tekst('meldekort')}
-                                    </Heading>
-                                    {tekst('meldekortInfo')}
-                                </li>
-                                <li>
-                                    <Heading level={'3'} size={'xsmall'}>
-                                        {tekst('aktivitetsplan')}
-                                    </Heading>
-                                    {tekst('aktivitetsplanInfo')}
-                                </li>
-                                <li>
-                                    <Heading level={'3'} size={'xsmall'}>
-                                        {tekst('CV')}
-                                    </Heading>
-                                    {tekst('CVInfo')}
-                                </li>
-                            </ul>
-                        </Accordion.Content>
-                    </Accordion.Item>
-                </Accordion>
-
+                <ReadMore header={tekst('lesMer')} className="mbm">
+                    <ul>
+                        <li>
+                            <Heading level={'3'} size={'xsmall'}>
+                                {tekst('okonomi')}
+                            </Heading>
+                            {tekst('okonomiInfo')}
+                        </li>
+                        <li>
+                            <Heading level={'3'} size={'xsmall'}>
+                                {tekst('meldekort')}
+                            </Heading>
+                            {tekst('meldekortInfo')}
+                        </li>
+                        <li>
+                            <Heading level={'3'} size={'xsmall'}>
+                                {tekst('aktivitetsplan')}
+                            </Heading>
+                            {tekst('aktivitetsplanInfo')}
+                        </li>
+                        <li>
+                            <Heading level={'3'} size={'xsmall'}>
+                                {tekst('CV')}
+                            </Heading>
+                            {tekst('CVInfo')}
+                        </li>
+                    </ul>
+                </ReadMore>
                 <ConfirmationPanel
                     checked={lestKravChecked}
                     onChange={() => {
