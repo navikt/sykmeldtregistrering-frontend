@@ -46,9 +46,10 @@ const lagApiHandlerMedAuthHeaders: (url: string) => NextApiHandler = (url: strin
             }
 
             if (!apiResponse.ok) {
-                const e = new Error(apiResponse.statusText) as ApiError;
-                e.status = apiResponse.status;
-                throw e;
+                console.log(JSON.stringify(apiResponse, null, 2));
+                const error = new Error(apiResponse.statusText) as ApiError;
+                error.status = apiResponse.status;
+                throw error;
             }
 
             if (!contentType || !contentType.includes('application/json')) {
