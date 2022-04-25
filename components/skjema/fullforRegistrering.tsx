@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 
 import byggFullforRegistreringPayload from '../../lib/bygg-fullfor-registrering-payload';
 import { FeilmeldingGenerell } from '../feilmeldinger/feilmeldinger';
-import { FullforRegistreringResponse } from '../../model/registrering';
+import { FullforRegistreringResponse, RegistreringType } from '../../model/registrering';
 import hentKvitteringsUrl from '../../lib/hent-kvitterings-url';
 import { loggAktivitet } from '../../lib/amplitude-typescript';
 
@@ -93,6 +93,10 @@ const FullforRegistrering = (props: FullforProps) => {
             loggAktivitet({
                 aktivitet: 'Utfylling av skjema fullført',
                 tidBruktForAaFullforeSkjema: beregnTidBrukt(skjemaState),
+                registreringstype:
+                    props.side === 'sykmeldt'
+                        ? RegistreringType.SYKMELDT_REGISTRERING
+                        : RegistreringType.ORDINAER_REGISTRERING,
             });
 
             return router.push(hentKvitteringsUrl(response, props.side));
