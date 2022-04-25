@@ -28,7 +28,7 @@ const dekoratorProps: DecoratorProps = {
     // availableLanguages,
     level: 'Level4',
     enforceLogin: true,
-    redirectToUrl: process.env.NEXT_PUBLIC_START_URL,
+    redirectToUrl: process.env.NEXT_PUBLIC_SELF_URL,
 };
 
 function enforceLogin(ctx: DocumentContext) {
