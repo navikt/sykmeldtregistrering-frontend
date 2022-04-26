@@ -53,14 +53,14 @@ const SykmeldtStartside = (props: SykmeldtProps) => {
                     </Heading>
                 </Cell>
                 <Cell xs={12} md={6}>
-                    <ul>
+                    <ul style={{ margin: 0 }}>
                         <li>{tekst('faaVeiledning')}</li>
                         <li>{tekst('brukeAktivitetsplan')}</li>
                         <li>{tekst('kravPaaStotte')}</li>
                         <li>{tekst('dialogMedVeileder')}</li>
                     </ul>
                 </Cell>
-                <Cell xs={12} md={6}>
+                <Cell xs={12} md={6} className="show-md-up">
                     <VeiledningSvg />
                 </Cell>
                 <Cell xs={12}>

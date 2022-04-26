@@ -59,3 +59,13 @@ a {
 .knapp {
   min-width: 80px;
 }
+
+.show-md-up {
+  display: none;
+}
+
+@media screen and (min-width: 648px) {
+  .show-md-up {
+    display: initial;
+  }
+}
