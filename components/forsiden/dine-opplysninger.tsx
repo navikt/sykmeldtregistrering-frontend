@@ -48,7 +48,7 @@ const dineOpplysninger = () => {
             <BodyShort>{tekst('personopplysninger')}</BodyShort>
             <BodyShort className="mbm">
                 <NextLink href="https://www.nav.no/personvern" passHref locale={false}>
-                    <Link>{tekst('personopplysningerLenkeTekst')}</Link>
+                    <Link target="_blank">{tekst('personopplysningerLenkeTekst')}</Link>
                 </NextLink>
             </BodyShort>
             <BodyShort>{tekst('tips')}</BodyShort>
