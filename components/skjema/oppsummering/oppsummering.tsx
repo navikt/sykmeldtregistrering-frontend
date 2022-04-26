@@ -44,8 +44,10 @@ const Oppsummering = ({ skjemaState, skjemaPrefix }: OppsummeringProps) => {
 
     return (
         <>
-            <Heading size={'medium'}>{tekst('header')}</Heading>
-            <Ingress>{tekst('ingress')}</Ingress>
+            <Heading size={'medium'} level="1" spacing>
+                {tekst('header')}
+            </Heading>
+            <Ingress className="mbm">{tekst('ingress')}</Ingress>
             <GuidePanel poster illustration={<OppsummeringSvg />}>
                 {startRegistreringData && startRegistreringData.jobbetSeksAvTolvSisteManeder
                     ? tekst('harJobbetSisteAaret')
