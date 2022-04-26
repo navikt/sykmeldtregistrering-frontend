@@ -1,10 +1,14 @@
 import { BodyLong, Button, Cell, ContentContainer, Grid, GuidePanel, Heading, Label, Link } from '@navikt/ds-react';
 import NextLink from 'next/link';
-
 import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../hooks/useSprak';
 import VeiledningSvg from '../components/veiledningSvg';
 import { SkjemaSide } from '../model/skjema';
+import { Kontaktinformasjon } from '../model/kontaktinformasjon';
+import { getHeaders } from '../lib/next-api-handler';
+import { nanoid } from 'nanoid';
+import { NextPageContext } from 'next';
+import cookie from 'cookie';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -23,14 +27,23 @@ const TEKSTER: Tekster<string> = {
         fortsettRegistrering: 'Fortsett registrering',
     },
 };
-const SykmeldtStartside = () => {
+
+interface SykmeldtProps {
+    kontaktinformasjon?: Kontaktinformasjon;
+}
+
+const SykmeldtStartside = (props: SykmeldtProps) => {
+    const { kontaktinformasjon } = props;
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
     return (
         <ContentContainer>
             <Grid>
                 <Cell xs={12}>
                     <GuidePanel>
-                        <Label>{tekst('hei')}</Label>
+                        <Label>
+                            {tekst('hei')}
+                            {kontaktinformasjon?.navn.fornavn}
+                        </Label>
                         {tekst('sykmeldtInformasjon')}
                     </GuidePanel>
                 </Cell>
@@ -67,6 +80,26 @@ const SykmeldtStartside = () => {
             </Grid>
         </ContentContainer>
     );
+};
+
+export const getServerSideProps = async (context: NextPageContext) => {
+    const kontaktinformasjonUrl = `${process.env.KONTAKTINFORMASJON_URL}`;
+
+    try {
+        const cookies = cookie.parse(context.req?.headers.cookie || '');
+        const idToken = cookies['selvbetjening-idtoken'];
+        const response = await fetch(kontaktinformasjonUrl, { headers: getHeaders(idToken, nanoid()) });
+        const kontaktinformasjon = await response.json();
+        return {
+            props: {
+                kontaktinformasjon,
+            },
+        };
+    } catch (e) {
+        return {
+            props: {},
+        };
+    }
 };
 
 export default SykmeldtStartside;
