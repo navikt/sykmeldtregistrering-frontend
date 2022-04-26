@@ -115,7 +115,7 @@ const FullforRegistrering = (props: FullforProps) => {
     return (
         <>
             <div style={{ width: '100%' }}>
-                <Heading size={'large'} className="text-center mbm">
+                <Heading size={'large'} level={'1'} className="text-center mbm">
                     {tekst('tittel')}
                 </Heading>
                 <GuidePanel poster className="mbm">
@@ -129,21 +129,21 @@ const FullforRegistrering = (props: FullforProps) => {
                         <li>{tekst('brukeAktivitetsplan')}</li>
                     </ul>
                 </GuidePanel>
-                <ReadMore header={tekst('lesMer')} className="mbm">
+                <ReadMore header={tekst('lesMer')}>
                     <ul>
-                        <li>
+                        <li className="mbs">
                             <Heading level={'3'} size={'xsmall'}>
                                 {tekst('okonomi')}
                             </Heading>
                             {tekst('okonomiInfo')}
                         </li>
-                        <li>
+                        <li className="mbs">
                             <Heading level={'3'} size={'xsmall'}>
                                 {tekst('meldekort')}
                             </Heading>
                             {tekst('meldekortInfo')}
                         </li>
-                        <li>
+                        <li className="mbs">
                             <Heading level={'3'} size={'xsmall'}>
                                 {tekst('aktivitetsplan')}
                             </Heading>
@@ -164,7 +164,7 @@ const FullforRegistrering = (props: FullforProps) => {
                         setLestKravChecked(!lestKravChecked);
                     }}
                     label={tekst('lestOgForstaatt')}
-                    className="mbm"
+                    className="mhl"
                 />
 
                 {visFeilmelding && (
