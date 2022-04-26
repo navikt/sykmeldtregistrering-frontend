@@ -68,7 +68,7 @@ export const KvitteringOppgaveIkkeOpprettet = (props: { feil: Opprettelsesfeil }
 
 const Kvittering = (alertProps: AlertProps, infotekst: string, visKontaktinfo: boolean = true, tittel?: string) => {
     const [kontaktinfo, settKontaktinfo] = useState<Kontaktinfo | undefined>(undefined);
-    const { data, error } = useSWR('/api/kontaktinformasjon', fetcher);
+    const { data, error } = useSWR('api/kontaktinformasjon/', fetcher);
 
     useEffect(() => {
         if (data) {
