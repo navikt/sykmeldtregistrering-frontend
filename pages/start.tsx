@@ -60,7 +60,7 @@ const Start = () => {
             });
             setLoggetStart(true);
         }
-    }, [data, loggetStart]);
+    }, [data, dittNavUrl, loggetStart]);
 
     useEffect(() => {
         if (!data || !dittNavUrl) {
