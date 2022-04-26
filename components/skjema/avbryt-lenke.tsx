@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import skjemaStyles from '../../styles/skjema.module.css';
 import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../hooks/useSprak';
-import { loggAktivitet } from '../../lib/amplitude-typescript';
+import { loggAktivitet } from '../../lib/amplitude';
 
 const TEKSTER: Tekster<string> = {
     nb: {
