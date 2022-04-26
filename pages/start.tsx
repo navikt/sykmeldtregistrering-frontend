@@ -1,8 +1,8 @@
+import { useEffect, useState } from 'react';
 import { Loader } from '@navikt/ds-react';
 import useSWR from 'swr';
-
-import { useEffect } from 'react';
 import { useRouter } from 'next/router';
+
 import { SkjemaSide } from '../model/skjema';
 import { Formidlingsgruppe, RegistreringType } from '../model/registrering';
 import { fetcher } from '../lib/api-utils';
@@ -45,6 +45,7 @@ function hentNesteSideUrl(data: any, dittNavUrl: string) {
 const Start = () => {
     const { dittNavUrl } = useConfig() as Config;
     const { data, error } = useSWR('api/startregistrering/', fetcher);
+    const [loggetStart, setLoggetStart] = useState(false);
     const router = useRouter();
 
     useEffect(() => {
@@ -52,10 +53,19 @@ const Start = () => {
             return;
         }
 
-        loggAktivitet({
-            aktivitet: 'Start registrering',
-            registreringstype: data.registreringType,
-        });
+        if (!loggetStart) {
+            loggAktivitet({
+                aktivitet: 'Start registrering',
+                registreringstype: data.registreringType,
+            });
+            setLoggetStart(true);
+        }
+    }, [data, loggetStart]);
+
+    useEffect(() => {
+        if (!data || !dittNavUrl) {
+            return;
+        }
 
         router.push(hentNesteSideUrl(data, dittNavUrl));
     }, [data, router, dittNavUrl]);
