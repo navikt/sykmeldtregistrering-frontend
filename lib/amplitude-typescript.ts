@@ -4,6 +4,7 @@ import { loggAktivitet as loggAktivitetJs } from './amplitude';
 type AktivitetData =
     | { aktivitet: KvitteringAktivitet; registreringstype: RegistreringType }
     | { aktivitet: 'Utfylling av skjema fullført'; tidBruktForAaFullforeSkjema?: number }
+    | { aktivitet: 'Avbryter registreringen'; registreringstype?: any }
     | { aktivitet: 'Start registrering'; registreringstype?: any };
 
 type KvitteringAktivitet =

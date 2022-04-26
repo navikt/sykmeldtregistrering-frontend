@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import skjemaStyles from '../../styles/skjema.module.css';
 import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../hooks/useSprak';
+import { loggAktivitet } from '../../lib/amplitude-typescript';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -29,6 +30,7 @@ const Avbryt = () => {
     const Router = useRouter();
 
     const avbrytRegistrering = () => {
+        loggAktivitet({ aktivitet: 'Avbryter registreringen' });
         setOpen(false);
         Router.push('/');
     };
