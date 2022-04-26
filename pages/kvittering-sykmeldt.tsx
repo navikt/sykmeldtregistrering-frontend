@@ -3,7 +3,7 @@ import { BodyShort, GuidePanel, Heading, Link } from '@navikt/ds-react';
 
 import useSprak from '../hooks/useSprak';
 import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
-import { loggAktivitet } from '../lib/amplitude-typescript';
+import { loggAktivitet } from '../lib/amplitude';
 import { useConfig } from '../contexts/config-context';
 import { RegistreringType } from '../model/registrering';
 import { Config } from '../model/config';

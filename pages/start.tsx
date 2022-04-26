@@ -8,7 +8,7 @@ import { Formidlingsgruppe, RegistreringType } from '../model/registrering';
 import { fetcher } from '../lib/api-utils';
 import { useConfig } from '../contexts/config-context';
 import { Config } from '../model/config';
-import { loggAktivitet } from '../lib/amplitude-typescript';
+import { loggAktivitet } from '../lib/amplitude';
 
 function skalVideresendesTilDittNAV(data: any) {
     const { formidlingsgruppe, underOppfolging } = data;

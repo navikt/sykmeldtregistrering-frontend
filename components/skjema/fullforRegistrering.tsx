@@ -10,7 +10,7 @@ import byggFullforRegistreringPayload from '../../lib/bygg-fullfor-registrering-
 import { FeilmeldingGenerell } from '../feilmeldinger/feilmeldinger';
 import { FullforRegistreringResponse, RegistreringType } from '../../model/registrering';
 import hentKvitteringsUrl from '../../lib/hent-kvitterings-url';
-import { loggAktivitet } from '../../lib/amplitude-typescript';
+import { loggAktivitet } from '../../lib/amplitude';
 
 const TEKSTER: Tekster<string> = {
     nb: {
