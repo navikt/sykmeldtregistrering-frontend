@@ -49,11 +49,13 @@ const Oppsummering = ({ skjemaState, skjemaPrefix }: OppsummeringProps) => {
             </Heading>
             <Ingress className="mbm">{tekst('ingress')}</Ingress>
             <GuidePanel poster illustration={<OppsummeringSvg />}>
-                <p>
-                    {startRegistreringData && startRegistreringData.jobbetSeksAvTolvSisteManeder
-                        ? tekst('harJobbetSisteAaret')
-                        : tekst('ikkeIJobbSisteAaret')}
-                </p>
+                {skjemaPrefix === '/skjema/' && (
+                    <p>
+                        {startRegistreringData && startRegistreringData.jobbetSeksAvTolvSisteManeder
+                            ? tekst('harJobbetSisteAaret')
+                            : tekst('ikkeIJobbSisteAaret')}
+                    </p>
+                )}
                 <Table>
                     <Table.Body>
                         {Object.entries(skjemaState)
