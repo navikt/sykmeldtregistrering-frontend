@@ -8,7 +8,7 @@ type uninitializedConfig = {};
 const ConfigContext = createContext<Config | uninitializedConfig>({});
 
 function ConfigProvider({ children }: { children: ReactNode }) {
-    const { data } = useSWR('/api/config/', fetcher);
+    const { data } = useSWR('api/config/', fetcher);
     return <ConfigContext.Provider value={data ?? {}}>{children}</ConfigContext.Provider>;
 }
 
