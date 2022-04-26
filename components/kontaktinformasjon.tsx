@@ -2,8 +2,7 @@ import { Alert, Cell, Detail, Heading, HelpText, Label, Link, Panel } from '@nav
 import useSprak from '../hooks/useSprak';
 import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
 import { ExternalLink } from '@navikt/ds-icons';
-
-export type Kontaktinfo = { telefonnummerNAV?: string; telefonnummerKRR?: string };
+import { Kontaktinformasjon as K } from '../model/kontaktinformasjon';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -26,9 +25,13 @@ const TEKSTER: Tekster<string> = {
     },
 };
 
-export const Kontaktinformasjon = (props: { kontaktinfo: Kontaktinfo }) => {
-    const { telefonnummerKRR, telefonnummerNAV } = props.kontaktinfo;
-    const manglerKontaktinfo = telefonnummerKRR === undefined && telefonnummerNAV === undefined;
+interface Props {
+    kontaktinfo: K;
+}
+
+export const Kontaktinformasjon = (props: Props) => {
+    const { telefonnummerHosKrr, telefonnummerHosNav } = props.kontaktinfo;
+    const manglerKontaktinfo = telefonnummerHosKrr === undefined && telefonnummerHosNav === undefined;
     const sprak = useSprak();
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
 
@@ -49,14 +52,14 @@ export const Kontaktinformasjon = (props: { kontaktinfo: Kontaktinfo }) => {
     } else {
         return (
             <>
-                {telefonnummerKRR && (
+                {telefonnummerHosKrr && (
                     <Cell xs={12}>
-                        <Telefonnummer kilde="KRR" telefonnummer={telefonnummerKRR!} />
+                        <Telefonnummer kilde="KRR" telefonnummer={telefonnummerHosKrr} />
                     </Cell>
                 )}
-                {telefonnummerNAV && (
+                {telefonnummerHosNav && (
                     <Cell xs={12}>
-                        <Telefonnummer kilde="NAV" telefonnummer={telefonnummerNAV!} />
+                        <Telefonnummer kilde="NAV" telefonnummer={telefonnummerHosNav} />
                     </Cell>
                 )}
                 <EndreOpplysninger />

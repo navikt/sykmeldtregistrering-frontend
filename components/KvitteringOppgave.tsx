@@ -3,10 +3,10 @@ import useSprak from '../hooks/useSprak';
 import { formaterDato } from '../lib/date-utils';
 import virkedager from '@alheimsins/virkedager';
 import { Alert, AlertProps, Cell, ContentContainer, Grid, GuidePanel, Heading } from '@navikt/ds-react';
-import { useEffect, useState } from 'react';
-import { Kontaktinfo, Kontaktinformasjon } from './kontaktinformasjon';
+import { Kontaktinformasjon } from './kontaktinformasjon';
 import useSWR from 'swr';
 import { fetcher } from '../lib/api-utils';
+import { Kontaktinformasjon as KontaktInfo } from '../model/kontaktinformasjon';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -67,26 +67,7 @@ export const KvitteringOppgaveIkkeOpprettet = (props: { feil: Opprettelsesfeil }
 };
 
 const Kvittering = (alertProps: AlertProps, infotekst: string, visKontaktinfo: boolean = true, tittel?: string) => {
-    const [kontaktinfo, settKontaktinfo] = useState<Kontaktinfo | undefined>(undefined);
-    const { data, error } = useSWR('api/kontaktinformasjon/', fetcher);
-
-    useEffect(() => {
-        if (data) {
-            settKontaktinfo({
-                telefonnummerNAV: data.telefonnummerHosNav,
-                telefonnummerKRR: data.telefonnummerHosKrr,
-            });
-        }
-    }, [data]);
-
-    useEffect(() => {
-        if (error) {
-            settKontaktinfo({
-                telefonnummerNAV: undefined,
-                telefonnummerKRR: undefined,
-            });
-        }
-    }, [error]);
+    const { data } = useSWR<KontaktInfo>('api/kontaktinformasjon/', fetcher);
 
     return (
         <ContentContainer>
@@ -103,7 +84,7 @@ const Kvittering = (alertProps: AlertProps, infotekst: string, visKontaktinfo: b
                         )}
                         {infotekst}
                     </Cell>
-                    {visKontaktinfo && kontaktinfo && <Kontaktinformasjon kontaktinfo={kontaktinfo} />}
+                    {visKontaktinfo && data && <Kontaktinformasjon kontaktinfo={data} />}
                 </Grid>
             </GuidePanel>
         </ContentContainer>

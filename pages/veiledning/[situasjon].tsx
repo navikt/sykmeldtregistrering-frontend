@@ -4,12 +4,13 @@ import { BodyShort, Button, Heading, GuidePanel } from '@navikt/ds-react';
 import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../hooks/useSprak';
 import { loggStoppsituasjon } from '../../lib/amplitude';
-import { fetcher as api } from '../../lib/api-utils';
+import { fetcher, fetcher as api } from '../../lib/api-utils';
 import {
     KvitteringOppgaveIkkeOpprettet,
     KvitteringOppgaveOpprettet,
     Opprettelsesfeil,
 } from '../../components/KvitteringOppgave';
+import useSWR from 'swr';
 
 export type Situasjon = 'utvandret' | 'mangler-arbeidstillatelse';
 
@@ -57,6 +58,9 @@ const KontaktVeileder = (props: { situasjon: Situasjon }) => {
             situasjon: 'Arbeidssøkeren mangler arbeidstillatelse eller er utvandret',
         });
     }, []);
+
+    // initialiser for <Kvittering>
+    useSWR('api/kontaktinformasjon/', fetcher);
 
     if (responseMottatt) {
         return feil ? <KvitteringOppgaveIkkeOpprettet feil={feil} /> : <KvitteringOppgaveOpprettet />;
