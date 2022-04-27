@@ -26,6 +26,7 @@ type AktivitetData =
     | { aktivitet: KvitteringAktivitet; registreringstype: RegistreringType }
     | { aktivitet: 'Utfylling av skjema fullført'; tidBruktForAaFullforeSkjema?: number }
     | { aktivitet: 'Start registrering'; registreringstype?: any }
+    | { aktivitet: 'Går til start registrering'; registreringstype?: any }
     | { aktivitet: 'Avbryter registreringen'; registreringstype?: any };
 
 type KvitteringAktivitet =

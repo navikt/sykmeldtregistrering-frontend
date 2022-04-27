@@ -11,6 +11,7 @@ import RedirectTilVedlikehold from '../components/redirect-til-vedlikehold';
 import DemoPanel from '../components/forsiden/demo-panel';
 import { useConfig } from '../contexts/config-context';
 import { Config } from '../model/config';
+import { loggAktivitet } from '../lib/amplitude';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -27,6 +28,10 @@ const Home: NextPage = () => {
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
     const { enableMock } = useConfig() as Config;
     const brukerMock = enableMock === 'enabled';
+
+    const logStartHandler = () => {
+        loggAktivitet({ aktivitet: 'Går til start registrering' });
+    };
 
     return (
         <>
@@ -47,7 +52,7 @@ const Home: NextPage = () => {
                     </Cell>
                     <Cell xs={12} className={'text-center phs'}>
                         <NextLink href="/start" passHref locale={false}>
-                            <Button>{tekst('startRegistrering')}</Button>
+                            <Button onClick={() => logStartHandler()}>{tekst('startRegistrering')}</Button>
                         </NextLink>
                     </Cell>
                 </Grid>
