@@ -35,16 +35,16 @@ const Kvittering = () => {
 
     return (
         <>
-            <Heading spacing size={'medium'}>
+            <Heading size={'large'} className={'mbl'}>
                 {tekst('header')}
             </Heading>
             <GuidePanel poster>
-                <Heading level={'2'} spacing size={'medium'}>
+                <Heading level={'2'} size={'medium'} className={'mbm'}>
                     {tekst('dagpengerTittel')}
                 </Heading>
-                <BodyShort>{tekst('permittert')}</BodyShort>
-                <BodyShort>{tekst('tidligstFaaDagpenger')}</BodyShort>
-                <BodyShort>{tekst('sendeSoknaden')}</BodyShort>
+                <BodyShort spacing>{tekst('permittert')}</BodyShort>
+                <BodyShort spacing>{tekst('tidligstFaaDagpenger')}</BodyShort>
+                <BodyShort spacing>{tekst('sendeSoknaden')}</BodyShort>
             </GuidePanel>
 
             <section className="flex-center mhl">
