@@ -6,7 +6,7 @@ import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../hooks/useSprak';
 import { fetcher as api } from '../lib/api-utils';
 import { useErrorContext } from '../contexts/error-context';
-import { loggStoppsituasjon } from '../lib/amplitude';
+import { loggStoppsituasjon, loggAktivitet } from '../lib/amplitude';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -25,7 +25,12 @@ const Reaktivering = () => {
     const router = useRouter();
     const { medFeilHandtering } = useErrorContext();
 
+    const loggAvbrytReaktivering = () => {
+        loggAktivitet({ aktivitet: 'Arbeidssøkeren avslår reaktivering' });
+    };
+
     const reaktiverBruker = async () => {
+        loggAktivitet({ aktivitet: 'Arbeidssøkeren reaktiverer seg' });
         medFeilHandtering(async () => {
             await api('/api/reaktivering/', { method: 'post', body: JSON.stringify({}) });
             return router.push('/kvittering-reaktivering/');
@@ -54,7 +59,9 @@ const Reaktivering = () => {
                 <Button variant={'primary'} className="mrl" onClick={reaktiverBruker}>
                     {tekst('ja')}
                 </Button>
-                <Button variant={'tertiary'}>{tekst('avbryt')}</Button>
+                <Button variant={'tertiary'} onClick={() => loggAvbrytReaktivering()}>
+                    {tekst('avbryt')}
+                </Button>
             </section>
         </ContentContainer>
     );
