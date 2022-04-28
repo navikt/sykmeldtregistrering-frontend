@@ -29,7 +29,8 @@ type AktivitetData =
     | { aktivitet: 'Går til start registrering'; registreringstype?: any }
     | { aktivitet: 'Avbryter registreringen'; registreringstype?: any }
     | { aktivitet: 'Arbeidssøkeren reaktiverer seg'; registreringstype?: any }
-    | { aktivitet: 'Arbeidssøkeren avslår reaktivering'; registreringstype?: any };
+    | { aktivitet: 'Arbeidssøkeren avslår reaktivering'; registreringstype?: any }
+    | { aktivitet: 'Fortsetter til sykmeldtregistrering'; registreringstype?: any };
 
 type KvitteringAktivitet =
     | 'Viser kvittering'

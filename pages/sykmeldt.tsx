@@ -1,14 +1,16 @@
 import { BodyLong, Button, Cell, ContentContainer, Grid, GuidePanel, Heading, Label, Link } from '@navikt/ds-react';
 import NextLink from 'next/link';
+import { nanoid } from 'nanoid';
+import { NextPageContext } from 'next';
+import cookie from 'cookie';
+
 import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../hooks/useSprak';
 import VeiledningSvg from '../components/veiledningSvg';
 import { SkjemaSide } from '../model/skjema';
 import { Kontaktinformasjon } from '../model/kontaktinformasjon';
 import { getHeaders } from '../lib/next-api-handler';
-import { nanoid } from 'nanoid';
-import { NextPageContext } from 'next';
-import cookie from 'cookie';
+import { loggAktivitet } from '../lib/amplitude';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -35,6 +37,11 @@ interface SykmeldtProps {
 const SykmeldtStartside = (props: SykmeldtProps) => {
     const { kontaktinformasjon } = props;
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
+
+    const loggFortsetter = () => {
+        loggAktivitet({ aktivitet: 'Fortsetter til sykmeldtregistrering' });
+    };
+
     return (
         <ContentContainer>
             <Grid>
@@ -74,7 +81,7 @@ const SykmeldtStartside = (props: SykmeldtProps) => {
                         </Link>
                     </BodyLong>
                     <NextLink href={`/sykmeldt/${SkjemaSide.SykmeldtFremtidigSituasjon}`} passHref locale={false}>
-                        <Button>{tekst('fortsettRegistrering')}</Button>
+                        <Button onClick={() => loggFortsetter()}>{tekst('fortsettRegistrering')}</Button>
                     </NextLink>
                 </Cell>
             </Grid>
