@@ -152,7 +152,13 @@ describe('Standard registrering tilstandsmaskin', () => {
             });
             expect(forrige).toBe(SkjemaSide.BestaattUtdanning);
         });
-
+        it('returnerer SisteJobb som forrige når DinSituasjon er VIL_FORTSETTE_I_JOBB', () => {
+            const { forrige } = beregnNavigering(SkjemaSide.Helseproblemer, {
+                dinSituasjon: DinSituasjon.VIL_FORTSETTE_I_JOBB,
+                utdanning: Utdanningsnivaa.INGEN_UTDANNING,
+            });
+            expect(forrige).toBe(SkjemaSide.SisteJobb);
+        });
         it('returnerer 5/9 i fremdrift', () => {
             const { fremdrift } = beregnNavigering(SkjemaSide.Helseproblemer, {});
             expect(fremdrift).toBe(5 / 9);

@@ -59,12 +59,17 @@ const TILSTANDER: NavigeringsTilstandsMaskin<StandardSkjemaSide> = {
         };
     },
     [SkjemaSide.Helseproblemer]: (skjemaState: SkjemaState) => {
+        const forrige = () => {
+            if (skjemaState.dinSituasjon === DinSituasjon.VIL_FORTSETTE_I_JOBB) {
+                return SkjemaSide.SisteJobb;
+            }
+            return skjemaState.utdanning === Utdanningsnivaa.INGEN_UTDANNING
+                ? SkjemaSide.Utdanning
+                : SkjemaSide.BestaattUtdanning;
+        };
         return {
             neste: SkjemaSide.AndreProblemer,
-            forrige:
-                skjemaState.utdanning === Utdanningsnivaa.INGEN_UTDANNING
-                    ? SkjemaSide.Utdanning
-                    : SkjemaSide.BestaattUtdanning,
+            forrige: forrige(),
             fremdrift: 5 / 9,
         };
     },
