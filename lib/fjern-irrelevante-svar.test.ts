@@ -27,7 +27,7 @@ describe('Oppdatering av skjemastate', () => {
 
         expect(oppdatertState.sisteJobb).toEqual(sisteStilling);
     });
-    test('Setter alle utdanningsspm til INGEN_SVAR hvis man endrer dinSituasjon til VIL_FORTSETTE_I_JOBB', () => {
+    test('Setter alle utdanningsspm til undefined hvis man endrer dinSituasjon til VIL_FORTSETTE_I_JOBB', () => {
         const state: SkjemaState = {
             dinSituasjon: DinSituasjon.MISTET_JOBBEN,
             sisteJobb: sisteStilling,
@@ -37,9 +37,9 @@ describe('Oppdatering av skjemastate', () => {
         };
         const oppdatertState = oppdaterDinSituasjon(state, DinSituasjon.VIL_FORTSETTE_I_JOBB);
 
-        expect(oppdatertState.utdanning).toEqual(JaEllerNei.INGEN_SVAR);
-        expect(oppdatertState.utdanningBestatt).toEqual(JaEllerNei.INGEN_SVAR);
-        expect(oppdatertState.utdanningGodkjent).toEqual(UtdanningGodkjentValg.INGEN_SVAR);
+        expect(oppdatertState.utdanning).toBeUndefined();
+        expect(oppdatertState.utdanningBestatt).toBeUndefined();
+        expect(oppdatertState.utdanningGodkjent).toBeUndefined();
     });
     test('setter godkjentUtdanning og bestaattUtdanning til undefined hvis man endrer utdanning til INGEN', () => {
         const state: SkjemaState = {

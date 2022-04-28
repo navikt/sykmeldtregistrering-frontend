@@ -94,9 +94,9 @@ export const oppdaterDinSituasjon = (skjemaState: SkjemaState, dinSituasjon: Din
         return {
             ...skjemaState,
             dinSituasjon: dinSituasjon,
-            utdanning: Utdanningsnivaa.INGEN_SVAR,
-            utdanningBestatt: JaEllerNei.INGEN_SVAR,
-            utdanningGodkjent: UtdanningGodkjentValg.INGEN_SVAR,
+            utdanning: undefined,
+            utdanningBestatt: undefined,
+            utdanningGodkjent: undefined,
         };
     }
     return {
