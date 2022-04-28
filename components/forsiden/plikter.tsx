@@ -1,7 +1,7 @@
 import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../hooks/useSprak';
-import { BodyShort, GuidePanel, Heading } from '@navikt/ds-react';
-import styles from './guidepanel.module.css';
+import { GuidePanel, Heading } from '@navikt/ds-react';
+import styles from '../../styles/guidepanel.module.css';
 import PlikterSvg from './plikter-svg';
 
 const TEKSTER: Tekster<string> = {
