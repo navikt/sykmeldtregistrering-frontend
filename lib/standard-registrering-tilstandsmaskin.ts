@@ -17,7 +17,14 @@ const TILSTANDER: NavigeringsTilstandsMaskin<StandardSkjemaSide> = {
             fremdrift: 0,
         };
     },
-    [SkjemaSide.SisteJobb]: () => {
+    [SkjemaSide.SisteJobb]: (skjemaState: SkjemaState) => {
+        if (skjemaState.dinSituasjon === DinSituasjon.VIL_FORTSETTE_I_JOBB) {
+            return {
+                neste: SkjemaSide.Helseproblemer,
+                forrige: SkjemaSide.DinSituasjon,
+                fremdrift: 1 / 9,
+            };
+        }
         return {
             neste: SkjemaSide.Utdanning,
             forrige: SkjemaSide.DinSituasjon,
