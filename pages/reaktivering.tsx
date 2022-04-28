@@ -7,6 +7,7 @@ import useSprak from '../hooks/useSprak';
 import { fetcher as api } from '../lib/api-utils';
 import { useErrorContext } from '../contexts/error-context';
 import { loggStoppsituasjon, loggAktivitet } from '../lib/amplitude';
+import skjemaStyles from '../styles/skjema.module.css';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -27,6 +28,7 @@ const Reaktivering = () => {
 
     const loggAvbrytReaktivering = () => {
         loggAktivitet({ aktivitet: 'Arbeidssøkeren avslår reaktivering' });
+        return router.push('/');
     };
 
     const reaktiverBruker = async () => {
@@ -56,10 +58,10 @@ const Reaktivering = () => {
                 <BodyShort spacing>{tekst('vilDuRegistreres')}</BodyShort>
             </GuidePanel>
             <section className="flex-center mhl">
-                <Button variant={'primary'} className="mrl" onClick={reaktiverBruker}>
+                <Button variant={'primary'} className="mrl skjemaStyles.w10" onClick={reaktiverBruker}>
                     {tekst('ja')}
                 </Button>
-                <Button variant={'tertiary'} onClick={() => loggAvbrytReaktivering()}>
+                <Button variant={'tertiary'} className="skjemaStyles.w10" onClick={() => loggAvbrytReaktivering()}>
                     {tekst('avbryt')}
                 </Button>
             </section>
