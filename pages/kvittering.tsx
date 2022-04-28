@@ -10,7 +10,7 @@ import { Config } from '../model/config';
 const TEKSTER: Tekster<string> = {
     nb: {
         header: 'Du er nå registrert som arbeidssøker',
-        dagpengerTittel: 'Du er nå registrert som arbeidssøker',
+        dagpengerTittel: 'Har du søkt om dagpenger?',
         permittert: 'Er du permittert eller arbeidsledig må du søke om dagpenger i egen søknad.',
         tidligstFaaDagpenger: 'Du kan tidligst få dagpenger fra den dagen du sender søknaden.',
         sendeSoknaden:
