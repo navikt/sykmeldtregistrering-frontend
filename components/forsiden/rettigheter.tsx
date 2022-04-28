@@ -2,6 +2,7 @@ import { BodyShort, GuidePanel, Heading, Link } from '@navikt/ds-react';
 import styles from './guidepanel.module.css';
 import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../hooks/useSprak';
+import RettigheterSvg from './rettigheter-svg';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -17,7 +18,7 @@ const RettigheterPanel = () => {
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
 
     return (
-        <GuidePanel className={styles.rettigheter} poster>
+        <GuidePanel className={styles.rettigheter} poster illustration={<RettigheterSvg />}>
             <Heading size={'small'} level={'2'}>
                 {tekst('tittel')}
             </Heading>

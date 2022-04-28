@@ -2,6 +2,7 @@ import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-spra
 import useSprak from '../../hooks/useSprak';
 import { BodyShort, GuidePanel, Heading } from '@navikt/ds-react';
 import styles from './guidepanel.module.css';
+import PlikterSvg from './plikter-svg';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -14,7 +15,7 @@ const TEKSTER: Tekster<string> = {
 const PlikterPanel = () => {
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
     return (
-        <GuidePanel className={styles.plikter} poster>
+        <GuidePanel className={styles.plikter} poster illustration={<PlikterSvg />}>
             <Heading size={'small'} level={'2'}>
                 {tekst('tittel')}
             </Heading>
