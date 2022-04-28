@@ -37,6 +37,13 @@ describe('Standard registrering tilstandsmaskin', () => {
             });
             expect(state.neste).toBe(SkjemaSide.Utdanning);
         });
+        it('returnerer Helseproblemer som neste side hvis man velger VIL_FORTSETTE_I_JOBB', () => {
+            const state = beregnNavigering(SkjemaSide.SisteJobb, {
+                dinSituasjon: DinSituasjon.VIL_FORTSETTE_I_JOBB,
+                sisteJobb: sisteStilling,
+            });
+            expect(state.neste).toBe(SkjemaSide.Helseproblemer);
+        });
         it('returnerer Din situasjon som forrige side', () => {
             const state = beregnNavigering(SkjemaSide.SisteJobb, {
                 dinSituasjon: DinSituasjon.ALDRI_HATT_JOBB,

@@ -1,6 +1,6 @@
 import { SkjemaState } from '../model/skjema';
 import { oppdaterDinSituasjon, oppdaterUtdanning } from './skjema-state';
-import { DinSituasjon, UtdanningGodkjentValg, JaEllerNei, Utdanningsnivaa } from '../model/sporsmal';
+import { DinSituasjon, JaEllerNei, UtdanningGodkjentValg, Utdanningsnivaa } from '../model/sporsmal';
 
 const sisteStilling = {
     label: 'Klovn kommunal sektor',
@@ -26,6 +26,20 @@ describe('Oppdatering av skjemastate', () => {
         const oppdatertState = oppdaterDinSituasjon(state, DinSituasjon.DELTIDSJOBB_VIL_MER);
 
         expect(oppdatertState.sisteJobb).toEqual(sisteStilling);
+    });
+    test('Setter alle utdanningsspm til INGEN_SVAR hvis man endrer dinSituasjon til VIL_FORTSETTE_I_JOBB', () => {
+        const state: SkjemaState = {
+            dinSituasjon: DinSituasjon.MISTET_JOBBEN,
+            sisteJobb: sisteStilling,
+            utdanning: Utdanningsnivaa.HOYERE_UTDANNING_1_TIL_4,
+            utdanningBestatt: JaEllerNei.JA,
+            utdanningGodkjent: UtdanningGodkjentValg.JA,
+        };
+        const oppdatertState = oppdaterDinSituasjon(state, DinSituasjon.VIL_FORTSETTE_I_JOBB);
+
+        expect(oppdatertState.utdanning).toEqual(JaEllerNei.INGEN_SVAR);
+        expect(oppdatertState.utdanningBestatt).toEqual(JaEllerNei.INGEN_SVAR);
+        expect(oppdatertState.utdanningGodkjent).toEqual(UtdanningGodkjentValg.INGEN_SVAR);
     });
     test('setter godkjentUtdanning og bestaattUtdanning til undefined hvis man endrer utdanning til INGEN', () => {
         const state: SkjemaState = {
