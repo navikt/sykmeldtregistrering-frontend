@@ -11,6 +11,8 @@ import { FeilmeldingGenerell } from '../feilmeldinger/feilmeldinger';
 import { FullforRegistreringResponse, RegistreringType } from '../../model/registrering';
 import hentKvitteringsUrl from '../../lib/hent-kvitterings-url';
 import { loggAktivitet } from '../../lib/amplitude';
+import guidePanelStyles from '../../styles/guidepanel.module.css';
+import PlikterSvg from '../forsiden/plikter-svg';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -118,7 +120,7 @@ const FullforRegistrering = (props: FullforProps) => {
                 <Heading size={'large'} level={'1'} className="text-center mbm">
                     {tekst('tittel')}
                 </Heading>
-                <GuidePanel poster className="mbm">
+                <GuidePanel className={`${guidePanelStyles.plikter} mbm`} poster illustration={<PlikterSvg />}>
                     <Heading level={'2'} size={'xsmall'}>
                         {tekst('naarDuFullforer')}
                     </Heading>
