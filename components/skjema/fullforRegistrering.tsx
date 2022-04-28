@@ -177,9 +177,11 @@ const FullforRegistrering = (props: FullforProps) => {
                         <Alert variant={'warning'}>{tekst('lestKravFeilmelding')}</Alert>
                     </div>
                 )}
-                <Button onClick={validerOgFullfor} loading={senderSkjema}>
-                    {tekst('fullfor')}
-                </Button>
+                <div style={{ textAlign: 'center' }}>
+                    <Button onClick={validerOgFullfor} loading={senderSkjema}>
+                        {tekst('fullfor')}
+                    </Button>
+                </div>
             </div>
         </>
     );
