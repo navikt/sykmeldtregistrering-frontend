@@ -10,6 +10,8 @@ import Avbryt from './skjema/avbryt-lenke';
 import { SykmeldtRegistreringTilstandsmaskin } from '../lib/sykmeldt-registrering-tilstandsmaskin';
 import { StandardRegistreringTilstandsmaskin } from '../lib/standard-registrering-tilstandsmaskin';
 import ProgressBar from './progress-bar/progress-bar';
+import { loggAktivitet } from '../lib/amplitude';
+import { RegistreringType } from '../model/registrering';
 
 export type SiderMap = { [key: string]: JSX.Element };
 export interface SkjemaProps {
@@ -17,7 +19,7 @@ export interface SkjemaProps {
 }
 
 export interface LagSkjemaSideProps {
-    urlPrefix: string;
+    urlPrefix: 'skjema' | 'sykmeldt';
     validerSkjemaForSide: (side: SkjemaSide, skjemaState: SkjemaState) => boolean;
     hentKomponentForSide: (
         side: SkjemaSide,
@@ -39,6 +41,16 @@ const skjemaSideFactory: SkjemaSideFactory = (opts) => {
         const router = useRouter();
         const initializer = (skjemaState: SkjemaState) => skjemaState;
         const [erSkjemaSendt, settErSkjemaSendt] = useState<boolean>(false);
+
+        useEffect(() => {
+            loggAktivitet({
+                aktivitet: 'Start registrering',
+                registreringstype:
+                    urlPrefix === 'sykmeldt'
+                        ? RegistreringType.SYKMELDT_REGISTRERING
+                        : RegistreringType.ORDINAER_REGISTRERING,
+            });
+        }, []);
 
         const [skjemaState, dispatch] = useReducer<SkjemaReducer, SkjemaState>(
             skjemaReducer,

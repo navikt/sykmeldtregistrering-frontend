@@ -45,22 +45,7 @@ function hentNesteSideUrl(data: any, dittNavUrl: string) {
 const Start = () => {
     const { dittNavUrl } = useConfig() as Config;
     const { data, error } = useSWR('api/startregistrering/', fetcher);
-    const [loggetStart, setLoggetStart] = useState(false);
     const router = useRouter();
-
-    useEffect(() => {
-        if (!data || !dittNavUrl) {
-            return;
-        }
-
-        if (!loggetStart) {
-            loggAktivitet({
-                aktivitet: 'Start registrering',
-                registreringstype: data.registreringType,
-            });
-            setLoggetStart(true);
-        }
-    }, [data, dittNavUrl, loggetStart]);
 
     useEffect(() => {
         if (!data || !dittNavUrl) {
