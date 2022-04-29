@@ -1,8 +1,9 @@
+import { useEffect } from 'react';
 import { BodyShort, GuidePanel, Heading, Link } from '@navikt/ds-react';
+
 import useSprak from '../hooks/useSprak';
 import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
 import { loggAktivitet } from '../lib/amplitude';
-import React from 'react';
 import { RegistreringType } from '../model/registrering';
 import { useConfig } from '../contexts/config-context';
 import { Config } from '../model/config';
@@ -24,7 +25,7 @@ const Kvittering = () => {
     const sprak = useSprak();
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
 
-    React.useEffect(() => {
+    useEffect(() => {
         loggAktivitet({
             aktivitet: 'Viser kvittering',
             registreringstype: RegistreringType.REAKTIVERING,
@@ -42,9 +43,9 @@ const Kvittering = () => {
                 <Heading level={'2'} spacing size={'medium'}>
                     {tekst('dagpengerTittel')}
                 </Heading>
-                <BodyShort>{tekst('permittert')}</BodyShort>
-                <BodyShort>{tekst('tidligstFaaDagpenger')}</BodyShort>
-                <BodyShort>{tekst('sendeSoknaden')}</BodyShort>
+                <BodyShort spacing>{tekst('permittert')}</BodyShort>
+                <BodyShort spacing>{tekst('tidligstFaaDagpenger')}</BodyShort>
+                <BodyShort spacing>{tekst('sendeSoknaden')}</BodyShort>
             </GuidePanel>
 
             <section className="flex-center mhl">
