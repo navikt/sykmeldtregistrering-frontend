@@ -1,5 +1,5 @@
 import { SkjemaSide, SkjemaState } from '../model/skjema';
-import { Dispatch, useEffect, useReducer, useState } from 'react';
+import { Dispatch, useEffect, useReducer, useRef, useState } from 'react';
 import { SkjemaAction, skjemaReducer, SkjemaReducer } from '../lib/skjema-state';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
@@ -108,8 +108,19 @@ const skjemaSideFactory: SkjemaSideFactory = (opts) => {
             }
         };
 
+        const skjemaWrapperRef = useRef<HTMLDivElement>(null);
+
+        useEffect(() => {
+            const inputElement: HTMLInputElement | null | undefined =
+                skjemaWrapperRef.current?.querySelector('input[checked]') ||
+                skjemaWrapperRef.current?.querySelector('input');
+            if (inputElement) {
+                inputElement.focus();
+            }
+        }, [aktivSide]);
+
         return (
-            <div className={styles.main}>
+            <div ref={skjemaWrapperRef} className={styles.main}>
                 <ProgressBar value={erSkjemaSendt ? 1 : fremdrift} className={'mbm'} />
                 {forrigeLenke && (
                     <div className={styles.forrigeLenke}>
