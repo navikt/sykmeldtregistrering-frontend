@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { BodyShort, Button, ContentContainer, GuidePanel, Heading } from '@navikt/ds-react';
+import { BodyShort, Button, GuidePanel, Heading } from '@navikt/ds-react';
 import { useRouter } from 'next/router';
 
 import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
@@ -7,7 +7,6 @@ import useSprak from '../hooks/useSprak';
 import { fetcher as api } from '../lib/api-utils';
 import { useErrorContext } from '../contexts/error-context';
 import { loggStoppsituasjon, loggAktivitet } from '../lib/amplitude';
-import skjemaStyles from '../styles/skjema.module.css';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -15,7 +14,7 @@ const TEKSTER: Tekster<string> = {
         maaSokePaaNytt:
             'Hvis du fortsatt skal motta ytelser må du først bekrefte at du ønsker å være registrert, så søke på nytt.',
         vilDuRegistreres: 'Ønsker du å være registrert som arbeidssøker?',
-        ja: 'Ja',
+        ja: 'Ja, jeg vil være registrert',
         avbryt: 'Avbryt',
     },
 };
@@ -46,8 +45,8 @@ const Reaktivering = () => {
     }, []);
 
     return (
-        <ContentContainer>
-            <Heading spacing level="1" size={'medium'}>
+        <>
+            <Heading level="1" size={'large'} className={'mbl'}>
                 {tekst('tittel')}
             </Heading>
             <GuidePanel poster>
@@ -58,14 +57,14 @@ const Reaktivering = () => {
                 <BodyShort spacing>{tekst('vilDuRegistreres')}</BodyShort>
             </GuidePanel>
             <section className="flex-center mhl">
-                <Button variant={'primary'} className="mrl skjemaStyles.w10" onClick={reaktiverBruker}>
+                <Button variant={'primary'} className="mrl" onClick={reaktiverBruker}>
                     {tekst('ja')}
                 </Button>
-                <Button variant={'tertiary'} className="skjemaStyles.w10" onClick={() => loggAvbrytReaktivering()}>
+                <Button variant={'secondary'} onClick={() => loggAvbrytReaktivering()}>
                     {tekst('avbryt')}
                 </Button>
             </section>
-        </ContentContainer>
+        </>
     );
 };
 
