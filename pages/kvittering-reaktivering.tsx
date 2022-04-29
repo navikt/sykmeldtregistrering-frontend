@@ -36,7 +36,7 @@ const Kvittering = () => {
 
     return (
         <>
-            <Heading spacing size={'medium'}>
+            <Heading spacing level="1" size={'large'}>
                 {tekst('header')}
             </Heading>
             <GuidePanel poster>
