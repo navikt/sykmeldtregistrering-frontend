@@ -77,7 +77,7 @@ jobs:
   deploy-demo:
     name: Deploy to demo
     needs: [test, build]
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/klar-til-release'
     runs-on: ubuntu-latest
     steps:
       - name: Fetch NAIS yaml
