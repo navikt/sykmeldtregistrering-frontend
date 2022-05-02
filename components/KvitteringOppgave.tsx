@@ -57,10 +57,17 @@ export const KvitteringOppgaveIkkeOpprettet = (props: { feil: Opprettelsesfeil }
     if (props.feil === 'finnesAllerede') {
         return Kvittering({ variant: 'info', children: tekst('alertVennligstVent') }, tekst('alleredeBedtOmKontakt'));
     }
-    return Kvittering({ variant: 'error', children: tekst('alertFeil') }, tekst('klarteIkkeMotta'), false);
+    return (
+        <GuidePanel poster>
+            <Alert variant="error" className={'mbm'}>
+                {tekst('alertFeil')}
+            </Alert>
+            <BodyShort className="mbm">{tekst('klarteIkkeMotta')}</BodyShort>
+        </GuidePanel>
+    );
 };
 
-const Kvittering = (alertProps: AlertProps, infotekst: string, visKontaktinfo: boolean = true, tittel?: string) => {
+const Kvittering = (alertProps: AlertProps, infotekst: string, tittel?: string) => {
     const { data: kontaktinfo } = useSWR<KontaktInfo>('api/kontaktinformasjon/', fetcher);
 
     return (
@@ -74,7 +81,7 @@ const Kvittering = (alertProps: AlertProps, infotekst: string, visKontaktinfo: b
                 </Heading>
             )}
             <BodyShort className="mbm">{infotekst}</BodyShort>
-            {visKontaktinfo && kontaktinfo && <Kontaktinformasjon kontaktinfo={kontaktinfo} />}
+            {kontaktinfo && <Kontaktinformasjon kontaktinfo={kontaktinfo} />}
         </GuidePanel>
     );
 };
