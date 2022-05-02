@@ -4,7 +4,7 @@ Arbeidssøkerregistrering
 
 ## Demo
 
-[https://arbeid.labs.nais.io-ny](https://arbeid.labs.nais.io/arbeid/registrering-ny)
+[https://arbeid.labs.nais.io/arbeid/registrering](https://arbeid.labs.nais.io/arbeid/registrering)
 
 # Utvikling
 
@@ -15,7 +15,7 @@ Dersom du ikke kjører i mock-modus må du ha koblet til [naisdevice](https://do
 -   innstaller avhengigheter `npm i`
 -   kjør tester `npm t`
 -   start utviklingsserver `npm run dev`
--   åpne nettleseren på `http://localhost:3000/arbeid/registrering-ny`
+-   åpne nettleseren på `http://localhost:3000/arbeid/registrering`
 
 ## Ekstern dokumentasjon
 
