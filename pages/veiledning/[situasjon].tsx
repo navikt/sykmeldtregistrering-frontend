@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { BodyShort, Button, Heading, GuidePanel } from '@navikt/ds-react';
+import useSWR from 'swr';
 
 import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../hooks/useSprak';
@@ -10,7 +11,6 @@ import {
     KvitteringOppgaveOpprettet,
     Opprettelsesfeil,
 } from '../../components/KvitteringOppgave';
-import useSWR from 'swr';
 
 export type Situasjon = 'utvandret' | 'mangler-arbeidstillatelse';
 
@@ -66,17 +66,21 @@ const KontaktVeileder = (props: { situasjon: Situasjon }) => {
         return feil ? <KvitteringOppgaveIkkeOpprettet feil={feil} /> : <KvitteringOppgaveOpprettet />;
     } else
         return (
-            <GuidePanel poster>
-                <Heading size="medium" spacing={true}>
-                    {tekst('heading')}
-                </Heading>
-                <BodyShort>
-                    {tekst(props.situasjon === 'utvandret' ? 'utvandretBody1' : 'manglerArbeidstillatelseBody1')}
-                </BodyShort>
-                <BodyShort spacing>{tekst('body2')}</BodyShort>
-                <BodyShort spacing>{tekst('kontaktOss')}</BodyShort>
-                <Button onClick={opprettOppgave}>{tekst('kontaktKnapp')}</Button>
-            </GuidePanel>
+            <>
+                <GuidePanel poster>
+                    <Heading size="medium" spacing={true}>
+                        {tekst('heading')}
+                    </Heading>
+                    <BodyShort>
+                        {tekst(props.situasjon === 'utvandret' ? 'utvandretBody1' : 'manglerArbeidstillatelseBody1')}
+                    </BodyShort>
+                    <BodyShort spacing>{tekst('body2')}</BodyShort>
+                    <BodyShort spacing>{tekst('kontaktOss')}</BodyShort>
+                </GuidePanel>
+                <Button onClick={opprettOppgave} className="mhl">
+                    {tekst('kontaktKnapp')}
+                </Button>
+            </>
         );
 };
 
