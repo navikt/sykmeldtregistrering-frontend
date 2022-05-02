@@ -20,11 +20,6 @@ const TEKSTER: Tekster<string> = {
         viktig: 'Viktig:',
         kontakterDegInnen: 'Vi kontakter deg innen utgangen av ',
         kontaktopplysningerOppdatert: 'Pass på at kontaktopplysningene dine er oppdatert, ellers kan vi ikke nå deg.',
-        tlfHosKRR: 'Telefonnummer lagret hos Kontakt- og reservasjonsregisteret',
-        kildeKRR: 'Kilde: Kontakt- og reservasjonsregisteret',
-        tlfHosNAV: 'Telefonnummer lagret hos NAV',
-        kildeNAV: 'Kilde: NAV',
-        endreOpplysninger: 'Endre opplysninger',
     },
     en: {
         alertMottatt: 'Request received',
@@ -37,7 +32,6 @@ const TEKSTER: Tekster<string> = {
         viktig: 'Important:',
         kontakterDegInnen: 'We will contact you before the end of ',
         kontaktopplysningerOppdatert: 'Please make sure your contact details are updated.',
-        endreOpplysninger: 'Change contact details',
         //TODO: Oversette alle tekster
     },
 };
