@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
 import { BodyShort, Button, Heading, GuidePanel } from '@navikt/ds-react';
 import useSWR from 'swr';
+import { useRouter } from 'next/router';
 
 import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../hooks/useSprak';
-import { loggStoppsituasjon } from '../../lib/amplitude';
+import { loggAktivitet, loggStoppsituasjon } from '../../lib/amplitude';
 import { fetcher, fetcher as api } from '../../lib/api-utils';
 import {
     KvitteringOppgaveIkkeOpprettet,
@@ -22,6 +23,7 @@ const TEKSTER: Tekster<string> = {
         body2: 'Dette gjør at du ikke kan registrere deg som arbeidssøker på nett.',
         kontaktOss: 'Kontakt oss, så hjelper vi deg videre.',
         kontaktKnapp: 'Ta kontakt',
+        avbryt: 'Avbryt',
     },
     en: {
         //TODO: Oversetting
@@ -32,7 +34,10 @@ const KontaktVeileder = (props: { situasjon: Situasjon }) => {
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
     const [responseMottatt, settResponseMottatt] = useState<boolean>(false);
     const [feil, settFeil] = useState<Opprettelsesfeil | undefined>(undefined);
+    const Router = useRouter();
+
     const opprettOppgave = useCallback(async () => {
+        loggAktivitet({ aktivitet: 'Oppretter kontakt meg oppgave' });
         try {
             const oppgaveType = props.situasjon === 'utvandret' ? 'UTVANDRET' : 'OPPHOLDSTILLATELSE';
 
@@ -52,6 +57,11 @@ const KontaktVeileder = (props: { situasjon: Situasjon }) => {
         }
         settResponseMottatt(true);
     }, [props.situasjon]);
+
+    const avbrytKontaktMeg = () => {
+        loggAktivitet({ aktivitet: 'Avbryter kontakt meg' });
+        Router.push('/');
+    };
 
     useEffect(() => {
         loggStoppsituasjon({
@@ -77,9 +87,14 @@ const KontaktVeileder = (props: { situasjon: Situasjon }) => {
                     <BodyShort spacing>{tekst('body2')}</BodyShort>
                     <BodyShort spacing>{tekst('kontaktOss')}</BodyShort>
                 </GuidePanel>
-                <Button onClick={opprettOppgave} className="mhl">
-                    {tekst('kontaktKnapp')}
-                </Button>
+                <section className="flex-center mhl">
+                    <Button onClick={opprettOppgave} className="mrl">
+                        {tekst('kontaktKnapp')}
+                    </Button>
+                    <Button variant="tertiary" onClick={avbrytKontaktMeg}>
+                        {tekst('avbryt')}
+                    </Button>
+                </section>
             </>
         );
 };

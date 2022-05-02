@@ -24,13 +24,15 @@ type SidevisningData = { sidetittel: string };
 
 type AktivitetData =
     | { aktivitet: KvitteringAktivitet; registreringstype: RegistreringType }
-    | { aktivitet: 'Utfylling av skjema fullført'; tidBruktForAaFullforeSkjema?: number }
+    | { aktivitet: 'Utfylling av skjema fullført'; tidBruktForAaFullforeSkjema?: number; registreringstype?: any }
     | { aktivitet: 'Start registrering'; registreringstype?: any }
     | { aktivitet: 'Går til start registrering'; registreringstype?: any }
     | { aktivitet: 'Avbryter registreringen'; registreringstype?: any }
     | { aktivitet: 'Arbeidssøkeren reaktiverer seg'; registreringstype?: any }
     | { aktivitet: 'Arbeidssøkeren avslår reaktivering'; registreringstype?: any }
-    | { aktivitet: 'Fortsetter til sykmeldtregistrering'; registreringstype?: any };
+    | { aktivitet: 'Fortsetter til sykmeldtregistrering'; registreringstype?: any }
+    | { aktivitet: 'Oppretter kontakt meg oppgave'; registreringstype?: any }
+    | { aktivitet: 'Avbryter kontakt meg'; registreringstype?: any };
 
 type KvitteringAktivitet =
     | 'Viser kvittering'
