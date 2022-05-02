@@ -11,6 +11,7 @@ import { SkjemaSide } from '../model/skjema';
 import { Kontaktinformasjon } from '../model/kontaktinformasjon';
 import { getHeaders } from '../lib/next-api-handler';
 import { loggAktivitet } from '../lib/amplitude';
+import styles from '../styles/skjema.module.css';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -43,49 +44,41 @@ const SykmeldtStartside = (props: SykmeldtProps) => {
     };
 
     return (
-        <ContentContainer>
-            <Grid>
-                <Cell xs={12}>
-                    <GuidePanel>
-                        <Label>
-                            {tekst('hei')}
-                            {kontaktinformasjon?.navn.fornavn}
-                        </Label>
-                        {tekst('sykmeldtInformasjon')}
-                    </GuidePanel>
-                </Cell>
-                <Cell xs={12}>
-                    <Heading spacing size="medium">
-                        {tekst('naarRegistrertTittel')}
-                    </Heading>
-                </Cell>
-                <Cell xs={12} md={6}>
-                    <ul style={{ margin: 0 }}>
-                        <li>{tekst('faaVeiledning')}</li>
-                        <li>{tekst('brukeAktivitetsplan')}</li>
-                        <li>{tekst('kravPaaStotte')}</li>
-                        <li>{tekst('dialogMedVeileder')}</li>
-                    </ul>
-                </Cell>
-                <Cell xs={12} md={6} className="show-md-up">
+        <div className={styles.main}>
+            <GuidePanel className={'mbl'}>
+                <Label>
+                    {tekst('hei')}
+                    {kontaktinformasjon?.navn.fornavn}
+                </Label>
+                {tekst('sykmeldtInformasjon')}
+            </GuidePanel>
+            <Heading spacing size="medium">
+                {tekst('naarRegistrertTittel')}
+            </Heading>
+            <div className={'flex-center flex-wrap mbm'}>
+                <ul className={'mrl'}>
+                    <li>{tekst('faaVeiledning')}</li>
+                    <li>{tekst('brukeAktivitetsplan')}</li>
+                    <li>{tekst('kravPaaStotte')}</li>
+                    <li>{tekst('dialogMedVeileder')}</li>
+                </ul>
+                <div className="show-md-up mbm">
                     <VeiledningSvg />
-                </Cell>
-                <Cell xs={12}>
-                    <Heading spacing size="medium">
-                        {tekst('registrerDegTittel')}
-                    </Heading>
-                    <BodyLong spacing>
-                        {tekst('registrerDegIngress')}
-                        <Link href="https://www.nav.no/personvern" target="_blank">
-                            {tekst('personopplysningerLenkeTekst')}
-                        </Link>
-                    </BodyLong>
-                    <NextLink href={`/sykmeldt/${SkjemaSide.SykmeldtFremtidigSituasjon}`} passHref locale={false}>
-                        <Button onClick={() => loggFortsetter()}>{tekst('fortsettRegistrering')}</Button>
-                    </NextLink>
-                </Cell>
-            </Grid>
-        </ContentContainer>
+                </div>
+            </div>
+            <Heading spacing size="medium">
+                {tekst('registrerDegTittel')}
+            </Heading>
+            <BodyLong spacing>
+                {tekst('registrerDegIngress')}
+                <Link href="https://www.nav.no/personvern" target="_blank">
+                    {tekst('personopplysningerLenkeTekst')}
+                </Link>
+            </BodyLong>
+            <NextLink href={`/sykmeldt/${SkjemaSide.SykmeldtFremtidigSituasjon}`} passHref locale={false}>
+                <Button onClick={() => loggFortsetter()}>{tekst('fortsettRegistrering')}</Button>
+            </NextLink>
+        </div>
     );
 };
 
