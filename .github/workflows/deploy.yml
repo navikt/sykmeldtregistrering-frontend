@@ -133,7 +133,6 @@ jobs:
           RESOURCE: .nais/nais.yaml
           VARS: .nais/prod.yaml
           PRINT_PAYLOAD: true
-          DRY_RUN: true
       
       - name: Lag deployment i Sentry
         uses: getsentry/action-release@v1
