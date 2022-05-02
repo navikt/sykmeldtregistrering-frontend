@@ -12,6 +12,7 @@ const TEKSTER: Tekster<string> = {
         kildeNAV: 'Kilde: NAV',
         endreOpplysninger: 'Endre opplysninger',
         ingenOpplysninger: 'Ingen kontaktopplysninger funnet!',
+        leggInnOpplysninger: 'Legg inn kontaktopplysninger',
         hjelpetekst: 'Pass på at kontaktopplysningene dine er oppdatert, ellers kan vi ikke nå deg.',
     },
     en: {
@@ -21,6 +22,7 @@ const TEKSTER: Tekster<string> = {
         kildeNAV: 'Source: NAV',
         endreOpplysninger: 'Change contact details',
         ingenOpplysninger: 'We could not find any contact information!',
+        leggInnOpplysninger: 'Enter contact details',
         hjelpetekst: 'Please make sure your contact details are updated or we will be unable to reach you.',
     },
 };
@@ -38,31 +40,21 @@ export const Kontaktinformasjon = (props: Props) => {
     if (manglerKontaktinfo) {
         return (
             <>
-                <Cell xs={12}>
-                    <Alert variant="error" inline>
-                        <div style={{ display: 'flex' }}>
-                            {tekst('ingenOpplysninger')}
-                            <HelpText>{tekst('hjelpetekst')}</HelpText>
-                        </div>
-                    </Alert>
-                </Cell>
-                <EndreOpplysninger />
+                <Alert variant="error" inline className="mbm">
+                    <div style={{ display: 'flex' }}>
+                        {tekst('ingenOpplysninger')}
+                        <HelpText>{tekst('hjelpetekst')}</HelpText>
+                    </div>
+                </Alert>
+                <EndreOpplysningerLink tekst={tekst('leggInnOpplysninger')} />
             </>
         );
     } else {
         return (
             <>
-                {telefonnummerHosKrr && (
-                    <Cell xs={12}>
-                        <Telefonnummer kilde="KRR" telefonnummer={telefonnummerHosKrr} />
-                    </Cell>
-                )}
-                {telefonnummerHosNav && (
-                    <Cell xs={12}>
-                        <Telefonnummer kilde="NAV" telefonnummer={telefonnummerHosNav} />
-                    </Cell>
-                )}
-                <EndreOpplysninger />
+                {telefonnummerHosKrr && <Telefonnummer kilde="KRR" telefonnummer={telefonnummerHosKrr} />}
+                {telefonnummerHosNav && <Telefonnummer kilde="NAV" telefonnummer={telefonnummerHosNav} />}
+                <EndreOpplysningerLink tekst={tekst('endreOpplysninger')} />
             </>
         );
     }
@@ -75,7 +67,7 @@ const Telefonnummer = (props: { kilde: Kilde; telefonnummer: string }) => {
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
 
     return (
-        <Panel border>
+        <Panel border className="mbm">
             <Heading size={'small'}>{tekst(`tlfHos${props.kilde}`)}</Heading>
             <Label>{props.telefonnummer}</Label>
             <Detail size={'small'}>{tekst(`kilde${props.kilde}`)}</Detail>
@@ -83,15 +75,11 @@ const Telefonnummer = (props: { kilde: Kilde; telefonnummer: string }) => {
     );
 };
 
-const EndreOpplysninger = () => {
-    const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
-
+const EndreOpplysningerLink = (props: { tekst: string }) => {
     return (
-        <Cell xs={12}>
-            <Link href="https://www.nav.no/person/personopplysninger/#kontaktinformasjon">
-                {tekst('endreOpplysninger')}
-                <ExternalLink />
-            </Link>
-        </Cell>
+        <Link href="https://www.nav.no/person/personopplysninger/#kontaktinformasjon" target="_blank">
+            {props.tekst}
+            <ExternalLink />
+        </Link>
     );
 };
