@@ -1,8 +1,10 @@
-import { Alert, Cell, Detail, Heading, HelpText, Label, Link, Panel } from '@navikt/ds-react';
+import { Alert, Detail, Heading, HelpText, Label, Link, Panel } from '@navikt/ds-react';
 import useSprak from '../hooks/useSprak';
 import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
 import { ExternalLink } from '@navikt/ds-icons';
-import { Kontaktinformasjon as K } from '../model/kontaktinformasjon';
+import { Kontaktinformasjon as KontaktInfo } from '../model/kontaktinformasjon';
+import useSWR from 'swr';
+import { fetcher } from '../lib/api-utils';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -27,17 +29,22 @@ const TEKSTER: Tekster<string> = {
     },
 };
 
-interface Props {
-    kontaktinfo: K;
-}
-
-export const Kontaktinformasjon = (props: Props) => {
-    const { telefonnummerHosKrr, telefonnummerHosNav } = props.kontaktinfo;
-    const manglerKontaktinfo = telefonnummerHosKrr === undefined && telefonnummerHosNav === undefined;
+export const Kontaktinformasjon = () => {
+    const { data } = useSWR<KontaktInfo>('api/kontaktinformasjon/', fetcher);
+    const tlfKrr = data?.telefonnummerHosKrr;
+    const tlfNav = data?.telefonnummerHosNav;
     const sprak = useSprak();
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
 
-    if (manglerKontaktinfo) {
+    if (tlfKrr || tlfNav) {
+        return (
+            <>
+                {tlfKrr && <Telefonnummer kilde="KRR" telefonnummer={tlfKrr} />}
+                {tlfNav && <Telefonnummer kilde="NAV" telefonnummer={tlfNav} />}
+                <EndreOpplysningerLink tekst={tekst('endreOpplysninger')} />
+            </>
+        );
+    } else
         return (
             <>
                 <Alert variant="error" inline className="mbm">
@@ -49,15 +56,6 @@ export const Kontaktinformasjon = (props: Props) => {
                 <EndreOpplysningerLink tekst={tekst('leggInnOpplysninger')} />
             </>
         );
-    } else {
-        return (
-            <>
-                {telefonnummerHosKrr && <Telefonnummer kilde="KRR" telefonnummer={telefonnummerHosKrr} />}
-                {telefonnummerHosNav && <Telefonnummer kilde="NAV" telefonnummer={telefonnummerHosNav} />}
-                <EndreOpplysningerLink tekst={tekst('endreOpplysninger')} />
-            </>
-        );
-    }
 };
 
 type Kilde = 'KRR' | 'NAV';

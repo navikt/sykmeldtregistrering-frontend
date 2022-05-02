@@ -2,11 +2,8 @@ import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../hooks/useSprak';
 import { formaterDato } from '../lib/date-utils';
 import virkedager from '@alheimsins/virkedager';
-import { Alert, AlertProps, BodyShort, Cell, ContentContainer, Grid, GuidePanel, Heading } from '@navikt/ds-react';
+import { Alert, AlertProps, BodyShort, GuidePanel, Heading } from '@navikt/ds-react';
 import { Kontaktinformasjon } from './kontaktinformasjon';
-import useSWR from 'swr';
-import { fetcher } from '../lib/api-utils';
-import { Kontaktinformasjon as KontaktInfo } from '../model/kontaktinformasjon';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -68,8 +65,6 @@ export const KvitteringOppgaveIkkeOpprettet = (props: { feil: Opprettelsesfeil }
 };
 
 const Kvittering = (alertProps: AlertProps, infotekst: string, tittel?: string) => {
-    const { data: kontaktinfo } = useSWR<KontaktInfo>('api/kontaktinformasjon/', fetcher);
-
     return (
         <GuidePanel poster>
             <Alert variant={alertProps.variant} className={'mbm'}>
@@ -81,7 +76,7 @@ const Kvittering = (alertProps: AlertProps, infotekst: string, tittel?: string) 
                 </Heading>
             )}
             <BodyShort className="mbm">{infotekst}</BodyShort>
-            {kontaktinfo && <Kontaktinformasjon kontaktinfo={kontaktinfo} />}
+            <Kontaktinformasjon />
         </GuidePanel>
     );
 };
