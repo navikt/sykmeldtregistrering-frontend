@@ -2,7 +2,7 @@
 const { withSentryConfig } = require('@sentry/nextjs');
 const securityHeaders = require('./security-headers');
 
-const basePath = '/arbeid/registrering';
+const basePath = '/arbeid/registrering-ny';
 
 const nextConfig = {
     reactStrictMode: true,

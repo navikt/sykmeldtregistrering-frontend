@@ -10,12 +10,12 @@ const dekoratorEnv = process.env.DEKORATOR_ENV as Exclude<DecoratorProps['env'],
 // const availableLanguages = [
 //     {
 //         locale: 'nb',
-//         url: 'https://www.nav.no/arbeid/registrering/',
+//         url: 'https://www.nav.no/arbeid/registrering-ny/',
 //         handleInApp: true,
 //     },
 //     {
 //         locale: 'en',
-//         url: 'https://www.nav.no/arbeid/registrering/en',
+//         url: 'https://www.nav.no/arbeid/registrering-ny/en',
 //         handleInApp: true,
 //     },
 // ] as DecoratorProps['availableLanguages'];
