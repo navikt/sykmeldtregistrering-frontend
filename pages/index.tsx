@@ -57,11 +57,13 @@ const Home: NextPage = () => {
                     <Cell xs={12}>
                         <DineOpplysninger />
                     </Cell>
-                    <Cell xs={12} className="text-center">
+                    <Cell xs={12} className="text-center pam">
                         <Heading size={'medium'} level="3" spacing={true}>
                             {tekst('elektroniskId')}
                         </Heading>
-                        <BodyShort>{tekst('elektroniskIdInfo')}</BodyShort>
+                        <BodyShort style={{ maxWidth: '22em', display: 'inline-block' }}>
+                            {tekst('elektroniskIdInfo')}
+                        </BodyShort>
                     </Cell>
                     <Cell xs={12} className={'text-center phs'}>
                         <NextLink href="/start" passHref locale={false}>
