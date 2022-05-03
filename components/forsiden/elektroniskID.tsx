@@ -56,8 +56,8 @@ const ElektroniskID = () => {
                         {tekst('skaffDegTittel')}
                     </Heading>
                     <BodyShort spacing={true}>{tekst('skaffDegBody')}</BodyShort>
-                    <Link className="mbm" href="https://eid.difi.no/nb/bankid">
-                        {tekst('skaffDegTittel')} <Next />{' '}
+                    <Link className="mbm" href="https://eid.difi.no/bankid">
+                        {tekst('skaffDegTittel')} <Next />
                     </Link>
                     <Heading size={'small'} level="3" spacing={true}>
                         {tekst('minIdPassportTittel')}
@@ -65,7 +65,7 @@ const ElektroniskID = () => {
                     <BodyShort spacing={true}>
                         {tekst('minIdPassportBody')}
                         {tekst('minIdPassportTittel')}
-                        <Link href="https://eid.difi.no/nb/minid/passport">{tekst('minIdPassportLenke')}</Link>
+                        <Link href="https://eid.difi.no/minid/passport">{tekst('minIdPassportLenke')}</Link>
                     </BodyShort>
                 </div>
                 <div className={styles.info}>
@@ -77,8 +77,8 @@ const ElektroniskID = () => {
                     </Heading>
                     <BodyShort spacing={true}>{tekst('navKontoretBody1')}</BodyShort>
                     <BodyShort spacing={true}>{tekst('navKontoretBody2')}</BodyShort>
-                    <Link href="https://eid.difi.no/nb/bankid">
-                        {tekst('navKontoretSok')} <Next />{' '}
+                    <Link href="https://www.nav.no/sok-nav-kontor">
+                        {tekst('navKontoretSok')} <Next />
                     </Link>
                 </div>
             </div>
