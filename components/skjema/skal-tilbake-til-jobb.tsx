@@ -1,4 +1,4 @@
-import { BodyShort, Button, GuidePanel, Heading, Panel } from '@navikt/ds-react';
+import { Alert, BodyShort, Button, GuidePanel, Heading, Panel } from '@navikt/ds-react';
 import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../hooks/useSprak';
 import styles from '../../styles/skjema.module.css';
@@ -25,33 +25,36 @@ const SkalTilbakeTilJobb = (props: any) => {
 
     return (
         <div>
-            <GuidePanel className="mbl">
-                <BodyShort spacing={true}>{tekst('infoTekst')}</BodyShort>
-
+            <GuidePanel poster className="mbxl">
+                <BodyShort className="mbm ">{tekst('infoTekst')}</BodyShort>
                 <section>
                     <Heading level="2" size="small">
                         {tekst('tittel')}
                     </Heading>
-                    <ul>
+                    <ul className="listSpacing">
                         <li>{tekst('punkt1')}</li>
                         <li>{tekst('punkt2')}</li>
                     </ul>
                 </section>
+                <Alert variant="info" inline={true}>
+                    {tekst('infoVarsel')}
+                </Alert>
             </GuidePanel>
 
-            <Heading level="1" size="medium" spacing={true} style={{ textAlign: 'center' }}>
+            <Heading level="1" size="small" className="mbm text-center">
                 {tekst('enigTittel')}
             </Heading>
 
             <section className="flex-center flex-wrap">
                 <Button
                     variant="secondary"
-                    className="mrl mbs"
+                    className="mrs mbs"
+                    style={{ flex: '1' }}
                     onClick={() => navigerTilSide(`/sykmeldt/${SkjemaSide.Oppsummering}`)}
                 >
                     {tekst('uenig')}
                 </Button>
-                <Button variant="secondary" className="mbs" onClick={() => navigerTilSide('/')}>
+                <Button variant="secondary" className="mbs" style={{ flex: '1' }} onClick={() => navigerTilSide('/')}>
                     {tekst('enig')}
                 </Button>
             </section>

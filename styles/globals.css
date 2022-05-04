@@ -30,8 +30,17 @@ a {
 .mbl {
   margin-bottom: 2rem;
 }
+.mbxl {
+  margin-bottom: 2.5rem;
+}
 .mhl {
   margin: 2rem 0;
+}
+.mrs {
+  margin-right: 1rem;
+}
+.mrm {
+  margin-right: 1.5rem;
 }
 .mrl {
   margin-right: 2rem;
@@ -66,6 +75,10 @@ a {
 
 .show-md-up {
   display: none;
+}
+
+.listSpacing {
+  line-height: 1.5
 }
 
 @media screen and (min-width: 648px) {
