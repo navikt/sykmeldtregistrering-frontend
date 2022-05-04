@@ -29,7 +29,9 @@ const SkalTilbakeTilJobb = (props: any) => {
                 <BodyShort spacing={true}>{tekst('infoTekst')}</BodyShort>
 
                 <section>
-                    <Heading size="small">{tekst('tittel')}</Heading>
+                    <Heading level="2" size="small">
+                        {tekst('tittel')}
+                    </Heading>
                     <ul>
                         <li>{tekst('punkt1')}</li>
                         <li>{tekst('punkt2')}</li>
@@ -37,7 +39,7 @@ const SkalTilbakeTilJobb = (props: any) => {
                 </section>
             </GuidePanel>
 
-            <Heading size="medium" spacing={true} style={{ textAlign: 'center' }}>
+            <Heading level="1" size="medium" spacing={true} style={{ textAlign: 'center' }}>
                 {tekst('enigTittel')}
             </Heading>
 

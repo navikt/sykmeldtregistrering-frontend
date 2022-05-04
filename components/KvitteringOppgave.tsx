@@ -71,7 +71,7 @@ const Kvittering = (alertProps: AlertProps, infotekst: string, tittel?: string) 
                 {alertProps.children}
             </Alert>
             {tittel && (
-                <Heading spacing size={'small'}>
+                <Heading level="1" spacing size={'small'}>
                     {tittel}
                 </Heading>
             )}
