@@ -1,7 +1,10 @@
 import { useCallback, useState } from 'react';
-import styles from './autosuggest.module.css';
 import getConfig from 'next/config';
 import { debounce } from 'lodash';
+
+import { loggAktivitet } from '../../../lib/amplitude';
+
+import styles from './autosuggest.module.css';
 
 const Autosuggest = require('react-autosuggest');
 
@@ -36,6 +39,7 @@ const StillingsSok = (props: StillingsSokProps) => {
         onBlur: () => onClose(),
         onChange: (e: any) => {
             if (e.type === 'change') {
+                loggAktivitet({ aktivitet: 'Endrer forslått stilling' });
                 setValue(e.target.value);
             }
         },
