@@ -18,6 +18,7 @@ const StillingsSok = (props: StillingsSokProps) => {
     const { onClose } = props;
     const [resultat, setResultat] = useState([] as any[]);
     const [value, setValue] = useState<string>('');
+    const [endret, setEndret] = useState<Boolean>(false);
     const { basePath } = getConfig().publicRuntimeConfig;
 
     const onSuggestionsFetchRequested = useCallback(
@@ -39,7 +40,10 @@ const StillingsSok = (props: StillingsSokProps) => {
         onBlur: () => onClose(),
         onChange: (e: any) => {
             if (e.type === 'change') {
-                loggAktivitet({ aktivitet: 'Endrer forslått stilling' });
+                if (!endret) {
+                    setEndret(true);
+                    loggAktivitet({ aktivitet: 'Endrer forslått stilling' });
+                }
                 setValue(e.target.value);
             }
         },
