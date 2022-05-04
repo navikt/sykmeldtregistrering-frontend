@@ -1,5 +1,5 @@
-ingress: https://arbeid.dev.nav.no/arbeid/registrering-ny
-basePath: /arbeid/registrering-ny
+ingress: https://arbeid.dev.nav.no/arbeid/registrering
+basePath: /arbeid/registrering
 mocking: disabled
 nodeEnv: test
 dekorator:
@@ -14,7 +14,7 @@ amplitude:
 sentry:
   dsn: https://b2f662d8ed7a42b29f465f365e25832f@sentry.gc.nav.no/118
 pamJanzzUrl: https://arbeidsplassen.dev.nav.no/pam-janzz/rest
-startUrl: https://arbeid.dev.nav.no/arbeid/registrering-ny/start
+startUrl: https://arbeid.dev.nav.no/arbeid/registrering/start
 startRegistreringUrl: http://pto-proxy.pto.svc.cluster.local/proxy/veilarbregistrering/api/startregistrering/
 fullforRegistreringUrl: http://pto-proxy.pto.svc.cluster.local/proxy/veilarbregistrering/api/startregistrering/
 fullforRegistreringSykmeldtUrl: http://pto-proxy.pto.svc.cluster.local/proxy/veilarbregistrering/api/startregistrersykmeldt/
@@ -28,4 +28,4 @@ dagpengesoknadUrl: https://www.dev.nav.no/arbeid/dagpenger/soknad-veileder
 dialogUrl: https://www.dev.nav.no/arbeid/dialog
 featureToggles:
   server: https://unleash.nais.io/api/client/features?tag[]=simple:arbeidssokerregistrering
-  client: https://arbeid.dev.nav.no/arbeid/registrering-ny/api/features
+  client: https://arbeid.dev.nav.no/arbeid/registrering/api/features

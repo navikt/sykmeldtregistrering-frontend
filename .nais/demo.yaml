@@ -1,5 +1,5 @@
-ingress: https://arbeid.labs.nais.io/arbeid/registrering-ny
-basePath: /arbeid/registrering-ny
+ingress: https://arbeid.labs.nais.io/arbeid/registrering
+basePath: /arbeid/registrering
 mocking: enabled
 nodeEnv: development
 dekorator:
@@ -14,18 +14,18 @@ amplitude:
 sentry:
   dsn: https://b2f662d8ed7a42b29f465f365e25832f@sentry.gc.nav.no/118
 pamJanzzUrl: https://arbeidsplassen.nav.no/pam-janzz/rest
-startUrl: https://arbeid.labs.nais.io/arbeid/registrering-ny/start
-startRegistreringUrl: https://arbeid.labs.nais.io/arbeid/registrering-ny/api/mocks/startregistrering
-fullforRegistreringUrl: https://arbeid.labs.nais.io/arbeid/registrering-ny/api/mocks/fullforregistrering
-fullforRegistreringSykmeldtUrl: https://arbeid.labs.nais.io/arbeid/registrering-ny/api/mocks/fullforregistreringsykmeldt
-reaktiveringUrl: https://arbeid.labs.nais.io/arbeid/registrering-ny/api/mocks/reaktivering
-sisteArbeidsforholdUrl: https://arbeid.labs.nais.io/arbeid/registrering-ny/api/mocks/sistearbeidsforhold
-opprettOppgaveUrl: https://arbeid.labs.nais.io/arbeid/registrering-ny/api/mocks/oppgave
-kontaktinformasjonUrl: https://arbeid.labs.nais.io/arbeid/registrering-ny/api/mocks/kontaktinformasjon
+startUrl: https://arbeid.labs.nais.io/arbeid/registrering/start
+startRegistreringUrl: https://arbeid.labs.nais.io/arbeid/registrering/api/mocks/startregistrering
+fullforRegistreringUrl: https://arbeid.labs.nais.io/arbeid/registrering/api/mocks/fullforregistrering
+fullforRegistreringSykmeldtUrl: https://arbeid.labs.nais.io/arbeid/registrering/api/mocks/fullforregistreringsykmeldt
+reaktiveringUrl: https://arbeid.labs.nais.io/arbeid/registrering/api/mocks/reaktivering
+sisteArbeidsforholdUrl: https://arbeid.labs.nais.io/arbeid/registrering/api/mocks/sistearbeidsforhold
+opprettOppgaveUrl: https://arbeid.labs.nais.io/arbeid/registrering/api/mocks/oppgave
+kontaktinformasjonUrl: https://arbeid.labs.nais.io/arbeid/registrering/api/mocks/kontaktinformasjon
 ptoProxyUrl: http://pto-proxy.pto.svc.cluster.local/proxy/
 dittNAVUrl: https://www.nav.no/person/dittnav
 dagpengesoknadUrl: https://www.nav.no/arbeid/dagpenger/soknad-veileder
 dialogUrl: https://www.nav.no/arbeid/dialog
 featureToggles:
-  server: https://arbeid.labs.nais.io/arbeid/registrering-ny/api/mocks/features
-  client: https://arbeid.labs.nais.io/arbeid/registrering-ny/api/features
+  server: https://arbeid.labs.nais.io/arbeid/registrering/api/mocks/features
+  client: https://arbeid.labs.nais.io/arbeid/registrering/api/features
