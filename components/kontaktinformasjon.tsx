@@ -1,8 +1,10 @@
-import { Alert, Cell, Detail, Heading, HelpText, Label, Link, Panel } from '@navikt/ds-react';
+import { Alert, Detail, Heading, HelpText, Label, Link, Panel } from '@navikt/ds-react';
 import useSprak from '../hooks/useSprak';
 import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
 import { ExternalLink } from '@navikt/ds-icons';
-import { Kontaktinformasjon as K } from '../model/kontaktinformasjon';
+import { Kontaktinformasjon as KontaktInfo } from '../model/kontaktinformasjon';
+import useSWR from 'swr';
+import { fetcher } from '../lib/api-utils';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -12,6 +14,7 @@ const TEKSTER: Tekster<string> = {
         kildeNAV: 'Kilde: NAV',
         endreOpplysninger: 'Endre opplysninger',
         ingenOpplysninger: 'Ingen kontaktopplysninger funnet!',
+        leggInnOpplysninger: 'Legg inn kontaktopplysninger',
         hjelpetekst: 'Pass på at kontaktopplysningene dine er oppdatert, ellers kan vi ikke nå deg.',
     },
     en: {
@@ -21,51 +24,38 @@ const TEKSTER: Tekster<string> = {
         kildeNAV: 'Source: NAV',
         endreOpplysninger: 'Change contact details',
         ingenOpplysninger: 'We could not find any contact information!',
+        leggInnOpplysninger: 'Enter contact details',
         hjelpetekst: 'Please make sure your contact details are updated or we will be unable to reach you.',
     },
 };
 
-interface Props {
-    kontaktinfo: K;
-}
-
-export const Kontaktinformasjon = (props: Props) => {
-    const { telefonnummerHosKrr, telefonnummerHosNav } = props.kontaktinfo;
-    const manglerKontaktinfo = telefonnummerHosKrr === undefined && telefonnummerHosNav === undefined;
+export const Kontaktinformasjon = () => {
+    const { data } = useSWR<KontaktInfo>('api/kontaktinformasjon/', fetcher);
+    const tlfKrr = data?.telefonnummerHosKrr;
+    const tlfNav = data?.telefonnummerHosNav;
     const sprak = useSprak();
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
 
-    if (manglerKontaktinfo) {
+    if (tlfKrr || tlfNav) {
         return (
             <>
-                <Cell xs={12}>
-                    <Alert variant="error" inline>
-                        <div style={{ display: 'flex' }}>
-                            {tekst('ingenOpplysninger')}
-                            <HelpText>{tekst('hjelpetekst')}</HelpText>
-                        </div>
-                    </Alert>
-                </Cell>
-                <EndreOpplysninger />
+                {tlfKrr && <Telefonnummer kilde="KRR" telefonnummer={tlfKrr} />}
+                {tlfNav && <Telefonnummer kilde="NAV" telefonnummer={tlfNav} />}
+                <EndreOpplysningerLink tekst={tekst('endreOpplysninger')} />
             </>
         );
-    } else {
+    } else
         return (
             <>
-                {telefonnummerHosKrr && (
-                    <Cell xs={12}>
-                        <Telefonnummer kilde="KRR" telefonnummer={telefonnummerHosKrr} />
-                    </Cell>
-                )}
-                {telefonnummerHosNav && (
-                    <Cell xs={12}>
-                        <Telefonnummer kilde="NAV" telefonnummer={telefonnummerHosNav} />
-                    </Cell>
-                )}
-                <EndreOpplysninger />
+                <Alert variant="error" inline className="mbm">
+                    <div style={{ display: 'flex' }}>
+                        {tekst('ingenOpplysninger')}
+                        <HelpText>{tekst('hjelpetekst')}</HelpText>
+                    </div>
+                </Alert>
+                <EndreOpplysningerLink tekst={tekst('leggInnOpplysninger')} />
             </>
         );
-    }
 };
 
 type Kilde = 'KRR' | 'NAV';
@@ -75,7 +65,7 @@ const Telefonnummer = (props: { kilde: Kilde; telefonnummer: string }) => {
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
 
     return (
-        <Panel border>
+        <Panel border className="mbm">
             <Heading size={'small'}>{tekst(`tlfHos${props.kilde}`)}</Heading>
             <Label>{props.telefonnummer}</Label>
             <Detail size={'small'}>{tekst(`kilde${props.kilde}`)}</Detail>
@@ -83,15 +73,11 @@ const Telefonnummer = (props: { kilde: Kilde; telefonnummer: string }) => {
     );
 };
 
-const EndreOpplysninger = () => {
-    const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
-
+const EndreOpplysningerLink = (props: { tekst: string }) => {
     return (
-        <Cell xs={12}>
-            <Link href="https://www.nav.no/person/personopplysninger/#kontaktinformasjon">
-                {tekst('endreOpplysninger')}
-                <ExternalLink />
-            </Link>
-        </Cell>
+        <Link href="https://www.nav.no/person/personopplysninger/#kontaktinformasjon" target="_blank">
+            {props.tekst}
+            <ExternalLink />
+        </Link>
     );
 };

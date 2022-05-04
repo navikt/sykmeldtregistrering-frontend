@@ -2,11 +2,8 @@ import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../hooks/useSprak';
 import { formaterDato } from '../lib/date-utils';
 import virkedager from '@alheimsins/virkedager';
-import { Alert, AlertProps, Cell, ContentContainer, Grid, GuidePanel, Heading } from '@navikt/ds-react';
+import { Alert, AlertProps, BodyShort, GuidePanel, Heading } from '@navikt/ds-react';
 import { Kontaktinformasjon } from './kontaktinformasjon';
-import useSWR from 'swr';
-import { fetcher } from '../lib/api-utils';
-import { Kontaktinformasjon as KontaktInfo } from '../model/kontaktinformasjon';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -20,11 +17,6 @@ const TEKSTER: Tekster<string> = {
         viktig: 'Viktig:',
         kontakterDegInnen: 'Vi kontakter deg innen utgangen av ',
         kontaktopplysningerOppdatert: 'Pass på at kontaktopplysningene dine er oppdatert, ellers kan vi ikke nå deg.',
-        tlfHosKRR: 'Telefonnummer lagret hos Kontakt- og reservasjonsregisteret',
-        kildeKRR: 'Kilde: Kontakt- og reservasjonsregisteret',
-        tlfHosNAV: 'Telefonnummer lagret hos NAV',
-        kildeNAV: 'Kilde: NAV',
-        endreOpplysninger: 'Endre opplysninger',
     },
     en: {
         alertMottatt: 'Request received',
@@ -37,7 +29,6 @@ const TEKSTER: Tekster<string> = {
         viktig: 'Important:',
         kontakterDegInnen: 'We will contact you before the end of ',
         kontaktopplysningerOppdatert: 'Please make sure your contact details are updated.',
-        endreOpplysninger: 'Change contact details',
         //TODO: Oversette alle tekster
     },
 };
@@ -63,30 +54,29 @@ export const KvitteringOppgaveIkkeOpprettet = (props: { feil: Opprettelsesfeil }
     if (props.feil === 'finnesAllerede') {
         return Kvittering({ variant: 'info', children: tekst('alertVennligstVent') }, tekst('alleredeBedtOmKontakt'));
     }
-    return Kvittering({ variant: 'error', children: tekst('alertFeil') }, tekst('klarteIkkeMotta'), false);
+    return (
+        <GuidePanel poster>
+            <Alert variant="error" className={'mbm'}>
+                {tekst('alertFeil')}
+            </Alert>
+            <BodyShort className="mbm">{tekst('klarteIkkeMotta')}</BodyShort>
+        </GuidePanel>
+    );
 };
 
-const Kvittering = (alertProps: AlertProps, infotekst: string, visKontaktinfo: boolean = true, tittel?: string) => {
-    const { data } = useSWR<KontaktInfo>('api/kontaktinformasjon/', fetcher);
-
+const Kvittering = (alertProps: AlertProps, infotekst: string, tittel?: string) => {
     return (
-        <ContentContainer>
-            <GuidePanel poster>
-                <Grid>
-                    <Cell xs={12}>
-                        <Alert variant={alertProps.variant}>{alertProps.children}</Alert>
-                    </Cell>
-                    <Cell xs={12}>
-                        {tittel && (
-                            <Heading spacing size={'small'}>
-                                {tittel}
-                            </Heading>
-                        )}
-                        {infotekst}
-                    </Cell>
-                    {visKontaktinfo && data && <Kontaktinformasjon kontaktinfo={data} />}
-                </Grid>
-            </GuidePanel>
-        </ContentContainer>
+        <GuidePanel poster>
+            <Alert variant={alertProps.variant} className={'mbm'}>
+                {alertProps.children}
+            </Alert>
+            {tittel && (
+                <Heading spacing size={'small'}>
+                    {tittel}
+                </Heading>
+            )}
+            <BodyShort className="mbm">{infotekst}</BodyShort>
+            <Kontaktinformasjon />
+        </GuidePanel>
     );
 };
