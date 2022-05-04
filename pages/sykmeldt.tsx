@@ -52,7 +52,7 @@ const SykmeldtStartside = (props: SykmeldtProps) => {
                 </Label>
                 {tekst('sykmeldtInformasjon')}
             </GuidePanel>
-            <Heading spacing size="medium">
+            <Heading level="2" spacing size="medium">
                 {tekst('naarRegistrertTittel')}
             </Heading>
             <div className={'flex-center flex-wrap mbm'}>
@@ -66,7 +66,7 @@ const SykmeldtStartside = (props: SykmeldtProps) => {
                     <VeiledningSvg />
                 </div>
             </div>
-            <Heading spacing size="medium">
+            <Heading level="2" spacing size="medium">
                 {tekst('registrerDegTittel')}
             </Heading>
             <BodyLong spacing>

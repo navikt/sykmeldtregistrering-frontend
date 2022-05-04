@@ -78,7 +78,7 @@ const KontaktVeileder = (props: { situasjon: Situasjon }) => {
         return (
             <>
                 <GuidePanel poster>
-                    <Heading size="medium" spacing={true}>
+                    <Heading size="medium" spacing={true} level="1">
                         {tekst('heading')}
                     </Heading>
                     <BodyShort>

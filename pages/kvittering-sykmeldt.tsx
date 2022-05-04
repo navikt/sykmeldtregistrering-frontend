@@ -33,7 +33,7 @@ const KvitteringSykmeldt = () => {
 
     return (
         <>
-            <Heading spacing size={'medium'}>
+            <Heading level="1" spacing size={'medium'}>
                 {tekst('header')}
             </Heading>
             <GuidePanel poster>
