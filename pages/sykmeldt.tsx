@@ -1,4 +1,4 @@
-import { BodyLong, Button, Cell, ContentContainer, Grid, GuidePanel, Heading, Label, Link } from '@navikt/ds-react';
+import { BodyLong, Button, GuidePanel, Heading, Label, Link } from '@navikt/ds-react';
 import NextLink from 'next/link';
 import { nanoid } from 'nanoid';
 import { NextPageContext } from 'next';

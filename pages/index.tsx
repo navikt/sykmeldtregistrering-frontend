@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 import NextLink from 'next/link';
-import { Button, Cell, Grid, Heading } from '@navikt/ds-react';
+import { BodyShort, Button, Cell, Grid, Heading } from '@navikt/ds-react';
 
 import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../hooks/useSprak';
@@ -12,15 +12,22 @@ import DemoPanel from '../components/forsiden/demo-panel';
 import { useConfig } from '../contexts/config-context';
 import { Config } from '../model/config';
 import { loggAktivitet } from '../lib/amplitude';
+import ElektroniskID from '../components/forsiden/elektroniskID';
 
 const TEKSTER: Tekster<string> = {
     nb: {
         tittel: 'Registrer deg som arbeidssøker',
         startRegistrering: 'Start registrering',
+        elektroniskId: 'Du må ha elektronisk ID for å registrere deg',
+        elektroniskIdInfo:
+            'For å registrere deg hos NAV, må du logge inn med BankID, BankID på mobil, Buypass eller Commfides.',
     },
     en: {
         tittel: 'Register as job seeker',
         startRegistrering: 'Start registration',
+        elektroniskId: 'You will need an electronic ID to register',
+        elektroniskIdInfo:
+            'To register at NAV, you must login with either BankID, BankID on mobile, Buypass or Commfides.',
     },
 };
 
@@ -50,12 +57,21 @@ const Home: NextPage = () => {
                     <Cell xs={12}>
                         <DineOpplysninger />
                     </Cell>
+                    <Cell xs={12} className="text-center pam">
+                        <Heading size={'medium'} level="3" spacing={true}>
+                            {tekst('elektroniskId')}
+                        </Heading>
+                        <BodyShort style={{ maxWidth: '22em', display: 'inline-block' }}>
+                            {tekst('elektroniskIdInfo')}
+                        </BodyShort>
+                    </Cell>
                     <Cell xs={12} className={'text-center phs'}>
                         <NextLink href="/start" passHref locale={false}>
                             <Button onClick={() => logStartHandler()}>{tekst('startRegistrering')}</Button>
                         </NextLink>
                     </Cell>
                 </Grid>
+                <ElektroniskID />
                 <DemoPanel brukerMock={brukerMock} />
             </div>
         </>
