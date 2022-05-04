@@ -97,7 +97,7 @@ jobs:
   deploy-dev:
     name: Deploy to dev
     needs: [test, build]
-    if: github.ref == 'refs/heads/klar-til-release'
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - name: Fetch NAIS yaml
