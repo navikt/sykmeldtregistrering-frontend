@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import type { NextPage } from 'next';
 import NextLink from 'next/link';
 import { BodyShort, Button, Cell, Grid, Heading } from '@navikt/ds-react';
@@ -39,6 +40,10 @@ const Home: NextPage = () => {
     const logStartHandler = () => {
         loggAktivitet({ aktivitet: 'Går til start registrering' });
     };
+
+    useEffect(() => {
+        loggAktivitet({ aktivitet: 'Viser forsiden for arbeidssøkerregistreringen' });
+    }, []);
 
     return (
         <>
