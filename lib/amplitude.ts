@@ -33,7 +33,7 @@ type AktivitetData =
     | { aktivitet: 'Fortsetter til sykmeldtregistrering'; registreringstype?: any }
     | { aktivitet: 'Oppretter kontakt meg oppgave'; registreringstype?: any }
     | { aktivitet: 'Avbryter kontakt meg'; registreringstype?: any }
-    | { aktivitet: 'Endrer forslått stilling'; registreringstype?: any }
+    | { aktivitet: 'Endrer foreslått stilling'; registreringstype?: any }
     | { aktivitet: 'Viser forsiden for arbeidssøkerregistreringen'; registreringstype?: any };
 
 type KvitteringAktivitet =

@@ -42,7 +42,7 @@ const StillingsSok = (props: StillingsSokProps) => {
             if (e.type === 'change') {
                 if (!endret) {
                     setEndret(true);
-                    loggAktivitet({ aktivitet: 'Endrer forslått stilling' });
+                    loggAktivitet({ aktivitet: 'Endrer foreslått stilling' });
                 }
                 setValue(e.target.value);
             }
