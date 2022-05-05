@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Loader } from '@navikt/ds-react';
 import useSWR from 'swr';
 import { useRouter } from 'next/router';
@@ -8,7 +8,6 @@ import { Formidlingsgruppe, RegistreringType } from '../model/registrering';
 import { fetcher } from '../lib/api-utils';
 import { useConfig } from '../contexts/config-context';
 import { Config } from '../model/config';
-import { loggAktivitet } from '../lib/amplitude';
 
 function skalVideresendesTilDittNAV(data: any) {
     const { formidlingsgruppe, underOppfolging } = data;
