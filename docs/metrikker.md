@@ -11,23 +11,36 @@ Dersom du vil lage egne rapporter utover de som ligger på dashboardet er det sa
 
 ## Stoppsituasjoner
 
-Situasjoner som gjør at arbeidssøkeren ikke får registrert seg
+Situasjoner som gjør at arbeidssøkeren ikke får registrert seg.
 
-Kan hentes ut ved å sjekke `arbeidssokerregistrering.stoppsituasjoner` og gruppere på `situasjon`
+Kan hentes ut ved å sjekke `arbeidssokerregistrering.stoppsituasjoner` og gruppere på `situasjon`.
+På situasjonen `Arbeidssøkeren må reaktivere seg` kan du også gruppere på `brukergruppe` for å se hvilke grupper som møtte stoppsituasjonen
 
--   vedlikehold av Arena
-    -   midlertidig
--   teknisk feil
-    -   midlertidig
--   Feil som skyldes NAV-interne systemer
-    -   IARBS + oppfølging men ikke registrert som arbeidssøker
-        -   noen må gjøre en manuell jobb i Arena
-    -   mangler arbeidstillatelse i Arena
-        -   noen må gjøre en manuell jobb i Arena
-    -   utvandret
-        -   noen må gjøre en manuell jobb i Arena
--   antall reaktiveringer
-    -   som søker gjenopptak
+### Situasjoner
+
+`Arbeidssøkeren må reaktivere seg`
+
+Arbeidssøkeren har falt ut av NAV-systemet og det har gått kortere tid enn 28 dager siden det skjedde.
+Her er det mulig å gruppere på `brukergruppe` for å se hvilken status arbeidssøkeren hadde før hen falt ut.
+
+`Arbeidssøkeren mangler arbeidstillatelse eller er utvandret`
+
+Denne kan skyldes at NAV ikke har oppdaterte opplysninger om arbeidssøkeren i vår systemer.
+I de tilfellene må en veileder gjøre en manuell jobb for å oppdatere opplysningene.
+
+`Arbeidssøkeren er allerede registrert`
+
+Denne kommer opp for brukere som ikke får registrert seg på grunn av mismatch i baksystemene til NAV.
+Det kan være at de er i gruppen IARBS eller annet.
+
+`Arbeidssøkeren får en feilmelding`
+
+Dette er en samlemelding over feilsituajoner hvor vi ikke kan gi en god forklaring på hva som har skjedd elelr hvordan den kan løses.
+Typisk skjer dette ved uforutsette tekniske feil i baksystemene og hvor bruker bare får beskjed om å prøve igjen senere.
+
+`Arbeidssøkeren får ikke registrert seg pga nedetid`
+
+Denne vises dersom systemet er togglet av pga for eksempel planlagt vedlikehold av Arena.
 
 ## Brukeradferd
 
