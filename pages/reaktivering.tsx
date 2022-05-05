@@ -1,12 +1,16 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { BodyShort, Button, GuidePanel, Heading } from '@navikt/ds-react';
 import { useRouter } from 'next/router';
+import useSWR from 'swr';
 
 import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../hooks/useSprak';
 import { fetcher as api } from '../lib/api-utils';
 import { useErrorContext } from '../contexts/error-context';
+import { Brukergruppe } from '../model/registrering';
 import { loggStoppsituasjon, loggAktivitet } from '../lib/amplitude';
+import { fetcher } from '../lib/api-utils';
+import beregnBrukergruppe from '../lib/beregn-brukergruppe';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -24,14 +28,16 @@ const Reaktivering = () => {
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
     const router = useRouter();
     const { medFeilHandtering } = useErrorContext();
+    const { data, error } = useSWR('api/startregistrering/', fetcher);
+    const [brukergruppe, setBrukergruppe] = useState(Brukergruppe.UKJENT);
 
     const loggAvbrytReaktivering = () => {
-        loggAktivitet({ aktivitet: 'Arbeidssøkeren avslår reaktivering' });
+        loggAktivitet({ aktivitet: 'Arbeidssøkeren avslår reaktivering', brukergruppe });
         return router.push('/');
     };
 
     const reaktiverBruker = async () => {
-        loggAktivitet({ aktivitet: 'Arbeidssøkeren reaktiverer seg' });
+        loggAktivitet({ aktivitet: 'Arbeidssøkeren reaktiverer seg', brukergruppe });
         medFeilHandtering(async () => {
             await api('/api/reaktivering/', { method: 'post', body: JSON.stringify({}) });
             return router.push('/kvittering-reaktivering/');
@@ -39,10 +45,22 @@ const Reaktivering = () => {
     };
 
     useEffect(() => {
-        loggStoppsituasjon({
-            situasjon: 'Arbeidssøkeren må reaktivere seg',
-        });
-    }, []);
+        if (data && data.servicegruppe) {
+            const { servicegruppe } = data;
+            const gruppe = beregnBrukergruppe(servicegruppe);
+            setBrukergruppe(gruppe);
+            loggStoppsituasjon({
+                situasjon: 'Arbeidssøkeren må reaktivere seg',
+                brukergruppe: gruppe,
+            });
+        }
+    }, [data]);
+
+    useEffect(() => {
+        if (error) {
+            router.push('/feil/');
+        }
+    }, [error, router]);
 
     return (
         <>
