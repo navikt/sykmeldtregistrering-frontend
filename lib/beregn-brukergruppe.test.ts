@@ -17,8 +17,13 @@ describe('tester beregn-brukergruppe funksjonen', () => {
         expect(brukergruppe).toBe(Brukergruppe.BEHOV_FOR_ARBEIDSEVNEVURDERING);
     });
 
-    test('Returnerer Ukjent IVURD', () => {
+    test('Returnerer Ikke vurdert for IVURD', () => {
         const brukergruppe = beregnBrukergruppe(Servicegruppe.IVURD);
+        expect(brukergruppe).toBe(Brukergruppe.IKKE_VURDERT);
+    });
+
+    test('Returnerer Ukjent for VARIG', () => {
+        const brukergruppe = beregnBrukergruppe(Servicegruppe.VARIG);
         expect(brukergruppe).toBe(Brukergruppe.UKJENT);
     });
 });

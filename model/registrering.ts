@@ -33,6 +33,7 @@ export enum Brukergruppe {
     STANDARD = 'Standard',
     SITUASJONSBESTEMT = 'Situasjonsbestemt',
     BEHOV_FOR_ARBEIDSEVNEVURDERING = 'Behov for arbeidsevnevurdering',
+    IKKE_VURDERT = 'Ikke vurdert',
 }
 
 export interface FullforRegistreringResponse {

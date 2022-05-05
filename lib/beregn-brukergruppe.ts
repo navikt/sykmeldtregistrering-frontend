@@ -11,6 +11,9 @@ function beregnBrukergruppe(servicegruppe: Servicegruppe): Brukergruppe {
         case (servicegruppe = Servicegruppe.BKART): {
             return Brukergruppe.BEHOV_FOR_ARBEIDSEVNEVURDERING;
         }
+        case (servicegruppe = Servicegruppe.IVURD): {
+            return Brukergruppe.IKKE_VURDERT;
+        }
         default: {
             return Brukergruppe.UKJENT;
         }
