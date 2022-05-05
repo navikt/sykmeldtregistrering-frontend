@@ -1,5 +1,5 @@
 import amplitude from 'amplitude-js';
-import { RegistreringType } from '../model/registrering';
+import { Brukergruppe, RegistreringType } from '../model/registrering';
 import { SporsmalId } from '../model/sporsmal';
 
 const isBrowser = () => typeof window !== 'undefined';
@@ -18,7 +18,7 @@ type EventData = SidevisningData | AktivitetData | StoppsituasjonData | Besvarel
 
 type BesvarelseData = { skjematype: 'standard' | 'sykmeldt'; sporsmalId: SporsmalId; svar: any };
 
-type StoppsituasjonData = { situasjon: string };
+type StoppsituasjonData = { situasjon: string; brukergruppe?: Brukergruppe };
 
 type SidevisningData = { sidetittel: string };
 
@@ -28,8 +28,8 @@ type AktivitetData =
     | { aktivitet: 'Start registrering'; registreringstype?: any }
     | { aktivitet: 'Går til start registrering'; registreringstype?: any }
     | { aktivitet: 'Avbryter registreringen'; registreringstype?: any }
-    | { aktivitet: 'Arbeidssøkeren reaktiverer seg'; registreringstype?: any }
-    | { aktivitet: 'Arbeidssøkeren avslår reaktivering'; registreringstype?: any }
+    | { aktivitet: 'Arbeidssøkeren reaktiverer seg'; registreringstype?: any; brukergruppe?: Brukergruppe }
+    | { aktivitet: 'Arbeidssøkeren avslår reaktivering'; registreringstype?: any; brukergruppe?: Brukergruppe }
     | { aktivitet: 'Fortsetter til sykmeldtregistrering'; registreringstype?: any }
     | { aktivitet: 'Oppretter kontakt meg oppgave'; registreringstype?: any }
     | { aktivitet: 'Avbryter kontakt meg'; registreringstype?: any }
