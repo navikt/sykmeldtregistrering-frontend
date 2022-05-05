@@ -28,6 +28,13 @@ export enum Servicegruppe {
     VURDU = 'VURDU',
 }
 
+export enum Brukergruppe {
+    UKJENT = 'Ukjent',
+    STANDARD = 'Standard',
+    SITUASJONSBESTEMT = 'Situasjonsbestemt',
+    BEHOV_FOR_ARBEIDSEVNEVURDERING = 'Behov for arbeidsevnevurdering',
+}
+
 export interface FullforRegistreringResponse {
     type?: ErrorTypes;
 }
