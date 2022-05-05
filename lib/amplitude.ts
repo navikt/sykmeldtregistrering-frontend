@@ -24,17 +24,21 @@ type SidevisningData = { sidetittel: string };
 
 type AktivitetData =
     | { aktivitet: KvitteringAktivitet; registreringstype: RegistreringType }
-    | { aktivitet: 'Utfylling av skjema fullført'; tidBruktForAaFullforeSkjema?: number; registreringstype?: any }
-    | { aktivitet: 'Start registrering'; registreringstype?: any }
-    | { aktivitet: 'Går til start registrering'; registreringstype?: any }
-    | { aktivitet: 'Avbryter registreringen'; registreringstype?: any }
-    | { aktivitet: 'Arbeidssøkeren reaktiverer seg'; registreringstype?: any; brukergruppe?: Brukergruppe }
-    | { aktivitet: 'Arbeidssøkeren avslår reaktivering'; registreringstype?: any; brukergruppe?: Brukergruppe }
-    | { aktivitet: 'Fortsetter til sykmeldtregistrering'; registreringstype?: any }
-    | { aktivitet: 'Oppretter kontakt meg oppgave'; registreringstype?: any }
-    | { aktivitet: 'Avbryter kontakt meg'; registreringstype?: any }
-    | { aktivitet: 'Endrer foreslått stilling'; registreringstype?: any }
-    | { aktivitet: 'Viser forsiden for arbeidssøkerregistreringen'; registreringstype?: any };
+    | {
+          aktivitet: 'Utfylling av skjema fullført';
+          tidBruktForAaFullforeSkjema?: number;
+          registreringstype: RegistreringType;
+      }
+    | { aktivitet: 'Start registrering'; registreringstype: RegistreringType }
+    | { aktivitet: 'Går til start registrering' }
+    | { aktivitet: 'Avbryter registreringen' }
+    | { aktivitet: 'Arbeidssøkeren reaktiverer seg'; brukergruppe: Brukergruppe }
+    | { aktivitet: 'Arbeidssøkeren avslår reaktivering'; brukergruppe: Brukergruppe }
+    | { aktivitet: 'Fortsetter til sykmeldtregistrering' }
+    | { aktivitet: 'Oppretter kontakt meg oppgave' }
+    | { aktivitet: 'Avbryter kontakt meg' }
+    | { aktivitet: 'Endrer foreslått stilling' }
+    | { aktivitet: 'Viser forsiden for arbeidssøkerregistreringen' };
 
 type KvitteringAktivitet =
     | 'Viser kvittering'
