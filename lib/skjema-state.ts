@@ -84,11 +84,19 @@ export function skjemaReducer(state: SkjemaState, action: SkjemaAction): SkjemaS
 }
 
 export const oppdaterDinSituasjon = (skjemaState: SkjemaState, dinSituasjon: DinSituasjon) => {
+    const sisteStillingValg = [
+        DinSituasjon.USIKKER_JOBBSITUASJON,
+        DinSituasjon.JOBB_OVER_2_AAR,
+        DinSituasjon.AKKURAT_FULLFORT_UTDANNING,
+    ];
+    const sisteStilling = sisteStillingValg.includes(dinSituasjon) ? skjemaState[SporsmalId.sisteStilling] : undefined;
+
     if (dinSituasjon === DinSituasjon.ALDRI_HATT_JOBB) {
         return {
             ...skjemaState,
             dinSituasjon: dinSituasjon,
             sisteJobb: undefined,
+            sisteStilling,
         };
     } else if (dinSituasjon === DinSituasjon.VIL_FORTSETTE_I_JOBB) {
         return {
@@ -97,11 +105,12 @@ export const oppdaterDinSituasjon = (skjemaState: SkjemaState, dinSituasjon: Din
             utdanning: undefined,
             utdanningBestatt: undefined,
             utdanningGodkjent: undefined,
-            [SporsmalId.sisteStilling]: SisteStillingValg.INGEN_SVAR,
+            sisteStilling,
         };
     }
     return {
         ...skjemaState,
+        sisteStilling,
         dinSituasjon: dinSituasjon,
     };
 };

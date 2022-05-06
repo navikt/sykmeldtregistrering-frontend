@@ -1,6 +1,6 @@
 import { SkjemaState } from '../model/skjema';
 import { oppdaterDinSituasjon, oppdaterUtdanning } from './skjema-state';
-import { DinSituasjon, JaEllerNei, UtdanningGodkjentValg, Utdanningsnivaa } from '../model/sporsmal';
+import { DinSituasjon, JaEllerNei, SisteStillingValg, UtdanningGodkjentValg, Utdanningsnivaa } from '../model/sporsmal';
 
 const sisteStilling = {
     label: 'Klovn kommunal sektor',
@@ -26,6 +26,27 @@ describe('Oppdatering av skjemastate', () => {
         const oppdatertState = oppdaterDinSituasjon(state, DinSituasjon.DELTIDSJOBB_VIL_MER);
 
         expect(oppdatertState.sisteJobb).toEqual(sisteStilling);
+    });
+    test('lar sisteStilling-verdien bli stående hvis man velger [DinSituasjon.USIKKER_JOBBSITUASJON, DinSituasjon.JOBB_OVER_2_AAR, DinSituasjon.AKKURAT_FULLFORT_UTDANNING]', () => {
+        const state: SkjemaState = {
+            sisteStilling: SisteStillingValg.HAR_HATT_JOBB,
+        };
+
+        expect(oppdaterDinSituasjon(state, DinSituasjon.USIKKER_JOBBSITUASJON).sisteStilling).toEqual(
+            SisteStillingValg.HAR_HATT_JOBB
+        );
+        expect(oppdaterDinSituasjon(state, DinSituasjon.JOBB_OVER_2_AAR).sisteStilling).toEqual(
+            SisteStillingValg.HAR_HATT_JOBB
+        );
+        expect(oppdaterDinSituasjon(state, DinSituasjon.AKKURAT_FULLFORT_UTDANNING).sisteStilling).toEqual(
+            SisteStillingValg.HAR_HATT_JOBB
+        );
+    });
+    test('setter siste-stilling verdien til undefined', () => {
+        const state: SkjemaState = {
+            sisteStilling: SisteStillingValg.HAR_HATT_JOBB,
+        };
+        expect(oppdaterDinSituasjon(state, DinSituasjon.VIL_FORTSETTE_I_JOBB).sisteStilling).toEqual(undefined);
     });
     test('Setter alle utdanningsspm til undefined hvis man endrer dinSituasjon til VIL_FORTSETTE_I_JOBB', () => {
         const state: SkjemaState = {
