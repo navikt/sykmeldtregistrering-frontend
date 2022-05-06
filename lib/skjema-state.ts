@@ -97,6 +97,7 @@ export const oppdaterDinSituasjon = (skjemaState: SkjemaState, dinSituasjon: Din
             utdanning: undefined,
             utdanningBestatt: undefined,
             utdanningGodkjent: undefined,
+            [SporsmalId.sisteStilling]: SisteStillingValg.INGEN_SVAR,
         };
     }
     return {
