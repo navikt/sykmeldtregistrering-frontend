@@ -42,7 +42,7 @@ function hentNesteSideUrl(data: any, dittNavUrl: string) {
 }
 
 const Start = () => {
-    const { dittNavUrl } = useConfig() as Config;
+    const { dittNavUrl, loginUrl } = useConfig() as Config;
     const { data, error } = useSWR('api/startregistrering/', fetcher);
     const router = useRouter();
 
@@ -56,7 +56,7 @@ const Start = () => {
 
     useEffect(() => {
         if (error) {
-            router.push('/feil/');
+            error.message === '401' ? router.push(loginUrl) : router.push('/feil/');
         }
     }, [error, router]);
 

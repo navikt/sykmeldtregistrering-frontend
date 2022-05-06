@@ -9,4 +9,5 @@ export type Config = {
     dagpengesoknadUrl: string;
     dialogUrl: string;
     enableMock: string;
+    loginUrl: string;
 };

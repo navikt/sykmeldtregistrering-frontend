@@ -11,7 +11,9 @@ export const fetcher = async (path: string, opts?: RequestInit & { onError?: (re
     });
 
     if (!response.ok) {
-        if (typeof opts?.onError === 'function') {
+        if (response.status === 401) {
+            throw new Error('401');
+        } else if (typeof opts?.onError === 'function') {
             return opts.onError(response);
         }
         throw new Error(response.statusText);
