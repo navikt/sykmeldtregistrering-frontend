@@ -50,11 +50,11 @@ describe('Standard registrering tilstandsmaskin', () => {
             });
             expect(state.neste).toBe(SkjemaSide.Utdanning);
         });
-        it('returnerer 1/9 i fremdrift', () => {
+        it('returnerer 2/10 i fremdrift', () => {
             const state = beregnNavigering(SkjemaSide.SisteJobb, {
                 dinSituasjon: DinSituasjon.ALDRI_HATT_JOBB,
             });
-            expect(state.fremdrift).toBe(1 / 9);
+            expect(state.fremdrift).toBe(2 / 10);
         });
     });
     describe('utdanning', () => {
@@ -90,13 +90,13 @@ describe('Standard registrering tilstandsmaskin', () => {
             });
             expect(state.forrige).toBe(SkjemaSide.SisteJobb);
         });
-        it('returnerer 2/9 i fremdrift', () => {
+        it('returnerer 3/10 i fremdrift', () => {
             const state = beregnNavigering(SkjemaSide.Utdanning, {
                 dinSituasjon: DinSituasjon.MISTET_JOBBEN,
                 sisteJobb: sisteStilling,
                 utdanning: Utdanningsnivaa.HOYERE_UTDANNING_5_ELLER_MER,
             });
-            expect(state.fremdrift).toBe(2 / 9);
+            expect(state.fremdrift).toBe(3 / 10);
         });
     });
     describe('GodkjentUtdanning', () => {
@@ -112,7 +112,7 @@ describe('Standard registrering tilstandsmaskin', () => {
 
         it('returnerer 3/9 i fremdrift', () => {
             const { fremdrift } = beregnNavigering(SkjemaSide.GodkjentUtdanning, {});
-            expect(fremdrift).toBe(3 / 9);
+            expect(fremdrift).toBe(4 / 10);
         });
     });
 
@@ -129,7 +129,7 @@ describe('Standard registrering tilstandsmaskin', () => {
 
         it('returnerer 4/9 i fremdrift', () => {
             const { fremdrift } = beregnNavigering(SkjemaSide.BestaattUtdanning, {});
-            expect(fremdrift).toBe(4 / 9);
+            expect(fremdrift).toBe(5 / 10);
         });
     });
 
@@ -161,7 +161,7 @@ describe('Standard registrering tilstandsmaskin', () => {
         });
         it('returnerer 5/9 i fremdrift', () => {
             const { fremdrift } = beregnNavigering(SkjemaSide.Helseproblemer, {});
-            expect(fremdrift).toBe(5 / 9);
+            expect(fremdrift).toBe(6 / 10);
         });
     });
 
@@ -178,7 +178,7 @@ describe('Standard registrering tilstandsmaskin', () => {
 
         it('returnerer 6/9 i fremdrift', () => {
             const { fremdrift } = beregnNavigering(SkjemaSide.AndreProblemer, {});
-            expect(fremdrift).toBe(6 / 9);
+            expect(fremdrift).toBe(7 / 10);
         });
     });
 });

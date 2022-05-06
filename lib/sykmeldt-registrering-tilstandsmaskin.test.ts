@@ -35,11 +35,11 @@ describe('Sykmeldt registrering tilstandsmaskin', () => {
             });
             expect(state.neste).toBe(SkjemaSide.TilbakeTilJobb);
         });
-        it('returnerer 0 i fremdrift', () => {
+        it('returnerer 1/8 i fremdrift', () => {
             const state = beregnNavigering(SkjemaSide.SykmeldtFremtidigSituasjon, {
                 fremtidigSituasjon: FremtidigSituasjon.SAMME_ARBEIDSGIVER_NY_STILLING,
             });
-            expect(state.fremdrift).toBe(0);
+            expect(state.fremdrift).toBe(1 / 8);
         });
     });
 
@@ -64,7 +64,7 @@ describe('Sykmeldt registrering tilstandsmaskin', () => {
             const state = beregnNavigering(SkjemaSide.Utdanning, {
                 fremtidigSituasjon: FremtidigSituasjon.SAMME_ARBEIDSGIVER_NY_STILLING,
             });
-            expect(state.fremdrift).toBe(2 / 7);
+            expect(state.fremdrift).toBe(2 / 8);
         });
     });
 
@@ -79,7 +79,7 @@ describe('Sykmeldt registrering tilstandsmaskin', () => {
         });
         it('returnerer 3/7 i fremdrift', () => {
             const state = beregnNavigering(SkjemaSide.GodkjentUtdanning, {});
-            expect(state.fremdrift).toBe(3 / 7);
+            expect(state.fremdrift).toBe(3 / 8);
         });
     });
 
@@ -94,7 +94,7 @@ describe('Sykmeldt registrering tilstandsmaskin', () => {
         });
         it('returnerer 4/7 i fremdrift', () => {
             const state = beregnNavigering(SkjemaSide.BestaattUtdanning, {});
-            expect(state.fremdrift).toBe(4 / 7);
+            expect(state.fremdrift).toBe(4 / 8);
         });
     });
 
@@ -117,7 +117,7 @@ describe('Sykmeldt registrering tilstandsmaskin', () => {
         });
         it('returnerer 5/7 i fremdrift', () => {
             const state = beregnNavigering(SkjemaSide.AndreProblemer, {});
-            expect(state.fremdrift).toBe(5 / 7);
+            expect(state.fremdrift).toBe(5 / 8);
         });
     });
 
@@ -176,7 +176,7 @@ describe('Sykmeldt registrering tilstandsmaskin', () => {
         });
         it('returnerer 5/7 i fremdrift', () => {
             const state = beregnNavigering(SkjemaSide.Oppsummering, {});
-            expect(state.fremdrift).toBe(5 / 7);
+            expect(state.fremdrift).toBe(6 / 8);
         });
     });
 });
