@@ -46,32 +46,29 @@ const Kvittering = () => {
                 <BodyShort spacing>{tekst('tidligstFaaDagpenger')}</BodyShort>
                 <BodyShort spacing>{tekst('sendeSoknaden')}</BodyShort>
             </GuidePanel>
-
-            <section className="flex-center mhl">
-                <a
-                    href={dagpengesoknadUrl}
-                    onClick={() =>
-                        loggAktivitet({
-                            aktivitet: 'Går til dagpenger fra kvittering',
-                            registreringstype: RegistreringType.ORDINAER_REGISTRERING,
-                        })
-                    }
-                    className="navds-button navds-button--primary navds-button--medium mrl"
-                >
-                    {tekst('sokDagpenger')}
-                </a>
-                <Link
-                    href={dittNavUrl}
-                    onClick={() =>
-                        loggAktivitet({
-                            aktivitet: 'Velger å ikke gå til dagpenger fra kvittering',
-                            registreringstype: RegistreringType.ORDINAER_REGISTRERING,
-                        })
-                    }
-                >
-                    {tekst('skalIkkeSoke')}
-                </Link>
-            </section>
+            <a
+                href={dagpengesoknadUrl}
+                onClick={() =>
+                    loggAktivitet({
+                        aktivitet: 'Går til dagpenger fra kvittering',
+                        registreringstype: RegistreringType.ORDINAER_REGISTRERING,
+                    })
+                }
+                className="mhl navds-button navds-button--primary navds-button--medium"
+            >
+                {tekst('sokDagpenger')}
+            </a>
+            <Link
+                href={dittNavUrl}
+                onClick={() =>
+                    loggAktivitet({
+                        aktivitet: 'Velger å ikke gå til dagpenger fra kvittering',
+                        registreringstype: RegistreringType.ORDINAER_REGISTRERING,
+                    })
+                }
+            >
+                {tekst('skalIkkeSoke')}
+            </Link>
         </>
     );
 };

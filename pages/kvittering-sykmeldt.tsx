@@ -42,32 +42,29 @@ const KvitteringSykmeldt = () => {
                 </Heading>
                 <BodyShort>{tekst('ingress')}</BodyShort>
             </GuidePanel>
-
-            <section className="flex-center mhl">
-                <a
-                    href={dittNavUrl}
-                    className="navds-button navds-button--primary navds-button--medium mrl"
-                    onClick={() =>
-                        loggAktivitet({
-                            aktivitet: 'Velger å lese mer om økonomisk støtte',
-                            registreringstype: RegistreringType.SYKMELDT_REGISTRERING,
-                        })
-                    }
-                >
-                    {tekst('lesMer')}
-                </a>
-                <Link
-                    href={dittNavUrl}
-                    onClick={() =>
-                        loggAktivitet({
-                            aktivitet: 'Velger å ikke søke om økonomisk støtte',
-                            registreringstype: RegistreringType.SYKMELDT_REGISTRERING,
-                        })
-                    }
-                >
-                    {tekst('skalIkkeSoke')}
-                </Link>
-            </section>
+            <a
+                href={dittNavUrl}
+                className="mhl navds-button navds-button--primary navds-button--medium"
+                onClick={() =>
+                    loggAktivitet({
+                        aktivitet: 'Velger å lese mer om økonomisk støtte',
+                        registreringstype: RegistreringType.SYKMELDT_REGISTRERING,
+                    })
+                }
+            >
+                {tekst('lesMer')}
+            </a>
+            <Link
+                href={dittNavUrl}
+                onClick={() =>
+                    loggAktivitet({
+                        aktivitet: 'Velger å ikke søke om økonomisk støtte',
+                        registreringstype: RegistreringType.SYKMELDT_REGISTRERING,
+                    })
+                }
+            >
+                {tekst('skalIkkeSoke')}
+            </Link>
         </>
     );
 };
