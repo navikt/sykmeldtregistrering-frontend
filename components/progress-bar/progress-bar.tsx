@@ -6,7 +6,7 @@ interface Props {
 }
 
 const hentBredde = (value: number) => {
-    return value === 0 ? 2 : 100 * value; // gi 0 fremdrift 2% i start-bredde
+    return 100 * value;
 };
 
 const ProgressBar = (props: Props) => {

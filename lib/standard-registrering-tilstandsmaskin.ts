@@ -7,14 +7,14 @@ const TILSTANDER: NavigeringsTilstandsMaskin<StandardSkjemaSide> = {
             return {
                 neste: SkjemaSide.Utdanning,
                 forrige: undefined,
-                fremdrift: 0,
+                fremdrift: 1 / 10,
             };
         }
 
         return {
             neste: SkjemaSide.SisteJobb,
             forrige: undefined,
-            fremdrift: 0,
+            fremdrift: 1 / 10,
         };
     },
     [SkjemaSide.SisteJobb]: (skjemaState: SkjemaState) => {
@@ -22,13 +22,13 @@ const TILSTANDER: NavigeringsTilstandsMaskin<StandardSkjemaSide> = {
             return {
                 neste: SkjemaSide.Helseproblemer,
                 forrige: SkjemaSide.DinSituasjon,
-                fremdrift: 1 / 9,
+                fremdrift: 2 / 10,
             };
         }
         return {
             neste: SkjemaSide.Utdanning,
             forrige: SkjemaSide.DinSituasjon,
-            fremdrift: 1 / 9,
+            fremdrift: 2 / 10,
         };
     },
     [SkjemaSide.Utdanning]: (skjemaState: SkjemaState) => {
@@ -41,21 +41,21 @@ const TILSTANDER: NavigeringsTilstandsMaskin<StandardSkjemaSide> = {
                 skjemaState.dinSituasjon === DinSituasjon.ALDRI_HATT_JOBB
                     ? SkjemaSide.DinSituasjon
                     : SkjemaSide.SisteJobb,
-            fremdrift: 2 / 9,
+            fremdrift: 3 / 10,
         };
     },
     [SkjemaSide.GodkjentUtdanning]: () => {
         return {
             neste: SkjemaSide.BestaattUtdanning,
             forrige: SkjemaSide.Utdanning,
-            fremdrift: 3 / 9,
+            fremdrift: 4 / 10,
         };
     },
     [SkjemaSide.BestaattUtdanning]: () => {
         return {
             neste: SkjemaSide.Helseproblemer,
             forrige: SkjemaSide.GodkjentUtdanning,
-            fremdrift: 4 / 9,
+            fremdrift: 5 / 10,
         };
     },
     [SkjemaSide.Helseproblemer]: (skjemaState: SkjemaState) => {
@@ -70,28 +70,28 @@ const TILSTANDER: NavigeringsTilstandsMaskin<StandardSkjemaSide> = {
         return {
             neste: SkjemaSide.AndreProblemer,
             forrige: forrige(),
-            fremdrift: 5 / 9,
+            fremdrift: 6 / 10,
         };
     },
     [SkjemaSide.AndreProblemer]: () => {
         return {
             neste: SkjemaSide.Oppsummering,
             forrige: SkjemaSide.Helseproblemer,
-            fremdrift: 6 / 9,
+            fremdrift: 7 / 10,
         };
     },
     [SkjemaSide.Oppsummering]: () => {
         return {
             neste: SkjemaSide.FullforRegistrering,
             forrige: SkjemaSide.AndreProblemer,
-            fremdrift: 7 / 9,
+            fremdrift: 8 / 10,
         };
     },
     [SkjemaSide.FullforRegistrering]: () => {
         return {
             neste: undefined,
             forrige: SkjemaSide.Oppsummering,
-            fremdrift: 8 / 9,
+            fremdrift: 9 / 10,
         };
     },
 };
