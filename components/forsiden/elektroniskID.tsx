@@ -1,5 +1,5 @@
 import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
-import { BodyShort, Heading, Link } from '@navikt/ds-react';
+import { BodyLong, Heading, Link } from '@navikt/ds-react';
 import useSprak from '../../hooks/useSprak';
 import { Next } from '@navikt/ds-icons';
 import Image from 'next/image';
@@ -55,18 +55,18 @@ const ElektroniskID = () => {
                     <Heading size={'small'} level="3" spacing={true}>
                         {tekst('skaffDegTittel')}
                     </Heading>
-                    <BodyShort spacing={true}>{tekst('skaffDegBody')}</BodyShort>
+                    <BodyLong spacing={true}>{tekst('skaffDegBody')}</BodyLong>
                     <Link className="mbm" href="https://eid.difi.no/bankid">
                         {tekst('skaffDegTittel')} <Next />
                     </Link>
                     <Heading size={'small'} level="3" spacing={true}>
                         {tekst('minIdPassportTittel')}
                     </Heading>
-                    <BodyShort spacing={true}>
+                    <BodyLong spacing={true}>
                         {tekst('minIdPassportBody')}
                         {tekst('minIdPassportTittel')}
                         <Link href="https://eid.difi.no/minid/passport">{tekst('minIdPassportLenke')}</Link>
-                    </BodyShort>
+                    </BodyLong>
                 </div>
                 <div className={styles.info}>
                     <div className="text-center mbs">
@@ -75,8 +75,8 @@ const ElektroniskID = () => {
                     <Heading size={'small'} level="3" spacing={true}>
                         {tekst('navKontoretTittel')}
                     </Heading>
-                    <BodyShort spacing={true}>{tekst('navKontoretBody1')}</BodyShort>
-                    <BodyShort spacing={true}>{tekst('navKontoretBody2')}</BodyShort>
+                    <BodyLong spacing={true}>{tekst('navKontoretBody1')}</BodyLong>
+                    <BodyLong spacing={true}>{tekst('navKontoretBody2')}</BodyLong>
                     <Link href="https://www.nav.no/sok-nav-kontor">
                         {tekst('navKontoretSok')} <Next />
                     </Link>

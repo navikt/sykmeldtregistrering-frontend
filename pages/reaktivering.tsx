@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { BodyShort, Button, GuidePanel, Heading } from '@navikt/ds-react';
+import { BodyLong, Button, GuidePanel, Heading } from '@navikt/ds-react';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
 
@@ -71,8 +71,8 @@ const Reaktivering = () => {
                 <Heading spacing level="2" size={'medium'}>
                     {tekst('tittel')}
                 </Heading>
-                <BodyShort spacing>{tekst('maaSokePaaNytt')}</BodyShort>
-                <BodyShort spacing>{tekst('vilDuRegistreres')}</BodyShort>
+                <BodyLong>{tekst('maaSokePaaNytt')}</BodyLong>
+                <BodyLong>{tekst('vilDuRegistreres')}</BodyLong>
             </GuidePanel>
             <section className="flex-center mhl">
                 <Button variant={'primary'} className="mrl" onClick={reaktiverBruker}>

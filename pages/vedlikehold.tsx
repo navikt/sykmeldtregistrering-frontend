@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Alert, BodyShort, GuidePanel, Heading } from '@navikt/ds-react';
+import { Alert, BodyLong, GuidePanel, Heading } from '@navikt/ds-react';
 
 import { loggStoppsituasjon } from '../lib/amplitude';
 import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
@@ -37,8 +37,8 @@ function Vedlikehold() {
                 {tekst('heading')}
             </Heading>
             <GuidePanel poster>
-                <BodyShort spacing>{tekst('vedlikehold')}</BodyShort>
-                <BodyShort spacing>{tekst('provIgjen')}</BodyShort>
+                <BodyLong>{tekst('vedlikehold')}</BodyLong>
+                <BodyLong>{tekst('provIgjen')}</BodyLong>
                 <Alert variant="info">{tekst('dagpenger')}</Alert>
             </GuidePanel>
         </>

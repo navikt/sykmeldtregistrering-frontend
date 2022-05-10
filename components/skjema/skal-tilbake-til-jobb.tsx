@@ -1,4 +1,4 @@
-import { Alert, BodyShort, Button, GuidePanel, Heading, Panel } from '@navikt/ds-react';
+import { Alert, BodyLong, Button, GuidePanel, Heading, Panel } from '@navikt/ds-react';
 import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../hooks/useSprak';
 import styles from '../../styles/skjema.module.css';
@@ -26,7 +26,7 @@ const SkalTilbakeTilJobb = (props: any) => {
     return (
         <div>
             <GuidePanel poster className="mbxl">
-                <BodyShort className="mbm ">{tekst('infoTekst')}</BodyShort>
+                <BodyLong className="mbm ">{tekst('infoTekst')}</BodyLong>
                 <section>
                     <Heading level="2" size="small">
                         {tekst('tittel')}
