@@ -1,5 +1,6 @@
-import { createContext, ReactNode, useContext } from 'react';
+import { createContext, ReactNode, useContext, useState, useEffect } from 'react';
 import useSWR from 'swr';
+
 import { fetcher } from '../lib/api-utils';
 import { Config } from '../model/config';
 
@@ -8,8 +9,16 @@ type uninitializedConfig = {};
 const ConfigContext = createContext<Config | uninitializedConfig>({});
 
 function ConfigProvider({ children }: { children: ReactNode }) {
+    const [config, setConfig] = useState();
     const { data } = useSWR('api/config/', fetcher);
-    return <ConfigContext.Provider value={data ?? {}}>{children}</ConfigContext.Provider>;
+
+    useEffect(() => {
+        if (data) {
+            setConfig(data);
+        }
+    }, [data]);
+
+    return <ConfigContext.Provider value={config ?? {}}>{children}</ConfigContext.Provider>;
 }
 
 function useConfig() {
