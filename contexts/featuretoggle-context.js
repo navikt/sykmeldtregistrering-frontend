@@ -5,10 +5,10 @@ const FeatureToggleContext = createContext();
 
 function FeatureToggleProvider({ children }) {
     const [toggles, setToggles] = useState({});
-    const { feautureTogglesUrl } = useConfig();
+    const { featureTogglesUrl } = useConfig();
     useEffect(() => {
         const fetchToggles = async () => {
-            const response = await fetch(feautureTogglesUrl);
+            const response = await fetch(featureTogglesUrl);
 
             const json = await response.json();
             const aktiveFeatures = json.reduce((features, feature) => {
@@ -20,10 +20,10 @@ function FeatureToggleProvider({ children }) {
             setToggles(aktiveFeatures);
         };
 
-        if (feautureTogglesUrl) {
+        if (featureTogglesUrl) {
             fetchToggles();
         }
-    }, [feautureTogglesUrl]);
+    }, [featureTogglesUrl]);
 
     return <FeatureToggleContext.Provider value={{ toggles }}>{children}</FeatureToggleContext.Provider>;
 }
