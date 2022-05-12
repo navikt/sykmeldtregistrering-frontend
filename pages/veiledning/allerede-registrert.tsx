@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { BodyShort, GuidePanel, Heading, Link } from '@navikt/ds-react';
+import { BodyLong, GuidePanel, Heading, Link } from '@navikt/ds-react';
 import NextLink from 'next/link';
 
 import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
@@ -42,10 +42,10 @@ function AlleredeRegistrert() {
             <Heading spacing size="large" level="1">
                 {tekst('overskrift')}
             </Heading>
-            <BodyShort>{tekst('innledning')}</BodyShort>
-            <BodyShort>
+            <BodyLong>{tekst('innledning')}</BodyLong>
+            <BodyLong>
                 <Link href={dialogUrl}>{tekst('sendMelding')}</Link> {tekst('ringOss')} <b>{tekst('telefonNummer')}</b>
-            </BodyShort>
+            </BodyLong>
         </GuidePanel>
     );
 }

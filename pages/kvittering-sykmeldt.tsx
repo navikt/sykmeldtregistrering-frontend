@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { BodyShort, GuidePanel, Heading, Link } from '@navikt/ds-react';
+import { BodyLong, GuidePanel, Heading, Link } from '@navikt/ds-react';
 
 import useSprak from '../hooks/useSprak';
 import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
@@ -40,7 +40,7 @@ const KvitteringSykmeldt = () => {
                 <Heading level={'2'} spacing size={'medium'}>
                     {tekst('sykmeldtTittel')}
                 </Heading>
-                <BodyShort>{tekst('ingress')}</BodyShort>
+                <BodyLong>{tekst('ingress')}</BodyLong>
             </GuidePanel>
             <a
                 href={dittNavUrl}

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import type { NextPage } from 'next';
 import NextLink from 'next/link';
-import { BodyShort, Button, Cell, Grid, Heading } from '@navikt/ds-react';
+import { BodyLong, Button, Cell, Grid, Heading } from '@navikt/ds-react';
 
 import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../hooks/useSprak';
@@ -66,9 +66,9 @@ const Home: NextPage = () => {
                         <Heading size={'medium'} level="3" spacing={true}>
                             {tekst('elektroniskId')}
                         </Heading>
-                        <BodyShort style={{ maxWidth: '22em', display: 'inline-block' }}>
+                        <BodyLong style={{ maxWidth: '22em', display: 'inline-block' }}>
                             {tekst('elektroniskIdInfo')}
-                        </BodyShort>
+                        </BodyLong>
                     </Cell>
                     <Cell xs={12} className={'text-center phs'}>
                         <NextLink href="/start" passHref locale={false}>

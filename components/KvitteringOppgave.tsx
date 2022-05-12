@@ -2,7 +2,7 @@ import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../hooks/useSprak';
 import { formaterDato } from '../lib/date-utils';
 import virkedager from '@alheimsins/virkedager';
-import { Alert, AlertProps, BodyShort, GuidePanel, Heading } from '@navikt/ds-react';
+import { Alert, AlertProps, BodyLong, GuidePanel, Heading } from '@navikt/ds-react';
 import { Kontaktinformasjon } from './kontaktinformasjon';
 
 const TEKSTER: Tekster<string> = {
@@ -59,7 +59,7 @@ export const KvitteringOppgaveIkkeOpprettet = (props: { feil: Opprettelsesfeil }
             <Alert variant="error" className={'mbm'}>
                 {tekst('alertFeil')}
             </Alert>
-            <BodyShort className="mbm">{tekst('klarteIkkeMotta')}</BodyShort>
+            <BodyLong className="mbm">{tekst('klarteIkkeMotta')}</BodyLong>
         </GuidePanel>
     );
 };
@@ -75,7 +75,7 @@ const Kvittering = (alertProps: AlertProps, infotekst: string, tittel?: string) 
                     {tittel}
                 </Heading>
             )}
-            <BodyShort className="mbm">{infotekst}</BodyShort>
+            <BodyLong className="mbm">{infotekst}</BodyLong>
             <Kontaktinformasjon />
         </GuidePanel>
     );

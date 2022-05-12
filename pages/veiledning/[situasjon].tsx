@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { BodyShort, Button, Heading, GuidePanel } from '@navikt/ds-react';
+import { BodyLong, Button, Heading, GuidePanel } from '@navikt/ds-react';
 import useSWR from 'swr';
 import { useRouter } from 'next/router';
 
@@ -81,11 +81,11 @@ const KontaktVeileder = (props: { situasjon: Situasjon }) => {
                     <Heading size="medium" spacing={true} level="1">
                         {tekst('heading')}
                     </Heading>
-                    <BodyShort>
+                    <BodyLong>
                         {tekst(props.situasjon === 'utvandret' ? 'utvandretBody1' : 'manglerArbeidstillatelseBody1')}
-                    </BodyShort>
-                    <BodyShort spacing>{tekst('body2')}</BodyShort>
-                    <BodyShort spacing>{tekst('kontaktOss')}</BodyShort>
+                    </BodyLong>
+                    <BodyLong spacing>{tekst('body2')}</BodyLong>
+                    <BodyLong>{tekst('kontaktOss')}</BodyLong>
                 </GuidePanel>
                 <section className="flex-center mhl">
                     <Button onClick={opprettOppgave} className="mrl">

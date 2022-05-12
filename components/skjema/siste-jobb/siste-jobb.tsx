@@ -1,4 +1,4 @@
-import { BodyShort, Button, Heading, Panel, ReadMore } from '@navikt/ds-react';
+import { BodyLong, Button, Heading, Panel, ReadMore } from '@navikt/ds-react';
 import lagHentTekstForSprak, { Tekster } from '../../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../../hooks/useSprak';
 import { useEffect, useState } from 'react';
@@ -58,8 +58,8 @@ const SisteJobb = (props: SkjemaKomponentProps<SisteJobb> & { children?: JSX.Ele
                 <Heading spacing size={'medium'} level="1">
                     {tekst('tittel')}
                 </Heading>
-                <BodyShort>{tekst('registrert')}</BodyShort>
-                <BodyShort className="mbm">{tekst('feilOpplysninger')}</BodyShort>
+                <BodyLong>{tekst('registrert')}</BodyLong>
+                <BodyLong className="mbm">{tekst('feilOpplysninger')}</BodyLong>
 
                 {props.children}
 

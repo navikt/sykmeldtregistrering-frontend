@@ -1,6 +1,5 @@
 import NextLink from 'next/link';
-import { BodyShort, Heading, Link } from '@navikt/ds-react';
-
+import { BodyLong, Heading, Link } from '@navikt/ds-react';
 import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../hooks/useSprak';
 
@@ -32,7 +31,7 @@ const dineOpplysninger = () => {
             <Heading size={'large'} level="2" className="text-center mbm">
                 {tekst('tittel')}
             </Heading>
-            <BodyShort>{tekst('innledning')}</BodyShort>
+            <BodyLong>{tekst('innledning')}</BodyLong>
             <div>
                 <ul>
                     <li>{tekst('alder')}</li>
@@ -41,17 +40,17 @@ const dineOpplysninger = () => {
                     <li>{tekst('utfordringer')}</li>
                 </ul>
             </div>
-            <BodyShort className="mbm">{tekst('beskrivelse')}</BodyShort>
+            <BodyLong className="mbm">{tekst('beskrivelse')}</BodyLong>
             <Heading spacing size={'small'} level="3">
                 {tekst('overskriftPersonopplysninger')}
             </Heading>
-            <BodyShort>{tekst('personopplysninger')}</BodyShort>
-            <BodyShort className="mbm">
+            <BodyLong>{tekst('personopplysninger')}</BodyLong>
+            <BodyLong className="mbm">
                 <NextLink href="https://www.nav.no/personvern" passHref locale={false}>
                     <Link target="_blank">{tekst('personopplysningerLenkeTekst')}</Link>
                 </NextLink>
-            </BodyShort>
-            <BodyShort>{tekst('tips')}</BodyShort>
+            </BodyLong>
+            <BodyLong>{tekst('tips')}</BodyLong>
         </>
     );
 };
