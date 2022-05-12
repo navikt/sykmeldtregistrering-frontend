@@ -23,6 +23,7 @@ function FeatureToggleProvider({ children }) {
         };
 
         if (featureTogglesUrl) {
+            console.log('Henter featuretoggles');
             fetchToggles();
         } else {
             console.log('Ingen url til featuretoggles');
