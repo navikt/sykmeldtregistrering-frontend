@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
+
 import { useConfig } from './config-context';
 
 const FeatureToggleContext = createContext();
@@ -6,6 +7,7 @@ const FeatureToggleContext = createContext();
 function FeatureToggleProvider({ children }) {
     const [toggles, setToggles] = useState({});
     const { featureTogglesUrl } = useConfig();
+
     useEffect(() => {
         const fetchToggles = async () => {
             const response = await fetch(featureTogglesUrl);
@@ -22,6 +24,8 @@ function FeatureToggleProvider({ children }) {
 
         if (featureTogglesUrl) {
             fetchToggles();
+        } else {
+            console.log('Ingen url til featuretoggles');
         }
     }, [featureTogglesUrl]);
 
