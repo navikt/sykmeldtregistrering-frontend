@@ -5,7 +5,7 @@ export default function redirectToLogin(req: NextRequest) {
     const url = req.nextUrl.clone();
     const brukerMock = process.env.NEXT_PUBLIC_ENABLE_MOCK === 'enabled';
     const erInnlogget = cookies['selvbetjening-idtoken'];
-    const apneSider = ['/', '/api/config/'];
+    const apneSider = ['/', '/api/config/', '/api/features/'];
     const erApenSide = apneSider.includes(url.pathname);
 
     if (erApenSide || brukerMock) {
