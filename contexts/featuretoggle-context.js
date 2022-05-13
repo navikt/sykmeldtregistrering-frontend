@@ -1,29 +1,25 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { useConfig } from './config-context';
+import useSWR from 'swr';
+
+import { fetcher } from '../lib/api-utils';
 
 const FeatureToggleContext = createContext();
 
 function FeatureToggleProvider({ children }) {
     const [toggles, setToggles] = useState({});
-    const { feautureTogglesUrl } = useConfig();
-    useEffect(() => {
-        const fetchToggles = async () => {
-            const response = await fetch(feautureTogglesUrl);
+    const { data } = useSWR('api/features/', fetcher);
 
-            const json = await response.json();
-            const aktiveFeatures = json.reduce((features, feature) => {
+    useEffect(() => {
+        if (data) {
+            const aktiveFeatures = data.reduce((features, feature) => {
                 if (feature.enabled) {
                     features[feature.name] = true;
                 }
                 return features;
             }, {});
             setToggles(aktiveFeatures);
-        };
-
-        if (feautureTogglesUrl) {
-            fetchToggles();
         }
-    }, [feautureTogglesUrl]);
+    }, [data]);
 
     return <FeatureToggleContext.Provider value={{ toggles }}>{children}</FeatureToggleContext.Provider>;
 }

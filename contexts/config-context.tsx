@@ -1,5 +1,6 @@
 import { createContext, ReactNode, useContext } from 'react';
 import useSWR from 'swr';
+
 import { fetcher } from '../lib/api-utils';
 import { Config } from '../model/config';
 
@@ -9,6 +10,7 @@ const ConfigContext = createContext<Config | uninitializedConfig>({});
 
 function ConfigProvider({ children }: { children: ReactNode }) {
     const { data } = useSWR('api/config/', fetcher);
+
     return <ConfigContext.Provider value={data ?? {}}>{children}</ConfigContext.Provider>;
 }
 

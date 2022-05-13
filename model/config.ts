@@ -4,7 +4,7 @@ export type Config = {
     amplitudeApiKey: string;
     amplitudeEndPoint: string;
     sentryDsn: string;
-    feautureTogglesUrl: string;
+    featureTogglesUrl: string;
     dittNavUrl: string;
     dagpengesoknadUrl: string;
     dialogUrl: string;
