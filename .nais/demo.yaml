@@ -27,5 +27,5 @@ dittNAVUrl: https://www.nav.no/person/dittnav
 dagpengesoknadUrl: https://www.nav.no/arbeid/dagpenger/soknad-veileder
 dialogUrl: https://www.nav.no/arbeid/dialog
 featureToggles:
-  server: https://arbeid.labs.nais.io/arbeid/registrering/api/mocks/features
+  server: https://unleash.nais.io/api/client/features?tag[]=simple:arbeidssokerregistrering
   client: https://arbeid.labs.nais.io/arbeid/registrering/api/features
