@@ -18,6 +18,19 @@ const featureToggles = (req: NextApiRequest, res: NextApiResponse): void => {
                 variants: [],
             },
             {
+                name: 'arbeidssokerregistrering.eksperimenter.vidersend-til-aia',
+                type: 'release',
+                enabled: false,
+                stale: false,
+                strategies: [
+                    {
+                        name: 'default',
+                        parameters: {},
+                    },
+                ],
+                variants: [],
+            },
+            {
                 name: 'arbeidssokerregistrering.ingen_kvittering',
                 type: 'release',
                 enabled: true,
