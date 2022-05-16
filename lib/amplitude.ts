@@ -14,7 +14,7 @@ const config = {
     },
 };
 
-type EventData = SidevisningData | AktivitetData | StoppsituasjonData | BesvarelseData;
+type EventData = SidevisningData | AktivitetData | StoppsituasjonData | BesvarelseData | EksperimentData;
 
 type BesvarelseData = { skjematype: 'standard' | 'sykmeldt'; sporsmalId: SporsmalId; svar: any };
 
@@ -46,6 +46,8 @@ type KvitteringAktivitet =
     | 'Velger å ikke gå til dagpenger fra kvittering'
     | 'Velger å lese mer om økonomisk støtte'
     | 'Velger å ikke søke om økonomisk støtte';
+
+type EksperimentData = { eksperiment: 'Videresender til AiA' };
 
 type AmplitudeParams = { apiKey: string; apiEndpoint: string };
 type AmplitudeInitFunction = (params: AmplitudeParams) => void;
@@ -81,4 +83,9 @@ export function loggAktivitet(data: AktivitetData) {
 export function loggBesvarelse(data: BesvarelseData) {
     const eventData = data || {};
     logAmplitudeEvent('arbeidssokerregistrering.besvarelser', eventData);
+}
+
+export function loggEksperiment(data: EksperimentData) {
+    const eventData = data || {};
+    logAmplitudeEvent('arbeidssokerregistrering.eksperimenter', eventData);
 }
