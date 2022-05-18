@@ -10,9 +10,10 @@ import byggFullforRegistreringPayload from '../../lib/bygg-fullfor-registrering-
 import { FeilmeldingGenerell } from '../feilmeldinger/feilmeldinger';
 import { FullforRegistreringResponse, RegistreringType } from '../../model/registrering';
 import hentKvitteringsUrl from '../../lib/hent-kvitterings-url';
-import { loggAktivitet } from '../../lib/amplitude';
+import { loggAktivitet, loggEksperiment } from '../../lib/amplitude';
 import guidePanelStyles from '../../styles/guidepanel.module.css';
 import PlikterSvg from '../forsiden/plikter-svg';
+import { SporsmalId } from '../../model/sporsmal';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -59,6 +60,16 @@ const beregnTidBrukt = (skjemaState: SkjemaState) => {
     return (Date.now() - skjemaState.startTid) / 1000;
 };
 
+const hentProfilering = async (response: FullforRegistreringResponse, side: Side) => {
+    if (!response.type && side === 'standard') {
+        try {
+            return await api('api/profilering/');
+        } catch (e) {
+            console.error('profilering feilet', e);
+        }
+    }
+};
+
 const FullforRegistrering = (props: FullforProps) => {
     const { skjemaState, onSubmit } = props;
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
@@ -100,6 +111,16 @@ const FullforRegistrering = (props: FullforProps) => {
                         ? RegistreringType.SYKMELDT_REGISTRERING
                         : RegistreringType.ORDINAER_REGISTRERING,
             });
+
+            const profilering = await hentProfilering(response, props.side);
+
+            if (profilering) {
+                loggEksperiment({
+                    eksperiment: 'Kartlegging for videresender til AiA',
+                    innsatsgruppe: profilering.innsatsgruppe,
+                    situasjon: skjemaState[SporsmalId.dinSituasjon],
+                });
+            }
 
             return router.push(hentKvitteringsUrl(response, props.side));
         } catch (e) {

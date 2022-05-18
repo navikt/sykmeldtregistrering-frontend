@@ -1,6 +1,6 @@
 import amplitude from 'amplitude-js';
 import { Brukergruppe, RegistreringType } from '../model/registrering';
-import { SporsmalId } from '../model/sporsmal';
+import { DinSituasjon, SporsmalId } from '../model/sporsmal';
 
 const isBrowser = () => typeof window !== 'undefined';
 
@@ -47,7 +47,11 @@ type KvitteringAktivitet =
     | 'Velger å lese mer om økonomisk støtte'
     | 'Velger å ikke søke om økonomisk støtte';
 
-type EksperimentData = { eksperiment: 'Videresender til AiA' };
+type EksperimentData = {
+    eksperiment: 'Kartlegging for videresender til AiA';
+    innsatsgruppe: string;
+    situasjon?: DinSituasjon;
+};
 
 type AmplitudeParams = { apiKey: string; apiEndpoint: string };
 type AmplitudeInitFunction = (params: AmplitudeParams) => void;
