@@ -29,3 +29,4 @@ dialogUrl: https://www.nav.no/arbeid/dialog
 featureToggles:
   server: https://unleash.nais.io/api/client/features?tag[]=simple:arbeidssokerregistrering
   client: https://www.nav.no/arbeid/registrering/api/features
+hentProfileringUrl: http://pto-proxy.pto.svc.cluster.local/proxy/veilarbregistrering/api/profilering/

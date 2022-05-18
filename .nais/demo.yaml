@@ -29,3 +29,4 @@ dialogUrl: https://www.nav.no/arbeid/dialog
 featureToggles:
   server: https://arbeid.labs.nais.io/arbeid/registrering/api/mocks/features
   client: https://arbeid.labs.nais.io/arbeid/registrering/api/features
+hentProfileringUrl: https://arbeid.labs.nais.io/arbeid/registrering/api/mocks/profilering

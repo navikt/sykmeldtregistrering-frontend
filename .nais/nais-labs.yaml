@@ -79,5 +79,7 @@ spec:
       value: {{featureToggles.server}}
     - name: NODE_ENV
       value: {{nodeEnv}}
+    - name: HENT_PROFILERING_URL
+      value: {{hentProfileringUrl}}
   ingresses:
     - {{ingress}}
