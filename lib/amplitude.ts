@@ -48,7 +48,7 @@ type KvitteringAktivitet =
     | 'Velger å ikke søke om økonomisk støtte';
 
 type EksperimentData = {
-    eksperiment: 'Kartlegging for videresender til AiA';
+    eksperiment: 'Videresender til AiA';
     innsatsgruppe: string;
     situasjon?: DinSituasjon;
 };
