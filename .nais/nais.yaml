@@ -26,6 +26,8 @@ spec:
   requests:
     cpu: "200m"
     memory: "256Mi"
+  envFrom:
+    - configmap: loginservice-idporten
   env:
     - name: SELF_URL
       value: {{ingress}}
@@ -35,8 +37,6 @@ spec:
       value: {{dekorator.env}}
     - name: LOGINSERVICE_URL
       value: {{loginservice.url}}
-    - name: LOGINSERVICE_WELL_KNOWN_URL
-      value: {{loginservice.wellKnown}}
     - name: NEXT_PUBLIC_SELF_URL
       value: {{ingress}}
     - name: NEXT_PUBLIC_START_URL

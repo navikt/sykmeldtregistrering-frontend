@@ -7,7 +7,6 @@ dekorator:
   env: prod
 loginservice:
   url: https://loginservice.nav.no/login
-  wellKnown: https://navnob2c.b2clogin.com/navnob2c.onmicrosoft.com/v2.0/.well-known/openid-configuration?p=B2C_1A_idporten
 amplitude:
   apiKey: b0bccdd4dd75081606ef7bcab668a7ed
   endPoint: amplitude.nav.no/collect
