@@ -129,7 +129,7 @@ const FullforRegistrering = (props: FullforProps) => {
             const skalHoppeOverKvittering =
                 erStandardInnsatsgruppe &&
                 harMistetJobbSagtOppEllerPermittert &&
-                toggles['arbeidssokerregistrering.eksperimenter.vidersend-til-aia'];
+                toggles['arbeidssokerregistrering.eksperimenter.videresend-til-aia'];
 
             if (skalHoppeOverKvittering) {
                 loggEksperiment({
