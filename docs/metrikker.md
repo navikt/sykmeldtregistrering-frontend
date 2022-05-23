@@ -54,3 +54,19 @@ Kan hentes ut ved å sjekke `arbeidssokerregistrering.aktiviteter` og `arbeidsso
 -   Hva svarer man på du ulike spørsmålene?
 -   Hvilken flyt havner brukeren på?
 -   Hva gjør de etter registrering?
+
+### Aktiviteter
+
+Kan hentes ut ved å sjekke `arbeidssokerregistrering.aktiviteter` og vil kunne grupperes på `aktivitet`.
+Vil i noen tilfeller inneholde informasjon om `registreringstype` og `tidBruktForAaFullforeSkjema`
+
+### Besvarelser
+
+Kan hentes ut ved å sjekke `arbeidssokerregistrering.besvarelser` og grupperes på `sporsmalId`
+
+## Eksperimenter
+
+Egne målinger satt opp omkring eksperimenter vi kjører.
+
+Kan hentes ut ved å sjekke `arbeidssokerregistrering.eksperimenter`.
+Kan grupperes på `eksperiment` og vil i noen tilfeller også ha med info om `situasjon` og `brukergruppe`
