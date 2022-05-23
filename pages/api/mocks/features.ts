@@ -18,7 +18,7 @@ const featureToggles = (req: NextApiRequest, res: NextApiResponse): void => {
                 variants: [],
             },
             {
-                name: 'arbeidssokerregistrering.eksperimenter.vidersend-til-aia',
+                name: 'arbeidssokerregistrering.eksperimenter.videresend-til-aia',
                 type: 'release',
                 enabled: false,
                 stale: false,
