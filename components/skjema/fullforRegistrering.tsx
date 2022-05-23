@@ -8,12 +8,15 @@ import { useRouter } from 'next/router';
 
 import byggFullforRegistreringPayload from '../../lib/bygg-fullfor-registrering-payload';
 import { FeilmeldingGenerell } from '../feilmeldinger/feilmeldinger';
-import { FullforRegistreringResponse, RegistreringType } from '../../model/registrering';
+import { FullforRegistreringResponse, Innsatsgruppe, RegistreringType } from '../../model/registrering';
 import hentKvitteringsUrl from '../../lib/hent-kvitterings-url';
 import { loggAktivitet, loggEksperiment } from '../../lib/amplitude';
 import guidePanelStyles from '../../styles/guidepanel.module.css';
 import PlikterSvg from '../forsiden/plikter-svg';
-import { SporsmalId } from '../../model/sporsmal';
+import { DinSituasjon, SporsmalId } from '../../model/sporsmal';
+import { useFeatureToggles } from '../../contexts/featuretoggle-context';
+import { useConfig } from '../../contexts/config-context';
+import { Config } from '../../model/config';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -79,6 +82,8 @@ const FullforRegistrering = (props: FullforProps) => {
     const [visFeilmeldingLestKrav, settVisFeilmeldingLestKrav] = useState<boolean>(false);
     const [visFeilmeldingTeller, settVisFeilmeldingTeller] = useState<number>(0);
     const router = useRouter();
+    const { toggles } = useFeatureToggles();
+    const { dittNavUrl } = useConfig() as Config;
 
     const validerOgFullfor = () => {
         if (!lestKravChecked) {
@@ -113,15 +118,28 @@ const FullforRegistrering = (props: FullforProps) => {
             });
 
             const profilering = await hentProfilering(response, props.side);
+            const dinSituasjon = skjemaState[SporsmalId.dinSituasjon];
+            const erStandardInnsatsgruppe = profilering && profilering.innsatsgruppe === Innsatsgruppe.STANDARD_INNSATS;
+            const harMistetJobbSagtOppEllerPermittert =
+                dinSituasjon &&
+                [DinSituasjon.MISTET_JOBBEN, DinSituasjon.ER_PERMITTERT, DinSituasjon.HAR_SAGT_OPP].includes(
+                    dinSituasjon
+                );
 
-            if (profilering) {
+            const skalHoppeOverKvittering =
+                erStandardInnsatsgruppe &&
+                harMistetJobbSagtOppEllerPermittert &&
+                toggles['arbeidssokerregistrering.eksperimenter.videresend-til-aia'];
+
+            if (skalHoppeOverKvittering) {
                 loggEksperiment({
-                    eksperiment: 'Kartlegging for videresender til AiA',
+                    eksperiment: 'Videresender til AiA',
                     innsatsgruppe: profilering.innsatsgruppe,
-                    situasjon: skjemaState[SporsmalId.dinSituasjon],
+                    situasjon: dinSituasjon,
                 });
-            }
 
+                return router.push(`${dittNavUrl}?goTo=registrering`);
+            }
             return router.push(hentKvitteringsUrl(response, props.side));
         } catch (e) {
             settVisFeilmeldingTeller(visFeilmeldingTeller + 1);

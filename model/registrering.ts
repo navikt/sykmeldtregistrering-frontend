@@ -16,6 +16,12 @@ export enum Formidlingsgruppe {
     RARBS = 'RARBS',
 }
 
+export enum Innsatsgruppe {
+    STANDARD_INNSATS = 'STANDARD_INNSATS',
+    SITUASJONSBESTEMT_INNSATS = 'SITUASJONSBESTEMT_INNSATS',
+    BEHOV_FOR_ARBEIDSEVNEVURDERING = 'BEHOV_FOR_ARBEIDSEVNEVURDERING',
+}
+
 export enum Servicegruppe {
     BATT = 'BATT',
     BFORM = 'BFORM',
