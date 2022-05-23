@@ -28,6 +28,7 @@ type AktivitetData =
           aktivitet: 'Utfylling av skjema fullført';
           tidBruktForAaFullforeSkjema?: number;
           registreringstype: RegistreringType;
+          innsatsgruppe?: string;
       }
     | { aktivitet: 'Start registrering'; registreringstype: RegistreringType }
     | { aktivitet: 'Går til start registrering' }

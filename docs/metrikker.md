@@ -58,7 +58,7 @@ Kan hentes ut ved å sjekke `arbeidssokerregistrering.aktiviteter` og `arbeidsso
 ### Aktiviteter
 
 Kan hentes ut ved å sjekke `arbeidssokerregistrering.aktiviteter` og vil kunne grupperes på `aktivitet`.
-Vil i noen tilfeller inneholde informasjon om `registreringstype` og `tidBruktForAaFullforeSkjema`
+Vil i noen tilfeller inneholde informasjon om `registreringstype`m `tidBruktForAaFullforeSkjema` eller `innsatsgruppe`
 
 ### Besvarelser
 

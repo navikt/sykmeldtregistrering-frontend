@@ -108,15 +108,6 @@ const FullforRegistrering = (props: FullforProps) => {
                 }
             );
 
-            loggAktivitet({
-                aktivitet: 'Utfylling av skjema fullført',
-                tidBruktForAaFullforeSkjema: beregnTidBrukt(skjemaState),
-                registreringstype:
-                    props.side === 'sykmeldt'
-                        ? RegistreringType.SYKMELDT_REGISTRERING
-                        : RegistreringType.ORDINAER_REGISTRERING,
-            });
-
             const profilering = await hentProfilering(response, props.side);
             const dinSituasjon = skjemaState[SporsmalId.dinSituasjon];
             const erStandardInnsatsgruppe = profilering && profilering.innsatsgruppe === Innsatsgruppe.STANDARD_INNSATS;
@@ -130,6 +121,16 @@ const FullforRegistrering = (props: FullforProps) => {
                 erStandardInnsatsgruppe &&
                 harMistetJobbSagtOppEllerPermittert &&
                 toggles['arbeidssokerregistrering.eksperimenter.videresend-til-aia'];
+
+            loggAktivitet({
+                aktivitet: 'Utfylling av skjema fullført',
+                tidBruktForAaFullforeSkjema: beregnTidBrukt(skjemaState),
+                registreringstype:
+                    props.side === 'sykmeldt'
+                        ? RegistreringType.SYKMELDT_REGISTRERING
+                        : RegistreringType.ORDINAER_REGISTRERING,
+                innsatsgruppe: profilering ? profilering.innsatsgruppe : 'IKKE_PROFILERT',
+            });
 
             if (skalHoppeOverKvittering) {
                 loggEksperiment({
