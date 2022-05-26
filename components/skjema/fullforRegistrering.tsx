@@ -17,6 +17,7 @@ import { DinSituasjon, SporsmalId } from '../../model/sporsmal';
 import { useFeatureToggles } from '../../contexts/featuretoggle-context';
 import { useConfig } from '../../contexts/config-context';
 import { Config } from '../../model/config';
+import { hentRegistreringFeiletUrl } from '../../lib/hent-registrering-feilet-url';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -117,6 +118,12 @@ const FullforRegistrering = (props: FullforProps) => {
                     dinSituasjon
                 );
 
+            const feiltype = response.type;
+
+            if (feiltype) {
+                return hentRegistreringFeiletUrl(feiltype);
+            }
+
             const skalHoppeOverKvittering =
                 erStandardInnsatsgruppe &&
                 harMistetJobbSagtOppEllerPermittert &&
@@ -141,7 +148,7 @@ const FullforRegistrering = (props: FullforProps) => {
 
                 return router.push(`${dittNavUrl}?goTo=registrering`);
             }
-            return router.push(hentKvitteringsUrl(response, props.side));
+            return router.push(hentKvitteringsUrl(props.side));
         } catch (e) {
             settVisFeilmeldingTeller(visFeilmeldingTeller + 1);
             settVisFeilmelding(true);
