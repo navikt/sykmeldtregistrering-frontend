@@ -8,7 +8,7 @@ dekorator:
 loginservice:
   url: https://loginservice.nav.no/login
 amplitude:
-  apiKey: b0bccdd4dd75081606ef7bcab668a7ed
+  apiKey: 913768927b84cde5eac0d0d18c737561
   endPoint: amplitude.nav.no/collect
 sentry:
   dsn: https://b2f662d8ed7a42b29f465f365e25832f@sentry.gc.nav.no/118
