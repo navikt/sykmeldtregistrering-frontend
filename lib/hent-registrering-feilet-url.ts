@@ -7,5 +7,7 @@ export const hentRegistreringFeiletUrl = (feiltype: ErrorTypes) => {
         return '/veiledning/mangler-arbeidstillatelse/';
     } else if (feiltype && [ErrorTypes.BRUKER_ER_UKJENT, ErrorTypes.BRUKER_KAN_IKKE_REAKTIVERES].includes(feiltype)) {
         return '/feil/';
+    } else {
+        return '/feil/';
     }
 };

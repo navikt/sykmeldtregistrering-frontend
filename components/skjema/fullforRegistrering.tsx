@@ -121,7 +121,7 @@ const FullforRegistrering = (props: FullforProps) => {
             const feiltype = response.type;
 
             if (feiltype) {
-                return hentRegistreringFeiletUrl(feiltype);
+                return router.push(hentRegistreringFeiletUrl(feiltype));
             }
 
             const skalHoppeOverKvittering =
