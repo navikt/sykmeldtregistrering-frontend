@@ -1,6 +1,8 @@
 import amplitude from 'amplitude-js';
+
 import { Brukergruppe, RegistreringType } from '../model/registrering';
 import { DinSituasjon, SporsmalId } from '../model/sporsmal';
+import { ErrorTypes } from '../model/error';
 
 const isBrowser = () => typeof window !== 'undefined';
 
@@ -18,7 +20,7 @@ type EventData = SidevisningData | AktivitetData | StoppsituasjonData | Besvarel
 
 type BesvarelseData = { skjematype: 'standard' | 'sykmeldt'; sporsmalId: SporsmalId; svar: any };
 
-type StoppsituasjonData = { situasjon: string; brukergruppe?: Brukergruppe };
+type StoppsituasjonData = { situasjon: string; brukergruppe?: Brukergruppe; aarsak?: ErrorTypes };
 
 type SidevisningData = { sidetittel: string };
 
