@@ -1,14 +1,18 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import lagApiHandlerMedAuthHeaders from '../../lib/next-api-handler';
+import { ApiError, lagApiPostHandlerMedAuthHeaders } from '../../lib/next-api-handler';
 
 const reaktiveringUrl = `${process.env.REAKTIVERING_URL}`;
 
-const reaktiveringHandler = (req: NextApiRequest, res: NextApiResponse) => {
-    if (req.method === 'POST') {
-        return lagApiHandlerMedAuthHeaders(reaktiveringUrl)(req, res);
+const errorHandler = (response: Response) => {
+    const contentType = response.headers.get('content-type');
+    if (contentType && contentType.includes('application/json')) {
+        return response.json();
     } else {
-        return res.status(405).end();
+        const error = new Error(response.statusText) as ApiError;
+        error.status = response.status;
+        throw error;
     }
 };
+
+const reaktiveringHandler = lagApiPostHandlerMedAuthHeaders(reaktiveringUrl, errorHandler);
 
 export default reaktiveringHandler;

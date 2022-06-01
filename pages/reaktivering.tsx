@@ -6,7 +6,6 @@ import useSWR from 'swr';
 import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../hooks/useSprak';
 import { fetcher as api } from '../lib/api-utils';
-import { useErrorContext } from '../contexts/error-context';
 import { Brukergruppe } from '../model/registrering';
 import { loggStoppsituasjon, loggAktivitet } from '../lib/amplitude';
 import { fetcher } from '../lib/api-utils';
@@ -27,7 +26,6 @@ const Reaktivering = () => {
     const sprak = useSprak();
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
     const router = useRouter();
-    const { medFeilHandtering } = useErrorContext();
     const { data, error } = useSWR('api/startregistrering/', fetcher);
     const [brukergruppe, setBrukergruppe] = useState(Brukergruppe.UKJENT);
 
@@ -38,10 +36,18 @@ const Reaktivering = () => {
 
     const reaktiverBruker = async () => {
         loggAktivitet({ aktivitet: 'Arbeidssøkeren reaktiverer seg', brukergruppe });
-        medFeilHandtering(async () => {
-            await api('/api/reaktivering/', { method: 'post', body: JSON.stringify({}) });
+
+        const response = await api('api/reaktivering/', { method: 'post', body: JSON.stringify({}) });
+
+        if (response.type) {
+            loggStoppsituasjon({
+                situasjon: 'Arbeidssøkeren får ikke reaktivert seg',
+                aarsak: response.type,
+            });
+            router.push('/feil/');
+        } else {
             return router.push('/kvittering-reaktivering/');
-        });
+        }
     };
 
     useEffect(() => {
