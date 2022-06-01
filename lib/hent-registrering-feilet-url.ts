@@ -1,10 +1,11 @@
 import { ErrorTypes } from '../model/error';
+import { OppgaveRegistreringstype } from '../pages/veiledning/[...situasjon]';
 
-export const hentRegistreringFeiletUrl = (feiltype: ErrorTypes) => {
+export const hentRegistreringFeiletUrl = (feiltype: ErrorTypes, registreringstype: OppgaveRegistreringstype) => {
     if (feiltype === ErrorTypes.BRUKER_ER_DOD_UTVANDRET_ELLER_FORSVUNNET) {
-        return '/veiledning/registrering/utvandret/';
+        return `/veiledning/${registreringstype}/utvandret/`;
     } else if (feiltype === ErrorTypes.BRUKER_MANGLER_ARBEIDSTILLATELSE) {
-        return '/veiledning/registrering/mangler-arbeidstillatelse/';
+        return `/veiledning/${registreringstype}/mangler-arbeidstillatelse/`;
     } else if (feiltype && [ErrorTypes.BRUKER_ER_UKJENT, ErrorTypes.BRUKER_KAN_IKKE_REAKTIVERES].includes(feiltype)) {
         return '/feil/';
     } else {

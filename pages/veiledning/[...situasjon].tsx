@@ -12,12 +12,9 @@ import {
     KvitteringOppgaveOpprettet,
     Opprettelsesfeil,
 } from '../../components/KvitteringOppgave';
-import { RegistreringType } from '../../model/registrering';
-
-type SituasjonType = Array<String>;
 
 type Situasjon = 'utvandret' | 'mangler-arbeidstillatelse';
-type OppgaveRegistreringstype = 'registrering' | 'reaktivering';
+export type OppgaveRegistreringstype = 'registrering' | 'reaktivering';
 
 const TEKSTER: Tekster<string> = {
     nb: {
