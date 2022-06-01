@@ -12,8 +12,12 @@ import {
     KvitteringOppgaveOpprettet,
     Opprettelsesfeil,
 } from '../../components/KvitteringOppgave';
+import { RegistreringType } from '../../model/registrering';
 
-export type Situasjon = 'utvandret' | 'mangler-arbeidstillatelse';
+type SituasjonType = Array<String>;
+
+type Situasjon = 'utvandret' | 'mangler-arbeidstillatelse';
+type OppgaveRegistreringstype = 'registrering' | 'reaktivering';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -22,6 +26,7 @@ const TEKSTER: Tekster<string> = {
         manglerArbeidstillatelseBody1: 'Vi har ikke mulighet til å sjekke om du har en godkjent oppholdstillatelse.',
         body2: 'Dette gjør at du ikke kan registrere deg som arbeidssøker på nett.',
         kontaktOss: 'Kontakt oss, så hjelper vi deg videre.',
+        kontaktOssMedTlfnr: 'Kontakt oss på 55 55 33 33, så hjelper vi deg videre.',
         kontaktKnapp: 'Ta kontakt',
         avbryt: 'Avbryt',
     },
@@ -30,7 +35,10 @@ const TEKSTER: Tekster<string> = {
     },
 };
 
-const KontaktVeileder = (props: { situasjon: Situasjon }) => {
+const KontaktVeileder = (props: { situasjon: Array<String> }) => {
+    const registreringstype = props.situasjon[0] as OppgaveRegistreringstype;
+    const situasjon = props.situasjon[1] as Situasjon;
+
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
     const [responseMottatt, settResponseMottatt] = useState<boolean>(false);
     const [feil, settFeil] = useState<Opprettelsesfeil | undefined>(undefined);
@@ -39,7 +47,7 @@ const KontaktVeileder = (props: { situasjon: Situasjon }) => {
     const opprettOppgave = useCallback(async () => {
         loggAktivitet({ aktivitet: 'Oppretter kontakt meg oppgave' });
         try {
-            const oppgaveType = props.situasjon === 'utvandret' ? 'UTVANDRET' : 'OPPHOLDSTILLATELSE';
+            const oppgaveType = situasjon === 'utvandret' ? 'UTVANDRET' : 'OPPHOLDSTILLATELSE';
 
             await api('/api/oppgave', {
                 method: 'post',
@@ -56,7 +64,7 @@ const KontaktVeileder = (props: { situasjon: Situasjon }) => {
             settFeil('opprettelseFeilet');
         }
         settResponseMottatt(true);
-    }, [props.situasjon]);
+    }, [situasjon]);
 
     const avbrytKontaktMeg = () => {
         loggAktivitet({ aktivitet: 'Avbryter kontakt meg' });
@@ -82,19 +90,23 @@ const KontaktVeileder = (props: { situasjon: Situasjon }) => {
                         {tekst('heading')}
                     </Heading>
                     <BodyLong>
-                        {tekst(props.situasjon === 'utvandret' ? 'utvandretBody1' : 'manglerArbeidstillatelseBody1')}
+                        {tekst(situasjon === 'utvandret' ? 'utvandretBody1' : 'manglerArbeidstillatelseBody1')}
                     </BodyLong>
                     <BodyLong spacing>{tekst('body2')}</BodyLong>
-                    <BodyLong>{tekst('kontaktOss')}</BodyLong>
+                    <BodyLong>
+                        {registreringstype === 'registrering' ? tekst('kontaktOss') : tekst('kontaktOssMedTlfnr')}
+                    </BodyLong>
                 </GuidePanel>
-                <section className="flex-center mhl">
-                    <Button onClick={opprettOppgave} className="mrl">
-                        {tekst('kontaktKnapp')}
-                    </Button>
-                    <Button variant="tertiary" onClick={avbrytKontaktMeg}>
-                        {tekst('avbryt')}
-                    </Button>
-                </section>
+                {registreringstype === 'registrering' && (
+                    <section className="flex-center mhl">
+                        <Button onClick={opprettOppgave} className="mrl">
+                            {tekst('kontaktKnapp')}
+                        </Button>
+                        <Button variant="tertiary" onClick={avbrytKontaktMeg}>
+                            {tekst('avbryt')}
+                        </Button>
+                    </section>
+                )}
             </>
         );
 };
