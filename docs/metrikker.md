@@ -23,6 +23,10 @@ På situasjonen `Arbeidssøkeren må reaktivere seg` kan du også gruppere på `
 Arbeidssøkeren har falt ut av NAV-systemet og det har gått kortere tid enn 28 dager siden det skjedde.
 Her er det mulig å gruppere på `brukergruppe` for å se hvilken status arbeidssøkeren hadde før hen falt ut.
 
+`Arbeidssøkeren får ikke reaktivert seg`
+Arbeidssøkeren har satt igang reaktivering, men får en feilmelding tilbake.
+Her er det mulig å grupper på `aarsak` for å se hvilken feil baksystemet gir
+
 `Arbeidssøkeren mangler arbeidstillatelse eller er utvandret`
 
 Denne kan skyldes at NAV ikke har oppdaterte opplysninger om arbeidssøkeren i vår systemer.
