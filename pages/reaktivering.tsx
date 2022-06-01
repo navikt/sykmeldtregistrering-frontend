@@ -37,8 +37,6 @@ const Reaktivering = () => {
     const reaktiverBruker = async () => {
         loggAktivitet({ aktivitet: 'Arbeidssøkeren reaktiverer seg', brukergruppe });
 
-        console.log('Vi reaktiverer bruker');
-
         const response = await api('api/reaktivering/', { method: 'post', body: JSON.stringify({}) });
 
         if (response.type) {
