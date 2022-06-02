@@ -1,7 +1,6 @@
 import { ErrorTypes } from '../model/error';
-import { OppgaveRegistreringstype } from '../pages/veiledning/[registreringstype]/[feilsituasjon]';
 
-export const hentRegistreringFeiletUrl = (feiltype: ErrorTypes, registreringstype: OppgaveRegistreringstype) => {
+export const hentRegistreringFeiletUrl = (feiltype: ErrorTypes, registreringstype: String) => {
     if (feiltype === ErrorTypes.BRUKER_ER_DOD_UTVANDRET_ELLER_FORSVUNNET) {
         return `/veiledning/${registreringstype}/utvandret/`;
     } else if (feiltype === ErrorTypes.BRUKER_MANGLER_ARBEIDSTILLATELSE) {

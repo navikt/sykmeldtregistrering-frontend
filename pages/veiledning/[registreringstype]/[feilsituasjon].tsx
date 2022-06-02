@@ -12,9 +12,17 @@ import {
     KvitteringOppgaveOpprettet,
     Opprettelsesfeil,
 } from '../../../components/KvitteringOppgave';
+import { FeilmeldingGenerell } from '../../../components/feilmeldinger/feilmeldinger';
 
-type Feiltype = 'utvandret' | 'mangler-arbeidstillatelse';
-export type OppgaveRegistreringstype = 'registrering' | 'reaktivering';
+export enum Feiltype {
+    UTVANDRET = 'utvandret',
+    MANGLER_ARBEIDSTILLATELSE = 'mangler-arbeidstillatelse',
+}
+
+export enum OppgaveRegistreringstype {
+    REGISTRERING = 'registrering',
+    REAKTIVERING = 'reaktivering',
+}
 
 interface Feilsituasjon {
     oppgaveRegistreringstype?: OppgaveRegistreringstype;
@@ -46,7 +54,7 @@ const KontaktVeileder = (props: Feilsituasjon) => {
     const opprettOppgave = useCallback(async () => {
         loggAktivitet({ aktivitet: 'Oppretter kontakt meg oppgave' });
         try {
-            const oppgaveType = props.feiltype === 'utvandret' ? 'UTVANDRET' : 'OPPHOLDSTILLATELSE';
+            const oppgaveType = props.feiltype === Feiltype.UTVANDRET ? 'UTVANDRET' : 'OPPHOLDSTILLATELSE';
 
             await api('/api/oppgave', {
                 method: 'post',
@@ -79,6 +87,10 @@ const KontaktVeileder = (props: Feilsituasjon) => {
     // initialiser for <Kvittering>
     useSWR('api/kontaktinformasjon/', fetcher);
 
+    if (props.feiltype === undefined || !Object.values(Feiltype).includes(props.feiltype)) {
+        return <FeilmeldingGenerell />;
+    }
+
     if (responseMottatt) {
         return feil ? <KvitteringOppgaveIkkeOpprettet feil={feil} /> : <KvitteringOppgaveOpprettet />;
     } else
@@ -89,16 +101,18 @@ const KontaktVeileder = (props: Feilsituasjon) => {
                         {tekst('heading')}
                     </Heading>
                     <BodyLong>
-                        {tekst(props.feiltype === 'utvandret' ? 'utvandretBody1' : 'manglerArbeidstillatelseBody1')}
+                        {tekst(
+                            props.feiltype === Feiltype.UTVANDRET ? 'utvandretBody1' : 'manglerArbeidstillatelseBody1'
+                        )}
                     </BodyLong>
                     <BodyLong spacing>{tekst('body2')}</BodyLong>
                     <BodyLong>
-                        {props.oppgaveRegistreringstype === 'registrering'
+                        {props.oppgaveRegistreringstype === OppgaveRegistreringstype.REGISTRERING
                             ? tekst('kontaktOss')
                             : tekst('kontaktOssMedTlfnr')}
                     </BodyLong>
                 </GuidePanel>
-                {props.oppgaveRegistreringstype === 'registrering' && (
+                {props.oppgaveRegistreringstype === OppgaveRegistreringstype.REGISTRERING && (
                     <section className="flex-center mhl">
                         <Button onClick={opprettOppgave} className="mrl">
                             {tekst('kontaktKnapp')}
