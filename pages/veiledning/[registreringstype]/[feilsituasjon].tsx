@@ -13,12 +13,12 @@ import {
     Opprettelsesfeil,
 } from '../../../components/KvitteringOppgave';
 
-type Situasjonstype = 'utvandret' | 'mangler-arbeidstillatelse';
+type Feiltype = 'utvandret' | 'mangler-arbeidstillatelse';
 export type OppgaveRegistreringstype = 'registrering' | 'reaktivering';
 
 interface Feilsituasjon {
-    registreringstype: OppgaveRegistreringstype;
-    situasjon: Situasjonstype;
+    oppgaveRegistreringstype?: OppgaveRegistreringstype;
+    feiltype?: Feiltype;
 }
 
 const TEKSTER: Tekster<string> = {
@@ -28,7 +28,7 @@ const TEKSTER: Tekster<string> = {
         manglerArbeidstillatelseBody1: 'Vi har ikke mulighet til å sjekke om du har en godkjent oppholdstillatelse.',
         body2: 'Dette gjør at du ikke kan registrere deg som arbeidssøker på nett.',
         kontaktOss: 'Kontakt oss, så hjelper vi deg videre.',
-        kontaktOssMedTlfnr: 'Kontakt oss på 55 55 33 33, så hjelper vi deg videre.',
+        kontaktOssMedTlfnr: 'Ring oss på 55 55 33 33, så hjelper vi deg videre.',
         kontaktKnapp: 'Ta kontakt',
         avbryt: 'Avbryt',
     },
@@ -43,18 +43,16 @@ const KontaktVeileder = () => {
     const [feil, settFeil] = useState<Opprettelsesfeil | undefined>(undefined);
     const Router = useRouter();
 
-    const { registreringstype, situasjon } = Object.entries(Router.query).map(
-        ([key, value]): Feilsituasjon => ({
-            registreringstype: key as OppgaveRegistreringstype,
-            situasjon: value as Situasjonstype,
-        })
-    )[0];
-    console.log('Registreringstype:' + registreringstype + ' Feilsituasjon:' + situasjon);
+    const { registreringstype, feilsituasjon } = Router.query;
+    const situasjon: Feilsituasjon = {
+        oppgaveRegistreringstype: registreringstype as OppgaveRegistreringstype,
+        feiltype: feilsituasjon as Feiltype,
+    };
 
     const opprettOppgave = useCallback(async () => {
         loggAktivitet({ aktivitet: 'Oppretter kontakt meg oppgave' });
         try {
-            const oppgaveType = situasjon === 'utvandret' ? 'UTVANDRET' : 'OPPHOLDSTILLATELSE';
+            const oppgaveType = situasjon.feiltype === 'utvandret' ? 'UTVANDRET' : 'OPPHOLDSTILLATELSE';
 
             await api('/api/oppgave', {
                 method: 'post',
@@ -71,7 +69,7 @@ const KontaktVeileder = () => {
             settFeil('opprettelseFeilet');
         }
         settResponseMottatt(true);
-    }, [situasjon]);
+    }, [situasjon.feiltype]);
 
     const avbrytKontaktMeg = () => {
         loggAktivitet({ aktivitet: 'Avbryter kontakt meg' });
@@ -97,14 +95,16 @@ const KontaktVeileder = () => {
                         {tekst('heading')}
                     </Heading>
                     <BodyLong>
-                        {tekst(situasjon === 'utvandret' ? 'utvandretBody1' : 'manglerArbeidstillatelseBody1')}
+                        {tekst(situasjon.feiltype === 'utvandret' ? 'utvandretBody1' : 'manglerArbeidstillatelseBody1')}
                     </BodyLong>
                     <BodyLong spacing>{tekst('body2')}</BodyLong>
                     <BodyLong>
-                        {registreringstype === 'registrering' ? tekst('kontaktOss') : tekst('kontaktOssMedTlfnr')}
+                        {situasjon.oppgaveRegistreringstype === 'registrering'
+                            ? tekst('kontaktOss')
+                            : tekst('kontaktOssMedTlfnr')}
                     </BodyLong>
                 </GuidePanel>
-                {registreringstype === 'registrering' && (
+                {situasjon.oppgaveRegistreringstype === 'registrering' && (
                     <section className="flex-center mhl">
                         <Button onClick={opprettOppgave} className="mrl">
                             {tekst('kontaktKnapp')}
