@@ -1,20 +1,25 @@
 import { useCallback, useEffect, useState } from 'react';
-import { BodyLong, Button, Heading, GuidePanel } from '@navikt/ds-react';
+import { BodyLong, Button, GuidePanel, Heading } from '@navikt/ds-react';
 import useSWR from 'swr';
 import { useRouter } from 'next/router';
 
-import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
-import useSprak from '../../hooks/useSprak';
-import { loggAktivitet, loggStoppsituasjon } from '../../lib/amplitude';
-import { fetcher, fetcher as api } from '../../lib/api-utils';
+import lagHentTekstForSprak, { Tekster } from '../../../lib/lag-hent-tekst-for-sprak';
+import useSprak from '../../../hooks/useSprak';
+import { loggAktivitet, loggStoppsituasjon } from '../../../lib/amplitude';
+import { fetcher, fetcher as api } from '../../../lib/api-utils';
 import {
     KvitteringOppgaveIkkeOpprettet,
     KvitteringOppgaveOpprettet,
     Opprettelsesfeil,
-} from '../../components/KvitteringOppgave';
+} from '../../../components/KvitteringOppgave';
 
-type Situasjon = 'utvandret' | 'mangler-arbeidstillatelse';
+type Situasjonstype = 'utvandret' | 'mangler-arbeidstillatelse';
 export type OppgaveRegistreringstype = 'registrering' | 'reaktivering';
+
+interface Feilsituasjon {
+    registreringstype: OppgaveRegistreringstype;
+    situasjon: Situasjonstype;
+}
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -32,14 +37,19 @@ const TEKSTER: Tekster<string> = {
     },
 };
 
-const KontaktVeileder = (props: { situasjon: Array<String> }) => {
-    const registreringstype = props.situasjon[0] as OppgaveRegistreringstype;
-    const situasjon = props.situasjon[1] as Situasjon;
-
+const KontaktVeileder = () => {
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
     const [responseMottatt, settResponseMottatt] = useState<boolean>(false);
     const [feil, settFeil] = useState<Opprettelsesfeil | undefined>(undefined);
     const Router = useRouter();
+
+    const { registreringstype, situasjon } = Object.entries(Router.query).map(
+        ([key, value]): Feilsituasjon => ({
+            registreringstype: key as OppgaveRegistreringstype,
+            situasjon: value as Situasjonstype,
+        })
+    )[0];
+    console.log('Registreringstype:' + registreringstype + ' Feilsituasjon:' + situasjon);
 
     const opprettOppgave = useCallback(async () => {
         loggAktivitet({ aktivitet: 'Oppretter kontakt meg oppgave' });
