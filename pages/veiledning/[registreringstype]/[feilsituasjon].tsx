@@ -37,22 +37,16 @@ const TEKSTER: Tekster<string> = {
     },
 };
 
-const KontaktVeileder = () => {
+const KontaktVeileder = (props: Feilsituasjon) => {
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
     const [responseMottatt, settResponseMottatt] = useState<boolean>(false);
     const [feil, settFeil] = useState<Opprettelsesfeil | undefined>(undefined);
     const Router = useRouter();
 
-    const { registreringstype, feilsituasjon } = Router.query;
-    const situasjon: Feilsituasjon = {
-        oppgaveRegistreringstype: registreringstype as OppgaveRegistreringstype,
-        feiltype: feilsituasjon as Feiltype,
-    };
-
     const opprettOppgave = useCallback(async () => {
         loggAktivitet({ aktivitet: 'Oppretter kontakt meg oppgave' });
         try {
-            const oppgaveType = situasjon.feiltype === 'utvandret' ? 'UTVANDRET' : 'OPPHOLDSTILLATELSE';
+            const oppgaveType = props.feiltype === 'utvandret' ? 'UTVANDRET' : 'OPPHOLDSTILLATELSE';
 
             await api('/api/oppgave', {
                 method: 'post',
@@ -69,7 +63,7 @@ const KontaktVeileder = () => {
             settFeil('opprettelseFeilet');
         }
         settResponseMottatt(true);
-    }, [situasjon.feiltype]);
+    }, [props.feiltype]);
 
     const avbrytKontaktMeg = () => {
         loggAktivitet({ aktivitet: 'Avbryter kontakt meg' });
@@ -95,16 +89,16 @@ const KontaktVeileder = () => {
                         {tekst('heading')}
                     </Heading>
                     <BodyLong>
-                        {tekst(situasjon.feiltype === 'utvandret' ? 'utvandretBody1' : 'manglerArbeidstillatelseBody1')}
+                        {tekst(props.feiltype === 'utvandret' ? 'utvandretBody1' : 'manglerArbeidstillatelseBody1')}
                     </BodyLong>
                     <BodyLong spacing>{tekst('body2')}</BodyLong>
                     <BodyLong>
-                        {situasjon.oppgaveRegistreringstype === 'registrering'
+                        {props.oppgaveRegistreringstype === 'registrering'
                             ? tekst('kontaktOss')
                             : tekst('kontaktOssMedTlfnr')}
                     </BodyLong>
                 </GuidePanel>
-                {situasjon.oppgaveRegistreringstype === 'registrering' && (
+                {props.oppgaveRegistreringstype === 'registrering' && (
                     <section className="flex-center mhl">
                         <Button onClick={opprettOppgave} className="mrl">
                             {tekst('kontaktKnapp')}
@@ -118,9 +112,12 @@ const KontaktVeileder = () => {
         );
 };
 
-KontaktVeileder.getInitialProps = async (context: any) => {
-    const { situasjon } = context.query;
-    return { situasjon };
+KontaktVeileder.getInitialProps = async (context: any): Promise<Feilsituasjon> => {
+    const { registreringstype, feilsituasjon } = context.query;
+    return {
+        oppgaveRegistreringstype: registreringstype as OppgaveRegistreringstype,
+        feiltype: feilsituasjon as Feiltype,
+    };
 };
 
 export default KontaktVeileder;
