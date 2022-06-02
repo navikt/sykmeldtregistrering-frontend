@@ -97,7 +97,7 @@ jobs:
   deploy-dev:
     name: Deploy to dev
     needs: [test, build]
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/reaktivering-feilmelding'
     runs-on: ubuntu-latest
     steps:
       - name: Fetch NAIS yaml
