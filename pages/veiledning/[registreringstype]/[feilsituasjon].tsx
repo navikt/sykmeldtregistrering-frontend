@@ -13,16 +13,7 @@ import {
     Opprettelsesfeil,
 } from '../../../components/KvitteringOppgave';
 import { FeilmeldingGenerell } from '../../../components/feilmeldinger/feilmeldinger';
-
-export enum Feiltype {
-    UTVANDRET = 'utvandret',
-    MANGLER_ARBEIDSTILLATELSE = 'mangler-arbeidstillatelse',
-}
-
-export enum OppgaveRegistreringstype {
-    REGISTRERING = 'registrering',
-    REAKTIVERING = 'reaktivering',
-}
+import { Feiltype, OppgaveRegistreringstype } from '../feilsituasjonTyper';
 
 interface Feilsituasjon {
     oppgaveRegistreringstype?: OppgaveRegistreringstype;
