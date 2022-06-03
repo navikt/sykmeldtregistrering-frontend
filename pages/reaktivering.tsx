@@ -10,7 +10,7 @@ import { Brukergruppe } from '../model/registrering';
 import { loggAktivitet, loggStoppsituasjon } from '../lib/amplitude';
 import beregnBrukergruppe from '../lib/beregn-brukergruppe';
 import { hentRegistreringFeiletUrl } from '../lib/hent-registrering-feilet-url';
-import { OppgaveRegistreringstype } from './veiledning/feilsituasjonTyper';
+import { OppgaveRegistreringstype } from '../model/feilsituasjonTyper';
 
 const TEKSTER: Tekster<string> = {
     nb: {

@@ -1,6 +1,6 @@
 import { hentRegistreringFeiletUrl } from './hent-registrering-feilet-url';
 import { ErrorTypes } from '../model/error';
-import { OppgaveRegistreringstype } from '../pages/veiledning/feilsituasjonTyper';
+import { OppgaveRegistreringstype } from '../model/feilsituasjonTyper';
 
 describe('hent-registrering-feilet-url', () => {
     it('returnerer "/veiledning/registrering/utvandret/" for død, utvandret eller forsvunnet bruker', () => {

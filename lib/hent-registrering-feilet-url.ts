@@ -1,5 +1,5 @@
 import { ErrorTypes } from '../model/error';
-import { OppgaveRegistreringstype } from '../pages/veiledning/feilsituasjonTyper';
+import { OppgaveRegistreringstype } from '../model/feilsituasjonTyper';
 
 export const hentRegistreringFeiletUrl = (feiltype: ErrorTypes, registreringstype: OppgaveRegistreringstype) => {
     if (feiltype === ErrorTypes.BRUKER_ER_DOD_UTVANDRET_ELLER_FORSVUNNET) {

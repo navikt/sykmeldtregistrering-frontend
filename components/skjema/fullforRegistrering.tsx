@@ -18,7 +18,7 @@ import { useFeatureToggles } from '../../contexts/featuretoggle-context';
 import { useConfig } from '../../contexts/config-context';
 import { Config } from '../../model/config';
 import { hentRegistreringFeiletUrl } from '../../lib/hent-registrering-feilet-url';
-import { OppgaveRegistreringstype } from '../../pages/veiledning/feilsituasjonTyper';
+import { OppgaveRegistreringstype } from '../../model/feilsituasjonTyper';
 
 const TEKSTER: Tekster<string> = {
     nb: {

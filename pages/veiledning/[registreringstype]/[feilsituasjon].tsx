@@ -13,7 +13,7 @@ import {
     Opprettelsesfeil,
 } from '../../../components/KvitteringOppgave';
 import { FeilmeldingGenerell } from '../../../components/feilmeldinger/feilmeldinger';
-import { Feiltype, OppgaveRegistreringstype } from '../feilsituasjonTyper';
+import { Feiltype, OppgaveRegistreringstype } from '../../../model/feilsituasjonTyper';
 
 interface Feilsituasjon {
     oppgaveRegistreringstype?: OppgaveRegistreringstype;
