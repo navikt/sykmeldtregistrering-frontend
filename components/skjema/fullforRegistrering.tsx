@@ -18,6 +18,7 @@ import { useFeatureToggles } from '../../contexts/featuretoggle-context';
 import { useConfig } from '../../contexts/config-context';
 import { Config } from '../../model/config';
 import { hentRegistreringFeiletUrl } from '../../lib/hent-registrering-feilet-url';
+import { OppgaveRegistreringstype } from '../../model/feilsituasjonTyper';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -121,7 +122,7 @@ const FullforRegistrering = (props: FullforProps) => {
             const feiltype = response.type;
 
             if (feiltype) {
-                return router.push(hentRegistreringFeiletUrl(feiltype));
+                return router.push(hentRegistreringFeiletUrl(feiltype, OppgaveRegistreringstype.REGISTRERING));
             }
 
             const skalHoppeOverKvittering =

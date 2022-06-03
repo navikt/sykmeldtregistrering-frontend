@@ -42,12 +42,17 @@ function DemoPanel({ brukerMock }: Props) {
                     </NextLink>
                 </p>
                 <p>
-                    <NextLink href="/veiledning/utvandret/" passHref locale={false}>
+                    <NextLink href="/veiledning/registrering/utvandret/" passHref locale={false}>
                         <Button variant="secondary">Utvandret</Button>
                     </NextLink>
                 </p>
                 <p>
-                    <NextLink href="/veiledning/mangler-arbeidstillatelse/" passHref locale={false}>
+                    <NextLink href="/veiledning/reaktivering/utvandret/" passHref locale={false}>
+                        <Button variant="secondary">Utvandret Reaktivering</Button>
+                    </NextLink>
+                </p>
+                <p>
+                    <NextLink href="/veiledning/registrering/mangler-arbeidstillatelse/" passHref locale={false}>
                         <Button variant="secondary">Mangler arbeidstillatelse</Button>
                     </NextLink>
                 </p>

@@ -5,11 +5,12 @@ import useSWR from 'swr';
 
 import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../hooks/useSprak';
-import { fetcher as api } from '../lib/api-utils';
+import { fetcher as api, fetcher } from '../lib/api-utils';
 import { Brukergruppe } from '../model/registrering';
-import { loggStoppsituasjon, loggAktivitet } from '../lib/amplitude';
-import { fetcher } from '../lib/api-utils';
+import { loggAktivitet, loggStoppsituasjon } from '../lib/amplitude';
 import beregnBrukergruppe from '../lib/beregn-brukergruppe';
+import { hentRegistreringFeiletUrl } from '../lib/hent-registrering-feilet-url';
+import { OppgaveRegistreringstype } from '../model/feilsituasjonTyper';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -39,12 +40,13 @@ const Reaktivering = () => {
 
         const response = await api('api/reaktivering/', { method: 'post', body: JSON.stringify({}) });
 
-        if (response.type) {
+        const feiltype = response.type;
+        if (feiltype) {
             loggStoppsituasjon({
                 situasjon: 'Arbeidssøkeren får ikke reaktivert seg',
-                aarsak: response.type,
+                aarsak: feiltype,
             });
-            router.push('/feil/');
+            return router.push(hentRegistreringFeiletUrl(feiltype, OppgaveRegistreringstype.REAKTIVERING));
         } else {
             return router.push('/kvittering-reaktivering/');
         }
