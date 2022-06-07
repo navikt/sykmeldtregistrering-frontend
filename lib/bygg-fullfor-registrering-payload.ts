@@ -47,6 +47,14 @@ function byggFullforRegistreringPayload(skjemaState: SkjemaState, side: Side = '
 
     const initialState = side === 'standard' ? initialStandardState : initialSykmeldtState;
 
+    const harAldriJobbet =
+        skjemaState.dinSituasjon === DinSituasjon.ALDRI_HATT_JOBB ||
+        skjemaState.sisteStilling === SisteStillingValg.HAR_IKKE_HATT_JOBB;
+
+    const hentTekstForSisteStilling = () => {
+        return harAldriJobbet ? 'Ingen yrkeserfaring' : skjemaState.sisteJobb?.label || 'Ikke oppgitt';
+    };
+
     let payload = (Object.keys(initialState) as Array<keyof Omit<SkjemaState, 'startTid'>>).reduce(
         (resultat: Payload, key) => {
             const svar = skjemaState[key] || initialStandardState[key];
@@ -56,17 +64,16 @@ function byggFullforRegistreringPayload(skjemaState: SkjemaState, side: Side = '
                 resultat.teksterForBesvarelse.push({
                     sporsmalId: key,
                     sporsmal: hentTekst('nb', key),
-                    svar: hentTekst('nb', svar.toString()),
+                    svar:
+                        key === SporsmalId.sisteStilling
+                            ? hentTekstForSisteStilling()
+                            : hentTekst('nb', svar.toString()),
                 });
             }
             return resultat;
         },
         { besvarelse: {}, teksterForBesvarelse: [] as TeksterForBesvarelse } as Payload
     );
-
-    const harAldriJobbet =
-        skjemaState.dinSituasjon === DinSituasjon.ALDRI_HATT_JOBB ||
-        skjemaState.sisteStilling === SisteStillingValg.HAR_IKKE_HATT_JOBB;
 
     const sisteStilling = harAldriJobbet ? aldriJobbet : skjemaState.sisteJobb;
 

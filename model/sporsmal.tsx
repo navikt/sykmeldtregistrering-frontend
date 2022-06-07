@@ -93,7 +93,7 @@ const TEKSTER: Tekster<string> = {
         [DinSituasjon.USIKKER_JOBBSITUASJON]: 'Er usikker på jobbsituasjonen min',
         [DinSituasjon.AKKURAT_FULLFORT_UTDANNING]: 'Har akkurat fullført utdanning, militærtjeneste eller annet',
         [DinSituasjon.VIL_FORTSETTE_I_JOBB]: 'Har jobb og ønsker å fortsette i den jobben jeg er i',
-        [SporsmalId.sisteStilling]: '',
+        [SporsmalId.sisteStilling]: 'Hva er din siste jobb?',
         [SisteStillingValg.HAR_HATT_JOBB]: 'Har vært i jobb',
         [SisteStillingValg.HAR_IKKE_HATT_JOBB]: 'Har ikke vært i jobb',
         [SisteStillingValg.INGEN_SVAR]: 'Ikke besvart',
