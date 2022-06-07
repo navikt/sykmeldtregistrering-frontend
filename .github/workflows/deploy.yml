@@ -142,6 +142,6 @@ jobs:
           SENTRY_ORG: nav
           SENTRY_PROJECT: poa-arbeidssokerregistrering
         with:
-          environment: development
+          environment: production
           version: ${{ github.sha }}
           set_commits: skip
