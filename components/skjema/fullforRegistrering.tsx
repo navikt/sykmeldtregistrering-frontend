@@ -44,7 +44,7 @@ const TEKSTER: Tekster<string> = {
         CV: 'CV',
         CVInfo:
             'Når du fullfører registreringen, vil du få en oppgave i aktivitetsplanen om at du må fylle ut CV-en din. ' +
-            'Det er viktig at du holder CV-en din oppdatert slik at du er synlig for arbeidsgivere.',
+            'Det er viktig at du holder CV-en din oppdatert slik at NAV kan bistå deg med å komme i arbeid.',
         lestOgForstaatt: 'Jeg har lest og forstått kravene',
         lestKravFeilmelding: 'Du må huke av at du har lest og forstått kravene for å kunne fullføre registreringen.',
         fullfor: 'Fullfør',
