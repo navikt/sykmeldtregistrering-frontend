@@ -83,6 +83,7 @@ const FullforRegistrering = (props: FullforProps) => {
     const [visFeilmelding, settVisFeilmelding] = useState<boolean>(false);
     const [visFeilmeldingLestKrav, settVisFeilmeldingLestKrav] = useState<boolean>(false);
     const [visFeilmeldingTeller, settVisFeilmeldingTeller] = useState<number>(0);
+    const [erUnderInnsending, setErUnderInnsending] = useState<boolean>(false);
     const router = useRouter();
     const { toggles } = useFeatureToggles();
     const { dittNavUrl } = useConfig() as Config;
@@ -92,6 +93,7 @@ const FullforRegistrering = (props: FullforProps) => {
             settVisFeilmeldingLestKrav(true);
             return;
         }
+        setErUnderInnsending(true);
         return fullforRegistrering();
     };
 
@@ -228,7 +230,7 @@ const FullforRegistrering = (props: FullforProps) => {
                     </div>
                 )}
                 <div style={{ textAlign: 'center' }}>
-                    <Button onClick={validerOgFullfor} loading={senderSkjema}>
+                    <Button onClick={validerOgFullfor} loading={senderSkjema} disabled={erUnderInnsending}>
                         {tekst('fullfor')}
                     </Button>
                 </div>
