@@ -36,11 +36,13 @@ const lagApiHandlerMedAuthHeaders: (url: string, errorHandler?: (response: Respo
         }
 
         try {
+            console.log(`Starter kall callId: ${callId} mot ${url}`);
             const response = await fetch(url, {
                 method: req.method,
                 body,
                 headers: getHeaders(idtoken, callId),
             }).then(async (apiResponse) => {
+                console.log(`Kall callId: ${callId} mot ${url} er ferdig`);
                 const contentType = apiResponse.headers.get('content-type');
                 const statusCode = apiResponse.status;
 
