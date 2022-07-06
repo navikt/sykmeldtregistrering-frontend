@@ -77,7 +77,7 @@ jobs:
   deploy-demo:
     name: Deploy to demo
     needs: [test, build]
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/next-12.2'
     runs-on: ubuntu-latest
     steps:
       - name: Fetch NAIS yaml
@@ -97,7 +97,7 @@ jobs:
   deploy-dev:
     name: Deploy to dev
     needs: [test, build]
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/next-12.2'
     runs-on: ubuntu-latest
     steps:
       - name: Fetch NAIS yaml
@@ -113,7 +113,7 @@ jobs:
           RESOURCE: .nais/nais.yaml
           VARS: .nais/dev.yaml
           PRINT_PAYLOAD: true
-      
+
   deploy-prod:
     name: Deploy to prod
     needs: [test, build]
@@ -133,7 +133,7 @@ jobs:
           RESOURCE: .nais/nais.yaml
           VARS: .nais/prod.yaml
           PRINT_PAYLOAD: true
-      
+
       - name: Lag deployment i Sentry
         uses: getsentry/action-release@v1
         env:
