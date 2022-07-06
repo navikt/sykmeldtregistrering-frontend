@@ -1,7 +1,7 @@
 import { NextApiHandler } from 'next';
 import { nanoid } from 'nanoid';
 
-export const getHeaders = (idtoken: string, callId: string) => {
+export const getHeaders = (idtoken: string | undefined, callId: string) => {
     return {
         cookie: `selvbetjening-idtoken=${idtoken}`,
         'Nav-Consumer-Id': 'poa-arbeidssokerregistrering',
