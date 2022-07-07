@@ -22,7 +22,7 @@ const TEKSTER: Tekster<string> = {
     },
 };
 
-const dineOpplysninger = () => {
+const DineOpplysninger = () => {
     // eslint-disable-next-line
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
 
@@ -55,4 +55,4 @@ const dineOpplysninger = () => {
     );
 };
 
-export default dineOpplysninger;
+export default DineOpplysninger;
