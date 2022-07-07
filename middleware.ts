@@ -26,7 +26,15 @@ function redirectUrlUtenSideParam(req: NextRequest) {
     }
 }
 
+function isStaticFileRequest(req: NextRequest) {
+    return /\/_next\/static\/(.*)\.(css|js)/.test(req.url);
+}
+
 export function middleware(req: NextRequest) {
+    if (isStaticFileRequest(req)) {
+        return;
+    }
+
     if (shouldRedirectToLogin(req)) {
         const url = `${process.env.LOGINSERVICE_URL}?redirect=${process.env.NEXT_PUBLIC_START_URL}`;
         return NextResponse.redirect(url);
