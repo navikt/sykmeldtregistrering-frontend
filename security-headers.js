@@ -4,8 +4,8 @@ const ContentSecurityPolicy = `
   child-src 'self';
   style-src 'self' 'unsafe-inline' *.nav.no;
   img-src 'self' data: *.nav.no www.google-analytics.com;
-  font-src 'self' data: se-content-a.psplugin.com content.psplugin.com;
-  connect-src 'self' *.nav.no nav.psplugin.com www.google-analytics.com ta-survey-v2.herokuapp.com;
+  font-src 'self' data: se-content-a.psplugin.com se-content-b.psplugin.com content.psplugin.com;
+  connect-src 'self' *.nav.no nav.psplugin.com www.google-analytics.com ta-survey-v2.herokuapp.com in2.taskanalytics.com;
   worker-src 'self' blob:;
   frame-src 'self' vars.hotjar.com
 `;
