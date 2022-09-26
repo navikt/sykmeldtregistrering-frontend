@@ -13,7 +13,7 @@ const TEKSTER: Tekster<string> = {
         utdanning: 'utdanningen din',
         utfordringer: 'eventuelle utfordringer',
         beskrivelse: `Hvis det skjer endringer som gjør at opplysningene du har gitt oss ikke er riktige lenger, kan du ta kontakt med oss på nav.no. Da gjør vi en ny vurdering av ditt behov for tjenester.
-      Vi har også opplysninger om arbeidssøkere i omtrent samme situasjon som deg. Det gjør at vi kan anta noe om mulighetene dine til å finne en jobb. På bakgrunn av dette blir det laget et automatisk forslag til hvilke tjenester vi tror kan passe for deg. Dette forslaget kaller vi profilering. En veileder vurderer forslaget og sender deg et vedtak i posten.`,
+      Vi har også opplysninger om arbeidssøkere i omtrent samme situasjon som deg. Det gjør at vi kan anta noe om mulighetene dine til å finne en jobb. På bakgrunn av dette blir det laget et automatisk forslag til hvilke tjenester vi tror kan passe for deg. Dette forslaget kaller vi profilering. En veileder vurderer forslaget og sender deg et vedtak.`,
         overskriftPersonopplysninger: 'Behandling av personopplysninger',
         personopplysninger:
             'Opplysningene dine blir lagret etter arkivloven. NAV bruker anonymiserte personopplysninger om arbeidssøkere til å lage offentlig statistikk om arbeidsmarkedet.',
