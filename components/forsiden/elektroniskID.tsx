@@ -1,8 +1,10 @@
-import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import { BodyLong, Heading, Link } from '@navikt/ds-react';
-import useSprak from '../../hooks/useSprak';
 import { Next } from '@navikt/ds-icons';
 import Image from 'next/image';
+
+import useSprak from '../../hooks/useSprak';
+
+import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import bankIdSvg from './bankid.svg';
 import navKontorSvg from './nav-kontor.svg';
 import styles from './elektroniskID.module.css';
@@ -13,9 +15,6 @@ const TEKSTER: Tekster<string> = {
         skaffDegTittel: 'Skaff deg elektronisk ID',
         skaffDegBody:
             'Hos ID-porten kan du skaffe deg elektronisk ID. Du kan velge mellom BankId, BankID på mobil, Buypass eller Commfides.',
-        minIdPassportTittel: 'MinID Passport',
-        minIdPassportBody: 'MinID Passport er en elektronisk ID som kan brukes for å logge på nav.no. ',
-        minIdPassportLenke: ' bruker pass som bekreftelse.',
         navKontoretTittel: 'Registrer deg på NAV-kontoret',
         navKontoretBody1:
             'Hvis du ikke kan skaffe deg elektronisk ID, må du møte opp på NAV-kontoret ditt. Der kan du få hjelp til å registere deg slik at du kan sende meldekort med MinID.',
@@ -28,9 +27,6 @@ const TEKSTER: Tekster<string> = {
         skaffDegTittel: 'Get your electronic ID',
         skaffDegBody:
             'You can get an electronic ID at ID-porten. You can choose between BankId, BankID on mobile, Buypass or Commfides.',
-        minIdPassportTittel: 'MinID Passport',
-        minIdPassportBody: 'MinID Passport is an electronic ID solution which can be used to log into nav.no. ',
-        minIdPassportLenke: ' uses passport verification.',
         navKontoretTittel: 'Register at the NAV office',
         navKontoretBody1:
             'If you cannot obtain an electronic ID, you must show up at your NAV office. There you can get help to register so that you can send report cards with MinID.',
@@ -59,14 +55,6 @@ const ElektroniskID = () => {
                     <Link className="mbm" href="https://eid.difi.no/bankid">
                         {tekst('skaffDegTittel')} <Next />
                     </Link>
-                    <Heading size={'small'} level="3" spacing={true}>
-                        {tekst('minIdPassportTittel')}
-                    </Heading>
-                    <BodyLong spacing={true}>
-                        {tekst('minIdPassportBody')}
-                        {tekst('minIdPassportTittel')}
-                        <Link href="https://eid.difi.no/minid/passport">{tekst('minIdPassportLenke')}</Link>
-                    </BodyLong>
                 </div>
                 <div className={styles.info}>
                     <div className="text-center mbs">
