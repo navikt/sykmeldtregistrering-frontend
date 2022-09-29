@@ -93,5 +93,6 @@ spec:
   accessPolicy:
     outbound:
       rules:
+        - application: veilarbregistrering
         - application: pto-proxy
           namespace: pto
