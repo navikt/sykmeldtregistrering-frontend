@@ -14,7 +14,7 @@ sentry:
   dsn: https://b2f662d8ed7a42b29f465f365e25832f@sentry.gc.nav.no/118
 pamJanzzUrl: https://arbeidsplassen.dev.nav.no/pam-janzz/rest
 startUrl: https://arbeid.dev.nav.no/arbeid/registrering/start
-startRegistreringUrl: http://pto-proxy.pto.svc.cluster.local/proxy/veilarbregistrering/api/startregistrering/
+startRegistreringUrl: http://veilarbregistrering/veilarbregistrering/api/startregistrering/
 fullforRegistreringUrl: http://veilarbregistrering/veilarbregistrering/api/startregistrering/
 fullforRegistreringSykmeldtUrl: http://veilarbregistrering/veilarbregistrering/api/startregistrersykmeldt/
 reaktiveringUrl: http://veilarbregistrering/veilarbregistrering/api/startreaktivering/
