@@ -22,7 +22,7 @@ const dekoratorEnv = process.env.DEKORATOR_ENV as Exclude<DecoratorProps['env'],
 
 const dekoratorProps: DecoratorProps = {
     env: dekoratorEnv ?? 'prod',
-    simple: true,
+    simple: false,
     context: 'privatperson',
     chatbot: false,
     // availableLanguages,
