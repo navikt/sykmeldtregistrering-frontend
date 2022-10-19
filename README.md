@@ -17,6 +17,14 @@ Dersom du ikke kjører i mock-modus må du ha koblet til [naisdevice](https://do
 -   start utviklingsserver `npm run dev`
 -   åpne nettleseren på `http://localhost:3000/arbeid/registrering`
 
+## Deploye kun til dev
+
+Ved å prefikse branch-navn med `dev/`, så vil branchen kun deployes i dev.
+
+```
+git checkout -b dev/<navn på branch>
+```
+
 ## Ekstern dokumentasjon
 
 -   [Next.js](https://nextjs.org/)
