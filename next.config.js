@@ -17,6 +17,9 @@ const nextConfig = {
     publicRuntimeConfig: {
         basePath,
     },
+    sentry: {
+        hideSourceMaps: true,
+    },
     async headers() {
         return [
             {
