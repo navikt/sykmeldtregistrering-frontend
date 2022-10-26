@@ -1,4 +1,3 @@
-import NextLink from 'next/link';
 import { BodyLong, Heading, Link } from '@navikt/ds-react';
 import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../hooks/useSprak';
@@ -46,9 +45,9 @@ const DineOpplysninger = () => {
             </Heading>
             <BodyLong>{tekst('personopplysninger')}</BodyLong>
             <BodyLong className="mbm">
-                <NextLink href="https://www.nav.no/personvern" passHref locale={false}>
-                    <Link target="_blank">{tekst('personopplysningerLenkeTekst')}</Link>
-                </NextLink>
+                <Link target="_blank" href="https://www.nav.no/personvern">
+                    {tekst('personopplysningerLenkeTekst')}
+                </Link>
             </BodyLong>
             <BodyLong>{tekst('tips')}</BodyLong>
         </>
