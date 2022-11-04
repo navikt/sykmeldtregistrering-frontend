@@ -19,8 +19,8 @@ fullforRegistreringUrl: http://pto-proxy.pto.svc.cluster.local/proxy/veilarbregi
 fullforRegistreringSykmeldtUrl: http://pto-proxy.pto.svc.cluster.local/proxy/veilarbregistrering/api/startregistrersykmeldt/
 reaktiveringUrl: http://pto-proxy.pto.svc.cluster.local/proxy/veilarbregistrering/api/startreaktivering/
 sisteArbeidsforholdUrl: http://veilarbregistrering/veilarbregistrering/api/sistearbeidsforhold/
-opprettOppgaveUrl: http://pto-proxy.pto.svc.cluster.local/proxy/veilarbregistrering/api/oppgave/
-kontaktinformasjonUrl: http://pto-proxy.pto.svc.cluster.local/proxy/veilarbregistrering/api/person/kontaktinfo
+opprettOppgaveUrl: http://veilarbregistrering/veilarbregistrering/api/oppgave/
+kontaktinformasjonUrl: http://veilarbregistrering/veilarbregistrering/api/person/kontaktinfo
 ptoProxyUrl: http://pto-proxy.pto.svc.cluster.local/proxy/
 dittNAVUrl: https://www.nav.no/person/dittnav
 dagpengesoknadUrl: https://www.nav.no/arbeid/dagpenger/soknad-veileder
