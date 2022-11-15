@@ -1,5 +1,6 @@
 import { render } from '@testing-library/react';
 
+jest.mock('next/router', () => require('next-router-mock'));
 import DineOpplysninger from './dine-opplysninger';
 
 describe('tester komponenten DineOpplysninger', () => {

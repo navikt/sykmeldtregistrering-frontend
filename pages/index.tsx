@@ -72,9 +72,7 @@ const Home: NextPage = () => {
                     </Cell>
                     <Cell xs={12} className={'text-center phs'}>
                         <NextLink href="/start" passHref locale={false}>
-                            <a>
-                                <Button onClick={() => logStartHandler()}>{tekst('startRegistrering')}</Button>
-                            </a>
+                            <Button onClick={() => logStartHandler()}>{tekst('startRegistrering')}</Button>
                         </NextLink>
                     </Cell>
                 </Grid>
