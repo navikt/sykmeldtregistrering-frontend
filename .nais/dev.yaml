@@ -15,9 +15,9 @@ sentry:
 pamJanzzUrl: https://arbeidsplassen.dev.nav.no/pam-janzz/rest
 startUrl: https://arbeid.dev.nav.no/arbeid/registrering/start
 startRegistreringUrl: http://veilarbregistrering/veilarbregistrering/api/startregistrering/
-fullforRegistreringUrl: http://veilarbregistrering/veilarbregistrering/api/startregistrering/
-fullforRegistreringSykmeldtUrl: http://veilarbregistrering/veilarbregistrering/api/startregistrersykmeldt/
-reaktiveringUrl: http://veilarbregistrering/veilarbregistrering/api/startreaktivering/
+fullforRegistreringUrl: http://veilarbregistrering/veilarbregistrering/api/fullfoerordinaerregistrering/
+fullforRegistreringSykmeldtUrl: http://veilarbregistrering/veilarbregistrering/api/fullfoersykmeldtregistrering/
+reaktiveringUrl: http://veilarbregistrering/veilarbregistrering/api/fullfoerreaktivering/
 sisteArbeidsforholdUrl: http://veilarbregistrering/veilarbregistrering/api/sistearbeidsforhold/
 opprettOppgaveUrl: http://veilarbregistrering/veilarbregistrering/api/oppgave/
 kontaktinformasjonUrl: http://veilarbregistrering/veilarbregistrering/api/person/kontaktinfo
