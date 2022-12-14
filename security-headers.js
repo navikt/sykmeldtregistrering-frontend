@@ -4,7 +4,7 @@ const ContentSecurityPolicy = `
   child-src 'self';
   style-src 'self' 'unsafe-inline' *.nav.no;
   manifest-src 'self' *.nav.no;
-  img-src 'self' data: *.nav.no oidc.difi.no www.google-analytics.com;
+  img-src 'self' data: *.nav.no *.difi.no www.google-analytics.com;
   font-src 'self' cdn.nav.no data: se-content-a.psplugin.com se-content-b.psplugin.com content.psplugin.com;
   connect-src 'self' *.nav.no nav.psplugin.com www.google-analytics.com ta-survey-v2.herokuapp.com in2.taskanalytics.com in.hotjar.com;
   worker-src 'self' blob:;
