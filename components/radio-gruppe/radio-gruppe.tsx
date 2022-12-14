@@ -1,4 +1,4 @@
-import { Radio, RadioGroup } from '@navikt/ds-react';
+import { Heading, Radio, RadioGroup } from '@navikt/ds-react';
 import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../hooks/useSprak';
 
@@ -29,15 +29,20 @@ const RadioGruppe = (props: RadioGruppeProps) => {
     const error = visFeilmelding ? tekst('advarsel') : undefined;
 
     return (
-        <RadioGroup defaultValue={valgt} legend={legend} onChange={onSelect} error={error} description={beskrivelse}>
-            {valg.map((alternativ) => {
-                return (
-                    <Radio key={alternativ.value} value={alternativ.value}>
-                        {alternativ.tekst}
-                    </Radio>
-                );
-            })}
-        </RadioGroup>
+        <>
+            <Heading size="small" level="1">
+                {legend}
+            </Heading>
+            <RadioGroup defaultValue={valgt} legend="" onChange={onSelect} error={error} description={beskrivelse}>
+                {valg.map((alternativ) => {
+                    return (
+                        <Radio key={alternativ.value} value={alternativ.value}>
+                            {alternativ.tekst}
+                        </Radio>
+                    );
+                })}
+            </RadioGroup>
+        </>
     );
 };
 
