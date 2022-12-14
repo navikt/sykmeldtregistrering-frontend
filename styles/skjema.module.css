@@ -12,7 +12,7 @@
 }
 
 .panel {
-    background-color: var(--navds-global-color-gray-50);
+    background-color: var(--a-gray-50);
     width: 100%;
     display: flex;
     align-items: center;

@@ -1,8 +1,11 @@
+import { Panel } from '@navikt/ds-react';
+
+import useSprak from '../../../hooks/useSprak';
+
 import RadioGruppe from '../../radio-gruppe/radio-gruppe';
 import { SkjemaKomponentProps } from '../skjema-felleskomponenter';
 import { hentTekst, SisteStillingValg } from '../../../model/sporsmal';
-import useSprak from '../../../hooks/useSprak';
-import { Panel } from '@navikt/ds-react';
+
 import styles from '../../../styles/skjema.module.css';
 
 const SisteStilling = (props: SkjemaKomponentProps<SisteStillingValg>) => {
@@ -15,11 +18,7 @@ const SisteStilling = (props: SkjemaKomponentProps<SisteStillingValg>) => {
     ];
 
     return (
-        <Panel
-            className={`${styles.panel} mbm`}
-            border={true}
-            style={{ backgroundColor: 'var(--navds-global-color-gray-100)' }}
-        >
+        <Panel className={`${styles.panel} mbm`} border={true} style={{ backgroundColor: 'var(--a-gray-100)' }}>
             <RadioGruppe
                 valg={valg}
                 valgt={props.valgt}

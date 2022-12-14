@@ -8,8 +8,8 @@
     max-height: 300px;
     overflow: auto;
     background: white;
-    border: 1px solid var(--navds-semantic-color-border);
-    box-shadow: 0 1px 5px var(--navds-global-color-gray-300);
+    border: 1px solid var(--a-border-strong);
+    box-shadow: 0 1px 5px var(--a-gray-300);
     border-radius: 5px;
     z-index: 1;
     cursor: pointer;
@@ -23,6 +23,6 @@
     padding: 0.5em;
 }
 .suggestionHighlighted {
-    background-color: var(--navds-semantic-color-focus);
+    background-color: var(--a-border-focus);
     color: white;
 }
