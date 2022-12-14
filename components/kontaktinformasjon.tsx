@@ -66,7 +66,7 @@ const Telefonnummer = (props: { kilde: Kilde; telefonnummer: string }) => {
 
     return (
         <Panel border className="mbm">
-            <Heading level="3" size={'small'}>
+            <Heading level="2" size={'small'}>
                 {tekst(`tlfHos${props.kilde}`)}
             </Heading>
             <Label>{props.telefonnummer}</Label>
