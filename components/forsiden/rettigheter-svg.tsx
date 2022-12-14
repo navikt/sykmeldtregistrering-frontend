@@ -3,13 +3,13 @@ import React from 'react';
 const RettigheterSvg = () => (
     <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" width="100" height="100">
         <defs>
-            <circle id="a" cx="50" cy="50" r="50" />
+            <circle id="acircle" cx="50" cy="50" r="50" />
         </defs>
         <g fill="none" fillRule="evenodd" transform="translate(-413 -727)">
             <path fill="#FFF" d="M0 0h1273v1967H0z" />
             <path fill="#E9E7E7" d="M0 697h1280v445H0z" />
             <rect width="317" height="296" x="301.5" y="778.5" fill="#FFF" stroke="#9BD0B0" strokeWidth="3" rx="8" />
-            <use fill="#9BD0B0" transform="translate(413 727)" xlinkHref="#a" />
+            <use fill="#9BD0B0" transform="translate(413 727)" xlinkHref="#acircle" />
             <path
                 fill="#515658"
                 d="M482.609 752.398h-38.102c-1.573 0-2.845 1.284-2.845 2.871v48.488a2.88 2.88 0 0 0 1.038 2.214 2.815 2.815 0 0 0 1.807.656h38.102c1.572 0 2.846-1.286 2.846-2.87v-48.488c0-1.587-1.274-2.871-2.846-2.871"
