@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Alert, BodyLong, Button, Link } from '@navikt/ds-react';
+import { Alert, BodyLong, Button, Heading, Link } from '@navikt/ds-react';
 
 import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../hooks/useSprak';
@@ -24,15 +24,20 @@ const FeilmeldingGenerell = () => {
     }, []);
 
     return (
-        <Alert variant={'error'}>
-            <BodyLong spacing>{tekst('feilISystemene')}</BodyLong>
-            <BodyLong spacing>{tekst('provIgjen')}</BodyLong>
-            <BodyLong>
-                <Link href="https://www.nav.no/no/nav-og-samfunn/kontakt-nav/teknisk-brukerstotte/kontakt-teknisk-brukerstotte-nav.no">
-                    {tekst('kontaktBrukerstotte')}
-                </Link>
-            </BodyLong>
-        </Alert>
+        <>
+            <Heading size="medium" spacing level="1">
+                Beklager, teknisk feil
+            </Heading>
+            <Alert variant={'error'}>
+                <BodyLong spacing>{tekst('feilISystemene')}</BodyLong>
+                <BodyLong spacing>{tekst('provIgjen')}</BodyLong>
+                <BodyLong>
+                    <Link href="https://www.nav.no/no/nav-og-samfunn/kontakt-nav/teknisk-brukerstotte/kontakt-teknisk-brukerstotte-nav.no">
+                        {tekst('kontaktBrukerstotte')}
+                    </Link>
+                </BodyLong>
+            </Alert>
+        </>
     );
 };
 
