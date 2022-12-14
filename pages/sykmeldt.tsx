@@ -4,13 +4,15 @@ import { nanoid } from 'nanoid';
 import { NextPageContext } from 'next';
 import cookie from 'cookie';
 
-import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../hooks/useSprak';
+
+import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
 import VeiledningSvg from '../components/veiledningSvg';
 import { SkjemaSide } from '../model/skjema';
 import { Kontaktinformasjon } from '../model/kontaktinformasjon';
 import { getHeaders } from '../lib/next-api-handler';
 import { loggAktivitet } from '../lib/amplitude';
+
 import styles from '../styles/skjema.module.css';
 
 const TEKSTER: Tekster<string> = {
@@ -45,10 +47,14 @@ const SykmeldtStartside = (props: SykmeldtProps) => {
 
     return (
         <div className={styles.main}>
+            <Heading size="medium" spacing level="1">
+                Informasjon om registreringen
+            </Heading>
             <GuidePanel className={'mbl'}>
                 <Label>
                     {tekst('hei')}
                     {kontaktinformasjon?.navn.fornavn}
+                    {'. '}
                 </Label>
                 {tekst('sykmeldtInformasjon')}
             </GuidePanel>
