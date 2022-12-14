@@ -16,6 +16,7 @@ const ProgressBar = (props: Props) => {
                 style={{ width: `${hentBredde(props.value)}%` }}
                 className={styles.progressBar}
                 role="progressbar"
+                title={`Fremdrift: ${hentBredde(props.value)} prosent ferdig`}
                 aria-valuenow={props.value}
                 aria-valuemin={0}
                 aria-valuemax={1}
