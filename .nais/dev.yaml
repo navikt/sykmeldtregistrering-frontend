@@ -23,7 +23,7 @@ opprettOppgaveUrl: http://veilarbregistrering/veilarbregistrering/api/oppgave/
 kontaktinformasjonUrl: http://veilarbregistrering/veilarbregistrering/api/person/kontaktinfo
 ptoProxyUrl: http://pto-proxy.pto.svc.cluster.local/proxy/
 dittNAVUrl: https://www.dev.nav.no/person/dittnav
-dagpengesoknadUrl: https://arbeid.dev.nav.no/arbeid/dagpenger/soknad-veileder
+dagpengesoknadUrl: https://arbeid.dev.nav.no/dagpenger/dialog/soknad
 dialogUrl: https://www.dev.nav.no/arbeid/dialog
 featureToggles:
   server: https://unleash.nais.io/api/client/features?tag[]=simple:arbeidssokerregistrering
