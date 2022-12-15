@@ -24,7 +24,7 @@ const TilbakeKnapp = (props: TilbakeKnappProps) => {
     return (
         <NextLink href={props.href} passHref={true} locale={false}>
             <Link className="mbs">
-                <Back /> {tekst('tilbake')}
+                <Back aria-hidden="true" /> {tekst('tilbake')}
             </Link>
         </NextLink>
     );
