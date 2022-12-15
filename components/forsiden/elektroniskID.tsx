@@ -53,7 +53,7 @@ const ElektroniskID = () => {
                     </Heading>
                     <BodyLong spacing={true}>{tekst('skaffDegBody')}</BodyLong>
                     <Link className="mbm" href="https://eid.difi.no/bankid">
-                        {tekst('skaffDegTittel')} <Next />
+                        {tekst('skaffDegTittel')} <Next aria-hidden="true" />
                     </Link>
                 </div>
                 <div className={styles.info}>
@@ -66,7 +66,7 @@ const ElektroniskID = () => {
                     <BodyLong spacing={true}>{tekst('navKontoretBody1')}</BodyLong>
                     <BodyLong spacing={true}>{tekst('navKontoretBody2')}</BodyLong>
                     <Link href="https://www.nav.no/sok-nav-kontor">
-                        {tekst('navKontoretSok')} <Next />
+                        {tekst('navKontoretSok')} <Next aria-hidden="true" />
                     </Link>
                 </div>
             </div>
