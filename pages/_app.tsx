@@ -27,7 +27,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
 
     return (
-        <main className={styles.main} lang="nb">
+        <main className={styles.main} lang="nb" id="maincontent" role="main" tabIndex={-1}>
             <Head>
                 <title>{tekst('metaTittel')}</title>
                 <meta name="description" content={tekst('metaDescription')} />
