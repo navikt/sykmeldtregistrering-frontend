@@ -103,7 +103,12 @@ const Rad = (props: RadProps) => {
             <Table.HeaderCell scope="row">{props.radTittel}</Table.HeaderCell>
             <Table.DataCell>{props.svaralternativ}</Table.DataCell>
             <Table.DataCell>
-                <NextLink href={props.url} passHref locale={false}>
+                <NextLink
+                    href={props.url}
+                    passHref
+                    locale={false}
+                    aria-label={`Endre svaret på ${props.radTittel.toLowerCase()}`}
+                >
                     <Link>Endre</Link>
                 </NextLink>
             </Table.DataCell>
