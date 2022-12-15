@@ -109,7 +109,7 @@ const Rad = (props: RadProps) => {
                     locale={false}
                     aria-label={`Endre svaret på ${props.radTittel.toLowerCase()}`}
                 >
-                    <Link>Endre</Link>
+                    <Link>Endre svaret</Link>
                 </NextLink>
             </Table.DataCell>
         </Table.Row>
