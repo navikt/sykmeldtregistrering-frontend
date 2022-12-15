@@ -9,7 +9,7 @@ const TEKSTER: Tekster<string> = {
         tittel: 'Rettigheter',
         kravPaVurdering:
             'Du har krav på at NAV vurderer behovet ditt for veiledning. Dette er en rettighet du har etter ',
-        paragraf14a: 'NAV-loven § 14a.',
+        paragraf14a: 'NAV-loven § 14a. (les paragrafen på lovdata.no)',
         brev: 'Du får et brev der du kan lese mer om tjenestene vi foreslår for deg.',
     },
 };
