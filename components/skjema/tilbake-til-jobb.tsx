@@ -1,8 +1,11 @@
-import { SkjemaKomponentProps } from './skjema-felleskomponenter';
+import { Heading, Panel } from '@navikt/ds-react';
+
 import useSprak from '../../hooks/useSprak';
-import { Panel } from '@navikt/ds-react';
+
+import { SkjemaKomponentProps } from './skjema-felleskomponenter';
 import RadioGruppe from '../radio-gruppe/radio-gruppe';
 import { hentTekst, SporsmalId, TilbakeIArbeid } from '../../model/sporsmal';
+
 import styles from '../../styles/skjema.module.css';
 
 const TilbakeTilJobb = (props: SkjemaKomponentProps<TilbakeIArbeid>) => {
@@ -21,6 +24,9 @@ const TilbakeTilJobb = (props: SkjemaKomponentProps<TilbakeIArbeid>) => {
     return (
         <Panel className={styles.panel} border={true}>
             <form>
+                <Heading size="medium" spacing level="1">
+                    Arbeidssituasjon
+                </Heading>
                 <RadioGruppe
                     legend={tekst(SporsmalId.tilbakeIArbeid)}
                     valg={valg}

@@ -1,8 +1,11 @@
-import { SkjemaKomponentProps } from './skjema-felleskomponenter';
+import { Heading, Panel } from '@navikt/ds-react';
+
 import useSprak from '../../hooks/useSprak';
-import { Panel } from '@navikt/ds-react';
+
+import { SkjemaKomponentProps } from './skjema-felleskomponenter';
 import RadioGruppe from '../radio-gruppe/radio-gruppe';
 import { FremtidigSituasjon, hentTekst, SporsmalId } from '../../model/sporsmal';
+
 import styles from '../../styles/skjema.module.css';
 
 const SykmeldtFremtidigSituasjon = (props: SkjemaKomponentProps<FremtidigSituasjon>) => {
@@ -22,6 +25,9 @@ const SykmeldtFremtidigSituasjon = (props: SkjemaKomponentProps<FremtidigSituasj
     return (
         <Panel className={styles.panel} border={true}>
             <form>
+                <Heading size="medium" spacing level="1">
+                    Arbeidssituasjon
+                </Heading>
                 <RadioGruppe
                     legend={tekst(SporsmalId.fremtidigSituasjon)}
                     valg={valg}
