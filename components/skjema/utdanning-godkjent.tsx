@@ -1,8 +1,11 @@
+import { Heading, Panel } from '@navikt/ds-react';
+
 import useSprak from '../../hooks/useSprak';
-import { Panel } from '@navikt/ds-react';
+
 import RadioGruppe from '../radio-gruppe/radio-gruppe';
 import { SkjemaKomponentProps } from './skjema-felleskomponenter';
 import { hentTekst, SporsmalId, UtdanningGodkjentValg } from '../../model/sporsmal';
+
 import styles from '../../styles/skjema.module.css';
 
 const UtdanningGodkjent = (props: SkjemaKomponentProps<UtdanningGodkjentValg>) => {
@@ -20,6 +23,9 @@ const UtdanningGodkjent = (props: SkjemaKomponentProps<UtdanningGodkjentValg>) =
     return (
         <Panel className={styles.panel} border={true}>
             <form>
+                <Heading size="medium" spacing level="1">
+                    Utdanning
+                </Heading>
                 <RadioGruppe
                     legend={tekst(SporsmalId.utdanningGodkjent)}
                     valg={valg}

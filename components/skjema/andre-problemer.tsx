@@ -1,9 +1,12 @@
-import lagHentTekstForSprak, { TeksterMedDefinerteNokler } from '../../lib/lag-hent-tekst-for-sprak';
+import { Alert, Heading, Panel } from '@navikt/ds-react';
+
 import useSprak from '../../hooks/useSprak';
-import { Alert, Panel } from '@navikt/ds-react';
+
+import lagHentTekstForSprak, { TeksterMedDefinerteNokler } from '../../lib/lag-hent-tekst-for-sprak';
 import RadioGruppe from '../radio-gruppe/radio-gruppe';
 import { SkjemaKomponentProps } from './skjema-felleskomponenter';
 import { JaEllerNei } from '../../model/sporsmal';
+
 import styles from '../../styles/skjema.module.css';
 
 const TEKSTER_STANDARD: AndreProblemerTekster = {
@@ -46,6 +49,9 @@ const AndreProblemer = (props: AndreProblemerProps) => {
         <>
             <Panel className={`${styles.panel} mbm`} border={true}>
                 <form>
+                    <Heading size="medium" spacing level="1">
+                        Andre utfordringer knyttet til arbeid
+                    </Heading>
                     <RadioGruppe
                         legend={tekst('tittel')}
                         beskrivelse={tekst('ingress')}

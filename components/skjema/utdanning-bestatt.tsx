@@ -1,8 +1,11 @@
+import { Heading, Panel } from '@navikt/ds-react';
+
 import useSprak from '../../hooks/useSprak';
-import { Panel } from '@navikt/ds-react';
+
 import RadioGruppe from '../radio-gruppe/radio-gruppe';
 import { SkjemaKomponentProps } from './skjema-felleskomponenter';
 import { hentTekst, JaEllerNei, SporsmalId } from '../../model/sporsmal';
+
 import styles from '../../styles/skjema.module.css';
 
 const BestattUtdanning = (props: SkjemaKomponentProps<JaEllerNei>) => {
@@ -15,6 +18,9 @@ const BestattUtdanning = (props: SkjemaKomponentProps<JaEllerNei>) => {
     return (
         <Panel className={styles.panel} border={true}>
             <form>
+                <Heading size="medium" spacing level="1">
+                    Utdanning
+                </Heading>
                 <RadioGruppe
                     legend={tekst(SporsmalId.utdanningBestatt)}
                     valg={valg}

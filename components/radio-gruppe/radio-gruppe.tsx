@@ -1,6 +1,8 @@
 import { Heading, Radio, RadioGroup } from '@navikt/ds-react';
-import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
+
 import useSprak from '../../hooks/useSprak';
+
+import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 
 interface RadioGruppeProps {
     valg: {
@@ -30,10 +32,13 @@ const RadioGruppe = (props: RadioGruppeProps) => {
 
     return (
         <>
-            <Heading size="small" level="1">
-                {legend}
-            </Heading>
-            <RadioGroup defaultValue={valgt} legend="" onChange={onSelect} error={error} description={beskrivelse}>
+            <RadioGroup
+                defaultValue={valgt}
+                legend={legend}
+                onChange={onSelect}
+                error={error}
+                description={beskrivelse}
+            >
                 {valg.map((alternativ) => {
                     return (
                         <Radio key={alternativ.value} value={alternativ.value}>
