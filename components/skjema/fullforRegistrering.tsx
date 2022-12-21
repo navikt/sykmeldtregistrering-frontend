@@ -75,26 +75,25 @@ const hentProfilering = async (response: FullforRegistreringResponse, side: Side
     }
 };
 
-const FullforRegistrering = (props: FullforProps) => {
-    const { skjemaState, onSubmit } = props;
+interface FullforKnappProps extends FullforProps {
+    onValiderSkjema(): boolean;
+}
+
+export const FullforRegistreringKnapp = (props: FullforKnappProps) => {
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
-    const [lestKravChecked, setLestKravChecked] = useState<boolean>(false);
     const [senderSkjema, settSenderSkjema] = useState<boolean>(false);
     const [visFeilmelding, settVisFeilmelding] = useState<boolean>(false);
-    const [visFeilmeldingLestKrav, settVisFeilmeldingLestKrav] = useState<boolean>(false);
     const [visFeilmeldingTeller, settVisFeilmeldingTeller] = useState<number>(0);
-    const [erUnderInnsending, setErUnderInnsending] = useState<boolean>(false);
     const router = useRouter();
     const { toggles } = useFeatureToggles();
     const { dittNavUrl } = useConfig() as Config;
 
+    const { skjemaState, onSubmit, onValiderSkjema } = props;
+
     const validerOgFullfor = () => {
-        if (!lestKravChecked) {
-            settVisFeilmeldingLestKrav(true);
-            return;
+        if (onValiderSkjema()) {
+            return fullforRegistrering();
         }
-        setErUnderInnsending(true);
-        return fullforRegistrering();
     };
 
     const fullforRegistrering = useCallback(async () => {
@@ -166,6 +165,37 @@ const FullforRegistrering = (props: FullforProps) => {
 
     return (
         <>
+            {visFeilmelding && (
+                <div className="mbm">
+                    <FeilmeldingGenerell />
+                </div>
+            )}
+            <div style={{ textAlign: 'center' }}>
+                <Button onClick={validerOgFullfor} loading={senderSkjema} disabled={senderSkjema}>
+                    {tekst('fullfor')}
+                </Button>
+            </div>
+        </>
+    );
+};
+
+const FullforRegistrering = (props: FullforProps) => {
+    const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
+    const [lestKravChecked, setLestKravChecked] = useState<boolean>(false);
+    const [visFeilmeldingLestKrav, settVisFeilmeldingLestKrav] = useState<boolean>(false);
+    const { skjemaState, onSubmit, side } = props;
+
+    const onValiderSkjema = () => {
+        if (!lestKravChecked) {
+            settVisFeilmeldingLestKrav(true);
+            return false;
+        }
+
+        return true;
+    };
+
+    return (
+        <>
             <div style={{ width: '100%' }}>
                 <Heading size={'large'} level={'1'} className="text-center mbm">
                     {tekst('tittel')}
@@ -219,21 +249,18 @@ const FullforRegistrering = (props: FullforProps) => {
                     className="mhl"
                 />
 
-                {visFeilmelding && (
-                    <div className="mbm">
-                        <FeilmeldingGenerell />
-                    </div>
-                )}
                 {visFeilmeldingLestKrav && (
                     <div className="mbm">
                         <Alert variant={'warning'}>{tekst('lestKravFeilmelding')}</Alert>
                     </div>
                 )}
-                <div style={{ textAlign: 'center' }}>
-                    <Button onClick={validerOgFullfor} loading={senderSkjema} disabled={erUnderInnsending}>
-                        {tekst('fullfor')}
-                    </Button>
-                </div>
+
+                <FullforRegistreringKnapp
+                    skjemaState={skjemaState}
+                    side={side}
+                    onSubmit={onSubmit}
+                    onValiderSkjema={onValiderSkjema}
+                />
             </div>
         </>
     );

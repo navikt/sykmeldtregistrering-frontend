@@ -10,7 +10,7 @@ const TILSTANDER: NavigeringsTilstandsMaskin<SykmeldtSkjemaSide> = {
             return {
                 neste: SkjemaSide.Utdanning,
                 forrige: undefined,
-                fremdrift: 1 / 8,
+                fremdrift: 1 / 7,
             };
         }
 
@@ -18,14 +18,14 @@ const TILSTANDER: NavigeringsTilstandsMaskin<SykmeldtSkjemaSide> = {
             return {
                 neste: SkjemaSide.Oppsummering,
                 forrige: undefined,
-                fremdrift: 1 / 8,
+                fremdrift: 1 / 7,
             };
         }
 
         return {
             neste: SkjemaSide.TilbakeTilJobb,
             forrige: undefined,
-            fremdrift: 1 / 8,
+            fremdrift: 1 / 7,
         };
     },
     [SkjemaSide.Utdanning]: (skjemaState: SkjemaState) => {
@@ -35,21 +35,21 @@ const TILSTANDER: NavigeringsTilstandsMaskin<SykmeldtSkjemaSide> = {
                     ? SkjemaSide.AndreProblemer
                     : SkjemaSide.GodkjentUtdanning,
             forrige: SkjemaSide.SykmeldtFremtidigSituasjon,
-            fremdrift: 2 / 8,
+            fremdrift: 2 / 7,
         };
     },
     [SkjemaSide.GodkjentUtdanning]: () => {
         return {
             neste: SkjemaSide.BestaattUtdanning,
             forrige: SkjemaSide.Utdanning,
-            fremdrift: 3 / 8,
+            fremdrift: 3 / 7,
         };
     },
     [SkjemaSide.BestaattUtdanning]: () => {
         return {
             neste: SkjemaSide.AndreProblemer,
             forrige: SkjemaSide.GodkjentUtdanning,
-            fremdrift: 4 / 8,
+            fremdrift: 4 / 7,
         };
     },
     [SkjemaSide.AndreProblemer]: (skjemaState: SkjemaState) => {
@@ -59,7 +59,7 @@ const TILSTANDER: NavigeringsTilstandsMaskin<SykmeldtSkjemaSide> = {
                 skjemaState.utdanning === Utdanningsnivaa.INGEN_UTDANNING
                     ? SkjemaSide.Utdanning
                     : SkjemaSide.BestaattUtdanning,
-            fremdrift: 5 / 8,
+            fremdrift: 5 / 7,
         };
     },
     [SkjemaSide.TilbakeTilJobb]: (state: SkjemaState) => {
@@ -80,34 +80,27 @@ const TILSTANDER: NavigeringsTilstandsMaskin<SykmeldtSkjemaSide> = {
         if (state.fremtidigSituasjon === FremtidigSituasjon.INGEN_PASSER) {
             return {
                 forrige: SkjemaSide.SykmeldtFremtidigSituasjon,
-                neste: SkjemaSide.FullforRegistrering,
-                fremdrift: 6 / 8,
+                neste: undefined,
+                fremdrift: 6 / 7,
             };
         }
         if (state.tilbakeIArbeid) {
             return {
                 forrige: SkjemaSide.TilbakeTilJobb,
-                neste: SkjemaSide.FullforRegistrering,
-                fremdrift: 6 / 8,
+                neste: undefined,
+                fremdrift: 6 / 7,
             };
         }
         return {
             forrige: SkjemaSide.AndreProblemer,
-            neste: SkjemaSide.FullforRegistrering,
-            fremdrift: 6 / 8,
+            neste: undefined,
+            fremdrift: 6 / 7,
         };
     },
     [SkjemaSide.SkalTilbakeTilJobb]: () => {
         return {
             fremdrift: 1,
             forrige: SkjemaSide.TilbakeTilJobb,
-        };
-    },
-    [SkjemaSide.FullforRegistrering]: () => {
-        return {
-            neste: undefined,
-            forrige: SkjemaSide.Oppsummering,
-            fremdrift: 7 / 8,
         };
     },
 };

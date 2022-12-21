@@ -43,8 +43,7 @@ export type SykmeldtSkjemaSide =
     | SkjemaSide.AndreProblemer
     | SkjemaSide.Oppsummering
     | SkjemaSide.TilbakeTilJobb
-    | SkjemaSide.SkalTilbakeTilJobb
-    | SkjemaSide.FullforRegistrering;
+    | SkjemaSide.SkalTilbakeTilJobb;
 
 export type SisteJobb = {
     label: string;
