@@ -3,17 +3,16 @@ import { SkjemaSide, SkjemaState } from '../../model/skjema';
 import Utdanning from '../../components/skjema/utdanning';
 import UtdanningGodkjent from '../../components/skjema/utdanning-godkjent';
 import BestattUtdanning from '../../components/skjema/utdanning-bestatt';
-import Oppsummering from '../../components/skjema/oppsummering/oppsummering';
 import { beregnNavigering } from '../../lib/sykmeldt-registrering-tilstandsmaskin';
 import SykmeldtFremtidigSituasjon from '../../components/skjema/sykmeldt-fremtidig-situasjon';
 import TilbakeTilJobb from '../../components/skjema/tilbake-til-jobb';
 import SkalTilbakeTilJobb from '../../components/skjema/skal-tilbake-til-jobb';
 import { SkjemaAction } from '../../lib/skjema-state';
-import FullforRegistrering from '../../components/skjema/fullforRegistrering';
 import { SporsmalId } from '../../model/sporsmal';
 import AndreProblemer from '../../components/skjema/andre-problemer';
 import skjemaSideFactory, { SiderMap } from '../../components/skjema-side-factory';
 import { loggBesvarelse } from '../../lib/amplitude';
+import SykmeldtOppsummering from '../../components/skjema/oppsummering/sykmeldt-oppsummering';
 
 const lagSiderMap = (skjemaState: SkjemaState, dispatch: Dispatch<SkjemaAction>, visFeilmelding: boolean): SiderMap => {
     return {
@@ -61,13 +60,8 @@ const lagSiderMap = (skjemaState: SkjemaState, dispatch: Dispatch<SkjemaAction>,
                 visFeilmelding={visFeilmelding}
             />
         ),
-        [SkjemaSide.Oppsummering]: <Oppsummering skjemaState={skjemaState} skjemaPrefix={'/sykmeldt/'} />,
-        [SkjemaSide.FullforRegistrering]: (
-            <FullforRegistrering
-                side={'sykmeldt'}
-                skjemaState={skjemaState}
-                onSubmit={() => dispatch({ type: 'SenderSkjema' })}
-            />
+        [SkjemaSide.Oppsummering]: (
+            <SykmeldtOppsummering skjemaState={skjemaState} onSubmit={() => dispatch({ type: 'SenderSkjema' })} />
         ),
     };
 };
@@ -89,8 +83,6 @@ const validerSkjemaForSide = (side: SkjemaSide, skjemaState: SkjemaState) => {
                 return skjemaState.andreForhold;
             case SkjemaSide.Oppsummering:
                 return skjemaState.fremtidigSituasjon || skjemaState.tilbakeIArbeid || skjemaState.andreForhold;
-            case SkjemaSide.FullforRegistrering:
-                return true;
         }
     };
 
