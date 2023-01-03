@@ -22,10 +22,8 @@ const TilbakeKnapp = (props: TilbakeKnappProps) => {
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
 
     return (
-        <NextLink href={props.href} passHref={true} locale={false}>
-            <Link className="mbs">
-                <Back aria-hidden="true" /> {tekst('tilbake')}
-            </Link>
+        <NextLink href={props.href} locale={false} className="navds-link mbs">
+            <Back aria-hidden="true" /> {tekst('tilbake')}
         </NextLink>
     );
 };
