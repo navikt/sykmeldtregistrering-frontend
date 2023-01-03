@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { BodyLong, Button, GuidePanel, Heading } from '@navikt/ds-react';
-import useSWR from 'swr';
+import { preload } from 'swr';
 import { useRouter } from 'next/router';
 
 import lagHentTekstForSprak, { Tekster } from '../../../lib/lag-hent-tekst-for-sprak';
@@ -76,7 +76,7 @@ const KontaktVeileder = (props: Feilsituasjon) => {
     }, []);
 
     // initialiser for <Kvittering>
-    useSWR('api/kontaktinformasjon/', fetcher);
+    preload('api/kontaktinformasjon/', fetcher);
 
     if (props.feiltype === undefined || !Object.values(Feiltype).includes(props.feiltype)) {
         return <FeilmeldingGenerell />;

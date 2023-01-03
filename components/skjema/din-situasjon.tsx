@@ -1,5 +1,5 @@
 import { Heading, Panel } from '@navikt/ds-react';
-import useSWR from 'swr';
+import { preload } from 'swr';
 
 import useSprak from '../../hooks/useSprak';
 import RadioGruppe from '../radio-gruppe/radio-gruppe';
@@ -34,7 +34,7 @@ const DinSituasjon = (props: SkjemaKomponentProps<Jobbsituasjon>) => {
     ];
 
     // initialiser / cache data for rask tilgang i <SisteJobb>
-    useSWR('api/sistearbeidsforhold/', fetcher);
+    preload('api/sistearbeidsforhold/', fetcher);
 
     return (
         <Panel className={styles.panel} border={true}>
