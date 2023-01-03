@@ -3,7 +3,8 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
 COPY package*.json .npmrc ./ 
-RUN npm ci && \
+RUN --mount=type=secret,id=NODE_AUTH_TOKEN \
+    NODE_AUTH_TOKEN=$(cat /run/secrets/NODE_AUTH_TOKEN) npm ci && \
     node /app/node_modules/@sentry/cli/scripts/install.js
 
 FROM node:18 AS builder
