@@ -15,9 +15,9 @@ sentry:
 pamJanzzUrl: https://arbeidsplassen.nav.no/pam-janzz/rest
 startUrl: https://www.nav.no/arbeid/registrering/start
 startRegistreringUrl: http://veilarbregistrering/veilarbregistrering/api/startregistrering/
-fullforRegistreringUrl: http://pto-proxy.pto.svc.cluster.local/proxy/veilarbregistrering/api/fullfoerordinaerregistrering/
-fullforRegistreringSykmeldtUrl: http://pto-proxy.pto.svc.cluster.local/proxy/veilarbregistrering/api/fullfoersykmeldtregistrering/
-reaktiveringUrl: http://pto-proxy.pto.svc.cluster.local/proxy/veilarbregistrering/api/fullfoerreaktivering/
+fullforRegistreringUrl: http://veilarbregistrering/veilarbregistrering/api/fullfoerordinaerregistrering/
+fullforRegistreringSykmeldtUrl: http://veilarbregistrering/veilarbregistrering/api/fullfoersykmeldtregistrering/
+reaktiveringUrl: http://veilarbregistrering/veilarbregistrering/api/fullfoerreaktivering/
 sisteArbeidsforholdUrl: http://veilarbregistrering/veilarbregistrering/api/sistearbeidsforhold/
 opprettOppgaveUrl: http://veilarbregistrering/veilarbregistrering/api/oppgave/
 kontaktinformasjonUrl: http://veilarbregistrering/veilarbregistrering/api/person/kontaktinfo
@@ -28,4 +28,4 @@ dialogUrl: https://www.nav.no/arbeid/dialog
 featureToggles:
   server: https://unleash.nais.io/api/client/features?tag[]=simple:arbeidssokerregistrering
   client: https://www.nav.no/arbeid/registrering/api/features
-hentProfileringUrl: http://pto-proxy.pto.svc.cluster.local/proxy/veilarbregistrering/api/profilering/
+hentProfileringUrl: http://veilarbregistrering/veilarbregistrering/api/profilering/
