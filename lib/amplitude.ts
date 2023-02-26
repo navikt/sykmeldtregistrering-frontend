@@ -41,7 +41,9 @@ type AktivitetData =
     | { aktivitet: 'Oppretter kontakt meg oppgave' }
     | { aktivitet: 'Avbryter kontakt meg' }
     | { aktivitet: 'Endrer foreslått stilling' }
-    | { aktivitet: 'Viser forsiden for arbeidssøkerregistreringen' };
+    | { aktivitet: 'Viser forsiden for arbeidssøkerregistreringen' }
+    | { aktivitet: 'Leser om bistandsbehov' }
+    | { aktivitet: 'Leser om personopplysninger' };
 
 type KvitteringAktivitet =
     | 'Viser kvittering'

@@ -1,6 +1,7 @@
 import { BodyLong, Heading, Link, ReadMore } from '@navikt/ds-react';
 import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../hooks/useSprak';
+import { loggAktivitet } from '../../lib/amplitude';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -48,10 +49,25 @@ const DineOpplysninger = () => {
             </div>
             <BodyLong className="mbm">{tekst('beskrivelse1')}</BodyLong>
             <BodyLong className="mbm">{tekst('beskrivelse2')}</BodyLong>
-            <ReadMore header={tekst('bistandsbehovOverskrift')} className="mbs">
+            <ReadMore
+                header={tekst('bistandsbehovOverskrift')}
+                className="mbs"
+                onClick={() =>
+                    loggAktivitet({
+                        aktivitet: 'Leser om bistandsbehov',
+                    })
+                }
+            >
                 {tekst('bistandsbehovInnhold')}
             </ReadMore>
-            <ReadMore header={tekst('personopplysningerOverskrift')}>
+            <ReadMore
+                header={tekst('personopplysningerOverskrift')}
+                onClick={() =>
+                    loggAktivitet({
+                        aktivitet: 'Leser om personopplysninger',
+                    })
+                }
+            >
                 <BodyLong className="mbs">{tekst('personopplysningerInnhold')}</BodyLong>
                 <Link target="_blank" href="https://www.nav.no/personvern">
                     {tekst('personopplysningerLenkeTekst')}
