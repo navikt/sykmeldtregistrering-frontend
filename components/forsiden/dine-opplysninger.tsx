@@ -2,6 +2,7 @@ import { BodyLong, Heading, Link, ReadMore } from '@navikt/ds-react';
 import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../hooks/useSprak';
 import { loggAktivitet } from '../../lib/amplitude';
+import Feedback from '../feedback/feedback';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -59,6 +60,7 @@ const DineOpplysninger = () => {
                 }
             >
                 {tekst('bistandsbehovInnhold')}
+                <Feedback id={'bistandsbehov'}></Feedback>
             </ReadMore>
             <ReadMore
                 header={tekst('personopplysningerOverskrift')}
