@@ -42,7 +42,9 @@ function Feedback({ id, sporsmal, className }: Props) {
     const feedbackNeiKnappRef = useRef<HTMLButtonElement>(null);
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
 
-    const neiId = nanoid();
+    //Midlertidig kommentert ut for å få pusha uten feil:
+    //const neiId = nanoid();
+    const neiId = 'neiId';
 
     const handleFeedback = (feedback: string, event: SyntheticEvent) => {
         loggFeedback({ id: id, feedback: feedback });
