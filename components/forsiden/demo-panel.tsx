@@ -1,4 +1,5 @@
 import NextLink from 'next/link';
+import { useRouter } from 'next/router';
 import { Button, Heading, Panel } from '@navikt/ds-react';
 
 import { SkjemaSide } from '../../model/skjema';
@@ -9,6 +10,8 @@ interface Props {
 
 function DemoPanel({ brukerMock }: Props) {
     if (!brukerMock) return null;
+    const router = useRouter();
+    const { visGammelDineOpplysninger } = router.query;
 
     return (
         <Panel border style={{ backgroundColor: 'hotpink' }}>
@@ -74,6 +77,17 @@ function DemoPanel({ brukerMock }: Props) {
                 <p>
                     <NextLink href="/feil/" passHref locale={false}>
                         <Button variant="secondary">Feil</Button>
+                    </NextLink>
+                </p>
+                <p>
+                    <NextLink
+                        href={`/${visGammelDineOpplysninger ? '' : '?visGammelDineOpplysninger=true'}`}
+                        passHref
+                        locale={false}
+                    >
+                        <Button variant="secondary">
+                            Vis {visGammelDineOpplysninger ? 'ny' : 'gammel'} introtekst
+                        </Button>
                     </NextLink>
                 </p>
             </div>
