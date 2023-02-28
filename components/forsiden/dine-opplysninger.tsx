@@ -74,6 +74,7 @@ const DineOpplysninger = () => {
                 <Link target="_blank" href="https://www.nav.no/personvern">
                     {tekst('personopplysningerLenkeTekst')}
                 </Link>
+                <Feedback id={'personopplysninger'}></Feedback>
             </ReadMore>
         </>
     );

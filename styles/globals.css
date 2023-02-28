@@ -33,8 +33,15 @@ a {
 .mbxl {
   margin-bottom: 2.5rem;
 }
+.mym {
+  margin: 1.5rem 0;
+}
 .mhl {
   margin: 2rem 0;
+}
+.mxxs {
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
 }
 .mrs {
   margin-right: 1rem;
@@ -79,6 +86,10 @@ a {
 
 .listSpacing {
   line-height: 1.5
+}
+
+.tekst-svak-graa {
+  color: var(--a-gray-300);
 }
 
 @media screen and (min-width: 648px) {

@@ -1,7 +1,5 @@
-import { useRef, useState, SyntheticEvent } from 'react';
-import { BodyShort, Button, Detail, Popover } from '@navikt/ds-react';
-import { nanoid } from 'nanoid';
-import styles from './feedback.module.css';
+import { useState } from 'react';
+import { Button, Detail } from '@navikt/ds-react';
 import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../hooks/useSprak';
 import { loggFeedback } from '../../lib/amplitude';
@@ -38,82 +36,42 @@ interface Props {
 }
 function Feedback({ id, sporsmal, className }: Props) {
     const [valgt, setValgt] = useState('');
-    const [visPopover, setVisPopover] = useState<boolean>(false);
-    const feedbackNeiKnappRef = useRef<HTMLButtonElement>(null);
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
 
-    //Midlertidig kommentert ut for å få pusha uten feil:
-    //const neiId = nanoid();
-    const neiId = 'neiId';
-
-    const handleFeedback = (feedback: string, event: SyntheticEvent) => {
+    const handleFeedback = (feedback: string) => {
         loggFeedback({ id: id, feedback: feedback });
         setValgt(feedback);
-        setVisPopover(feedback === 'nei');
     };
 
     return (
-        <div className={`${className ? className : ''} ${styles.feedbackContainer}`}>
-            <Detail className={styles.feedbackTittel}>{sporsmal ? sporsmal : tekst('varDetteNyttig')}</Detail>
-            <div className={styles.valg}>
+        <div className={'mym'}>
+            <Detail className={'mbs'}>{sporsmal ? sporsmal : tekst('varDetteNyttig')}</Detail>
+            <div>
                 <Button
                     size="xsmall"
-                    variant="secondary"
-                    onClick={(event) => handleFeedback('ja', event)} //className={jaKnapp}
+                    variant={valgt === 'ja' ? 'primary' : 'secondary'}
+                    onClick={() => handleFeedback('ja')}
                 >
                     <Detail>{tekst('ja')}</Detail>
                 </Button>
-                <span className={styles.feedbackSpace} aria-hidden="true">
+                <span className={'mxxs tekst-svak-graa'} aria-hidden="true">
                     |
                 </span>
                 <Button
                     size="xsmall"
-                    variant="secondary"
-                    onClick={(event) => handleFeedback('nei', event)}
-                    id={neiId}
-                    ref={feedbackNeiKnappRef}
+                    variant={valgt === 'nei' ? 'primary' : 'secondary'}
+                    onClick={() => handleFeedback('nei')}
                 >
                     <Detail>{tekst('nei')}</Detail>
                 </Button>
-                <Popover
-                    id={`popover-${neiId}`}
-                    anchorEl={feedbackNeiKnappRef.current}
-                    onClose={() => setVisPopover(false)}
-                    open={visPopover}
-                    tabIndex={-1}
-                    arrow={false}
-                    placement={'top'}
-                >
-                    <Popover.Content>
-                        <BodyShort className={styles.feedbackUtdyping}>{tekst('hvorforNei')}</BodyShort>
-                        <ul className={styles.feedbackGrunner}>
-                            <li>
-                                <button onClick={(event) => handleFeedback('nei - visste det fra før', event)}>
-                                    {tekst('gammeltNytt')}
-                                </button>
-                            </li>
-                            <li>
-                                <button onClick={(event) => handleFeedback('nei - forstår ikke innholdet', event)}>
-                                    {tekst('forstodIkke')}
-                                </button>
-                            </li>
-                            <li>
-                                <button onClick={(event) => handleFeedback('nei - føles ikke viktig', event)}>
-                                    {tekst('uviktig')}
-                                </button>
-                            </li>
-                            <li>
-                                <button onClick={(event) => handleFeedback('nei - andre grunner', event)}>
-                                    {tekst('andreGrunner')}
-                                </button>
-                            </li>
-                        </ul>
-                    </Popover.Content>
-                </Popover>
-                <span className={styles.feedbackSpace} aria-hidden="true">
+                <span className={'mxxs tekst-svak-graa'} aria-hidden="true">
                     |
                 </span>
-                <Button size="xsmall" variant="secondary" onClick={(event) => handleFeedback('vet ikke', event)}>
+                <Button
+                    size="xsmall"
+                    variant={valgt === 'vet ikke' ? 'primary' : 'secondary'}
+                    onClick={() => handleFeedback('vet ikke')}
+                >
                     <Detail>{tekst('vetIkke')}</Detail>
                 </Button>
             </div>
