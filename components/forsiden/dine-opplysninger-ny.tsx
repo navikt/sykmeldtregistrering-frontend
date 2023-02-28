@@ -1,6 +1,8 @@
 import { BodyLong, Heading, Link, ReadMore } from '@navikt/ds-react';
-import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
+
 import useSprak from '../../hooks/useSprak';
+
+import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import { loggAktivitet } from '../../lib/amplitude';
 import Feedback from '../feedback/feedback';
 
