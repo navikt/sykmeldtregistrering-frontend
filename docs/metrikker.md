@@ -72,6 +72,7 @@ Kan hentes ut ved å sjekke `arbeidssokerregistrering.besvarelser` og grupperes 
 
 Brukes i forbindelse med feedback-komponenten vår, som lar bruker svare på om innholdet var nyttig eller ikke.
 Inneholder `id` som beskriver hvilket tema tilbakemeldingen gjelder, og `feedback` som inneholder brukerens svar (ja/nei/vet ikke).
+
 Kan hentes ut ved å sjekke `arbeidssokerregistrering.feedback` og grupperes på `id`
 
 ## Eksperimenter
