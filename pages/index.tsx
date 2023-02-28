@@ -5,7 +5,7 @@ import { BodyLong, Button, Cell, Grid, Heading } from '@navikt/ds-react';
 
 import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../hooks/useSprak';
-import DineOpplysninger from '../components/forsiden/dine-opplysninger-ny';
+import DineOpplysninger from '../components/forsiden/dine-opplysninger';
 import RettigheterPanel from '../components/forsiden/rettigheter';
 import PlikterPanel from '../components/forsiden/plikter';
 import RedirectTilVedlikehold from '../components/redirect-til-vedlikehold';
