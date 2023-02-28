@@ -9,8 +9,8 @@ interface Props {
 }
 
 function DemoPanel({ brukerMock }: Props) {
-    if (!brukerMock) return null;
     const router = useRouter();
+    if (!brukerMock) return null;
     const { visGammelDineOpplysninger } = router.query;
 
     return (
