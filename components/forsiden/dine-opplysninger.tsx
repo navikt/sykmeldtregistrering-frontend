@@ -20,7 +20,7 @@ const TEKSTER: Tekster<string> = {
         beskrivelse2: `Hvis det skjer endringer som gjør at opplysningene du har gitt oss ikke er riktige lenger, kan du ta kontakt med oss på nav.no. 
         Da gjør vi en ny vurdering av ditt behov for tjenester. 
         Dersom du er uenig i det oppfølgingsbehovet vi foreslår, har du mulighet til å gi tilbakemelding om dette inne på innloggede sider.`,
-        bistandsbehovOverskrift: 'Hvorfor vurderer NAV mitt bistandsbehov',
+        bistandsbehovOverskrift: 'Hvorfor vurderer NAV mitt bistandsbehov?',
         bistandsbehovInnhold: `Alle personer med lovlig opphold i Norge har rett til å bli registrert som arbeidssøkere. Dette går frem av arbeidsmarkedsloven § 10.  
         Når du henvender deg til NAV som arbeidssøker har du også en rett til å få vurdert ditt bistandsbehov for å komme i arbeid. 
         Dette går frem av NAV-loven § 14 a. NAV er også etter NAV-loven § 4 forpliktet til å bistå deg som arbeidssøker med å komme i jobb.`,
