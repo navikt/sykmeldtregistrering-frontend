@@ -44,10 +44,10 @@ type AktivitetData =
     | { aktivitet: 'Avbryter kontakt meg' }
     | { aktivitet: 'Endrer foreslått stilling' }
     | { aktivitet: 'Viser forsiden for arbeidssøkerregistreringen' }
-    | { aktivitet: 'Leser om bistandsbehov' }
+    | { aktivitet: 'Åpner bistandsbehov' }
     | { aktivitet: 'Går til lovdata' }
     | { aktivitet: 'Går til personvernsiden' }
-    | { aktivitet: 'Leser om personopplysninger' };
+    | { aktivitet: 'Åpner personopplysninger' };
 
 type KvitteringAktivitet =
     | 'Viser kvittering'

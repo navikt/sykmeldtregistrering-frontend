@@ -57,7 +57,7 @@ const DineOpplysninger = () => {
                 className="mbs"
                 onClick={() =>
                     loggAktivitet({
-                        aktivitet: 'Leser om bistandsbehov',
+                        aktivitet: 'Åpner bistandsbehov',
                     })
                 }
             >
@@ -108,7 +108,7 @@ const DineOpplysninger = () => {
                 header={tekst('personopplysningerOverskrift')}
                 onClick={() =>
                     loggAktivitet({
-                        aktivitet: 'Leser om personopplysninger',
+                        aktivitet: 'Åpner personopplysninger',
                     })
                 }
             >
