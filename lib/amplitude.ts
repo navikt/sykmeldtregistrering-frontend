@@ -45,6 +45,8 @@ type AktivitetData =
     | { aktivitet: 'Endrer foreslått stilling' }
     | { aktivitet: 'Viser forsiden for arbeidssøkerregistreringen' }
     | { aktivitet: 'Leser om bistandsbehov' }
+    | { aktivitet: 'Går til lovdata' }
+    | { aktivitet: 'Går til personvernsiden' }
     | { aktivitet: 'Leser om personopplysninger' };
 
 type KvitteringAktivitet =

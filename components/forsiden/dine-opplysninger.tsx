@@ -64,16 +64,40 @@ const DineOpplysninger = () => {
                 <BodyLong className="mbs">
                     Alle personer med lovlig opphold i Norge har rett til å bli registrert som arbeidssøkere. Dette går
                     frem av{' '}
-                    <Link href="https://lovdata.no/lov/2004-12-10-76/§10" target="_blank">
+                    <Link
+                        href="https://lovdata.no/lov/2004-12-10-76/§10"
+                        target="_blank"
+                        onClick={() =>
+                            loggAktivitet({
+                                aktivitet: 'Går til lovdata',
+                            })
+                        }
+                    >
                         arbeidsmarkedsloven § 10
                     </Link>
                     . Når du henvender deg til NAV som arbeidssøker har du også en rett til å få vurdert ditt
                     bistandsbehov for å komme i arbeid. Dette går frem av{' '}
-                    <Link href="https://lovdata.no/lov/2006-06-16-20/§14a" target="_blank">
+                    <Link
+                        href="https://lovdata.no/lov/2006-06-16-20/§14a"
+                        target="_blank"
+                        onClick={() =>
+                            loggAktivitet({
+                                aktivitet: 'Går til lovdata',
+                            })
+                        }
+                    >
                         NAV-loven § 14 a
                     </Link>
                     . NAV er også etter{' '}
-                    <Link href="https://lovdata.no/lov/2006-06-16-20/§4" target="_blank">
+                    <Link
+                        href="https://lovdata.no/lov/2006-06-16-20/§4"
+                        target="_blank"
+                        onClick={() =>
+                            loggAktivitet({
+                                aktivitet: 'Går til lovdata',
+                            })
+                        }
+                    >
                         NAV-loven § 4
                     </Link>{' '}
                     forpliktet til å bistå deg som arbeidssøker med å komme i jobb.
@@ -91,13 +115,29 @@ const DineOpplysninger = () => {
                 <BodyLong className="mbs">
                     Når du registrerer deg som arbeidssøker ber vi om opplysninger fra deg for å kunne tilby oppfølging
                     tilpasset din situasjon og dine behov. Opplysningene bruker vi til en behovsvurdering som vi etter{' '}
-                    <Link href="https://lovdata.no/lov/2006-06-16-20/§14a" target="_blank">
+                    <Link
+                        href="https://lovdata.no/lov/2006-06-16-20/§14a"
+                        target="_blank"
+                        onClick={() =>
+                            loggAktivitet({
+                                aktivitet: 'Går til lovdata',
+                            })
+                        }
+                    >
                         NAV-loven § 14 a
                     </Link>{' '}
                     er pålagt å utføre. Formålet er å gi NAVs veiledere støtte til å treffe vedtak om riktig
                     bistandsbehov slik at vi kan tilby oppfølging og informasjon tilpasset din situasjon.
                 </BodyLong>
-                <Link target="_blank" href="https://www.nav.no/personvern">
+                <Link
+                    target="_blank"
+                    href="https://www.nav.no/personvern"
+                    onClick={() =>
+                        loggAktivitet({
+                            aktivitet: 'Går til personvernsiden',
+                        })
+                    }
+                >
                     {tekst('personopplysningerLenkeTekst')}
                 </Link>
                 <Feedback id={'personopplysninger'}></Feedback>
