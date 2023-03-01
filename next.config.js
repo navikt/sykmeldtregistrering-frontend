@@ -5,10 +5,12 @@ const { buildCspHeader } = require('@navikt/nav-dekoratoren-moduler/ssr');
 const basePath = '/arbeid/registrering';
 
 const appSecurityPolicy = {
+    'default-src': ["'self'", '*.nav.no', '*.labs.nais.no'],
     'script-src-elem': ["'self'", "'unsafe-eval'", "'unsafe-inline'"],
-    'style-src': ["'self'", "'unsafe-inline'", '*.nav.no'],
+    'style-src': ["'self'", "'unsafe-inline'", '*.nav.no', '*.labs.nais.no'],
+    'style-src-elem': ["'self'", '*.nav.no', '*.labs.nais.no'],
     'img-src': ["'self'", 'data:', '*.difi.no'],
-    'connect-src': ["'self'", '*.nav.no'],
+    'connect-src': ["'self'", '*.nav.no', '*.labs.nais.no'],
 };
 
 const nextConfig = {

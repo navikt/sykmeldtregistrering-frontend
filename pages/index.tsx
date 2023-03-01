@@ -1,16 +1,19 @@
 import { useEffect } from 'react';
 import type { NextPage } from 'next';
 import NextLink from 'next/link';
+import { useRouter } from 'next/router';
 import { BodyLong, Button, Cell, Grid, Heading } from '@navikt/ds-react';
 
-import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../hooks/useSprak';
+import { useConfig } from '../contexts/config-context';
+
+import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
 import DineOpplysninger from '../components/forsiden/dine-opplysninger';
+import DineOpplysningerGammel from '../components/forsiden/dine-opplysninger-gammel';
 import RettigheterPanel from '../components/forsiden/rettigheter';
 import PlikterPanel from '../components/forsiden/plikter';
 import RedirectTilVedlikehold from '../components/redirect-til-vedlikehold';
 import DemoPanel from '../components/forsiden/demo-panel';
-import { useConfig } from '../contexts/config-context';
 import { Config } from '../model/config';
 import { loggAktivitet } from '../lib/amplitude';
 import ElektroniskID from '../components/forsiden/elektroniskID';
@@ -33,6 +36,8 @@ const TEKSTER: Tekster<string> = {
 };
 
 const Home: NextPage = () => {
+    const router = useRouter();
+    const { visGammelDineOpplysninger } = router.query;
     const tekst = lagHentTekstForSprak(TEKSTER, useSprak());
     const { enableMock } = useConfig() as Config;
     const brukerMock = enableMock === 'enabled';
@@ -59,9 +64,7 @@ const Home: NextPage = () => {
                     <Cell xs={12} md={6} className="mbs">
                         <PlikterPanel />
                     </Cell>
-                    <Cell xs={12}>
-                        <DineOpplysninger />
-                    </Cell>
+                    <Cell xs={12}>{visGammelDineOpplysninger ? <DineOpplysningerGammel /> : <DineOpplysninger />}</Cell>
                     <Cell xs={12} className="text-center pam">
                         <Heading size={'medium'} level="3" spacing={true}>
                             {tekst('elektroniskId')}

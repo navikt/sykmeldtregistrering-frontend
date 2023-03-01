@@ -16,11 +16,13 @@ const config = {
     },
 };
 
-type EventData = SidevisningData | AktivitetData | StoppsituasjonData | BesvarelseData | EksperimentData;
+type EventData = SidevisningData | AktivitetData | StoppsituasjonData | BesvarelseData | EksperimentData | FeedbackData;
 
 type BesvarelseData = { skjematype: 'standard' | 'sykmeldt'; sporsmalId: SporsmalId; svar: any };
 
 type StoppsituasjonData = { situasjon: string; brukergruppe?: Brukergruppe; aarsak?: ErrorTypes };
+
+type FeedbackData = { id: string; feedback: string };
 
 type SidevisningData = { sidetittel: string };
 
@@ -41,7 +43,11 @@ type AktivitetData =
     | { aktivitet: 'Oppretter kontakt meg oppgave' }
     | { aktivitet: 'Avbryter kontakt meg' }
     | { aktivitet: 'Endrer foreslått stilling' }
-    | { aktivitet: 'Viser forsiden for arbeidssøkerregistreringen' };
+    | { aktivitet: 'Viser forsiden for arbeidssøkerregistreringen' }
+    | { aktivitet: 'Åpner bistandsbehov' }
+    | { aktivitet: 'Går til lovdata' }
+    | { aktivitet: 'Går til personvernsiden' }
+    | { aktivitet: 'Åpner personopplysninger' };
 
 type KvitteringAktivitet =
     | 'Viser kvittering'
@@ -85,6 +91,11 @@ export function loggStoppsituasjon(data: StoppsituasjonData) {
 export function loggAktivitet(data: AktivitetData) {
     const eventData = data || {};
     logAmplitudeEvent('arbeidssokerregistrering.aktiviteter', eventData);
+}
+
+export function loggFeedback(data: FeedbackData) {
+    const eventData = data || {};
+    logAmplitudeEvent('arbeidssokerregistrering.feedback', eventData);
 }
 
 export function loggBesvarelse(data: BesvarelseData) {
