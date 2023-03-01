@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { BodyLong, Button, Heading, Link, Modal } from '@navikt/ds-react';
+import { BodyLong, Button, Heading, Link, Modal, Panel } from '@navikt/ds-react';
 import { useRouter } from 'next/router';
 
 import skjemaStyles from '../../styles/skjema.module.css';
@@ -44,20 +44,20 @@ const Avbryt = () => {
                 aria-label={tekst('ariaLabel')}
             >
                 <Modal.Content>
-                    <Heading spacing level="1" size="large">
-                        {tekst('avbryt')}
-                    </Heading>
-                    <Heading spacing level="2" size="medium">
-                        {tekst('erDuSikker')}
-                    </Heading>
-                    <BodyLong spacing className={skjemaStyles.spaceEvenly}>
-                        <Button variant="secondary" onClick={avbrytRegistrering} className={skjemaStyles.w10}>
-                            {tekst('knappJa')}
-                        </Button>
-                        <Button variant="secondary" onClick={() => setOpen(false)} className={skjemaStyles.w10}>
-                            {tekst('knappNei')}
-                        </Button>
-                    </BodyLong>
+                    <Panel>
+                        <Heading spacing level="1" size="medium" className={'mbm'}>
+                            {tekst('avbryt')}
+                        </Heading>
+                        <BodyLong className={'mbm'}>{tekst('erDuSikker')}</BodyLong>
+                        <div className={skjemaStyles.spaceEvenly}>
+                            <Button variant="secondary" onClick={avbrytRegistrering} className={skjemaStyles.w10}>
+                                {tekst('knappJa')}
+                            </Button>
+                            <Button variant="secondary" onClick={() => setOpen(false)} className={skjemaStyles.w10}>
+                                {tekst('knappNei')}
+                            </Button>
+                        </div>
+                    </Panel>
                 </Modal.Content>
             </Modal>
             <div className={skjemaStyles.taCenter}>
