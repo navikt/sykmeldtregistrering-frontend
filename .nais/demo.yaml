@@ -23,7 +23,7 @@ sisteArbeidsforholdUrl: https://arbeid.labs.nais.io/arbeid/registrering/api/mock
 opprettOppgaveUrl: https://arbeid.labs.nais.io/arbeid/registrering/api/mocks/oppgave
 kontaktinformasjonUrl: https://arbeid.labs.nais.io/arbeid/registrering/api/mocks/kontaktinformasjon
 ptoProxyUrl: http://pto-proxy.pto.svc.cluster.local/proxy/
-dittNAVUrl: https://www.nav.no/person/dittnav
+dittNAVUrl: https://www.nav.no/minside
 dagpengesoknadUrl: https://www.nav.no/dagpenger/dialog/soknad
 dialogUrl: https://www.nav.no/arbeid/dialog
 featureToggles:
