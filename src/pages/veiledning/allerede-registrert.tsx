@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { BodyLong, GuidePanel, Heading, Link } from '@navikt/ds-react';
-import NextLink from 'next/link';
 
 import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../../hooks/useSprak';
@@ -8,6 +7,7 @@ import useSprak from '../../hooks/useSprak';
 import { loggStoppsituasjon } from '../../lib/amplitude';
 import { useConfig } from '../../contexts/config-context';
 import { Config } from '../../model/config';
+import { withAuthenticatedPage } from '../../auth/withAuthentication';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -50,4 +50,5 @@ function AlleredeRegistrert() {
     );
 }
 
+export const getServerSideProps = withAuthenticatedPage();
 export default AlleredeRegistrert;

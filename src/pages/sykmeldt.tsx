@@ -1,7 +1,7 @@
 import { BodyLong, Button, GuidePanel, Heading, Label, Link } from '@navikt/ds-react';
 import NextLink from 'next/link';
 import { nanoid } from 'nanoid';
-import { NextPageContext } from 'next';
+import { GetServerSidePropsContext } from 'next';
 import cookie from 'cookie';
 
 import useSprak from '../hooks/useSprak';
@@ -14,6 +14,7 @@ import { getHeaders } from '../lib/next-api-handler';
 import { loggAktivitet } from '../lib/amplitude';
 
 import styles from '../styles/skjema.module.css';
+import { withAuthenticatedPage } from '../auth/withAuthentication';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -88,13 +89,14 @@ const SykmeldtStartside = (props: SykmeldtProps) => {
     );
 };
 
-export const getServerSideProps = async (context: NextPageContext) => {
+export const getServerSideProps = withAuthenticatedPage(async (context: GetServerSidePropsContext) => {
     const kontaktinformasjonUrl = `${process.env.KONTAKTINFORMASJON_URL}`;
 
     try {
         const cookies = cookie.parse(context.req?.headers.cookie || '');
         const idToken = cookies['selvbetjening-idtoken'];
         const response = await fetch(kontaktinformasjonUrl, { headers: getHeaders(idToken, nanoid()) });
+
         const kontaktinformasjon = await response.json();
         return {
             props: {
@@ -106,6 +108,6 @@ export const getServerSideProps = async (context: NextPageContext) => {
             props: {},
         };
     }
-};
+});
 
 export default SykmeldtStartside;

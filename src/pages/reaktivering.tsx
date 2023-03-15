@@ -11,6 +11,7 @@ import { loggAktivitet, loggStoppsituasjon } from '../lib/amplitude';
 import beregnBrukergruppe from '../lib/beregn-brukergruppe';
 import { hentRegistreringFeiletUrl } from '../lib/hent-registrering-feilet-url';
 import { OppgaveRegistreringstype } from '../model/feilsituasjonTyper';
+import { withAuthenticatedPage } from '../auth/withAuthentication';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -94,4 +95,5 @@ const Reaktivering = () => {
     );
 };
 
+export const getServerSideProps = withAuthenticatedPage();
 export default Reaktivering;

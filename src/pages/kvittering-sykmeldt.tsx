@@ -7,6 +7,7 @@ import { loggAktivitet } from '../lib/amplitude';
 import { useConfig } from '../contexts/config-context';
 import { RegistreringType } from '../model/registrering';
 import { Config } from '../model/config';
+import { withAuthenticatedPage } from '../auth/withAuthentication';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -69,4 +70,5 @@ const KvitteringSykmeldt = () => {
     );
 };
 
+export const getServerSideProps = withAuthenticatedPage();
 export default KvitteringSykmeldt;

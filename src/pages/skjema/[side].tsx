@@ -15,6 +15,7 @@ import SisteStilling from '../../components/skjema/siste-jobb/siste-stilling';
 import { SisteStillingValg, SporsmalId } from '../../model/sporsmal';
 import skjemaSideFactory, { SiderMap } from '../../components/skjema-side-factory';
 import { loggBesvarelse } from '../../lib/amplitude';
+import { withAuthenticatedPage } from '../../auth/withAuthentication';
 
 const lagSiderMap = (skjemaState: SkjemaState, dispatch: Dispatch<SkjemaAction>, visFeilmelding: boolean): SiderMap => {
     return {
@@ -138,13 +139,13 @@ const Skjema = skjemaSideFactory({
         return hentKomponentForSkjemaSide(side, lagSiderMap(skjemaState, loggOgDispatch(dispatch), visFeilmelding));
     },
 });
-
-Skjema.getInitialProps = async (context: any) => {
+export const getServerSideProps = withAuthenticatedPage(async (context) => {
     const { side } = context.query;
 
     return {
-        aktivSide: side,
+        props: {
+            aktivSide: side,
+        },
     };
-};
-
+});
 export default Skjema;

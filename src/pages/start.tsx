@@ -8,6 +8,7 @@ import { Formidlingsgruppe, RegistreringType } from '../model/registrering';
 import { fetcher } from '../lib/api-utils';
 import { useConfig } from '../contexts/config-context';
 import { Config } from '../model/config';
+import { withAuthenticatedPage } from '../auth/withAuthentication';
 
 function skalVideresendesTilDittNAV(data: any) {
     const { formidlingsgruppe, underOppfolging } = data;
@@ -67,4 +68,5 @@ const Start = () => {
     );
 };
 
+export const getServerSideProps = withAuthenticatedPage();
 export default Start;

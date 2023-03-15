@@ -14,6 +14,7 @@ import {
 } from '../../../components/KvitteringOppgave';
 import { FeilmeldingGenerell } from '../../../components/feilmeldinger/feilmeldinger';
 import { Feiltype, OppgaveRegistreringstype } from '../../../model/feilsituasjonTyper';
+import { withAuthenticatedPage } from '../../../auth/withAuthentication';
 
 interface Feilsituasjon {
     oppgaveRegistreringstype?: OppgaveRegistreringstype;
@@ -117,12 +118,15 @@ const KontaktVeileder = (props: Feilsituasjon) => {
         );
 };
 
-KontaktVeileder.getInitialProps = async (context: any): Promise<Feilsituasjon> => {
+export const getServerSideProps = withAuthenticatedPage(async (context) => {
     const { registreringstype, feilsituasjon } = context.query;
+
     return {
-        oppgaveRegistreringstype: registreringstype as OppgaveRegistreringstype,
-        feiltype: feilsituasjon as Feiltype,
+        props: {
+            oppgaveRegistreringstype: registreringstype as OppgaveRegistreringstype,
+            feiltype: feilsituasjon as Feiltype,
+        },
     };
-};
+});
 
 export default KontaktVeileder;

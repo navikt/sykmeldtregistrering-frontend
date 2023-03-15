@@ -13,26 +13,13 @@ const dekoratorProps: DecoratorProps = {
     context: 'privatperson',
     chatbot: false,
     // availableLanguages,
-    level: 'Level4',
-    enforceLogin: true,
-    redirectToUrl: process.env.NEXT_PUBLIC_SELF_URL,
 };
-
-function enforceLogin(ctx: DocumentContext) {
-    if (ctx.pathname === '/' || process.env.NEXT_PUBLIC_ENABLE_MOCK === 'enabled') {
-        return false;
-    }
-
-    return true;
-}
-
 export default class MyDocument extends Document<DecoratorComponents> {
     static async getInitialProps(ctx: DocumentContext) {
         const { locale } = ctx;
         const initialProps = await Document.getInitialProps(ctx);
         const Dekorator: DecoratorComponents = await fetchDecoratorReact({
             ...dekoratorProps,
-            enforceLogin: enforceLogin(ctx),
             //language: locale as any,
         }).catch((err) => {
             console.error(err);

@@ -13,6 +13,7 @@ import AndreProblemer from '../../components/skjema/andre-problemer';
 import skjemaSideFactory, { SiderMap } from '../../components/skjema-side-factory';
 import { loggBesvarelse } from '../../lib/amplitude';
 import SykmeldtOppsummering from '../../components/skjema/oppsummering/sykmeldt-oppsummering';
+import { withAuthenticatedPage } from '../../auth/withAuthentication';
 
 const lagSiderMap = (skjemaState: SkjemaState, dispatch: Dispatch<SkjemaAction>, visFeilmelding: boolean): SiderMap => {
     return {
@@ -110,12 +111,14 @@ const SykmeldtSkjema = skjemaSideFactory({
     },
 });
 
-SykmeldtSkjema.getInitialProps = async (context: any) => {
+export const getServerSideProps = withAuthenticatedPage(async (context) => {
     const { side } = context.query;
 
     return {
-        aktivSide: side,
+        props: {
+            aktivSide: side,
+        },
     };
-};
+});
 
 export default SykmeldtSkjema;

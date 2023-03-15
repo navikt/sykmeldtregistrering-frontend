@@ -6,6 +6,7 @@ import React from 'react';
 import { RegistreringType } from '../model/registrering';
 import { useConfig } from '../contexts/config-context';
 import { Config } from '../model/config';
+import { withAuthenticatedPage } from '../auth/withAuthentication';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -73,4 +74,5 @@ const Kvittering = () => {
     );
 };
 
+export const getServerSideProps = withAuthenticatedPage();
 export default Kvittering;

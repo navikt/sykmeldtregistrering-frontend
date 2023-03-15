@@ -18,6 +18,7 @@
         "@navikt/ds-icons": "2.7.6",
         "@navikt/ds-react": "2.7.6",
         "@navikt/nav-dekoratoren-moduler": "1.9.0",
+        "@navikt/next-auth-wonderwall": "1.2.0",
         "@sentry/nextjs": "7.42.0",
         "amplitude-js": "8.21.6",
         "cookie": "0.5.0",
