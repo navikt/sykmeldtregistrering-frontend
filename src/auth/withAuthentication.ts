@@ -1,6 +1,6 @@
 import { GetServerSidePropsContext, GetServerSidePropsResult, NextPageContext } from 'next';
 import { validateIdportenToken } from '@navikt/next-auth-wonderwall';
-import { logger } from '@sentry/utils';
+import { logger } from '@navikt/next-logger';
 
 type PageHandler = (context: GetServerSidePropsContext) => Promise<GetServerSidePropsResult<unknown>>;
 
