@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { nanoid } from 'nanoid';
 import { getHeaders } from '../../lib/next-api-handler';
+import { withAuthenticatedApi } from '../../auth/withAuthentication';
 
 const url = `${process.env.SISTE_ARBEIDSFORHOLD_URL}`;
 
@@ -26,4 +27,4 @@ const sisteArbeidsforhold = async (req: NextApiRequest, res: NextApiResponse<any
     }
 };
 
-export default sisteArbeidsforhold;
+export default withAuthenticatedApi(sisteArbeidsforhold);

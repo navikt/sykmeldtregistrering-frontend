@@ -1,8 +1,17 @@
-import { GetServerSidePropsContext, GetServerSidePropsResult, NextPageContext } from 'next';
+import {
+    GetServerSidePropsContext,
+    GetServerSidePropsResult,
+    NextApiRequest,
+    NextApiResponse,
+    NextPageContext,
+} from 'next';
 import { validateIdportenToken } from '@navikt/next-auth-wonderwall';
 import { logger } from '@navikt/next-logger';
 
 type PageHandler = (context: GetServerSidePropsContext) => Promise<GetServerSidePropsResult<unknown>>;
+type ApiHandler = (req: NextApiRequest, res: NextApiResponse) => Promise<unknown> | unknown;
+
+const brukerMock = process.env.NEXT_PUBLIC_ENABLE_MOCK === 'enabled';
 
 /**
  * Used to authenticate Next.JS pages. Assumes application is behind
@@ -14,8 +23,6 @@ export function withAuthenticatedPage(handler: PageHandler = async () => ({ prop
     return async function withBearerTokenHandler(
         context: GetServerSidePropsContext
     ): Promise<ReturnType<NonNullable<typeof handler>>> {
-        const brukerMock = process.env.NEXT_PUBLIC_ENABLE_MOCK === 'enabled';
-
         if (brukerMock) {
             return handler(context);
         }
@@ -49,5 +56,26 @@ export function withAuthenticatedPage(handler: PageHandler = async () => ({ prop
         }
 
         return handler(context);
+    };
+}
+
+export function withAuthenticatedApi(handler: ApiHandler): ApiHandler {
+    return async function withBearerTokenHandler(req, res, ...rest) {
+        if (brukerMock) {
+            return handler(req, res, ...rest);
+        }
+
+        const bearerToken: string | null | undefined = req.headers['authorization'];
+        const validatedToken = bearerToken ? await validateIdportenToken(bearerToken) : null;
+        if (!bearerToken || validatedToken !== 'valid') {
+            if (validatedToken && validatedToken !== 'valid') {
+                logger.error(`Invalid JWT token found (cause: ${validatedToken.message} for API ${req.url}`);
+            }
+
+            res.status(401).json({ message: 'Access denied' });
+            return;
+        }
+
+        return handler(req, res, ...rest);
     };
 }

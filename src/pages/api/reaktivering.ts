@@ -1,4 +1,5 @@
 import { ApiError, lagApiPostHandlerMedAuthHeaders } from '../../lib/next-api-handler';
+import { withAuthenticatedApi } from '../../auth/withAuthentication';
 
 const reaktiveringUrl = `${process.env.REAKTIVERING_URL}`;
 
@@ -15,4 +16,4 @@ const errorHandler = (response: Response) => {
 
 const reaktiveringHandler = lagApiPostHandlerMedAuthHeaders(reaktiveringUrl, errorHandler);
 
-export default reaktiveringHandler;
+export default withAuthenticatedApi(reaktiveringHandler);

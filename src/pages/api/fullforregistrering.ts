@@ -1,4 +1,5 @@
 import { ApiError, lagApiPostHandlerMedAuthHeaders } from '../../lib/next-api-handler';
+import { withAuthenticatedApi } from '../../auth/withAuthentication';
 
 const fullforRegistreringUrl = `${process.env.FULLFOR_REGISTRERING_URL}`;
 
@@ -15,4 +16,4 @@ const errorHandler = (response: Response) => {
 
 const fullforHandler = lagApiPostHandlerMedAuthHeaders(fullforRegistreringUrl, errorHandler);
 
-export default fullforHandler;
+export default withAuthenticatedApi(fullforHandler);

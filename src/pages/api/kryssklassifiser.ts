@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import lagApiHandlerMedAuthHeaders from '../../lib/next-api-handler';
+import { withAuthenticatedApi } from '../../auth/withAuthentication';
 
 async function kryssklassifiser(req: NextApiRequest, res: NextApiResponse<string>) {
     const styrkKode = req.query.styrkKode;
@@ -8,4 +9,4 @@ async function kryssklassifiser(req: NextApiRequest, res: NextApiResponse<string
     return handler(req, res);
 }
 
-export default kryssklassifiser;
+export default withAuthenticatedApi(kryssklassifiser);

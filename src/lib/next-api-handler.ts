@@ -13,7 +13,7 @@ export const getHeaders = (idtoken: string | undefined, callId: string) => {
 export const lagApiPostHandlerMedAuthHeaders: (
     url: string,
     errorHandler?: (response: Response) => void
-) => NextApiHandler | undefined = (url: string, errorHandler) => async (req, res) => {
+) => NextApiHandler = (url: string, errorHandler) => async (req, res) => {
     if (req.method === 'POST') {
         return lagApiHandlerMedAuthHeaders(url, errorHandler)(req, res);
     } else {
