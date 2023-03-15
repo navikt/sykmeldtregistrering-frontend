@@ -7,19 +7,6 @@ import {
 
 const dekoratorEnv = process.env.DEKORATOR_ENV as Exclude<DecoratorProps['env'], 'localhost'>;
 
-// const availableLanguages = [
-//     {
-//         locale: 'nb',
-//         url: 'https://www.nav.no/arbeid/registrering/',
-//         handleInApp: true,
-//     },
-//     {
-//         locale: 'en',
-//         url: 'https://www.nav.no/arbeid/registrering/en',
-//         handleInApp: true,
-//     },
-// ] as DecoratorProps['availableLanguages'];
-
 const dekoratorProps: DecoratorProps = {
     env: dekoratorEnv ?? 'prod',
     simple: true,

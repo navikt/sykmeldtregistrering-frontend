@@ -5,8 +5,6 @@ nodeEnv: test
 dekorator:
   url: https://dekoratoren.dev.nav.no/
   env: dev
-loginservice:
-  url: https://loginservice.dev.nav.no/login
 amplitude:
   apiKey: 9845ded64c69cd068651cd0d968e0796
   endPoint: amplitude.nav.no/collect
@@ -21,7 +19,6 @@ reaktiveringUrl: http://veilarbregistrering/veilarbregistrering/api/fullfoerreak
 sisteArbeidsforholdUrl: http://veilarbregistrering/veilarbregistrering/api/sistearbeidsforhold/
 opprettOppgaveUrl: http://veilarbregistrering/veilarbregistrering/api/oppgave/
 kontaktinformasjonUrl: http://veilarbregistrering/veilarbregistrering/api/person/kontaktinfo
-ptoProxyUrl: http://pto-proxy.pto.svc.cluster.local/proxy/
 dittNAVUrl: https://www.dev.nav.no/minside
 dagpengesoknadUrl: https://arbeid.dev.nav.no/dagpenger/dialog/soknad
 dialogUrl: https://www.dev.nav.no/arbeid/dialog

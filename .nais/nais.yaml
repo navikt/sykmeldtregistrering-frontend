@@ -26,8 +26,6 @@ spec:
   requests:
     cpu: "200m"
     memory: "256Mi"
-  envFrom:
-    - configmap: loginservice-idporten
   env:
     - name: SELF_URL
       value: {{ingress}}
@@ -35,8 +33,6 @@ spec:
       value: {{dekorator.url}}
     - name: DEKORATOR_ENV
       value: {{dekorator.env}}
-    - name: LOGINSERVICE_URL
-      value: {{loginservice.url}}
     - name: NEXT_PUBLIC_SELF_URL
       value: {{ingress}}
     - name: NEXT_PUBLIC_START_URL
@@ -73,8 +69,6 @@ spec:
       value: {{opprettOppgaveUrl}}
     - name: KONTAKTINFORMASJON_URL
       value: {{kontaktinformasjonUrl}}
-    - name: PTO_PROXY_URL
-      value: {{ptoProxyUrl}}
     - name: FEATURE_TOGGLE_URL
       value: {{featureToggles.server}}
     - name: NODE_ENV
@@ -94,5 +88,3 @@ spec:
     outbound:
       rules:
         - application: veilarbregistrering
-        - application: pto-proxy
-          namespace: pto
