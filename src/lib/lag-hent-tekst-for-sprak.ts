@@ -1,6 +1,6 @@
 const SPRAK = ['nb', 'en', 'nn', 'pl'] as const;
 
-export type Sprak = typeof SPRAK[number];
+export type Sprak = (typeof SPRAK)[number];
 
 export function erStottetSprak(s?: string): s is Sprak {
     return SPRAK.includes(s as Sprak);

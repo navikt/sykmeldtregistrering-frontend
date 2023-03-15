@@ -1,4 +1,4 @@
-import lagHentTekstForSprak, {erStottetSprak} from '../lib/lag-hent-tekst-for-sprak';
+import lagHentTekstForSprak, { erStottetSprak } from './lag-hent-tekst-for-sprak';
 
 describe('Hent tekst for språk', () => {
     const TEKSTER = {
@@ -39,4 +39,4 @@ describe('Er støttet språk', () => {
     test('Returnerer false for undefined', () => {
         expect(erStottetSprak()).toBe(false);
     });
-})
+});
