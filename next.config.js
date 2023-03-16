@@ -21,7 +21,7 @@ const nextConfig = {
     //     defaultLocale: 'nb',
     //     localeDetection: false,
     // },
-    trailingSlash: true,
+    trailingSlash: false,
     output: 'standalone',
     publicRuntimeConfig: {
         basePath,
