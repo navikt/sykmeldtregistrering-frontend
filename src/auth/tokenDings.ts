@@ -1,8 +1,16 @@
-import { Issuer } from 'openid-client';
+import { Issuer, TokenSet } from 'openid-client';
 import jwt from 'jsonwebtoken';
 import { JWK } from 'node-jose';
 import { ulid } from 'ulid';
 import { logger } from '@navikt/next-logger';
+
+export interface ExchangeToken {
+    (idPortenToken: string, targetApp: string): Promise<TokenSet>;
+}
+
+export interface Auth {
+    exchangeIDPortenToken: ExchangeToken;
+}
 
 export interface TokenDingsOptions {
     tokenXWellKnownUrl: string;
@@ -31,7 +39,7 @@ async function createClientAssertion(options: TokenDingsOptions): Promise<string
     );
 }
 
-const createTokenDings = async (options: TokenDingsOptions) => {
+const createTokenDings = async (options: TokenDingsOptions): Promise<Auth> => {
     const { tokenXWellKnownUrl, tokenXClientId } = options;
     const tokenXIssuer = await Issuer.discover(tokenXWellKnownUrl);
     const tokenXClient = new tokenXIssuer.Client({

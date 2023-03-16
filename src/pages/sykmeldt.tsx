@@ -10,7 +10,7 @@ import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
 import VeiledningSvg from '../components/veiledningSvg';
 import { SkjemaSide } from '../model/skjema';
 import { Kontaktinformasjon } from '../model/kontaktinformasjon';
-import { getHeaders } from '../lib/next-api-handler';
+import { exchangeIDPortenToken, getHeaders } from '../lib/next-api-handler';
 import { loggAktivitet } from '../lib/amplitude';
 
 import styles from '../styles/skjema.module.css';
@@ -95,7 +95,9 @@ export const getServerSideProps = withAuthenticatedPage(async (context: GetServe
     try {
         const cookies = cookie.parse(context.req?.headers.cookie || '');
         const idToken = cookies['selvbetjening-idtoken'];
-        const response = await fetch(kontaktinformasjonUrl, { headers: getHeaders(idToken, nanoid()) });
+        const tokenSet = await exchangeIDPortenToken(idToken!);
+        const token = tokenSet.access_token;
+        const response = await fetch(kontaktinformasjonUrl, { headers: getHeaders(token!, nanoid()) });
 
         const kontaktinformasjon = await response.json();
         return {

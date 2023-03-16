@@ -1,12 +1,15 @@
 import { NextApiHandler } from 'next';
 import { nanoid } from 'nanoid';
+import createTokenDings, { Auth } from '../auth/tokenDings';
+import { logger } from '@navikt/next-logger';
+import { TokenSet } from 'openid-client';
 
-export const getHeaders = (idtoken: string | undefined, callId: string) => {
+export const getHeaders = (token: string, callId: string) => {
     return {
-        cookie: `selvbetjening-idtoken=${idtoken}`,
         'Nav-Consumer-Id': 'poa-arbeidssokerregistrering',
         'Nav-Call-Id': callId,
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
     };
 };
 
@@ -25,6 +28,25 @@ export interface ApiError extends Error {
     status?: number;
 }
 
+let _tokenDings: Auth | undefined;
+const getTokenDings = async (): Promise<Auth> => {
+    if (!_tokenDings) {
+        _tokenDings = await createTokenDings({
+            tokenXWellKnownUrl: process.env.TOKEN_X_WELL_KNOWN_URL!,
+            tokenXClientId: process.env.TOKEN_X_CLIENT_ID!,
+            tokenXTokenEndpoint: process.env.TOKEN_X_TOKEN_ENDPOINT!,
+            tokenXPrivateJwk: process.env.TOKEN_X_PRIVATE_JWK!,
+        });
+    }
+
+    return _tokenDings;
+};
+
+const VEILARBREGISTRERING_CLIENT_ID = `${process.env.NAIS_CLUSTER_NAME}:paw:veilarbregistrering`;
+export const exchangeIDPortenToken = async (idPortenToken: string): Promise<TokenSet> => {
+    return (await getTokenDings()).exchangeIDPortenToken(idPortenToken, VEILARBREGISTRERING_CLIENT_ID);
+};
+
 const lagApiHandlerMedAuthHeaders: (url: string, errorHandler?: (response: Response) => void) => NextApiHandler =
     (url: string, errorHandler) => async (req, res) => {
         const idtoken = req.cookies['selvbetjening-idtoken'];
@@ -36,13 +58,16 @@ const lagApiHandlerMedAuthHeaders: (url: string, errorHandler?: (response: Respo
         }
 
         try {
-            console.log(`Starter kall callId: ${callId} mot ${url}`);
+            logger.info(`Starter kall callId: ${callId} mot ${url}`);
+            const tokenSet = await exchangeIDPortenToken(idtoken!);
+            const token = tokenSet.access_token;
+
             const response = await fetch(url, {
                 method: req.method,
                 body,
-                headers: getHeaders(idtoken, callId),
+                headers: getHeaders(token!, callId),
             }).then(async (apiResponse) => {
-                console.log(`Kall callId: ${callId} mot ${url} er ferdig`);
+                logger.info(`Kall callId: ${callId} mot ${url} er ferdig`);
                 const contentType = apiResponse.headers.get('content-type');
                 const statusCode = apiResponse.status;
 
@@ -51,7 +76,7 @@ const lagApiHandlerMedAuthHeaders: (url: string, errorHandler?: (response: Respo
                 }
 
                 if (!apiResponse.ok) {
-                    console.error(`apiResponse ikke ok, contentType: ${contentType}, callId - ${callId}`);
+                    logger.error(`apiResponse ikke ok, contentType: ${contentType}, callId - ${callId}`);
                     if (typeof errorHandler === 'function') {
                         return errorHandler(apiResponse);
                     } else {
@@ -72,7 +97,7 @@ const lagApiHandlerMedAuthHeaders: (url: string, errorHandler?: (response: Respo
 
             return res.json(response);
         } catch (error) {
-            console.error(`Kall mot ${url} (callId: ${callId}) feilet. Feilmelding: ${error}`);
+            logger.error(`Kall mot ${url} (callId: ${callId}) feilet. Feilmelding: ${error}`);
             res.status((error as ApiError).status || 500).end(`Noe gikk galt (callId: ${callId})`);
         }
     };
