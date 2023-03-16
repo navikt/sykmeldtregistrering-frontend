@@ -51,6 +51,8 @@ jobs:
       - name: docker-build-push
         uses: nais/docker-build-push@v0
         id: docker-build-push
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
         with:
           team: paw
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
