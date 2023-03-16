@@ -142,6 +142,15 @@ const Skjema = skjemaSideFactory({
 export const getServerSideProps = withAuthenticatedPage(async (context) => {
     const { side } = context.query;
 
+    if (!Boolean(side)) {
+        return {
+            redirect: {
+                destination: `/skjema/0`,
+                permanent: false,
+            },
+        };
+    }
+
     return {
         props: {
             aktivSide: side,
