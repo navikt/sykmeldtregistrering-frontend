@@ -43,17 +43,24 @@ const getTokenDings = async (): Promise<Auth> => {
 };
 
 const VEILARBREGISTRERING_CLIENT_ID = `${process.env.NAIS_CLUSTER_NAME}:paw:veilarbregistrering`;
-export const exchangeIDPortenToken = async (idPortenToken: string): Promise<TokenSet> => {
+const exchangeIDPortenToken = async (idPortenToken: string): Promise<TokenSet> => {
     return (await getTokenDings()).exchangeIDPortenToken(idPortenToken, VEILARBREGISTRERING_CLIENT_ID);
 };
 
-export const getTokenFromRequest = (req: NextApiRequest) => {
+const getTokenFromRequest = (req: NextApiRequest) => {
     const bearerToken = req.headers['authorization'];
     return bearerToken?.replace('Bearer ', '');
 };
+
+const brukerMock = process.env.NEXT_PUBLIC_ENABLE_MOCK === 'enabled';
+
+export const getVeilarbregistreringToken = async (req: NextApiRequest) => {
+    const tokenSet = await exchangeIDPortenToken(getTokenFromRequest(req)!);
+    return tokenSet.access_token!;
+};
+
 const lagApiHandlerMedAuthHeaders: (url: string, errorHandler?: (response: Response) => void) => NextApiHandler =
     (url: string, errorHandler) => async (req, res) => {
-        const idtoken = getTokenFromRequest(req);
         const callId = nanoid();
         let body = null;
 
@@ -63,13 +70,12 @@ const lagApiHandlerMedAuthHeaders: (url: string, errorHandler?: (response: Respo
 
         try {
             logger.info(`Starter kall callId: ${callId} mot ${url}`);
-            const tokenSet = await exchangeIDPortenToken(idtoken!);
-            const token = tokenSet.access_token;
-
             const response = await fetch(url, {
                 method: req.method,
                 body,
-                headers: getHeaders(token!, callId),
+                headers: brukerMock
+                    ? getHeaders('token', callId)
+                    : getHeaders(await getVeilarbregistreringToken(req), callId),
             }).then(async (apiResponse) => {
                 logger.info(`Kall callId: ${callId} mot ${url} er ferdig`);
                 const contentType = apiResponse.headers.get('content-type');

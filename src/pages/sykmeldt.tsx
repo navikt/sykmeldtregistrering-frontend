@@ -9,7 +9,7 @@ import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
 import VeiledningSvg from '../components/veiledningSvg';
 import { SkjemaSide } from '../model/skjema';
 import { Kontaktinformasjon } from '../model/kontaktinformasjon';
-import { exchangeIDPortenToken, getHeaders, getTokenFromRequest } from '../lib/next-api-handler';
+import { getHeaders, getVeilarbregistreringToken } from '../lib/next-api-handler';
 import { loggAktivitet } from '../lib/amplitude';
 
 import styles from '../styles/skjema.module.css';
@@ -88,13 +88,16 @@ const SykmeldtStartside = (props: SykmeldtProps) => {
     );
 };
 
+const brukerMock = process.env.NEXT_PUBLIC_ENABLE_MOCK === 'enabled';
 export const getServerSideProps = withAuthenticatedPage(async (context: GetServerSidePropsContext) => {
     const kontaktinformasjonUrl = `${process.env.KONTAKTINFORMASJON_URL}`;
 
     try {
-        const tokenSet = await exchangeIDPortenToken(getTokenFromRequest(context.req as NextApiRequest)!);
-        const token = tokenSet.access_token;
-        const response = await fetch(kontaktinformasjonUrl, { headers: getHeaders(token!, nanoid()) });
+        let callId = nanoid();
+        const headers = brukerMock
+            ? getHeaders('token', callId)
+            : getHeaders(await getVeilarbregistreringToken(context.req as NextApiRequest), callId);
+        const response = await fetch(kontaktinformasjonUrl, { headers });
 
         const kontaktinformasjon = await response.json();
         return {
