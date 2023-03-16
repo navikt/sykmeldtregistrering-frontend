@@ -43,8 +43,6 @@ spec:
       value: {{amplitude.endPoint}}
     - name: NEXT_PUBLIC_ENABLE_MOCK
       value: {{mocking}}
-    - name: NEXT_PUBLIC_SENTRY_DSN
-      value: {{sentry.dsn}}
     - name: NEXT_PUBLIC_FEATURETOGGLE_URL
       value: {{featureToggles.client}}
     - name: NEXT_PUBLIC_DITTNAV_URL

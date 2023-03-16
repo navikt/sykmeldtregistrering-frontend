@@ -7,7 +7,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         startUrl: process.env.NEXT_PUBLIC_START_URL!,
         amplitudeApiKey: process.env.NEXT_PUBLIC_AMPLITUDE_API_KEY!,
         amplitudeEndPoint: process.env.NEXT_PUBLIC_AMPLITUDE_ENDPOINT!,
-        sentryDsn: process.env.NEXT_PUBLIC_SENTRY_DSN!,
         featureTogglesUrl: process.env.NEXT_PUBLIC_FEATURETOGGLES_URL!,
         dittNavUrl: process.env.NEXT_PUBLIC_DITTNAV_URL!,
         dagpengesoknadUrl: process.env.NEXT_PUBLIC_DAGPENGESOKNAD_URL!,
