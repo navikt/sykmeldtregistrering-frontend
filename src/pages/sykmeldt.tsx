@@ -1,8 +1,7 @@
 import { BodyLong, Button, GuidePanel, Heading, Label, Link } from '@navikt/ds-react';
 import NextLink from 'next/link';
 import { nanoid } from 'nanoid';
-import { GetServerSidePropsContext } from 'next';
-import cookie from 'cookie';
+import { GetServerSidePropsContext, NextApiRequest } from 'next';
 
 import useSprak from '../hooks/useSprak';
 
@@ -10,7 +9,7 @@ import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
 import VeiledningSvg from '../components/veiledningSvg';
 import { SkjemaSide } from '../model/skjema';
 import { Kontaktinformasjon } from '../model/kontaktinformasjon';
-import { exchangeIDPortenToken, getHeaders } from '../lib/next-api-handler';
+import { exchangeIDPortenToken, getHeaders, getTokenFromRequest } from '../lib/next-api-handler';
 import { loggAktivitet } from '../lib/amplitude';
 
 import styles from '../styles/skjema.module.css';
@@ -93,9 +92,7 @@ export const getServerSideProps = withAuthenticatedPage(async (context: GetServe
     const kontaktinformasjonUrl = `${process.env.KONTAKTINFORMASJON_URL}`;
 
     try {
-        const cookies = cookie.parse(context.req?.headers.cookie || '');
-        const idToken = cookies['selvbetjening-idtoken'];
-        const tokenSet = await exchangeIDPortenToken(idToken!);
+        const tokenSet = await exchangeIDPortenToken(getTokenFromRequest(context.req as NextApiRequest)!);
         const token = tokenSet.access_token;
         const response = await fetch(kontaktinformasjonUrl, { headers: getHeaders(token!, nanoid()) });
 

@@ -1,4 +1,4 @@
-import { NextApiHandler } from 'next';
+import { NextApiHandler, NextApiRequest } from 'next';
 import { nanoid } from 'nanoid';
 import createTokenDings, { Auth } from '../auth/tokenDings';
 import { logger } from '@navikt/next-logger';
@@ -47,9 +47,13 @@ export const exchangeIDPortenToken = async (idPortenToken: string): Promise<Toke
     return (await getTokenDings()).exchangeIDPortenToken(idPortenToken, VEILARBREGISTRERING_CLIENT_ID);
 };
 
+export const getTokenFromRequest = (req: NextApiRequest) => {
+    const bearerToken = req.headers['authorization'];
+    return bearerToken?.replace('Bearer ', '');
+};
 const lagApiHandlerMedAuthHeaders: (url: string, errorHandler?: (response: Response) => void) => NextApiHandler =
     (url: string, errorHandler) => async (req, res) => {
-        const idtoken = req.cookies['selvbetjening-idtoken'];
+        const idtoken = getTokenFromRequest(req);
         const callId = nanoid();
         let body = null;
 

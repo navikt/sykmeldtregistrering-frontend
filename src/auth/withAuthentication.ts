@@ -1,10 +1,4 @@
-import {
-    GetServerSidePropsContext,
-    GetServerSidePropsResult,
-    NextApiRequest,
-    NextApiResponse,
-    NextPageContext,
-} from 'next';
+import { GetServerSidePropsContext, GetServerSidePropsResult, NextApiRequest, NextApiResponse } from 'next';
 import { validateIdportenToken } from '@navikt/next-auth-wonderwall';
 import { logger } from '@navikt/next-logger';
 
