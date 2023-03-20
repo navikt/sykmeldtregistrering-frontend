@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { logger } from '@navikt/next-logger';
 
 async function features(req: NextApiRequest, res: NextApiResponse) {
     try {
@@ -8,7 +9,7 @@ async function features(req: NextApiRequest, res: NextApiResponse) {
         const features = json.features || [];
         return res.status(200).json(features);
     } catch (error) {
-        console.error(error);
+        logger.error(error);
         return res.status(200).json([]);
     }
 }

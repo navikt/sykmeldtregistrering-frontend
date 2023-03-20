@@ -19,6 +19,7 @@ import { useConfig } from '../../contexts/config-context';
 import { Config } from '../../model/config';
 import { hentRegistreringFeiletUrl } from '../../lib/hent-registrering-feilet-url';
 import { OppgaveRegistreringstype } from '../../model/feilsituasjonTyper';
+import { logger } from '@navikt/next-logger';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -70,7 +71,7 @@ const hentProfilering = async (response: FullforRegistreringResponse, side: Side
         try {
             return await api('api/profilering/');
         } catch (e) {
-            console.error('profilering feilet', e);
+            logger.error('profilering feilet', e);
         }
     }
 };

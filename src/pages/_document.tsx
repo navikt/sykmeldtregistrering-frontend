@@ -4,6 +4,7 @@ import {
     fetchDecoratorReact,
     Props as DecoratorProps,
 } from '@navikt/nav-dekoratoren-moduler/ssr';
+import { logger } from '@navikt/next-logger';
 
 const dekoratorEnv = process.env.DEKORATOR_ENV as Exclude<DecoratorProps['env'], 'localhost'>;
 
@@ -22,7 +23,7 @@ export default class MyDocument extends Document<DecoratorComponents> {
             ...dekoratorProps,
             //language: locale as any,
         }).catch((err) => {
-            console.error(err);
+            logger.error(err);
             const empty = () => <></>;
             return {
                 Footer: empty,
