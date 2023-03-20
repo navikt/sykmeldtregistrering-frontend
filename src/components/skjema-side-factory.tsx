@@ -69,7 +69,11 @@ const skjemaSideFactory: SkjemaSideFactory = (opts) => {
                     router.push('/start/');
                 }
             }
-        }, [forrige, router, skjemaState]);
+
+            if (fremdrift < 0) {
+                router.push('/start/');
+            }
+        }, [forrige, router, skjemaState, fremdrift]);
 
         const navigerTilSide = (side: SkjemaSide) => {
             return router.push(`/${urlPrefix}/${side}`);

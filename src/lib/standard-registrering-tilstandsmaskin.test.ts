@@ -181,4 +181,15 @@ describe('Standard registrering tilstandsmaskin', () => {
             expect(fremdrift).toBe(7 / 10);
         });
     });
+
+    describe('Ugyldig side', () => {
+        it('returnerer negativ fremdrift', () => {
+            const state = beregnNavigering(99 as any, {});
+            expect(state).toEqual({
+                forrige: undefined,
+                neste: undefined,
+                fremdrift: -1,
+            });
+        });
+    });
 });

@@ -101,5 +101,13 @@ export type StandardRegistreringTilstandsmaskin = (
     state: SkjemaState
 ) => Navigering<StandardSkjemaSide>;
 export const beregnNavigering: StandardRegistreringTilstandsmaskin = (aktivSide, state) => {
-    return TILSTANDER[aktivSide](state);
+    if (TILSTANDER[aktivSide]) {
+        return TILSTANDER[aktivSide](state);
+    }
+
+    return {
+        neste: undefined,
+        forrige: undefined,
+        fremdrift: -1,
+    };
 };

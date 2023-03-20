@@ -109,5 +109,13 @@ export type SykmeldtRegistreringTilstandsmaskin = (
     state: SkjemaState
 ) => Navigering<SykmeldtSkjemaSide>;
 export const beregnNavigering: SykmeldtRegistreringTilstandsmaskin = (aktivSide, state) => {
-    return TILSTANDER[aktivSide](state);
+    if (TILSTANDER[aktivSide]) {
+        return TILSTANDER[aktivSide](state);
+    }
+
+    return {
+        neste: undefined,
+        forrige: undefined,
+        fremdrift: -1,
+    };
 };

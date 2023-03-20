@@ -16,6 +16,7 @@ import { SisteStillingValg, SporsmalId } from '../../model/sporsmal';
 import skjemaSideFactory, { SiderMap } from '../../components/skjema-side-factory';
 import { loggBesvarelse } from '../../lib/amplitude';
 import { withAuthenticatedPage } from '../../auth/withAuthentication';
+import { logger } from '@navikt/next-logger';
 
 const lagSiderMap = (skjemaState: SkjemaState, dispatch: Dispatch<SkjemaAction>, visFeilmelding: boolean): SiderMap => {
     return {
@@ -141,16 +142,6 @@ const Skjema = skjemaSideFactory({
 });
 export const getServerSideProps = withAuthenticatedPage(async (context) => {
     const { side } = context.query;
-
-    if (!Boolean(side)) {
-        return {
-            redirect: {
-                destination: `/skjema/0`,
-                permanent: false,
-            },
-        };
-    }
-
     return {
         props: {
             aktivSide: side,
