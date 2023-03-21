@@ -1,11 +1,10 @@
 import { useEffect } from 'react';
 import { BodyLong, Button, GuidePanel, Heading } from '@navikt/ds-react';
 import { useRouter } from 'next/router';
-import useSWR from 'swr';
 
 import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../hooks/useSprak';
-import { fetcher as api, fetcher } from '../lib/api-utils';
+import { fetcher as api } from '../lib/api-utils';
 import { loggAktivitet, loggStoppsituasjon } from '../lib/amplitude';
 import { hentRegistreringFeiletUrl } from '../lib/hent-registrering-feilet-url';
 import { OppgaveRegistreringstype } from '../model/feilsituasjonTyper';
@@ -26,7 +25,6 @@ const Reaktivering = () => {
     const sprak = useSprak();
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
     const router = useRouter();
-    const { data, error } = useSWR('api/startregistrering/', fetcher);
 
     const loggAvbrytReaktivering = () => {
         loggAktivitet({ aktivitet: 'Arbeidssøkeren avslår reaktivering' });
@@ -51,18 +49,10 @@ const Reaktivering = () => {
     };
 
     useEffect(() => {
-        if (data && data.servicegruppe) {
-            loggStoppsituasjon({
-                situasjon: 'Arbeidssøkeren må reaktivere seg',
-            });
-        }
-    }, [data]);
-
-    useEffect(() => {
-        if (error) {
-            router.push('/feil/');
-        }
-    }, [error, router]);
+        loggStoppsituasjon({
+            situasjon: 'Arbeidssøkeren må reaktivere seg',
+        });
+    }, []);
 
     return (
         <>
