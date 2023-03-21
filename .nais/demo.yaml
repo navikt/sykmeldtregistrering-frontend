@@ -5,14 +5,9 @@ nodeEnv: development
 dekorator:
   url: https://dekoratoren.ekstern.dev.nav.no/
   env: dev
-loginservice:
-  url: https://loginservice.dev.nav.no/login
-  wellKnown: https://navtestb2c.b2clogin.com/navtestb2c.onmicrosoft.com/v2.0/.well-known/openid-configuration?p=B2C_1A_idporten_ver1
 amplitude:
   apiKey: 9845ded64c69cd068651cd0d968e0796
   endPoint: amplitude.nav.no/collect
-sentry:
-  dsn: https://b2f662d8ed7a42b29f465f365e25832f@sentry.gc.nav.no/118
 pamJanzzUrl: https://arbeidsplassen.nav.no/pam-janzz/rest
 startUrl: https://arbeid.labs.nais.io/arbeid/registrering/start
 startRegistreringUrl: https://arbeid.labs.nais.io/arbeid/registrering/api/mocks/startregistrering
@@ -22,7 +17,6 @@ reaktiveringUrl: https://arbeid.labs.nais.io/arbeid/registrering/api/mocks/reakt
 sisteArbeidsforholdUrl: https://arbeid.labs.nais.io/arbeid/registrering/api/mocks/sistearbeidsforhold
 opprettOppgaveUrl: https://arbeid.labs.nais.io/arbeid/registrering/api/mocks/oppgave
 kontaktinformasjonUrl: https://arbeid.labs.nais.io/arbeid/registrering/api/mocks/kontaktinformasjon
-ptoProxyUrl: http://pto-proxy.pto.svc.cluster.local/proxy/
 dittNAVUrl: https://www.nav.no/minside
 dagpengesoknadUrl: https://www.nav.no/dagpenger/dialog/soknad
 dialogUrl: https://www.nav.no/arbeid/dialog
