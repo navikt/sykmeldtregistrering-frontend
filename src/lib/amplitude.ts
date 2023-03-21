@@ -78,7 +78,7 @@ export function logAmplitudeEvent(eventName: string, data: EventData) {
     return new Promise(function (resolve) {
         const eventData = data || {};
         if (isBrowser()) {
-            const brukergruppe = window.sessionStorage.getItem('beregnetBrukergruppe') || 'Ukjent';
+            const brukergruppe = window.sessionStorage.getItem('beregnetBrukergruppe') || 'Ikke tilgjengelig';
             amplitude.getInstance().logEvent(eventName, { ...eventData, brukergruppe }, resolve);
         }
     });
