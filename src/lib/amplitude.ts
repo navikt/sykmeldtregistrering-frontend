@@ -20,7 +20,7 @@ type EventData = SidevisningData | AktivitetData | StoppsituasjonData | Besvarel
 
 type BesvarelseData = { skjematype: 'standard' | 'sykmeldt'; sporsmalId: SporsmalId; svar: any };
 
-type StoppsituasjonData = { situasjon: string; brukergruppe?: Brukergruppe; aarsak?: ErrorTypes };
+type StoppsituasjonData = { situasjon: string; aarsak?: ErrorTypes };
 
 type FeedbackData = { id: string; feedback: string };
 
@@ -37,8 +37,8 @@ type AktivitetData =
     | { aktivitet: 'Start registrering'; registreringstype: RegistreringType }
     | { aktivitet: 'Går til start registrering' }
     | { aktivitet: 'Avbryter registreringen' }
-    | { aktivitet: 'Arbeidssøkeren reaktiverer seg'; brukergruppe: Brukergruppe }
-    | { aktivitet: 'Arbeidssøkeren avslår reaktivering'; brukergruppe: Brukergruppe }
+    | { aktivitet: 'Arbeidssøkeren reaktiverer seg' }
+    | { aktivitet: 'Arbeidssøkeren avslår reaktivering' }
     | { aktivitet: 'Fortsetter til sykmeldtregistrering' }
     | { aktivitet: 'Oppretter kontakt meg oppgave' }
     | { aktivitet: 'Avbryter kontakt meg' }
@@ -78,7 +78,8 @@ export function logAmplitudeEvent(eventName: string, data: EventData) {
     return new Promise(function (resolve) {
         const eventData = data || {};
         if (isBrowser()) {
-            amplitude.getInstance().logEvent(eventName, eventData, resolve);
+            const brukergruppe = window.sessionStorage.getItem('beregnetBrukergruppe') || 'Ukjent';
+            amplitude.getInstance().logEvent(eventName, { ...eventData, brukergruppe }, resolve);
         }
     });
 }

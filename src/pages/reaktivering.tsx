@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { BodyLong, Button, GuidePanel, Heading } from '@navikt/ds-react';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
@@ -6,9 +6,7 @@ import useSWR from 'swr';
 import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../hooks/useSprak';
 import { fetcher as api, fetcher } from '../lib/api-utils';
-import { Brukergruppe } from '../model/registrering';
 import { loggAktivitet, loggStoppsituasjon } from '../lib/amplitude';
-import beregnBrukergruppe from '../lib/beregn-brukergruppe';
 import { hentRegistreringFeiletUrl } from '../lib/hent-registrering-feilet-url';
 import { OppgaveRegistreringstype } from '../model/feilsituasjonTyper';
 import { withAuthenticatedPage } from '../auth/withAuthentication';
@@ -29,15 +27,14 @@ const Reaktivering = () => {
     const tekst = lagHentTekstForSprak(TEKSTER, sprak);
     const router = useRouter();
     const { data, error } = useSWR('api/startregistrering/', fetcher);
-    const [brukergruppe, setBrukergruppe] = useState(Brukergruppe.UKJENT);
 
     const loggAvbrytReaktivering = () => {
-        loggAktivitet({ aktivitet: 'Arbeidssøkeren avslår reaktivering', brukergruppe });
+        loggAktivitet({ aktivitet: 'Arbeidssøkeren avslår reaktivering' });
         return router.push('/');
     };
 
     const reaktiverBruker = async () => {
-        loggAktivitet({ aktivitet: 'Arbeidssøkeren reaktiverer seg', brukergruppe });
+        loggAktivitet({ aktivitet: 'Arbeidssøkeren reaktiverer seg' });
 
         const response = await api('api/reaktivering/', { method: 'post', body: JSON.stringify({}) });
 
@@ -55,12 +52,8 @@ const Reaktivering = () => {
 
     useEffect(() => {
         if (data && data.servicegruppe) {
-            const { servicegruppe, alder } = data;
-            const gruppe = beregnBrukergruppe(servicegruppe, alder);
-            setBrukergruppe(gruppe);
             loggStoppsituasjon({
                 situasjon: 'Arbeidssøkeren må reaktivere seg',
-                brukergruppe: gruppe,
             });
         }
     }, [data]);
