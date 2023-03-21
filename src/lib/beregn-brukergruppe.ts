@@ -1,9 +1,16 @@
 import { Brukergruppe, Servicegruppe } from '../model/registrering';
 
-function beregnBrukergruppe(servicegruppe: Servicegruppe): Brukergruppe {
+function beregnBrukergruppe(servicegruppe: Servicegruppe, alder: number): Brukergruppe {
+    const forsterketUngdomsinnsats = alder < 30;
+    const over59 = alder > 59;
+
     switch (servicegruppe) {
         case (servicegruppe = Servicegruppe.IKVAL): {
-            return Brukergruppe.STANDARD;
+            return forsterketUngdomsinnsats
+                ? Brukergruppe.STANDARD_OG_UNGDOMSINNSATS
+                : over59
+                ? Brukergruppe.STANDARD_OG_OVER_59
+                : Brukergruppe.STANDARD;
         }
         case (servicegruppe = Servicegruppe.BFORM): {
             return Brukergruppe.SITUASJONSBESTEMT;

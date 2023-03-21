@@ -55,8 +55,8 @@ const Reaktivering = () => {
 
     useEffect(() => {
         if (data && data.servicegruppe) {
-            const { servicegruppe } = data;
-            const gruppe = beregnBrukergruppe(servicegruppe);
+            const { servicegruppe, alder } = data;
+            const gruppe = beregnBrukergruppe(servicegruppe, alder);
             setBrukergruppe(gruppe);
             loggStoppsituasjon({
                 situasjon: 'Arbeidssøkeren må reaktivere seg',
