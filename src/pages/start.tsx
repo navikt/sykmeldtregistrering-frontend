@@ -9,6 +9,9 @@ import { fetcher } from '../lib/api-utils';
 import { useConfig } from '../contexts/config-context';
 import { Config } from '../model/config';
 import { withAuthenticatedPage } from '../auth/withAuthentication';
+import beregnBrukergruppe from '../lib/beregn-brukergruppe';
+
+const isBrowser = () => typeof window !== 'undefined';
 
 function skalVideresendesTilDittNAV(data: any) {
     const { formidlingsgruppe, underOppfolging } = data;
@@ -51,7 +54,11 @@ const Start = () => {
         if (!data || !dittNavUrl) {
             return;
         }
-
+        if (isBrowser()) {
+            const { servicegruppe, alder } = data;
+            const brukergruppe = beregnBrukergruppe(servicegruppe, alder);
+            window.sessionStorage.setItem('beregnetBrukergruppe', brukergruppe);
+        }
         router.push(hentNesteSideUrl(data, dittNavUrl));
     }, [data, router, dittNavUrl]);
 
