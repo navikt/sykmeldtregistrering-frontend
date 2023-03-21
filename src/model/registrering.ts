@@ -37,6 +37,8 @@ export enum Servicegruppe {
 export enum Brukergruppe {
     UKJENT = 'Ukjent',
     STANDARD = 'Standard',
+    STANDARD_OG_UNGDOMSINNSATS = 'Standard og ungdomsinnsats',
+    STANDARD_OG_OVER_59 = 'Standard og over 59 år',
     SITUASJONSBESTEMT = 'Situasjonsbestemt',
     BEHOV_FOR_ARBEIDSEVNEVURDERING = 'Behov for arbeidsevnevurdering',
     IKKE_VURDERT = 'Ikke vurdert',
