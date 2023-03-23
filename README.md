@@ -34,6 +34,8 @@ Ved å prefikse branch-navn med `dev/`, så vil branchen kun deployes i dev.
 git checkout -b dev/<navn på branch>
 ```
 
+For å teste løsningen i dev bruker du [https://arbeid.intern.dev.nav.no/arbeid/registrering](https://arbeid.intern.dev.nav.no/arbeid/registrering)
+
 ## Ekstern dokumentasjon
 
 -   [Next.js](https://nextjs.org/)
