@@ -1,4 +1,4 @@
-ingress: https://arbeid.dev.nav.no/arbeid/registrering
+ingress: https://arbeid.intern.dev.nav.no/arbeid/registrering
 basePath: /arbeid/registrering
 mocking: disabled
 nodeEnv: test
@@ -22,5 +22,5 @@ dagpengesoknadUrl: https://arbeid.dev.nav.no/dagpenger/dialog/soknad
 dialogUrl: https://www.dev.nav.no/arbeid/dialog
 featureToggles:
   server: https://unleash.nais.io/api/client/features?tag[]=simple:arbeidssokerregistrering
-  client: https://arbeid.dev.nav.no/arbeid/registrering/api/features
+  client: https://arbeid.intern.dev.nav.no/arbeid/registrering/api/features
 hentProfileringUrl: http://veilarbregistrering/veilarbregistrering/api/profilering/
