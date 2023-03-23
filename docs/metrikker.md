@@ -9,6 +9,8 @@ Vi har ulike metrikker for hvordan løsningen brukes av arbeidssøker og rent te
 
 Dersom du vil lage egne rapporter utover de som ligger på dashboardet er det satt målinger omkring følgende hendelser.
 
+`brukergruppe` og `registreringstype` er tilgjengelig på alle hendelser. Disse vil stå som `Ikke tilgjengelig` på hendelser som logges før opplysningene er hentet (typisk på forsiden)
+
 ## Stoppsituasjoner
 
 Situasjoner som gjør at arbeidssøkeren ikke får registrert seg.

@@ -11,7 +11,6 @@ import { SykmeldtRegistreringTilstandsmaskin } from '../lib/sykmeldt-registrerin
 import { StandardRegistreringTilstandsmaskin } from '../lib/standard-registrering-tilstandsmaskin';
 import ProgressBar from './progress-bar/progress-bar';
 import { loggAktivitet } from '../lib/amplitude';
-import { RegistreringType } from '../model/registrering';
 
 export type SiderMap = { [key: string]: JSX.Element };
 export interface SkjemaProps {
@@ -45,10 +44,6 @@ const skjemaSideFactory: SkjemaSideFactory = (opts) => {
         useEffect(() => {
             loggAktivitet({
                 aktivitet: 'Start registrering',
-                registreringstype:
-                    urlPrefix === 'sykmeldt'
-                        ? RegistreringType.SYKMELDT_REGISTRERING
-                        : RegistreringType.ORDINAER_REGISTRERING,
             });
         }, []);
 

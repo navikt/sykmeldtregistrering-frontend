@@ -5,7 +5,6 @@ import useSprak from '../hooks/useSprak';
 import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
 import { loggAktivitet } from '../lib/amplitude';
 import { useConfig } from '../contexts/config-context';
-import { RegistreringType } from '../model/registrering';
 import { Config } from '../model/config';
 import { withAuthenticatedPage } from '../auth/withAuthentication';
 
@@ -28,7 +27,6 @@ const KvitteringSykmeldt = () => {
     useEffect(() => {
         loggAktivitet({
             aktivitet: 'Viser kvittering',
-            registreringstype: RegistreringType.SYKMELDT_REGISTRERING,
         });
     }, []);
 
@@ -49,7 +47,6 @@ const KvitteringSykmeldt = () => {
                 onClick={() =>
                     loggAktivitet({
                         aktivitet: 'Velger å lese mer om økonomisk støtte',
-                        registreringstype: RegistreringType.SYKMELDT_REGISTRERING,
                     })
                 }
             >
@@ -60,7 +57,6 @@ const KvitteringSykmeldt = () => {
                 onClick={() =>
                     loggAktivitet({
                         aktivitet: 'Velger å ikke søke om økonomisk støtte',
-                        registreringstype: RegistreringType.SYKMELDT_REGISTRERING,
                     })
                 }
             >

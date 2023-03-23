@@ -4,7 +4,6 @@ import { BodyLong, GuidePanel, Heading, Link } from '@navikt/ds-react';
 import useSprak from '../hooks/useSprak';
 import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
 import { loggAktivitet } from '../lib/amplitude';
-import { RegistreringType } from '../model/registrering';
 import { useConfig } from '../contexts/config-context';
 import { Config } from '../model/config';
 import { withAuthenticatedPage } from '../auth/withAuthentication';
@@ -29,7 +28,6 @@ const Kvittering = () => {
     useEffect(() => {
         loggAktivitet({
             aktivitet: 'Viser kvittering',
-            registreringstype: RegistreringType.REAKTIVERING,
         });
     }, []);
 
@@ -53,7 +51,6 @@ const Kvittering = () => {
                 onClick={() =>
                     loggAktivitet({
                         aktivitet: 'Går til dagpenger fra kvittering',
-                        registreringstype: RegistreringType.REAKTIVERING,
                     })
                 }
                 className="mhl navds-button navds-button--primary navds-button--medium"
@@ -65,7 +62,6 @@ const Kvittering = () => {
                 onClick={() =>
                     loggAktivitet({
                         aktivitet: 'Velger å ikke gå til dagpenger fra kvittering',
-                        registreringstype: RegistreringType.REAKTIVERING,
                     })
                 }
             >

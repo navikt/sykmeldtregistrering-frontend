@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 
 import byggFullforRegistreringPayload from '../../lib/bygg-fullfor-registrering-payload';
 import { FeilmeldingGenerell } from '../feilmeldinger/feilmeldinger';
-import { FullforRegistreringResponse, Innsatsgruppe, RegistreringType } from '../../model/registrering';
+import { FullforRegistreringResponse, Innsatsgruppe } from '../../model/registrering';
 import hentKvitteringsUrl from '../../lib/hent-kvitterings-url';
 import { loggAktivitet, loggEksperiment } from '../../lib/amplitude';
 import guidePanelStyles from '../../styles/guidepanel.module.css';
@@ -135,10 +135,6 @@ export const FullforRegistreringKnapp = (props: FullforKnappProps) => {
             loggAktivitet({
                 aktivitet: 'Utfylling av skjema fullført',
                 tidBruktForAaFullforeSkjema: beregnTidBrukt(skjemaState),
-                registreringstype:
-                    props.side === 'sykmeldt'
-                        ? RegistreringType.SYKMELDT_REGISTRERING
-                        : RegistreringType.ORDINAER_REGISTRERING,
                 innsatsgruppe: profilering ? profilering.innsatsgruppe : 'IKKE_PROFILERT',
             });
 

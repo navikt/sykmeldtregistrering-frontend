@@ -3,7 +3,6 @@ import useSprak from '../hooks/useSprak';
 import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
 import { loggAktivitet } from '../lib/amplitude';
 import React from 'react';
-import { RegistreringType } from '../model/registrering';
 import { useConfig } from '../contexts/config-context';
 import { Config } from '../model/config';
 import { withAuthenticatedPage } from '../auth/withAuthentication';
@@ -28,7 +27,6 @@ const Kvittering = () => {
     React.useEffect(() => {
         loggAktivitet({
             aktivitet: 'Viser kvittering',
-            registreringstype: RegistreringType.ORDINAER_REGISTRERING,
         });
     }, []);
 
@@ -52,7 +50,6 @@ const Kvittering = () => {
                 onClick={() =>
                     loggAktivitet({
                         aktivitet: 'Går til dagpenger fra kvittering',
-                        registreringstype: RegistreringType.ORDINAER_REGISTRERING,
                     })
                 }
                 className="mhl navds-button navds-button--primary navds-button--medium"
@@ -64,7 +61,6 @@ const Kvittering = () => {
                 onClick={() =>
                     loggAktivitet({
                         aktivitet: 'Velger å ikke gå til dagpenger fra kvittering',
-                        registreringstype: RegistreringType.ORDINAER_REGISTRERING,
                     })
                 }
             >

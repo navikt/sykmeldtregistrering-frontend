@@ -1,6 +1,5 @@
 import amplitude from 'amplitude-js';
 
-import { Brukergruppe, RegistreringType } from '../model/registrering';
 import { DinSituasjon, SporsmalId } from '../model/sporsmal';
 import { ErrorTypes } from '../model/error';
 
@@ -27,14 +26,13 @@ type FeedbackData = { id: string; feedback: string };
 type SidevisningData = { sidetittel: string };
 
 type AktivitetData =
-    | { aktivitet: KvitteringAktivitet; registreringstype: RegistreringType }
+    | { aktivitet: KvitteringAktivitet }
     | {
           aktivitet: 'Utfylling av skjema fullført';
           tidBruktForAaFullforeSkjema?: number;
-          registreringstype: RegistreringType;
           innsatsgruppe?: string;
       }
-    | { aktivitet: 'Start registrering'; registreringstype: RegistreringType }
+    | { aktivitet: 'Start registrering' }
     | { aktivitet: 'Går til start registrering' }
     | { aktivitet: 'Avbryter registreringen' }
     | { aktivitet: 'Arbeidssøkeren reaktiverer seg' }
@@ -79,7 +77,8 @@ export function logAmplitudeEvent(eventName: string, data: EventData) {
         const eventData = data || {};
         if (isBrowser()) {
             const brukergruppe = window.sessionStorage.getItem('beregnetBrukergruppe') || 'Ikke tilgjengelig';
-            amplitude.getInstance().logEvent(eventName, { ...eventData, brukergruppe }, resolve);
+            const registreringstype = window.sessionStorage.getItem('registreringType') || 'Ikke tilgjengelig';
+            amplitude.getInstance().logEvent(eventName, { ...eventData, brukergruppe, registreringstype }, resolve);
         }
     });
 }

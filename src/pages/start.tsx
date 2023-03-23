@@ -55,9 +55,10 @@ const Start = () => {
             return;
         }
         if (isBrowser()) {
-            const { servicegruppe, alder } = data;
+            const { servicegruppe, alder, registreringType } = data;
             const brukergruppe = beregnBrukergruppe(servicegruppe, alder);
             window.sessionStorage.setItem('beregnetBrukergruppe', brukergruppe);
+            window.sessionStorage.setItem('registreringType', registreringType);
         }
         router.push(hentNesteSideUrl(data, dittNavUrl));
     }, [data, router, dittNavUrl]);
