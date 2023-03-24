@@ -16,12 +16,11 @@ Dersom du vil lage egne rapporter utover de som ligger på dashboardet er det sa
 Situasjoner som gjør at arbeidssøkeren ikke får registrert seg.
 
 Kan hentes ut ved å sjekke `arbeidssokerregistrering.stoppsituasjoner` og gruppere på `situasjon`.
-På situasjonen `Arbeidssøkeren må reaktivere seg` kan du også gruppere på `brukergruppe` for å se hvilke grupper som møtte stoppsituasjonen
+På situasjonen `Arbeidssøkeren må reaktivere seg` kan du også gruppere på `brukergruppe` og/eller `registreringstype` for å se hvilke grupper som møtte stoppsituasjonen
 
 ### Situasjoner
 
 `Arbeidssøkeren må reaktivere seg`
-
 Arbeidssøkeren har falt ut av NAV-systemet og det har gått kortere tid enn 28 dager siden det skjedde.
 Her er det mulig å gruppere på `brukergruppe` for å se hvilken status arbeidssøkeren hadde før hen falt ut.
 
@@ -30,22 +29,18 @@ Arbeidssøkeren har satt igang reaktivering, men får en feilmelding tilbake.
 Her er det mulig å grupper på `aarsak` for å se hvilken feil baksystemet gir
 
 `Arbeidssøkeren mangler arbeidstillatelse eller er utvandret`
-
 Denne kan skyldes at NAV ikke har oppdaterte opplysninger om arbeidssøkeren i vår systemer.
 I de tilfellene må en veileder gjøre en manuell jobb for å oppdatere opplysningene.
 
 `Arbeidssøkeren er allerede registrert`
-
 Denne kommer opp for brukere som ikke får registrert seg på grunn av mismatch i baksystemene til NAV.
 Det kan være at de er i gruppen IARBS eller annet.
 
 `Arbeidssøkeren får en feilmelding`
-
 Dette er en samlemelding over feilsituajoner hvor vi ikke kan gi en god forklaring på hva som har skjedd elelr hvordan den kan løses.
 Typisk skjer dette ved uforutsette tekniske feil i baksystemene og hvor bruker bare får beskjed om å prøve igjen senere.
 
 `Arbeidssøkeren får ikke registrert seg pga nedetid`
-
 Denne vises dersom systemet er togglet av pga for eksempel planlagt vedlikehold av Arena.
 
 ## Brukeradferd
@@ -64,7 +59,30 @@ Kan hentes ut ved å sjekke `arbeidssokerregistrering.aktiviteter` og `arbeidsso
 ### Aktiviteter
 
 Kan hentes ut ved å sjekke `arbeidssokerregistrering.aktiviteter` og vil kunne grupperes på `aktivitet`.
-Vil i noen tilfeller inneholde informasjon om `registreringstype`m `tidBruktForAaFullforeSkjema` eller `innsatsgruppe`
+I noen tilfeller finnes også informasjon om `tidBruktForAaFullforeSkjema` eller `innsatsgruppe`
+
+### aktiviteter.aktivitet
+
+-   `Viser kvittering` - Har gjennomført en av registreringene eller reaktivering og ser kvitteringssiden
+-   `Går til dagpenger fra kvittering` - Går til dagpengesiden fra fullført ordinær registrering eller reaktivering
+-   `Velger å ikke gå til dagpenger fra kvittering` - Går til minside fra fullført ordinær registrering eller reaktivering
+-   `Velger å lese mer om økonomisk støtte` - Går til minside fra sykmeldt registrering men signaliserer at de vil lese om øknomisk støtte
+-   `Velger å ikke søke om økonomisk støtte` - Går til minside fra sykmeldt registrering men signaliserer at de IKKE vil lese om øknomisk støtte
+-   `Utfylling av skjema fullført` - Skjema for registrering er fullført og sendes inn
+-   `Start registrering` - Trigges av skjema-side-factory
+-   `Går til start registrering` - Trykker på start registreringsknappen på forsiden
+-   `Avbryter registreringen` - Trykker på avbryt knappen i avbryt registrering modalen
+-   `Arbeidssøkeren reaktiverer seg` - Starter reaktivering etter at knappen for start reaktivering er trykket
+-   `Arbeidssøkeren avslår reaktivering` - Trykker på avbryt-knappen på siden som gir tilbud om reaktivering
+-   `Fortsetter til sykmeldtregistrering` - Trykker på fortsett-knappen på mellomsiden for sykmeldt-registreringen
+-   `Oppretter kontakt meg oppgave` - Trykker på Ta kontakt-knappen fra siden man kommer til ved manglende oppholdstillatelse eller utvandret
+-   `Avbryter kontakt meg` - Trykker på Avbryt-knappen fra siden man kommer til ved manglende oppholdstillatelse eller utvandret
+-   `Endrer foreslått stilling` - Endrer foreslått stilling i registreringsskjemaet
+-   `Viser forsiden for arbeidssøkerregistreringen` - Viser forsiden av registreringen
+-   `Åpner bistandsbehov` - Åpner ReadMore om hvordan NAV vurderer bistandsbehovet på forsiden
+-   `Går til lovdata` - Går til lovdata i ny fane
+-   `Går til personvernsiden` - Går til NAVs side om personvern
+-   `Åpner personopplysninger` - Åpner ReadMore om personvern på forsiden
 
 ### Besvarelser
 
