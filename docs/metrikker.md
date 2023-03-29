@@ -11,6 +11,63 @@ Dersom du vil lage egne rapporter utover de som ligger på dashboardet er det sa
 
 `brukergruppe` og `registreringstype` er tilgjengelig på alle hendelser. Disse vil stå som `Ikke tilgjengelig` på hendelser som logges før opplysningene er hentet (typisk på forsiden)
 
+## Flyt
+
+Viser de ulike flytene gjennom registreringen.
+
+Kan hentes ut ved å sjekke `arbeidssokerregistrering.flyt` og gruppere på `hendelse`.
+
+### Ordinær registrering
+
+`Starter registrering`
+Arbeidssøkeren er logget inn og skal starte på registreringsskjemaet
+
+`Sender inn skjema for registrering`
+Registreringsskjemaet sendes inn
+
+`Avbryter registreringen`
+Arbeidssøkeren avbryter registreringen før fullføring
+
+`Får ikke fullført registreringen`
+Tekniske feil eller andre NAV-interne årsaker gjør at arbeidssøkeren ikke får registrert seg
+
+`Registrering fullført`
+Arbeidssøkeren er registrert og kvitteringen vises
+
+### Sykmeldtregistrering
+
+`Starter sykmeldtregistrering`
+Brukeren er logget inn og skal starte på registreringsskjemaet
+
+`Sender inn skjema for sykmeldtregistrering`
+Registreringsskjemaet sendes inn
+
+`Avbryter sykmeldtregistreringen`
+Arbeidssøkeren avbryter registreringen før fullføring
+
+`Får ikke fullført sykmeldtregistrering`
+Tekniske feil eller andre NAV-interne årsaker gjør at brukeren ikke får registrert seg
+
+`Sykmeldtregistrering fullført`
+Brukeren er registrert og kvitteringen vises
+
+### Reaktivering
+
+`Får tilbud om reaktivering`
+Arbeidssøkeren står på forsiden av reaktiveringen
+
+`Starter reaktivering`
+Arbeidssøkeren starter reaktiveringen
+
+`Avbryter reaktiveringen`
+Arbeidssøkeren avbryter reaktiveringen
+
+`Får ikke fullført reaktiveringen`
+Tekniske feil eller andre NAV-interne årsaker gjør at arbeidssøkeren ikke får reaktivert seg
+
+`Reaktivering fullført`
+Arbeidssøkeren er reaktivert og kvitteringen vises
+
 ## Stoppsituasjoner
 
 Situasjoner som gjør at arbeidssøkeren ikke får registrert seg.
