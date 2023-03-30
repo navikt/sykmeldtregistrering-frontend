@@ -125,6 +125,7 @@ export const FullforRegistreringKnapp = (props: FullforKnappProps) => {
             const feiltype = response.type;
 
             if (feiltype) {
+                loggFlyt({ hendelse: 'Får ikke fullført registreringen' });
                 return router.push(hentRegistreringFeiletUrl(feiltype, OppgaveRegistreringstype.REGISTRERING));
             }
 

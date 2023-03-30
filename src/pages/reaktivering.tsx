@@ -44,6 +44,7 @@ const Reaktivering = () => {
                 situasjon: 'Arbeidssøkeren får ikke reaktivert seg',
                 aarsak: feiltype,
             });
+            loggFlyt({ hendelse: 'Får ikke fullført registreringen' });
             return router.push(hentRegistreringFeiletUrl(feiltype, OppgaveRegistreringstype.REAKTIVERING));
         } else {
             return router.push('/kvittering-reaktivering/');
