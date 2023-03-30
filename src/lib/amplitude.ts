@@ -59,17 +59,7 @@ type FlytData =
     | { hendelse: 'Sender inn skjema for registrering' }
     | { hendelse: 'Avbryter registreringen' }
     | { hendelse: 'Får ikke fullført registreringen' }
-    | { hendelse: 'Registrering fullført' }
-    | { hendelse: 'Starter sykmeldtregistrering' }
-    | { hendelse: 'Sender inn skjema for sykmeldtregistrering' }
-    | { hendelse: 'Avbryter sykmeldtregistreringen' }
-    | { hendelse: 'Får ikke fullført sykmeldtregistrering' }
-    | { hendelse: 'Sykmeldtregistrering fullført' }
-    | { hendelse: 'Får tilbud om reaktivering' }
-    | { hendelse: 'Starter reaktivering' }
-    | { hendelse: 'Avbryter reaktiveringen' }
-    | { hendelse: 'Får ikke fullført reaktiveringen' }
-    | { hendelse: 'Reaktivering fullført' };
+    | { hendelse: 'Registrering fullført' };
 
 type KvitteringAktivitet =
     | 'Viser kvittering'

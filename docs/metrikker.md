@@ -16,57 +16,25 @@ Dersom du vil lage egne rapporter utover de som ligger på dashboardet er det sa
 Viser de ulike flytene gjennom registreringen.
 
 Kan hentes ut ved å sjekke `arbeidssokerregistrering.flyt` og gruppere på `hendelse`.
+For å se hvilket registreringsløp hendelsen gjelder kan du gruppere på `registreringstype`
 
-### Ordinær registrering
+### Hendelser
 
 `Starter registrering`
-Arbeidssøkeren er logget inn og skal starte på registreringsskjemaet
+Arbeidssøkeren er logget inn og skal starte på registreringsskjemaet eller har fått tilbud om reaktivering
 
 `Sender inn skjema for registrering`
-Registreringsskjemaet sendes inn
+Registreringsskjemaet sendes inn eller prosessen med å reaktivere seg starter
 
 `Avbryter registreringen`
-Arbeidssøkeren avbryter registreringen før fullføring
+Arbeidssøkeren avbryter registreringen før fullføring via avbryt knappen i skjema eller ved å velge avbryt på reaktiveringssiden
 
 `Får ikke fullført registreringen`
-Tekniske feil eller andre NAV-interne årsaker gjør at arbeidssøkeren ikke får registrert seg
+Tekniske feil eller andre NAV-interne årsaker gjør at arbeidssøkeren ikke får registrert seg eller gjennomført reaktivering
 
 `Registrering fullført`
-Arbeidssøkeren er registrert og kvitteringen vises
-
-### Sykmeldtregistrering
-
-`Starter sykmeldtregistrering`
-Brukeren er logget inn og skal starte på registreringsskjemaet
-
-`Sender inn skjema for sykmeldtregistrering`
-Registreringsskjemaet sendes inn
-
-`Avbryter sykmeldtregistreringen`
-Arbeidssøkeren avbryter registreringen før fullføring
-
-`Får ikke fullført sykmeldtregistrering`
-Tekniske feil eller andre NAV-interne årsaker gjør at brukeren ikke får registrert seg
-
-`Sykmeldtregistrering fullført`
-Brukeren er registrert og kvitteringen vises
-
-### Reaktivering
-
-`Får tilbud om reaktivering`
-Arbeidssøkeren står på forsiden av reaktiveringen
-
-`Starter reaktivering`
-Arbeidssøkeren starter reaktiveringen
-
-`Avbryter reaktiveringen`
-Arbeidssøkeren avbryter reaktiveringen
-
-`Får ikke fullført reaktiveringen`
-Tekniske feil eller andre NAV-interne årsaker gjør at arbeidssøkeren ikke får reaktivert seg
-
-`Reaktivering fullført`
-Arbeidssøkeren er reaktivert og kvitteringen vises
+Arbeidssøkeren er registrert eller reaktivert.
+Vil logges når kvitteringen vises eller når arbeidssøkeren videresendes til AiA
 
 ## Stoppsituasjoner
 
