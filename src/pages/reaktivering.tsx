@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
 import useSprak from '../hooks/useSprak';
 import { fetcher as api } from '../lib/api-utils';
-import { loggAktivitet, loggStoppsituasjon } from '../lib/amplitude';
+import { loggAktivitet, loggStoppsituasjon, loggFlyt } from '../lib/amplitude';
 import { hentRegistreringFeiletUrl } from '../lib/hent-registrering-feilet-url';
 import { OppgaveRegistreringstype } from '../model/feilsituasjonTyper';
 import { withAuthenticatedPage } from '../auth/withAuthentication';
@@ -28,11 +28,13 @@ const Reaktivering = () => {
 
     const loggAvbrytReaktivering = () => {
         loggAktivitet({ aktivitet: 'Arbeidssøkeren avslår reaktivering' });
+        loggFlyt({ hendelse: 'Avbryter registreringen' });
         return router.push('/');
     };
 
     const reaktiverBruker = async () => {
         loggAktivitet({ aktivitet: 'Arbeidssøkeren reaktiverer seg' });
+        loggFlyt({ hendelse: 'Sender inn skjema for registrering' });
 
         const response = await api('api/reaktivering/', { method: 'post', body: JSON.stringify({}) });
 

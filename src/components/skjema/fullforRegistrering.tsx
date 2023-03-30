@@ -1,25 +1,26 @@
-import { Alert, Button, ConfirmationPanel, GuidePanel, Heading, ReadMore } from '@navikt/ds-react';
-import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
-import useSprak from '../../hooks/useSprak';
 import { useCallback, useState } from 'react';
+import { Alert, Button, ConfirmationPanel, GuidePanel, Heading, ReadMore } from '@navikt/ds-react';
+import { useRouter } from 'next/router';
+import { logger } from '@navikt/next-logger';
+
+import useSprak from '../../hooks/useSprak';
+import { useConfig } from '../../contexts/config-context';
+import { useFeatureToggles } from '../../contexts/featuretoggle-context';
+
+import lagHentTekstForSprak, { Tekster } from '../../lib/lag-hent-tekst-for-sprak';
 import { Side, SkjemaState } from '../../model/skjema';
 import { fetcher as api } from '../../lib/api-utils';
-import { useRouter } from 'next/router';
-
 import byggFullforRegistreringPayload from '../../lib/bygg-fullfor-registrering-payload';
 import { FeilmeldingGenerell } from '../feilmeldinger/feilmeldinger';
 import { FullforRegistreringResponse, Innsatsgruppe } from '../../model/registrering';
 import hentKvitteringsUrl from '../../lib/hent-kvitterings-url';
-import { loggAktivitet, loggEksperiment } from '../../lib/amplitude';
+import { loggAktivitet, loggEksperiment, loggFlyt } from '../../lib/amplitude';
 import guidePanelStyles from '../../styles/guidepanel.module.css';
 import PlikterSvg from '../forsiden/plikter-svg';
 import { DinSituasjon, SporsmalId } from '../../model/sporsmal';
-import { useFeatureToggles } from '../../contexts/featuretoggle-context';
-import { useConfig } from '../../contexts/config-context';
 import { Config } from '../../model/config';
 import { hentRegistreringFeiletUrl } from '../../lib/hent-registrering-feilet-url';
 import { OppgaveRegistreringstype } from '../../model/feilsituasjonTyper';
-import { logger } from '@navikt/next-logger';
 
 const TEKSTER: Tekster<string> = {
     nb: {
@@ -138,12 +139,15 @@ export const FullforRegistreringKnapp = (props: FullforKnappProps) => {
                 innsatsgruppe: profilering ? profilering.innsatsgruppe : 'IKKE_PROFILERT',
             });
 
+            loggFlyt({ hendelse: 'Sender inn skjema for registrering' });
+
             if (skalHoppeOverKvittering) {
                 loggEksperiment({
                     eksperiment: 'Videresender til AiA',
                     innsatsgruppe: profilering.innsatsgruppe,
                     situasjon: dinSituasjon,
                 });
+                loggFlyt({ hendelse: 'Registrering fullført' });
 
                 return router.push(`${dittNavUrl}?goTo=registrering`);
             }
