@@ -20,6 +20,10 @@ For å se hvilket registreringsløp hendelsen gjelder kan du gruppere på `regis
 
 ### Hendelser
 
+`Ikke mulig å starte registreringen`
+Arbeidssøkeren er logget inn og men får ikke startet registreringen fordi vedkommende kommer opp som allerede registrert.
+Dette kan skyldes at personen ligger inne i Arena med IARBS (systemproblem) eller at de har ARBS og sendes videre til AiA (kommunikasjon eller systemproblem).
+
 `Starter registrering`
 Arbeidssøkeren er logget inn og skal starte på registreringsskjemaet eller har fått tilbud om reaktivering
 

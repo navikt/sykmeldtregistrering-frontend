@@ -55,6 +55,7 @@ type AktivitetData =
     | { aktivitet: 'Åpner personopplysninger' };
 
 type FlytData =
+    | { hendelse: 'Ikke mulig å starte registreringen' }
     | { hendelse: 'Starter registrering' }
     | { hendelse: 'Sender inn skjema for registrering' }
     | { hendelse: 'Avbryter registreringen' }
