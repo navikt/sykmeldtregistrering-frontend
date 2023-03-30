@@ -10,7 +10,7 @@ import VeiledningSvg from '../components/veiledningSvg';
 import { SkjemaSide } from '../model/skjema';
 import { Kontaktinformasjon } from '../model/kontaktinformasjon';
 import { getHeaders, getVeilarbregistreringToken } from '../lib/next-api-handler';
-import { loggAktivitet } from '../lib/amplitude';
+import { loggAktivitet, loggFlyt } from '../lib/amplitude';
 
 import styles from '../styles/skjema.module.css';
 import { withAuthenticatedPage } from '../auth/withAuthentication';
@@ -43,6 +43,7 @@ const SykmeldtStartside = (props: SykmeldtProps) => {
 
     const loggFortsetter = () => {
         loggAktivitet({ aktivitet: 'Fortsetter til sykmeldtregistrering' });
+        loggFlyt({ hendelse: 'Starter registrering' });
     };
 
     return (
