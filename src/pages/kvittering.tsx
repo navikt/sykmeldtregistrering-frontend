@@ -1,8 +1,10 @@
-import { BodyLong, GuidePanel, Heading, Link } from '@navikt/ds-react';
-import useSprak from '../hooks/useSprak';
-import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
-import { loggAktivitet } from '../lib/amplitude';
 import React from 'react';
+import { BodyLong, GuidePanel, Heading, Link } from '@navikt/ds-react';
+
+import useSprak from '../hooks/useSprak';
+
+import lagHentTekstForSprak, { Tekster } from '../lib/lag-hent-tekst-for-sprak';
+import { loggAktivitet, loggFlyt } from '../lib/amplitude';
 import { useConfig } from '../contexts/config-context';
 import { Config } from '../model/config';
 import { withAuthenticatedPage } from '../auth/withAuthentication';
@@ -28,6 +30,7 @@ const Kvittering = () => {
         loggAktivitet({
             aktivitet: 'Viser kvittering',
         });
+        loggFlyt({ hendelse: 'Registrering fullført' });
     }, []);
 
     const { dagpengesoknadUrl, dittNavUrl } = useConfig() as Config;

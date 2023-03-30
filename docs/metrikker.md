@@ -11,6 +11,36 @@ Dersom du vil lage egne rapporter utover de som ligger på dashboardet er det sa
 
 `brukergruppe` og `registreringstype` er tilgjengelig på alle hendelser. Disse vil stå som `Ikke tilgjengelig` på hendelser som logges før opplysningene er hentet (typisk på forsiden)
 
+## Flyt
+
+Viser de ulike flytene gjennom registreringen.
+
+Kan hentes ut ved å sjekke `arbeidssokerregistrering.flyt` og gruppere på `hendelse`.
+For å se hvilket registreringsløp hendelsen gjelder kan du gruppere på `registreringstype`
+
+### Hendelser
+
+`Ikke mulig å starte registreringen`
+Arbeidssøkeren er logget inn og men får ikke startet registreringen fordi vedkommende kommer opp som allerede registrert.
+Dette kan skyldes at personen ligger inne i Arena med IARBS (systemproblem) eller at de har ARBS og sendes videre til AiA (kommunikasjon eller systemproblem).
+
+`Starter registrering`
+Arbeidssøkeren er logget inn og skal starte på registreringsskjemaet eller har fått tilbud om reaktivering
+
+`Sender inn skjema for registrering`
+Registreringsskjemaet sendes inn eller prosessen med å reaktivere seg starter
+
+`Avbryter registreringen`
+Arbeidssøkeren avbryter registreringen før fullføring via avbryt knappen i skjema eller ved å velge avbryt på reaktiveringssiden
+
+`Får ikke fullført registreringen`
+Tekniske feil eller andre NAV-interne årsaker gjør at arbeidssøkeren ikke får registrert seg eller gjennomført reaktivering.
+Kan grupperes på `aarsak` for å se hvilken feiltype som var grunnen til at registreringen feilet.
+
+`Registrering fullført`
+Arbeidssøkeren er registrert eller reaktivert.
+Vil logges når kvitteringen vises eller når arbeidssøkeren videresendes til AiA
+
 ## Stoppsituasjoner
 
 Situasjoner som gjør at arbeidssøkeren ikke får registrert seg.

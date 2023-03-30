@@ -15,7 +15,14 @@ const config = {
     },
 };
 
-type EventData = SidevisningData | AktivitetData | StoppsituasjonData | BesvarelseData | EksperimentData | FeedbackData;
+type EventData =
+    | SidevisningData
+    | AktivitetData
+    | StoppsituasjonData
+    | BesvarelseData
+    | EksperimentData
+    | FeedbackData
+    | FlytData;
 
 type BesvarelseData = { skjematype: 'standard' | 'sykmeldt'; sporsmalId: SporsmalId; svar: any };
 
@@ -46,6 +53,14 @@ type AktivitetData =
     | { aktivitet: 'Går til lovdata' }
     | { aktivitet: 'Går til personvernsiden' }
     | { aktivitet: 'Åpner personopplysninger' };
+
+type FlytData =
+    | { hendelse: 'Ikke mulig å starte registreringen' }
+    | { hendelse: 'Starter registrering' }
+    | { hendelse: 'Sender inn skjema for registrering' }
+    | { hendelse: 'Avbryter registreringen' }
+    | { hendelse: 'Får ikke fullført registreringen'; aarsak?: ErrorTypes }
+    | { hendelse: 'Registrering fullført' };
 
 type KvitteringAktivitet =
     | 'Viser kvittering'
@@ -96,6 +111,11 @@ export function loggAktivitet(data: AktivitetData) {
 export function loggFeedback(data: FeedbackData) {
     const eventData = data || {};
     logAmplitudeEvent('arbeidssokerregistrering.feedback', eventData);
+}
+
+export function loggFlyt(data: FlytData) {
+    const eventData = data || {};
+    logAmplitudeEvent('arbeidssokerregistrering.flyt', eventData);
 }
 
 export function loggBesvarelse(data: BesvarelseData) {

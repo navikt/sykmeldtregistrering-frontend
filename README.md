@@ -8,7 +8,7 @@ Arbeidssøkerregistrering
 
 # Utvikling
 
-Bruk Node.js 18 `nvm use 18`.
+Bruk Node.js 18 `nvm use` (dersom du bruker nvm til versjonshåndtering av Node.js).
 
 Dersom du ikke kjører i mock-modus må du ha koblet til [naisdevice](https://doc.nais.io/device/) for å nå noen av endepunktene.
 

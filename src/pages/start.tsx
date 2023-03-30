@@ -10,6 +10,7 @@ import { useConfig } from '../contexts/config-context';
 import { Config } from '../model/config';
 import { withAuthenticatedPage } from '../auth/withAuthentication';
 import beregnBrukergruppe from '../lib/beregn-brukergruppe';
+import { loggFlyt } from '../lib/amplitude';
 
 const isBrowser = () => typeof window !== 'undefined';
 
@@ -59,6 +60,12 @@ const Start = () => {
             const brukergruppe = beregnBrukergruppe(servicegruppe, alder);
             window.sessionStorage.setItem('beregnetBrukergruppe', brukergruppe);
             window.sessionStorage.setItem('registreringType', registreringType);
+            if ([RegistreringType.ORDINAER_REGISTRERING, RegistreringType.REAKTIVERING].includes(registreringType)) {
+                loggFlyt({ hendelse: 'Starter registrering' });
+            }
+            if (RegistreringType.ALLEREDE_REGISTRERT === registreringType) {
+                loggFlyt({ hendelse: 'Ikke mulig å starte registreringen' });
+            }
         }
         router.push(hentNesteSideUrl(data, dittNavUrl));
     }, [data, router, dittNavUrl]);
