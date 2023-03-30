@@ -59,7 +59,7 @@ type FlytData =
     | { hendelse: 'Starter registrering' }
     | { hendelse: 'Sender inn skjema for registrering' }
     | { hendelse: 'Avbryter registreringen' }
-    | { hendelse: 'Får ikke fullført registreringen' }
+    | { hendelse: 'Får ikke fullført registreringen'; aarsak?: ErrorTypes }
     | { hendelse: 'Registrering fullført' };
 
 type KvitteringAktivitet =

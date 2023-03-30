@@ -34,7 +34,8 @@ Registreringsskjemaet sendes inn eller prosessen med å reaktivere seg starter
 Arbeidssøkeren avbryter registreringen før fullføring via avbryt knappen i skjema eller ved å velge avbryt på reaktiveringssiden
 
 `Får ikke fullført registreringen`
-Tekniske feil eller andre NAV-interne årsaker gjør at arbeidssøkeren ikke får registrert seg eller gjennomført reaktivering
+Tekniske feil eller andre NAV-interne årsaker gjør at arbeidssøkeren ikke får registrert seg eller gjennomført reaktivering.
+Kan grupperes på `aarsak` for å se hvilken feiltype som var grunnen til at registreringen feilet.
 
 `Registrering fullført`
 Arbeidssøkeren er registrert eller reaktivert.
