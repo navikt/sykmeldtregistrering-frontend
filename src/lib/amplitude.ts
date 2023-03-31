@@ -2,6 +2,7 @@ import amplitude from 'amplitude-js';
 
 import { DinSituasjon, SporsmalId } from '../model/sporsmal';
 import { ErrorTypes } from '../model/error';
+import { RegistreringType } from '../model/registrering';
 
 const isBrowser = () => typeof window !== 'undefined';
 
@@ -55,7 +56,7 @@ type AktivitetData =
     | { aktivitet: 'Åpner personopplysninger' };
 
 type FlytData =
-    | { hendelse: 'Ikke mulig å starte registreringen' }
+    | { hendelse: 'Ikke mulig å starte registreringen'; aarsak?: RegistreringType }
     | { hendelse: 'Starter registrering' }
     | { hendelse: 'Sender inn skjema for registrering' }
     | { hendelse: 'Avbryter registreringen' }
