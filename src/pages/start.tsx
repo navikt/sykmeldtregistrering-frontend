@@ -56,7 +56,7 @@ const Start = () => {
             return;
         }
         if (isBrowser()) {
-            const { servicegruppe, alder, registreringType } = data;
+            const { servicegruppe, alder, registreringType, formidlingsgruppe } = data;
             const brukergruppe = beregnBrukergruppe(servicegruppe, alder);
             window.sessionStorage.setItem('beregnetBrukergruppe', brukergruppe);
             window.sessionStorage.setItem('registreringType', registreringType);
@@ -64,7 +64,7 @@ const Start = () => {
                 loggFlyt({ hendelse: 'Starter registrering' });
             }
             if (RegistreringType.ALLEREDE_REGISTRERT === registreringType) {
-                loggFlyt({ hendelse: 'Ikke mulig å starte registreringen' });
+                loggFlyt({ hendelse: 'Ikke mulig å starte registreringen', aarsak: formidlingsgruppe });
             }
         }
         router.push(hentNesteSideUrl(data, dittNavUrl));
