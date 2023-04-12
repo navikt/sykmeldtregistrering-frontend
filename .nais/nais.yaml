@@ -84,5 +84,7 @@ spec:
     enabled: true
   accessPolicy:
     outbound:
+      external:
+        - host: arbeidsplassen.nav.no
       rules:
         - application: veilarbregistrering

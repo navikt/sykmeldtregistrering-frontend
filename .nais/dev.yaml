@@ -8,7 +8,7 @@ dekorator:
 amplitude:
   apiKey: 9845ded64c69cd068651cd0d968e0796
   endPoint: amplitude.nav.no/collect
-pamJanzzUrl: https://arbeidsplassen.dev.nav.no/pam-janzz/rest
+pamJanzzUrl: https://arbeidsplassen.nav.no/pam-janzz/rest
 startUrl: https://arbeid.intern.dev.nav.no/arbeid/registrering/start
 startRegistreringUrl: http://veilarbregistrering/veilarbregistrering/api/startregistrering/
 fullforRegistreringUrl: http://veilarbregistrering/veilarbregistrering/api/fullfoerordinaerregistrering/
