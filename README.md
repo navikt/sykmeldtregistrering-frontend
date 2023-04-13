@@ -4,7 +4,7 @@ Arbeidssøkerregistrering
 
 ## Demo
 
-[https://arbeid.labs.nais.io/arbeid/registrering](https://arbeid.labs.nais.io/arbeid/registrering)
+[https://arbeid.ekstern.dev.nav.no/arbeid/registrering](https://arbeid.ekstern.dev.nav.no/arbeid/registrering)
 
 # Utvikling
 

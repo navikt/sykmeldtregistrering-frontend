@@ -1,7 +1,7 @@
 apiVersion: "nais.io/v1alpha1"
 kind: "Application"
 metadata:
-  name: "poa-arbeidssokerregistrering"
+  name: "arbeidssokerregistrering-demo"
   namespace: "paw"
   labels:
     "team": "paw"
@@ -15,8 +15,8 @@ spec:
     path: "{{basePath}}/api/isready"
     initialDelay: 3
   replicas:
-    min: 2
-    max: 2
+    min: 1
+    max: 1
     cpuThresholdPercentage: 50
   prometheus:
     enabled: false
@@ -75,3 +75,9 @@ spec:
       value: {{hentProfileringUrl}}
   ingresses:
     - {{ingress}}
+  accessPolicy:
+    outbound:
+      external:
+        - host: arbeidsplassen.nav.no
+        - host: arbeid.ekstern.dev.nav.no
+        - host: dekoratoren.ekstern.dev.nav.no
