@@ -79,3 +79,5 @@ spec:
     outbound:
       external:
         - host: arbeidsplassen.nav.no
+        - host: arbeid.ekstern.dev.nav.no
+        - host: dekoratoren.ekstern.dev.nav.no
