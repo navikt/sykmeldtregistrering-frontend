@@ -1,19 +1,22 @@
 import Document, { DocumentContext, Head, Html, Main, NextScript } from 'next/document';
 import {
-    Components as DecoratorComponents,
+    DecoratorComponents,
     fetchDecoratorReact,
-    Props as DecoratorProps,
+    DecoratorEnvProps,
+    DecoratorFetchProps,
 } from '@navikt/nav-dekoratoren-moduler/ssr';
 import { logger } from '@navikt/next-logger';
 
-const dekoratorEnv = process.env.DEKORATOR_ENV as Exclude<DecoratorProps['env'], 'localhost'>;
+const dekoratorEnv = process.env.DEKORATOR_ENV as Exclude<DecoratorEnvProps['env'], 'localhost'>;
 
-const dekoratorProps: DecoratorProps = {
+const dekoratorProps: DecoratorEnvProps & DecoratorFetchProps = {
     env: dekoratorEnv ?? 'prod',
-    simple: true,
-    context: 'privatperson',
-    chatbot: false,
-    // availableLanguages,
+    params: {
+        simple: true,
+        context: 'privatperson',
+        chatbot: false,
+        // availableLanguages,
+    },
 };
 export default class MyDocument extends Document<DecoratorComponents> {
     static async getInitialProps(ctx: DocumentContext) {

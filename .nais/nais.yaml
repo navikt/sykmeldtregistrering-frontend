@@ -88,3 +88,5 @@ spec:
         - host: arbeidsplassen.nav.no
       rules:
         - application: veilarbregistrering
+        - application: nav-dekoratoren
+          namespace: personbruker
