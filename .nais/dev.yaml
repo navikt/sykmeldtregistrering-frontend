@@ -17,7 +17,7 @@ reaktiveringUrl: http://veilarbregistrering/veilarbregistrering/api/fullfoerreak
 sisteArbeidsforholdUrl: http://veilarbregistrering/veilarbregistrering/api/sistearbeidsforhold/
 opprettOppgaveUrl: http://veilarbregistrering/veilarbregistrering/api/oppgave/
 kontaktinformasjonUrl: http://veilarbregistrering/veilarbregistrering/api/person/kontaktinfo
-dittNAVUrl: https://www.dev.nav.no/minside
+dittNAVUrl: https://www.intern.dev.nav.no/minside
 dagpengesoknadUrl: https://arbeid.dev.nav.no/dagpenger/dialog/soknad
 dialogUrl: https://www.dev.nav.no/arbeid/dialog
 featureToggles:
