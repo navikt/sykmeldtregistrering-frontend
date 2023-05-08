@@ -1,10 +1,10 @@
-# poa-arbeidssokerregistrering
+# sykmeldtregistrering-frontend
 
 Arbeidssøkerregistrering
 
 ## Demo
 
-[https://arbeid.ekstern.dev.nav.no/arbeid/registrering](https://arbeid.ekstern.dev.nav.no/arbeid/registrering)
+[https://arbeid.ekstern.dev.nav.no/syk/mer-oppfolging](https://arbeid.ekstern.dev.nav.no/syk/mer-oppfolging)
 
 # Utvikling
 
@@ -24,7 +24,7 @@ Deretter fortsette du med
 -   innstaller avhengigheter `npm i`
 -   kjør tester `npm t`
 -   start utviklingsserver `npm run dev`
--   åpne nettleseren på `http://localhost:3000/arbeid/registrering`
+-   åpne nettleseren på `http://localhost:3000/syk/mer-oppfolging`
 
 ## Deploye kun til dev
 
@@ -34,7 +34,7 @@ Ved å prefikse branch-navn med `dev/`, så vil branchen kun deployes i dev.
 git checkout -b dev/<navn på branch>
 ```
 
-For å teste løsningen i dev bruker du [https://arbeid.intern.dev.nav.no/arbeid/registrering](https://arbeid.intern.dev.nav.no/arbeid/registrering)
+For å teste løsningen i dev bruker du [https://arbeid.intern.dev.nav.no/syk/mer-oppfolging](https://arbeid.intern.dev.nav.no/syk/mer-oppfolging)
 
 ## Ekstern dokumentasjon
 

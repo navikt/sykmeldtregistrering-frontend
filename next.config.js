@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const { buildCspHeader } = require('@navikt/nav-dekoratoren-moduler/ssr');
 
-const basePath = '/arbeid/registrering';
+const basePath = '/syk/mer-oppfolging';
 
 const appSecurityPolicy = {
     'default-src': ["'self'", '*.nav.no', '*.labs.nais.no'],

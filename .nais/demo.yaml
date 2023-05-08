@@ -1,5 +1,5 @@
-ingress: https://arbeid.ekstern.dev.nav.no/arbeid/registrering
-basePath: /arbeid/registrering
+ingress: https://demo.ekstern.dev.nav.no/syk/mer-oppfolging
+basePath: /syk/mer-oppfolging
 mocking: enabled
 nodeEnv: development
 dekorator:
@@ -9,18 +9,18 @@ amplitude:
   apiKey: 9845ded64c69cd068651cd0d968e0796
   endPoint: amplitude.nav.no/collect
 pamJanzzUrl: https://arbeidsplassen.nav.no/pam-janzz/rest
-startUrl: https://arbeid.ekstern.dev.nav.no/arbeid/registrering/start
-startRegistreringUrl: https://arbeid.ekstern.dev.nav.no/arbeid/registrering/api/mocks/startregistrering
-fullforRegistreringUrl: https://arbeid.ekstern.dev.nav.no/arbeid/registrering/api/mocks/fullforregistrering
-fullforRegistreringSykmeldtUrl: https://arbeid.ekstern.dev.nav.no/arbeid/registrering/api/mocks/fullforregistreringsykmeldt
-reaktiveringUrl: https://arbeid.ekstern.dev.nav.no/arbeid/registrering/api/mocks/reaktivering
-sisteArbeidsforholdUrl: https://arbeid.ekstern.dev.nav.no/arbeid/registrering/api/mocks/sistearbeidsforhold
-opprettOppgaveUrl: https://arbeid.ekstern.dev.nav.no/arbeid/registrering/api/mocks/oppgave
-kontaktinformasjonUrl: https://arbeid.ekstern.dev.nav.no/arbeid/registrering/api/mocks/kontaktinformasjon
+startUrl: https://arbeid.ekstern.dev.nav.no/syk/mer-oppfolging/start
+startRegistreringUrl: https://arbeid.ekstern.dev.nav.no/syk/mer-oppfolging/api/mocks/startregistrering
+fullforRegistreringUrl: https://arbeid.ekstern.dev.nav.no/syk/mer-oppfolging/api/mocks/fullforregistrering
+fullforRegistreringSykmeldtUrl: https://arbeid.ekstern.dev.nav.no/syk/mer-oppfolging/api/mocks/fullforregistreringsykmeldt
+reaktiveringUrl: https://arbeid.ekstern.dev.nav.no/syk/mer-oppfolging/api/mocks/reaktivering
+sisteArbeidsforholdUrl: https://arbeid.ekstern.dev.nav.no/syk/mer-oppfolging/api/mocks/sistearbeidsforhold
+opprettOppgaveUrl: https://arbeid.ekstern.dev.nav.no/syk/mer-oppfolging/api/mocks/oppgave
+kontaktinformasjonUrl: https://arbeid.ekstern.dev.nav.no/syk/mer-oppfolging/api/mocks/kontaktinformasjon
 dittNAVUrl: https://www.nav.no/minside
 dagpengesoknadUrl: https://www.nav.no/dagpenger/dialog/soknad
 dialogUrl: https://www.nav.no/arbeid/dialog
 featureToggles:
-  server: https://arbeid.ekstern.dev.nav.no/arbeid/registrering/api/mocks/features
-  client: https://arbeid.ekstern.dev.nav.no/arbeid/registrering/api/features
-hentProfileringUrl: https://arbeid.ekstern.dev.nav.no/arbeid/registrering/api/mocks/profilering
+  server: https://arbeid.ekstern.dev.nav.no/syk/mer-oppfolging/api/mocks/features
+  client: https://arbeid.ekstern.dev.nav.no/syk/mer-oppfolging/api/features
+hentProfileringUrl: https://arbeid.ekstern.dev.nav.no/syk/mer-oppfolging/api/mocks/profilering

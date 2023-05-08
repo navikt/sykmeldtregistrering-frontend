@@ -3,7 +3,7 @@
 Vi har ulike metrikker for hvordan løsningen brukes av arbeidssøker og rent tekniske metrikker for hvordan løsningen har det i produksjon.
 
 -   [Dashboard i Amplitude](https://analytics.amplitude.com/nav/dashboard/jbs02pj) for bruk av løsningen
--   [Dashboard i Grafana](https://grafana.nais.io/d/000000283/nais-app-dashbord?orgId=1&refresh=1m&var-interval=$__auto_interval_interval&var-datasource=prod-gcp&var-team=tbd&var-app=poa-arbeidssokerregistrering&var-namespace=paw&var-docker_image=c6938a0fe9fbc0cd6076ebb2ffa13e1069e6f4ce&var-ingress_url=All) teknisk
+-   [Dashboard i Grafana](https://grafana.nais.io/d/000000283/nais-app-dashbord?orgId=1&refresh=1m&var-interval=$__auto_interval_interval&var-datasource=prod-gcp&var-team=tbd&var-app=sykmeldtregistrering-frontend&var-namespace=paw&var-docker_image=c6938a0fe9fbc0cd6076ebb2ffa13e1069e6f4ce&var-ingress_url=All) teknisk
 
 # Metrikker i Amplitude
 
