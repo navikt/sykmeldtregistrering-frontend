@@ -7,7 +7,7 @@ on:
       - dev/*
 
 env:
-  IMAGE: ghcr.io/${{ github.repository }}/poa-arbeidssokerregistrering:${{ github.sha }}
+  IMAGE: ghcr.io/${{ github.repository }}/sykmeldtregistrering-frontend:${{ github.sha }}
 
 jobs:
   test:
@@ -118,35 +118,3 @@ jobs:
           RESOURCE: .nais/nais.yaml
           VARS: .nais/dev.yaml
           PRINT_PAYLOAD: true
-
-  deploy-prod:
-    name: Deploy to prod
-    needs: [test, build]
-    if: github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Fetch NAIS yaml
-        uses: actions/download-artifact@v1
-        with:
-          name: nais-yaml
-          path: .nais
-
-      - uses: nais/deploy/actions/deploy@v1
-        env:
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
-          CLUSTER: prod-gcp
-          RESOURCE: .nais/nais.yaml
-          VARS: .nais/prod.yaml
-          PRINT_PAYLOAD: true
-
-      - name: Lag deployment i Sentry
-        uses: getsentry/action-release@v1
-        env:
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          SENTRY_URL: https://sentry.gc.nav.no
-          SENTRY_ORG: nav
-          SENTRY_PROJECT: poa-arbeidssokerregistrering
-        with:
-          environment: production
-          version: ${{ github.sha }}
-          set_commits: skip

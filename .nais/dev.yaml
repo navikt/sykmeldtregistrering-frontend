@@ -1,5 +1,5 @@
-ingress: https://arbeid.intern.dev.nav.no/arbeid/registrering
-basePath: /arbeid/registrering
+ingress: https://www.ekstern.dev.nav.no/syk/mer-oppfolging
+basePath: /syk/mer-oppfolging
 mocking: disabled
 nodeEnv: test
 dekorator:
@@ -9,7 +9,7 @@ amplitude:
   apiKey: 9845ded64c69cd068651cd0d968e0796
   endPoint: amplitude.nav.no/collect
 pamJanzzUrl: https://arbeidsplassen.nav.no/pam-janzz/rest
-startUrl: https://arbeid.intern.dev.nav.no/arbeid/registrering/start
+startUrl: https://arbeid.intern.dev.nav.no/syk/mer-oppfolging/start
 startRegistreringUrl: http://veilarbregistrering/veilarbregistrering/api/startregistrering/
 fullforRegistreringUrl: http://veilarbregistrering/veilarbregistrering/api/fullfoerordinaerregistrering/
 fullforRegistreringSykmeldtUrl: http://veilarbregistrering/veilarbregistrering/api/fullfoersykmeldtregistrering/
@@ -22,5 +22,5 @@ dagpengesoknadUrl: https://arbeid.dev.nav.no/dagpenger/dialog/soknad
 dialogUrl: https://www.dev.nav.no/arbeid/dialog
 featureToggles:
   server: https://unleash.nais.io/api/client/features?tag[]=simple:arbeidssokerregistrering
-  client: https://arbeid.intern.dev.nav.no/arbeid/registrering/api/features
+  client: https://arbeid.intern.dev.nav.no/syk/mer-oppfolging/api/features
 hentProfileringUrl: http://veilarbregistrering/veilarbregistrering/api/profilering/

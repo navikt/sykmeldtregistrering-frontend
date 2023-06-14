@@ -6,7 +6,7 @@ import { TokenSet } from 'openid-client';
 
 export const getHeaders = (token: string, callId: string) => {
     return {
-        'Nav-Consumer-Id': 'poa-arbeidssokerregistrering',
+        'Nav-Consumer-Id': 'sykmeldtregistrering-frontend',
         'Nav-Call-Id': callId,
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
